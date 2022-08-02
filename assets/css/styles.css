@@ -1,0 +1,40 @@
+.video-fluid {
+    width: 70%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  .embed-responsive{
+    display: flex;
+    justify-content: center;
+  }
+
+  .subject-title {
+    width: 700px;
+    height: 100px;
+    padding-top: 20px;
+    padding-left: 225px;
+    margin-left: 270px;
+    margin-top: 20px;
+  }
+  
+.h1-label {
+      font-size: 2.5rem;
+} 
+
+.h2-label{
+    padding-top: 60px;
+    padding-left: 80px;
+    font-size: 2rem;
+} 
+
+
+
+.file-link{
+    padding-left: 80px;
+} 
+
+.header-unit{
+    margin-top: 100px;
+} 
