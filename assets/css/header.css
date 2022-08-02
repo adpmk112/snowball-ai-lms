@@ -4,6 +4,8 @@
   width: 100%;
   z-index: 99999;
   /*height: 60px;*/
+  top: 0px;
+  
 }
 
 #profile-dropdown {
@@ -53,7 +55,7 @@
 }
 
 #navbar-brand{
-  
+  left: 0px;
 }
 
 @media (max-width: 767px) {
