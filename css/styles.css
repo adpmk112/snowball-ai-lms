@@ -1,0 +1,11 @@
+.video-fluid {
+    width: 70%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  .embed-responsive{
+    display: flex;
+    justify-content: center;
+  }
