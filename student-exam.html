@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam</title>
+
+    <link rel="stylesheet" href="./assets/css/student-exam.css">
+    <script src="./assets/jquery/jquery.min.js"></script>
+    <script> 
+        $(function(){
+          $("#header").load("header.html"); 
+        });
+    </script> 
+</head>
+<body>
+
+    <div id="header"></div>
+
+    <section id="exam">
+        <div class="container" id="exam-content">
+            <h2 class="text-center exam-header">First Exam</h2>
+            <ul class="exam-body">
+
+                <ol class="exam-list">  
+
+                    <li class="exam-question">
+                        Choose an answer?
+                        <ul class="exam-answer">                            
+                            <li class="list-item">
+                                <input class="form-check-input answer" type="checkbox" value="" id="flexCheckDefault">
+                                Answer 1
+                            </li> 
+                            <li class="list-item">
+                                <input class="form-check-input answer" type="checkbox" value="" id="flexCheckDefault">
+                                Answer 2
+                            </li>   
+                            <li class="list-item">
+                                <input class="form-check-input answer" type="checkbox" value="" id="flexCheckDefault">
+                                Answer 3
+                            </li>                              
+                        </ul><!-- End exam answer -->
+                    </li><!--End exam question-->
+
+                    <li class="exam-question">
+                        Second Question. Choose an Answer.
+                        <ul class="exam-answer">                            
+                            <li class="list-item">
+                                <input class="form-check-input answer" type="radio" value="" id="flexCheckDefault">
+                                Answer 1
+                            </li> 
+                            <li class="list-item">
+                                <input class="form-check-input answer" type="radio" value="" id="flexCheckDefault">
+                                Answer 2
+                            </li>   
+                            <li class="list-item">
+                                <input class="form-check-input answer" type="radio" value="" id="flexCheckDefault">
+                                Answer 3
+                            </li>                              
+                        </ul><!-- End exam answer -->
+                    </li><!--End exam question-->
+
+                    <li class="exam-question">
+                       Answer the question. What is 3 + 2?
+                        <ul class="exam-answer">                            
+                            <textarea class="form-control text-input" rows="4" placeholder="Enter your answer here."></textarea>                     
+                        </ul><!-- End exam answer -->
+                    </li><!--End exam question Text Area-->
+
+                    <li class="exam-question">
+                        Fourth Question. Choose an Answer.
+                        <ul class="exam-answer">                            
+                            <li class="list-item">
+                                <input class="form-check-input answer" type="radio" value="" id="flexCheckDefault">
+                                Answer 1
+                            </li> 
+                            <li class="list-item">
+                                <input class="form-check-input answer" type="radio" value="" id="flexCheckDefault">
+                                Answer 2
+                            </li>   
+                            <li class="list-item">
+                                <input class="form-check-input answer" type="radio" value="" id="flexCheckDefault">
+                                Answer 3
+                            </li>                              
+                        </ul><!-- End exam answer -->
+                    </li><!--End exam question-->
+
+                </ol><!--End exam list-->
+
+            </ul><!--End exam body-->
+            <div class="exam-button m-5 from-control">
+                <button class="btn btn-success">Submit Answer</button>
+            </div>
+        </div><!--End exam content-->
+    </section><!-- End exam section -->
+
+</body>
+
+</html>
