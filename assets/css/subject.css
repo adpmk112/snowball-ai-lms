@@ -6,12 +6,12 @@
 
 /* subject section */
 #subject{
-    margin-top: 50px;
+    
     width: 100%;
     height: auto;
     padding: 10px;
     background: white;
-    border-radius: 5px;
+    border-radius: 15px;
     
 }   
 #subject .subject-button button{
