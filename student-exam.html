@@ -8,20 +8,33 @@
 
     <link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/student-exam.css">
-   
+    <script src="./assets/jquery/jquery.min.js"></script>
+    <script> 
+        $(function(){
+          $("#header").load("header.html"); 
+        });
+        </script>
+        <script> 
+          $(function(){
+            $("#footer").load("footer.html"); 
+          });
+          </script>
     
 </head>
 <body>
 
     <div id="header"></div>
-
-    <section id="exam">
+    
+      <center>
+        <div class="card  mb-3 " style="max-width: 70rem; background-color: #ffefa1; color:rgb(0, 0, 0); margin-top: 120px;">
+            <div class="card-body">
+              <h1 class="card-title h1-label text-center">Exam 1</h1>
+            </div>
+          </div>
+      </center>
+    <section id="exam" style="margin-top: 50px;" class="custom-div">
         <div class="container" id="exam-content" style="background-color: white;">
-            <div class="card  mb-3 " style="max-width: 70rem; background-color: #ffefa1; color:rgb(0, 0, 0);">
-                <div class="card-body">
-                  <h1 class="card-title h1-label text-center">Exam 1</h1>
-                </div>
-              </div>
+            
             <ul class="exam-body">
 
                 <ol class="exam-list">  
@@ -96,14 +109,14 @@
             </div>
         </div><!--End exam content-->
     </section><!-- End exam section -->
-
-    <script src="./assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="./assets/jquery/jquery.min.js"></script>
-    <script> 
-        $(function(){
-          $("#header").load("header.html"); 
-        });
-    </script> 
+    <div id="footer"></div>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    
+   
+    <script src="assets/js/subject-carousel.js"></script>
+    <script src="assets/js/header.js"></script>
+   
+    
 </body>
 
 </html>
