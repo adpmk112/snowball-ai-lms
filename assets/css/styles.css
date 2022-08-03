@@ -36,7 +36,7 @@
 } 
 
 .header-unit{
-    margin-top: 100px;
+    margin-top: 120px;
 } 
 
 .footer-margin{
@@ -113,4 +113,38 @@ body {
 
 .file-choose {
   margin-top: 28px;
+}
+
+body{
+  background-color: rgb(233, 233, 233);
+}
+
+.custom-comment-box{
+  
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  width: 90%;
+  border-radius: 15px;
+  
+}
+
+.custom-div{
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+  width: 90%;
+  border-radius: 15px;
+  background-color: white;
+  height: auto;
+ 
+}
+
+.space-between{
+  margin-top: 50px;
+}
+.class-margin{
+  margin-top: 125px;
 }
