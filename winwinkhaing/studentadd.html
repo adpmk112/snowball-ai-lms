@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <title>Teacher Add</title>
+    <style>
+        
+        *{
+            padding:0;
+            margin:0;
+            box-sizing:border-box;
+            
+        }
+        .container{
+            
+            width: 50%;
+            height: 30%;  
+            padding: 50px;
+            border: 1px solid white;
+            margin-top: 60px;
+            border-radius: 5px;
+            box-shadow: 2px 2px 4px grey;
+            background-color: white;
+        }
+        .btn1:hover{
+            border: 1px solid;
+        } 
+        .part1{
+            margin-top: 50px;
+        }         
+        .part2{
+            margin-top: 40px;
+            
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+            <form class="form-horizontal ">
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="id">Id:</label>
+                <div class="col-sm-10 ">
+                  <input type="text" class="form-control  mt-3 mb-5" id="id" placeholder="Enter Id" name="id">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="id">Name:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="name" placeholder="Enter Name" name="name">
+                </div>
+              </div>
+              <div class="form-group part1">
+                <label class="control-label col-sm-2" for="id">Batch:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="batch" placeholder="Enter Batch Name" name="">
+                </div>
+              </div>
+              <div class="col-sm-offset-2 col-sm-10 part2 ">
+                <button type="reset" class="btn btn-warning ">Reset</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+        </form>
+        </div>
+      </div>
+</body>
+</html>
