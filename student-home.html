@@ -14,7 +14,7 @@
 
     <!-- subject-css -->
     <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="stylesheet" href="./assets/css/subject.css">
+    <link rel="stylesheet" href="./assets/css/student-home.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="assets/css/header.css">
     <link rel="stylesheet" href="assets/css/main.css">
@@ -46,113 +46,268 @@
             <h3>Batch 01</h3>
         </div>
       </div>
-            <section class="container header-margin" id="subject" style="margin-top: 50px;">
-                <div class="subject" >  
-                    <div class="row subject-button">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn ">InProgress </button>
-                            <div class="vr vr-blurry" style="height: 50px;"></div>
-                            <button type="button" class="btn ">Upcomming</button>
-                            <div class="vr vr-blurry" style="height: 50px;"></div>
-                            <button type="button" class="btn ">Done</button>
+      <section class="container header-margin" id="subject" style="margin-top: 50px;">
+        <div class="subject" >  
+            <div class="row subject-button">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn button active" id="inprogress">InProgress </button>
+                    <button type="button" class="btn button" id="upcomming">Upcomming</button>
+                    <button type="button" class="btn button" id="done">Done</button>
+                  </div>
+            </div>
+            <div class="row " >
+                
+                <div class="carousel-container">
+                  <div class="owl-carousel show owl-theme" id="inprogress-show">
+                      <a href="student-unit.html" class="unit-a">
+                          <div class="item">
+                              <div class=" card text-white bg-secondary m-3" style="max-width: 100%;">
+                                  <div class="card-header">Unit 1</div>
+                                  <div class="card-body">
+                                    <h5 class="card-title">Secondary card title</h5>
+                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                  </div>
+                              </div>                                     
                           </div>
-                    </div>
-                    <div class="row ">
-                        <div class="subject-content container ">
-
-                            <div class="owl-carousel owl-theme">
-                                <a href="student-unit.html" class="unit-a">
-                                    <div class="item">
-                                        <div class=" card text-white bg-secondary m-3" style="max-width: 100%;">
-                                            <div class="card-header">Unit 1</div>
-                                            <div class="card-body">
-                                              <h5 class="card-title">Secondary card title</h5>
-                                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                            </div>
-                                        </div>
-    
-                                    
-                                    </div>
-                                </a>
-                               
-                                <div class="item ">
-                                    <div class=" card text-white bg-secondary m-3" style="max-width: 100%;">
-                                        <div class="card-header">Unit 2</div>
-                                        <div class="card-body">
-                                          <h5 class="card-title">Secondary card title</h5>
-                                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item ">
-                                    <div class=" card text-white bg-secondary m-3" style="max-width: 100%;">
-                                        <div class="card-header">Unit 3</div>
-                                        <div class="card-body">
-                                          <h5 class="card-title">Secondary card title</h5>
-                                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item ">
-                                    <a>
-                                    <div class=" card text-white bg-secondary m-3" style="max-width: 100%;">
-                                        <div class="card-header">Header</div>
-                                        <div class="card-body">
-                                          <h5 class="card-title">Secondary card title</h5>
-                                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                        </div>
-                                    </div>
-                                </a>
-                                </div>
-                                <div class="item ">
-                                    <div class=" card text-white bg-secondary m-3" style="max-width: 100%;">
-                                        <div class="card-header">Unit 3</div>
-                                        <div class="card-body">
-                                          <h5 class="card-title">Secondary card title</h5>
-                                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item ">
-                                    <div class=" card text-white bg-secondary m-3" style="max-width: 100%;">
-                                        <div class="card-header">Header</div>
-                                        <div class="card-body">
-                                          <h5 class="card-title">Secondary card title</h5>
-                                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item ">
-                                    <div class=" card text-white bg-secondary m-3" style="max-width: 100%;">
-                                        <div class="card-header">Header</div>
-                                        <div class="card-body">
-                                          <h5 class="card-title">Secondary card title</h5>
-                                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item ">
-                                    <div class=" card text-white bg-secondary m-3" style="max-width: 100%;">
-                                        <div class="card-header">Header</div>
-                                        <div class="card-body">
-                                          <h5 class="card-title">Secondary card title</h5>
-                                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            
-                            </div><!--End owl-carousel-->
-
-
-                        </div><!--End container-->
-                                    
-                               
-                        </div>                    
+                      </a>
                     
-                    </div>
-                </div><!--End subject-->
+                      <div class="item ">
+                          <div class=" card text-white bg-success m-3" style="max-width: 100%;">
+                              <div class="card-header">Unit 2</div>
+                              <div class="card-body">
+                                <h5 class="card-title">Secondary card title</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="item ">
+                          <div class=" card text-white bg-primary m-3" style="max-width: 100%;">
+                              <div class="card-header">Unit 3</div>
+                              <div class="card-body">
+                                <h5 class="card-title">Secondary card title</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="item ">
+                          <a>
+                          <div class=" card text-white bg-secondary m-3" style="max-width: 100%;">
+                              <div class="card-header">Header</div>
+                              <div class="card-body">
+                                <h5 class="card-title">Secondary card title</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                              </div>
+                          </div>
+                      </a>
+                      </div>
+                      <div class="item ">
+                          <div class=" card text-white bg-dark m-3" style="max-width: 100%;">
+                              <div class="card-header">Unit 3</div>
+                              <div class="card-body">
+                                <h5 class="card-title">Secondary card title</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="item ">
+                          <div class=" card text-white bg-primary m-3" style="max-width: 100%;">
+                              <div class="card-header">Header</div>
+                              <div class="card-body">
+                                <h5 class="card-title">Secondary card title</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="item ">
+                          <div class=" card text-white bg-success m-3" style="max-width: 100%;">
+                              <div class="card-header">Header</div>
+                              <div class="card-body">
+                                <h5 class="card-title">Secondary card title</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="item ">
+                          <div class=" card text-white bg-light m-3" style="max-width: 100%;">
+                              <div class="card-header">Header</div>
+                              <div class="card-body">
+                                <h5 class="card-title">Secondary card title</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                              </div>
+                          </div>
+                      </div>
+                  
+                  </div><!--End owl-carousel-->
 
-            </section><!--End subject container-->
+                  <div class="owl-carousel  owl-theme" id="upcomming-show">
+                    <a href="student-unit.html" class="unit-a">
+                        <div class="item">
+                            <div class=" card text-white bg-primary m-3" style="max-width: 100%;">
+                                <div class="card-header">Unit 1</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Secondary card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                            </div>                                     
+                        </div>
+                    </a>
+                  
+                    <div class="item ">
+                        <div class=" card text-white bg-secondary m-3" style="max-width: 100%;">
+                            <div class="card-header">Unit 2</div>
+                            <div class="card-body">
+                              <h5 class="card-title">Secondary card title</h5>
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item ">
+                        <div class=" card text-white bg-danger m-3" style="max-width: 100%;">
+                            <div class="card-header">Unit 3</div>
+                            <div class="card-body">
+                              <h5 class="card-title">Secondary card title</h5>
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item ">
+                        <a>
+                        <div class=" card text-white bg-dark m-3" style="max-width: 100%;">
+                            <div class="card-header">Header</div>
+                            <div class="card-body">
+                              <h5 class="card-title">Secondary card title</h5>
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </a>
+                    </div>
+                    <div class="item ">
+                        <div class=" card text-white bg-danger m-3" style="max-width: 100%;">
+                            <div class="card-header">Unit 3</div>
+                            <div class="card-body">
+                              <h5 class="card-title">Secondary card title</h5>
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item ">
+                        <div class=" card text-white bg-secondary m-3" style="max-width: 100%;">
+                            <div class="card-header">Header</div>
+                            <div class="card-body">
+                              <h5 class="card-title">Secondary card title</h5>
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item ">
+                        <div class=" card text-white bg-secondary m-3" style="max-width: 100%;">
+                            <div class="card-header">Header</div>
+                            <div class="card-body">
+                              <h5 class="card-title">Secondary card title</h5>
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item ">
+                        <div class=" card text-white bg-dark m-3" style="max-width: 100%;">
+                            <div class="card-header">Header</div>
+                            <div class="card-body">
+                              <h5 class="card-title">Secondary card title</h5>
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                
+                  </div><!--End owl-carousel-->
+
+                  <div class="owl-carousel  owl-theme" id="done-show">
+                    <a href="student-unit.html" class="unit-a">
+                        <div class="item">
+                            <div class=" card text-white bg-danger m-3" style="max-width: 100%;">
+                                <div class="card-header">Unit 1</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Secondary card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                            </div>                                     
+                        </div>
+                    </a>
+                  
+                    <div class="item ">
+                        <div class=" card text-white bg-success m-3" style="max-width: 100%;">
+                            <div class="card-header">Unit 2</div>
+                            <div class="card-body">
+                              <h5 class="card-title">Secondary card title</h5>
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item ">
+                        <div class=" card text-white bg-secondary m-3" style="max-width: 100%;">
+                            <div class="card-header">Unit 3</div>
+                            <div class="card-body">
+                              <h5 class="card-title">Secondary card title</h5>
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item ">
+                        <a>
+                        <div class=" card text-white bg-primary m-3" style="max-width: 100%;">
+                            <div class="card-header">Header</div>
+                            <div class="card-body">
+                              <h5 class="card-title">Secondary card title</h5>
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </a>
+                    </div>
+                    <div class="item ">
+                        <div class=" card text-white bg-success m-3" style="max-width: 100%;">
+                            <div class="card-header">Unit 3</div>
+                            <div class="card-body">
+                              <h5 class="card-title">Secondary card title</h5>
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item ">
+                        <div class=" card text-white bg-secondary m-3" style="max-width: 100%;">
+                            <div class="card-header">Header</div>
+                            <div class="card-body">
+                              <h5 class="card-title">Secondary card title</h5>
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item ">
+                        <div class=" card text-white bg-secondary m-3" style="max-width: 100%;">
+                            <div class="card-header">Header</div>
+                            <div class="card-body">
+                              <h5 class="card-title">Secondary card title</h5>
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item ">
+                        <div class=" card text-white bg-danger m-3" style="max-width: 100%;">
+                            <div class="card-header">Header</div>
+                            <div class="card-body">
+                              <h5 class="card-title">Secondary card title</h5>
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                
+                  </div>
+                
+
+                </div><!--End container-->                                    
+                       
+            </div>                   
+        </div><!--End subject-->
+
+    </section><!--End subject Section-->
 
     </main>
     <section class="gradient-custom custom-comment-box" style="background-color: rgb(255, 255, 255);">
@@ -348,6 +503,17 @@
     <script src="assets/js/subject-carousel.js"></script>
     <script src="assets/js/header.js"></script>
     
+    <script>
+
+      $("#subject .subject .button").click(function () {
+          $("#subject .subject .button").removeClass("active");
+          $(this).addClass("active"); 
+          //$(".owl-carousel").addClass("d-none");
+          //$("#"+$(this).attr("id")+"-show").removeClass("d-none");
+          $(".owl-carousel").removeClass("show");
+          $("#"+$(this).attr("id")+"-show").addClass("show");
+      });
+</script>
 
 </body>
 
