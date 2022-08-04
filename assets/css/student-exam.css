@@ -47,6 +47,10 @@
     
 }
 
+#exam .exam-answer .file-input{
+    width: auto;
+}
+
 #exam .exam-button{
     
 }
