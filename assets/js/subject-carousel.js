@@ -3,7 +3,7 @@
             
             items: 4,
             margin:10,
-            navigation: true,
+            nav: true,
             responsive:{
                 0:{
                     items:1

@@ -1,0 +1,87 @@
+/* Subject is student-home.css */
+
+*{
+    margin: 0px;
+    padding: 0px;
+    border: none;
+}
+
+/* subject section */
+#subject{
+    margin-top: 100px;
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    background: rgb(216, 216, 216);
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    
+}   
+#subject .subject-button button{
+    box-shadow: none;
+    background: transparent;
+    border: none;
+    border-radius: 0px;
+}
+#subject .subject-button  .active{
+    background: white;
+}
+
+#subject .subject-button button:hover{
+    background: white;
+}
+
+
+#subject .subject-content{
+    background:white;
+}
+
+
+
+.owl-carousel  .owl-nav{
+    position: absolute;
+    width: 100%;
+    top: 30%;
+    line-height: 5px;
+      
+}
+.owl-carousel .owl-prev{
+   position: relative;
+   right: 50%;
+
+}
+.owl-carousel .owl-next{
+    position: relative;
+    left: 50%;
+ }
+
+ .owl-carousel .owl-prev,
+ .owl-carousel .owl-next{
+    width: 45px; 
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    border-radius: 50% !important;
+ }
+
+
+.owl-carousel .owl-prev span, 
+.owl-carousel .owl-next span{
+    font-size: 3em;
+    color:rgba(0, 0, 0, 0.1);
+}
+
+
+.owl-carousel .owl-prev:hover span, 
+.owl-carousel .owl-next:hover span
+{
+    color: #1ccacd;
+}
+
+
+.owl-carousel .owl-dots .owl-dot:hover span,
+.owl-carousel .owl-dots .owl-dot .active span
+{
+    color: #1ccacd !important; 
+}
+  /* End copy css */
