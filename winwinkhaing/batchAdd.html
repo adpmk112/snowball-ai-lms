@@ -10,6 +10,7 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
+    
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
@@ -102,5 +103,77 @@
         </div>
       </div>
     </form> 
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+      Launch demo modal
+    </button>
+    
+    <!-- Modal -->
+    <div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+      <div class="modal-dialog modal-dialog-centered model-xl" role="document" >
+        <div class="modal-content" style="width:100% ;">
+          <div class="modal-header" style="width:100% ;">
+            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" >
+            <form class="form-horizontal part1">
+              <div class="form-group row part2">
+                  <label class="col-sm-2 col-form-label " for="id">Id:</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control " id="id" placeholder="Enter ID" name="id">
+                  </div>
+                </div>
+                <div class="form-group part2">
+                  <label class="col-sm-2 col-form-label" for="id">Name:</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control " id="name" placeholder="Enter Name" name="name">
+                  </div>
+                </div>
+              <div class="form-group part2">
+              <label class="col-sm-2 col-form-label " for="id">Course:</label>
+              <div class="col-sm-10 ">
+              <select name="cars" id="course">
+                <option value="">Select</option>
+                <option value="">Java</option>
+                <option value="">C++</option>
+                <option value="">.Net</option>
+                <option value="">PHP</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group part2">
+              <label class="col-sm-2 col-form-label " for="id">Teacher:</label>
+              <div class="col-sm-10 ">
+              <select name="cars" id="course">
+                <option value="">Select</option>
+                <option value="">Jone</option>
+                <option value="">Smith</option>
+                <option value="">Mg Mg</option>
+                <option value="">Hla Hla</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-offset-2 col-sm-10 ">
+           
+              <button type="reset" class="btn btn-warning ">Reset</button>
+            
+              <button type="submit" class="btn btn-primary ">Submit</button>
+              
+            </div>
+          </div>
+        </div>
+      </form> 
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

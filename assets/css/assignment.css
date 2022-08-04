@@ -1,80 +1,55 @@
-*{
+/* *{
     size: 4rem;
     color:rgb(70, 65, 65);
-}
+} */
 
 .assigncontainer{
     
-    width:auto;
-    margin:0 0 auto;
+    
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     display: flex;
-   padding-top: 4rem;
+    padding-top: 4rem;
+
 
 }
 
 .part1{
-    margin-right: 5rem;
+    margin: 1.5rem;
+   max-width: 47.5rem;
+    
+}
+.line{
+    border-bottom: 1px solid black;  
 }
 
-
-
+.assign-p{
+    display: flex;
+    justify-content: space-between;
+}
 #file{
-   width:30px;
-   margin-right: 0.5rem;
-   border-radius:5px;
+   width:40px;
+   margin-right: 1rem;
+   
 }
 
 .assign_header{
     display: flex;
+    
 }
 
 .part2{
-    width: 300px;
+    max-width: 18.75rem;
+    width: 18.75rem;
     height: 200px;
     border-radius:7px;
-    -webkit-box-shadow: -1px 1px 12px -3px rgba(154,156,146,0.93); 
-    box-shadow: -1px 1px 12px -3px rgba(154,156,146,0.93);
-    
+    box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%), 0 2px 6px 2px rgb(60 64 67 / 15%);
     
 }
 .part2 .upload{
     padding:20px;
    
-}
-
-.fa-paper-plane{
-    font-size: 1.5rem;
-}
-
-.man{
-    width:25px;
-   margin-right: 0.5rem;
-   border-radius:5px;
-}
-
-#comment{
-    border: none;
-    padding: 0 25px;
-    outline: none;
-    position:relative;
-    display: inline-block;
-    background: ghostwhite;
-    border-radius: 25px 0 0 25px;
-    height: 50px;
-}
-#comment-sub{
-    position:relative;
-    border-radius: 0 25px 25px 0;
-    height: 50px;
-    width:80px;
-    outline: none;
-    border: none;
-    cursor:pointer;
-}
-
-.comment-section{
-     padding-top: 1rem;
 }
 
 
@@ -92,4 +67,22 @@
     outline:none;
 }
 
+@media screen and (min-width:960px) {
+    .assigncontainer{
+        flex-direction: row;
+       
+     }
+     
+    
+}
+@media  screen and (min-width:1024px){
+    .assigncontainer{
+       flex-direction: row;
+    }
 
+   .part1{
+    margin-right: 3rem;
+    
+   } 
+
+}

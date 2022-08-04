@@ -52,8 +52,8 @@
   box-sizing: border-box;
 }
 
-body {
-  background-color: rgb(255, 255, 255);
+.body-color{
+  background-color: rgb(235, 235, 235) ;
 }
 
 .shodow-div-profile {
@@ -72,6 +72,9 @@ body {
   
 }
 
+body{
+  background-color: rgb(235, 235, 235);
+}
 
 .image-margin{
   margin-top: 150px;
@@ -115,9 +118,7 @@ body {
   margin-top: 28px;
 }
 
-body{
-  background-color: rgb(233, 233, 233);
-}
+
 
 .custom-comment-box{
   
@@ -147,4 +148,16 @@ body{
 }
 .class-margin{
   margin-top: 125px;
+}
+
+.width-90{
+  width: 90%;
+}
+
+.width-100{
+  width: 100%;
+}
+
+.margin-top-50{
+  margin-top: 50px ;
 }
