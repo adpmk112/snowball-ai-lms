@@ -1,3 +1,6 @@
+body{
+  overflow-x: hidden;
+}
 #header {
   background: #fff;
   position: fixed;
@@ -94,9 +97,7 @@
   margin-bottom: 5px;
 }
 
-.nav-link:hover {
-  /*color: white !important;*/
-}
+
 
 .dropdown-item {
   /*background: red;*/
@@ -116,3 +117,58 @@
   /*border-bottom: 1px solid black;*/
 }
 
+.semi-circle{
+  background: #2d3846;
+  border-radius: 0 0 50% 50%;
+  height: 30rem;
+  left: -5%;
+  position: absolute;
+  width: 110%;
+  z-index: -1;
+  overflow-x: hidden;
+
+}
+.semi-circle-container{
+  color: #2d3846;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  z-index: -5;
+  
+}
+.banner{
+  z-index: 999;
+  padding:2rem;
+  display: flex;
+  justify-content: left;
+  
+}
+
+.banner h1,h3{
+  color:white;
+  
+}
+.banner h1{
+  margin-top:8rem;
+  margin-left: 4rem;
+}
+.banner h3{
+  margin-left: 4rem;
+}
+
+.banner i{
+  font-size:5rem;
+  margin-top: 8.5rem;
+  margin-left:6rem;
+  color:white;
+}
+
+
+
+
+
+
+
+
+
+ 
