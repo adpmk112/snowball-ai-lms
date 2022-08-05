@@ -173,6 +173,9 @@ body{
 }
 
 @media (max-width: 768px)  {
+  body{
+    overflow-x: scroll;
+  }
   .semi-circle{
     border-radius: 0;
   }
@@ -195,6 +198,9 @@ body{
   }
   .banner i{
     margin-left: 0;
+  }
+  .mytabs{
+    overflow-x: scroll;
   }
 }
 
