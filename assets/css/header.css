@@ -39,6 +39,8 @@ body{
     outline: none;
     box-shadow: none;
   }
+
+  
 }
 
 #menu-icon {
@@ -67,12 +69,15 @@ body{
     left: 40%;
     top: initial;
   }
+ 
 }
 
 @media (max-width: 575px) {
   #navbar-brand {
     left: 30%;
   }
+
+
 }
 
 @media (min-width: 768px) {
@@ -117,6 +122,11 @@ body{
   /*border-bottom: 1px solid black;*/
 }
 
+
+
+/* semi circle  */
+
+
 .semi-circle{
   background: #2d3846;
   border-radius: 0 0 50% 50%;
@@ -129,7 +139,6 @@ body{
 
 }
 .semi-circle-container{
-  color: #2d3846;
   justify-content: center;
   position: relative;
   width: 100%;
@@ -163,9 +172,31 @@ body{
   color:white;
 }
 
+@media (max-width: 768px)  {
+  .semi-circle{
+    border-radius: 0;
+  }
+  .banner i{
+    margin-left: 1px;
+  }
 
+  .banner h1{
+    
+    margin-left: 2rem;
+  }
+  .banner h3{
+    margin-left: 2rem;
+  }
+}
 
-
+@media screen and (max-width:575px) {
+  .semi-circle{
+    border-radius: 0;
+  }
+  .banner i{
+    margin-left: 0;
+  }
+}
 
 
 
