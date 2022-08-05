@@ -22,7 +22,12 @@ body{
     margin-left: 270px;
     margin-top: 20px;
   }
-  
+
+.pointer-off{
+  pointer-events: none;
+}
+
+
 .h1-label {
       font-size: 2.5rem;
 } 
