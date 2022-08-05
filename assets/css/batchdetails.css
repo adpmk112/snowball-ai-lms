@@ -5,9 +5,11 @@ body{
 .mytabs{
     display: flex;
     flex-wrap: wrap;
-    width: 90%;
-    margin: 50px auto;
-    padding: 25px;
+    width: auto;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-bottom: 2rem;
+    /* padding: 25px; */
 }
 
 .mytabs input[type="radio"]{
@@ -25,7 +27,7 @@ body{
 .mytabs .tab{
     width: 100%;
     padding: 20px;
-    background: #f4fff7;
+    /* background: #f4fff7; */
     order:1;
     display: none;
     

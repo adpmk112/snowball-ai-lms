@@ -1,12 +1,24 @@
 $(document).ready(function () {
-    $('#datatable').DataTable()
+    $('#datatable').DataTable({
+      responsive: true
+    });
+
+
   });
   $(document).ready(function () {
-    $('#datatable1').DataTable()
+    $('#datatable1').DataTable({
+      responsive: true
+    })
   });
   $(document).ready(function () {
-    $('#datatable2').DataTable()
+    $('#datatable2').DataTable({
+      responsive: true
+    })
   });
   $(document).ready(function () {
-    $('#datatable3').DataTable()
+    $('#datatable3').DataTable({
+      responsive: true
+    })
   });
+
+ 
