@@ -1,130 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Exam</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./assets/css/student-exam.css">
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./assets/css/student-exam.css" />
+    <link rel="stylesheet" href="./assets/css/header.css" />
     <script src="./assets/jquery/jquery.min.js"></script>
-    <script> 
-        $(function(){
-          $("#header").load("header.html"); 
-        });
-        </script>
-        <script> 
-          $(function(){
-            $("#footer").load("footer.html"); 
-          });
-          </script>
-    
-</head>
-<body class="body-color">
-
+    <script>
+      $(function () {
+        $('#header').load('header.html')
+      })
+    </script>
+    <script>
+      $(function () {
+        $('#footer').load('footer.html')
+      })
+    </script>
+    <script
+      src="https://kit.fontawesome.com/83e4876698.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body class="body-color">
     <div id="header"></div>
-    
-      <center>
-        <div class="card  mb-3 " style="max-width: 70rem; background-color: #ffefa1; color:rgb(0, 0, 0); margin-top: 120px;">
-            <div class="card-body">
-              <h1 class="card-title h1-label text-center">Exam 1</h1>
-            </div>
-          </div>
-      </center>
-    <section id="exam" style="margin-top: 50px;" class="custom-div">
-        <div class="container" id="exam-content" style="background-color: white;">
-            
-            <ul class="exam-body">
 
-                <ol class="exam-list">  
+    <div class="semi-circle"></div>
+    <div class="banner">
+      <i class="fa-solid fa-paintbrush"></i>
+      <div>
+        <h1>Monthly Assessment Exam</h1>
+        <h3>Batch 01</h3>
+      </div>
+    </div>
+    <section id="exam" style="margin-top: 8px;" class="custom-div">
+      <div class="container" id="exam-content" style="background-color: white;">
+        <ul class="exam-body">
+          <ol class="exam-list">
+            <li class="exam-question">
+              Choose an answer?
+              <ul class="exam-answer">
+                <li class="list-item">
+                  <input
+                    class="form-check-input answer"
+                    type="checkbox"
+                    value=""
+                    id="flexCheckDefault"
+                  />
+                  Answer 1
+                </li>
+                <li class="list-item">
+                  <input
+                    class="form-check-input answer"
+                    type="checkbox"
+                    value=""
+                    id="flexCheckDefault"
+                  />
+                  Answer 2
+                </li>
+                <li class="list-item">
+                  <input
+                    class="form-check-input answer"
+                    type="checkbox"
+                    value=""
+                    id="flexCheckDefault"
+                  />
+                  Answer 3
+                </li>
+              </ul>
+              <!-- End exam answer -->
+            </li>
+            <!--End exam question-->
 
-                    <li class="exam-question">
-                        Choose an answer?
-                        <ul class="exam-answer">                            
-                            <li class="list-item">
-                                <input class="form-check-input answer" type="checkbox" value="" id="flexCheckDefault">
-                                Answer 1
-                            </li> 
-                            <li class="list-item">
-                                <input class="form-check-input answer" type="checkbox" value="" id="flexCheckDefault">
-                                Answer 2
-                            </li>   
-                            <li class="list-item">
-                                <input class="form-check-input answer" type="checkbox" value="" id="flexCheckDefault">
-                                Answer 3
-                            </li> 
-                                                         
-                        </ul><!-- End exam answer -->
-                    </li><!--End exam question-->
+            <li class="exam-question">
+              Second Question. Choose an Answer.
+              <ul class="exam-answer">
+                <li class="list-item">
+                  <input
+                    class="form-check-input answer"
+                    type="radio"
+                    value=""
+                    id="flexCheckDefault"
+                  />
+                  Answer 1
+                </li>
+                <li class="list-item">
+                  <input
+                    class="form-check-input answer"
+                    type="radio"
+                    value=""
+                    id="flexCheckDefault"
+                  />
+                  Answer 2
+                </li>
+                <li class="list-item">
+                  <input
+                    class="form-check-input answer"
+                    type="radio"
+                    value=""
+                    id="flexCheckDefault"
+                  />
+                  Answer 3
+                </li>
+              </ul>
+              <!-- End exam answer -->
+            </li>
+            <!--End exam question-->
 
-                    <li class="exam-question">
-                        Second Question. Choose an Answer.
-                        <ul class="exam-answer">                            
-                            <li class="list-item">
-                                <input class="form-check-input answer" type="radio" value="" id="flexCheckDefault">
-                                Answer 1
-                            </li> 
-                            <li class="list-item">
-                                <input class="form-check-input answer" type="radio" value="" id="flexCheckDefault">
-                                Answer 2
-                            </li>   
-                            <li class="list-item">
-                                <input class="form-check-input answer" type="radio" value="" id="flexCheckDefault">
-                                Answer 3
-                            </li>                              
-                        </ul><!-- End exam answer -->
-                    </li><!--End exam question-->
+            <li class="exam-question">
+              Answer the question. What is 3 + 2?
+              <ul class="exam-answer">
+                <textarea
+                  class="form-control text-input"
+                  rows="4"
+                  placeholder="Enter your answer here."
+                ></textarea>
+              </ul>
+              <!-- End exam answer -->
+            </li>
+            <!--End exam question Text Area-->
 
-                    <li class="exam-question">
-                       Answer the question. What is 3 + 2?
-                        <ul class="exam-answer">                            
-                            <textarea class="form-control text-input" rows="4" placeholder="Enter your answer here."></textarea>                     
-                        </ul><!-- End exam answer -->
-                    </li><!--End exam question Text Area-->
+            <li class="exam-question">
+              Fourth Question. Choose an Answer.
+              <ul class="exam-answer">
+                <li class="list-item">
+                  <input
+                    class="form-check-input answer"
+                    type="radio"
+                    value=""
+                    id="flexCheckDefault"
+                  />
+                  Answer 1
+                </li>
+                <li class="list-item">
+                  <input
+                    class="form-check-input answer"
+                    type="radio"
+                    value=""
+                    id="flexCheckDefault"
+                  />
+                  Answer 2
+                </li>
+                <li class="list-item">
+                  <input
+                    class="form-check-input answer"
+                    type="radio"
+                    value=""
+                    id="flexCheckDefault"
+                  />
+                  Answer 3
+                </li>
+              </ul>
+              <!-- End exam answer -->
+            </li>
+            <!--End exam question-->
 
-                    <li class="exam-question">
-                        Fourth Question. Choose an Answer.
-                        <ul class="exam-answer">                            
-                            <li class="list-item">
-                                <input class="form-check-input answer" type="radio" value="" id="flexCheckDefault">
-                                Answer 1
-                            </li> 
-                            <li class="list-item">
-                                <input class="form-check-input answer" type="radio" value="" id="flexCheckDefault">
-                                Answer 2
-                            </li>   
-                            <li class="list-item">
-                                <input class="form-check-input answer" type="radio" value="" id="flexCheckDefault">
-                                Answer 3
-                            </li>                              
-                        </ul><!-- End exam answer -->
-                    </li><!--End exam question-->
-
-		<li class="exam-question">
-                        Upload your file here.
-                        <ul class="exam-answer">                            
-                        <input type="file" class="form-control mt-2 file-input">                     
-                        </ul><!-- End exam answer -->
-                     </li><!--End exam question-->
-
-
-                </ol><!--End exam list-->
-
-            </ul><!--End exam body-->
-            <div class="exam-button m-5 from-control">
-                <button class="btn btn-success">Submit Answer</button>
-            </div>
-        </div><!--End exam content-->
-    </section><!-- End exam section -->
+            <li class="exam-question">
+              Upload your file here.
+              <ul class="exam-answer">
+                <input type="file" class="form-control mt-2 file-input" />
+              </ul>
+              <!-- End exam answer -->
+            </li>
+            <!--End exam question-->
+          </ol>
+          <!--End exam list-->
+        </ul>
+        <!--End exam body-->
+        <div class="exam-button m-5 from-control">
+          <button class="btn btn-success">Submit Answer</button>
+        </div>
+      </div>
+      <!--End exam content-->
+    </section>
+    <!-- End exam section -->
     <div id="footer"></div>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    
-   
+
     <script src="assets/js/subject-carousel.js"></script>
     <script src="assets/js/header.js"></script>
-   
-    
-</body>
-
+  </body>
 </html>

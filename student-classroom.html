@@ -1,176 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>Student-Classroom</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css"
+    />
 
-<head>
-  <title>Student-Classroom</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css" />
+    <script
+      type="text/javascript"
+      charset="utf8"
+      src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"
+    ></script>
 
-  <script type="text/javascript" charset="utf8"
-    src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+    <script src="assets/js/data.js"></script>
+    <link rel="stylesheet" href="assets/css/datatable.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
 
-  <script src="assets/js/data.js"></script>
-  <link rel="stylesheet" href="assets/css/datatable.css" />
-  <link rel="stylesheet" href="assets/css/styles.css">
-  
-  <script> 
-    $(function(){
-      $("#header").load("header.html"); 
-    });
+    <script>
+      $(function () {
+        $('#header').load('header.html')
+      })
     </script>
-    <script> 
-      $(function(){
-        $("#footer").load("footer.html"); 
-      });
-      </script>
-</head>
+    <script>
+      $(function () {
+        $('#footer').load('footer.html')
+      })
+    </script>
+    <script
+      src="https://kit.fontawesome.com/83e4876698.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
 
-
-<body class="body-color">
-  <div id="header"></div>
-  <center>
-      
-    <div class="card  mb-3 header-unit" style="max-width: 70rem; background-color: #aabeff; color:rgb(0, 0, 0); border-radius: 5px;">
-      <div class="card-body">
-        <h1 class="card-title h1-label">Student-Classroom</h1>
+  <body class="body-color">
+    <div id="header"></div>
+    <div class="semi-circle"></div>
+    <div class="banner">
+      <i class="fa-solid fa-person-chalkboard"></i>
+      <div>
+        <h1>Classroom</h1>
+        <h3>Study Mode</h3>
       </div>
     </div>
-  
-</center>
-  <div class=" class-margin custom-div" style="margin-top: 50px;">
-    <div class="mytabs ">
-      <input type="radio" id="tabupcoming" name="mytabs" checked="checked" >
-      <label for="tabupcoming" id="lab">Upcoming</label>
-      <div class="tab">
-        <table id="datatable">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Link</th>
-              <th>Teacher Name</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>2-8-2022</td>
-              <td>Link</td>
-              <td>Tr Su</td>
-            </tr>
-            <tr>
-              <td>3-8-2022</td>
-              <td>Link 2</td>
-              <td>Tr Moe Yee</td>
-            </tr>
-            <tr>
-              <td>3-8-2022</td>
-              <td>Link 2</td>
-              <td>Tr Moe Yee</td>
-            </tr>
-            <tr>
-              <td>3-8-2022</td>
-              <td>Link 2</td>
-              <td>Tr Moe Yee</td>
-            </tr>
-            <tr>
-              <td>3-8-2022</td>
-              <td>Link 2</td>
-              <td>Tr Moe Yee</td>
-            </tr>
-            <tr>
-              <td>3-8-2022</td>
-              <td>Link 2</td>
-              <td>Tr Moe Yee</td>
-            </tr>
-            <tr>
-              <td>3-8-2022</td>
-              <td>Link 2</td>
-              <td>Tr Moe Yee</td>
-            </tr>
-            <tr>
-              <td>3-8-2022</td>
-              <td>Link 2</td>
-              <td>Tr Moe Yee</td>
-            </tr>
-            <tr>
-              <td>3-8-2022</td>
-              <td>Link 2</td>
-              <td>Tr Moe Yee</td>
-            </tr>
-            <tr>
-              <td>3-8-2022</td>
-              <td>Link 2</td>
-              <td>Tr Moe Yee</td>
-            </tr>
-            <tr>
-              <td>3-8-2022</td>
-              <td>Link 2</td>
-              <td>Tr Moe Yee</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-  
-      <input type="radio" id="tabprevious" name="mytabs" />
-      <label for="tabprevious" id="lab">Previous</label>
-      <div class="tab">
-        <table id="datatable1">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Link</th>
-              <th>Teacher Name</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>2-8-2022</td>
-              <td>Link</td>
-              <td>Tr Su</td>
-            </tr>
-            <tr>
-              <td>3-8-2022</td>
-              <td>Link 2</td>
-              <td>Tr Moe Yee</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <input type="radio" id="tabrecorded" name="mytabs" />
-      <label for="tabrecorded" id="lab">Recorded Videos</label>
-      <div class="tab">
-        <table id="datatable2">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Link</th>
-              <th>Teacher Name</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>2-8-2022</td>
-              <td>Link</td>
-              <td>Tr Su</td>
-            </tr>
-            <tr>
-              <td>3-8-2022</td>
-              <td>Link 2</td>
-              <td>Tr Moe Yee</td>
-            </tr>
-          </tbody>
-        </table>
+    <div class="class-margin custom-div" style="margin-top: 8px;">
+      <div class="mytabs">
+        <input type="radio" id="tabupcoming" name="mytabs" checked="checked" />
+        <label for="tabupcoming" id="lab">Upcoming</label>
+        <div class="tab">
+          <table id="datatable">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Link</th>
+                <th>Teacher Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2-8-2022</td>
+                <td>Link</td>
+                <td>Tr Su</td>
+              </tr>
+              <tr>
+                <td>3-8-2022</td>
+                <td>Link 2</td>
+                <td>Tr Moe Yee</td>
+              </tr>
+              <tr>
+                <td>3-8-2022</td>
+                <td>Link 2</td>
+                <td>Tr Moe Yee</td>
+              </tr>
+              <tr>
+                <td>3-8-2022</td>
+                <td>Link 2</td>
+                <td>Tr Moe Yee</td>
+              </tr>
+              <tr>
+                <td>3-8-2022</td>
+                <td>Link 2</td>
+                <td>Tr Moe Yee</td>
+              </tr>
+              <tr>
+                <td>3-8-2022</td>
+                <td>Link 2</td>
+                <td>Tr Moe Yee</td>
+              </tr>
+              <tr>
+                <td>3-8-2022</td>
+                <td>Link 2</td>
+                <td>Tr Moe Yee</td>
+              </tr>
+              <tr>
+                <td>3-8-2022</td>
+                <td>Link 2</td>
+                <td>Tr Moe Yee</td>
+              </tr>
+              <tr>
+                <td>3-8-2022</td>
+                <td>Link 2</td>
+                <td>Tr Moe Yee</td>
+              </tr>
+              <tr>
+                <td>3-8-2022</td>
+                <td>Link 2</td>
+                <td>Tr Moe Yee</td>
+              </tr>
+              <tr>
+                <td>3-8-2022</td>
+                <td>Link 2</td>
+                <td>Tr Moe Yee</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <input type="radio" id="tabprevious" name="mytabs" />
+        <label for="tabprevious" id="lab">Previous</label>
+        <div class="tab">
+          <table id="datatable1">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Link</th>
+                <th>Teacher Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2-8-2022</td>
+                <td>Link</td>
+                <td>Tr Su</td>
+              </tr>
+              <tr>
+                <td>3-8-2022</td>
+                <td>Link 2</td>
+                <td>Tr Moe Yee</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <input type="radio" id="tabrecorded" name="mytabs" />
+        <label for="tabrecorded" id="lab">Recorded Videos</label>
+        <div class="tab">
+          <table id="datatable2">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Link</th>
+                <th>Teacher Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2-8-2022</td>
+                <td>Link</td>
+                <td>Tr Su</td>
+              </tr>
+              <tr>
+                <td>3-8-2022</td>
+                <td>Link 2</td>
+                <td>Tr Moe Yee</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-  </div>
-  
-  <div id="footer"></div>
 
-  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    
-   
+    <div id="footer"></div>
+
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+
     <script src="assets/js/subject-carousel.js"></script>
     <script src="assets/js/header.js"></script>
-
-</body>
-
+  </body>
 </html>
