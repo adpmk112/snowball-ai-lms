@@ -49,10 +49,10 @@
       </div>
       <div class="mytabs">
         <input type="radio" id="tabunit" name="mytabs" checked="checked" />
-        <label for="tabunit" id="lab">Unit</label>
+        <label for="tabunit" id="lab">Chapter</label>
         <div class="tab">
           <div class="add-list">
-            <label>Add Unit List</label>
+            <label>Add Chapter List</label>
             <a
               href=""
               class="btn btn-outline-success btn-floating"
@@ -64,7 +64,6 @@
           <table id="datatable">
             <thead>
               <tr>
-                <th>Id</th>
                 <th>Name</th>
                 <th>Status</th>
                 <th>Start Date</th>
@@ -74,9 +73,34 @@
             </thead>
             <tbody>
               <tr>
-                <td>01</td>
-                <td>Servlet</td>
+                
+                <td>Servlet Part 1</td>
                 <td>Not Added</td>
+                <td>Date1</td>
+                <td>Date2</td>
+                <td>
+                  <a
+                    href=""
+                    class="btn btn-outline-primary btn-floating"
+                    data-mdb-ripple-color="dark"
+                  >
+                    <i class="fa-regular fa-pen-to-square"></i>
+                  </a>
+                  <a
+                    href=""
+                    class="btn btn-outline-danger btn-floating"
+                    data-mdb-ripple-color="dark"
+                  >
+                    <i class="fa-solid fa-circle-minus"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+            <tbody>
+              <tr>
+                
+                <td>Servlet Part 2</td>
+                <td>In Progess</td>
                 <td>Date1</td>
                 <td>Date2</td>
                 <td>
@@ -118,6 +142,7 @@
               <tr>
                 <th>Student Photo</th>
                 <th>Student Name</th>
+                <th>Attendance %</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -125,6 +150,7 @@
               <tr>
                 <td>Photo</td>
                 <td>Aung Aung</td>
+                <td>70%</td>
                 <td>
                   <a
                     href=""
@@ -164,7 +190,7 @@
               <tr>
                 <th>Teacher Photo</th>
                 <th>Name</th>
-                <th>Active Batches</th>
+                
                 <th>Action</th>
               </tr>
             </thead>
@@ -172,7 +198,7 @@
               <tr>
                 <td>Photo</td>
                 <td>Tr Su</td>
-                <td>OJT Batch 4</td>
+                
                 <td>
                   <a
                     href=""
@@ -218,7 +244,132 @@
             <tbody>
               <tr>
                 <td>Exam 1</td>
-                <td>OJT Batch 4</td>
+                
+                <td>
+                  <a
+                    href=""
+                    class="btn btn-outline-primary btn-floating"
+                    data-mdb-ripple-color="dark"
+                  >
+                    <i class="fa-regular fa-pen-to-square"></i>
+                  </a>
+                  <a
+                    href=""
+                    class="btn btn-outline-danger btn-floating"
+                    data-mdb-ripple-color="dark"
+                  >
+                    <i class="fa-solid fa-circle-minus"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <input type="radio" id="tabstudent" name="mytabs" />
+        <label for="tabstudent" id="lab">Attendance</label>
+        <div class="tab">
+          <div class="add-list">
+            <label>Add Date</label>
+            <a
+              href=""
+              class="btn btn-outline-success btn-floating"
+              data-mdb-ripple-color="dark"
+            >
+              <i class="fa-solid fa-circle-plus"></i>
+            </a>
+          </div>
+          <table id="datatable1">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Mg Mg</th>
+                <th>Ag Hla</th>
+                <th>Min Oo</th>
+                <th>Win Maw</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>12-01-2022</td>
+                <td>present</td>
+                <td>absent</td>
+                <td>present</td>
+                <td>absent</td>
+                <td>
+                  <a
+                    href=""
+                    class="btn btn-outline-primary btn-floating"
+                    data-mdb-ripple-color="dark"
+                  >
+                    <i class="fa-regular fa-pen-to-square"></i>
+                  </a>
+                  <a
+                    href=""
+                    class="btn btn-outline-danger btn-floating"
+                    data-mdb-ripple-color="dark"
+                  >
+                    <i class="fa-solid fa-circle-minus"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <input type="radio" id="tabstudent" name="mytabs" />
+        <label for="tabstudent" id="lab">Classroom</label>
+        <div class="tab">
+          <div class="add-list">
+            <label>Add Class</label>
+            <a
+              href=""
+              class="btn btn-outline-success btn-floating"
+              data-mdb-ripple-color="dark"
+            >
+              <i class="fa-solid fa-circle-plus"></i>
+            </a>
+          </div>
+          <table id="datatable1">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Teacher</th>
+                <th>Classroom Link</th>
+                <th>Status</th>
+                <th>Record Video</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>12-01-2022</td>
+                <td>U Hla</td>
+                <td>www.zoom.com</td>
+                <td>Done</td>
+                <td>record.mp4</td>
+                <td>
+                  <a
+                    href=""
+                    class="btn btn-outline-primary btn-floating"
+                    data-mdb-ripple-color="dark"
+                  >
+                    <i class="fa-regular fa-pen-to-square"></i>
+                  </a>
+                  <a
+                    href=""
+                    class="btn btn-outline-danger btn-floating"
+                    data-mdb-ripple-color="dark"
+                  >
+                    <i class="fa-solid fa-circle-minus"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+            <tbody>
+              <tr>
+                <td>12-01-2022</td>
+                <td>U Hla</td>
+                <td>www.zoom.com</td>
+                <td>In Progess</td>
+                <td>record.mp4</td>
                 <td>
                   <a
                     href=""
