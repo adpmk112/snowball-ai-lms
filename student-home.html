@@ -54,7 +54,7 @@
       <div id="header"></div>
       <div class="semi-circle"></div>
       <div class="banner">
-        <i class="fa-solid fa-chalkboard-user"></i>
+        <div class="circle"><i class="fa-solid fa-chalkboard-user"></i></div>
         <div>
           <h1>Java Course</h1>
           <h3>Batch 01</h3>
@@ -81,18 +81,40 @@
             <div class="carousel-container">
               <div class="owl-carousel show owl-theme" id="inprogress-show">
                 <a href="student-unit.html" class="unit-a">
-                  <div class="item">
+                  <div class="chapter">
                     <div
-                      class="card text-white bg-secondary m-3"
+                      class="text-white"
+                      style="
+                        visibility: visible;
+                        opacity: 1;
+                        transform: matrix3d(
+                          1,
+                          0,
+                          0,
+                          0,
+                          0,
+                          1,
+                          0,
+                          0,
+                          0,
+                          0,
+                          1,
+                          0,
+                          0,
+                          0,
+                          0,
+                          1
+                        );
+                        transition: opacity 0.5s
+                            cubic-bezier(0.645, 0.045, 0.355, 1) 0.2s,
+                          transform 0.5s cubic-bezier(0.645, 0.045, 0.355, 1)
+                            0.2s;
+                      "
                       style="max-width: 100%;"
                     >
-                      <div class="card-header">Unit 1</div>
+                      <div class="card-header">Chapter 1</div>
                       <div class="card-body">
-                        <h5 class="card-title">Secondary card title</h5>
-                        <p class="card-text">
-                          Some quick example text to build on the card title and
-                          make up the bulk of the card's content.
-                        </p>
+                        <h5 class="card-title">Core Java</h5>
                       </div>
                     </div>
                   </div>

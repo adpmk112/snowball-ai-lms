@@ -158,7 +158,7 @@ body{
   
 }
 .banner h1{
-  margin-top:8rem;
+  margin-top:7rem;
   margin-left: 4rem;
 }
 .banner h3{
@@ -166,10 +166,20 @@ body{
 }
 
 .banner i{
-  font-size:5rem;
-  margin-top: 8.5rem;
+  font-size:4rem;
+  color:#2d3846;
+}
+
+.circle{
+  width: 8rem;
+  height: 8rem;
+  background-color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-top: 6rem;
   margin-left:6rem;
-  color:white;
 }
 
 @media (max-width: 768px)  {

@@ -45,14 +45,16 @@
             </ol>
           </nav>
         </div>
-        <div></div>
       </div>
-      <div class="mytabs">
-        <input type="radio" id="tabunit" name="mytabs" checked="checked" />
-        <label for="tabunit" id="lab">Course Name</label>
+      
+      <div class="mytabs position-relative">
+           <div class="java position-absolute top-0 start-100 translate-middle-x"><h3>Java</h3></div>
+        <input type="radio" id="tabchapter" name="mytabs" checked="checked" />
+        <label for="tabchapter" id="lab">Java </label>
+      
         <div class="tab">
           <div class="add-list">
-            <label>Add Chapter</label>
+            <label>Add Chapters</label>
             <a
               href=""
               class="btn btn-outline-success btn-floating"
@@ -67,14 +69,52 @@
                 <th>Chapter Id</th>
                 <th>Chapter Name</th>
                 <th>Total File</th>
+                <th>Details</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>01</td>
-                <td>Servlet Part 1</td>
-                <td>2</td>
+                <td>Servlet</td>
+                <td>3</td>
+                <td> 
+                  <a href="admin-coursedetail.html"
+                    class="more-info btn btn-floating"
+                    data-mdb-ripple-color="dark"
+                  >
+                     <img class="more" src="./assets/img/option.png" alt="">
+                  </a>
+                </td>
+                <td>
+                  <a
+                    href=""
+                    class="more-info btn btn-outline-primary btn-floating"
+                    data-mdb-ripple-color="dark"
+                  >
+                    <i class="fa-regular fa-pen-to-square"></i>
+                  </a>
+                  <a
+                    href=""
+                    class="btn btn-outline-danger btn-floating"
+                    data-mdb-ripple-color="dark"
+                  >
+                    <i class="fa-solid fa-circle-minus"></i>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td>02</td>
+                <td>Java Core</td>
+                <td>4</td>
+                <td> 
+                  <a href="admin-coursedetail.html"
+                    class="more-info btn btn-floating"
+                    data-mdb-ripple-color="dark"
+                  >
+                     <img class="more" src="./assets/img/option.png" alt="">
+                  </a>
+                </td>
                 <td>
                   <a
                     href=""
@@ -93,9 +133,17 @@
                 </td>
               </tr>
               <tr>
-                <td>01</td>
-                <td>Servlet Part 1</td>
-                <td>12</td>
+                <td>03</td>
+                <td>JSP</td>
+                <td>4</td>
+                <td> 
+                  <a href="admin-coursedetail.html"
+                    class="more-info btn btn-floating"
+                    data-mdb-ripple-color="dark"
+                  >
+                     <img class="more" src="./assets/img/option.png" alt="">
+                  </a>
+                </td>
                 <td>
                   <a
                     href=""
@@ -114,30 +162,17 @@
                 </td>
               </tr>
               <tr>
-                <td>01</td>
-                <td>Servlet Part 1</td>
-                <td>11</td>
-                <td>
-                  <a
-                    href=""
-                    class="btn btn-outline-primary btn-floating"
+                <td>04</td>
+                <td>JSTL</td>
+                <td>4</td>
+                <td> 
+                  <a href="admin-coursedetail.html"
+                    class="more-info btn btn-floating"
                     data-mdb-ripple-color="dark"
                   >
-                    <i class="fa-regular fa-pen-to-square"></i>
-                  </a>
-                  <a
-                    href=""
-                    class="btn btn-outline-danger btn-floating"
-                    data-mdb-ripple-color="dark"
-                  >
-                    <i class="fa-solid fa-circle-minus"></i>
+                     <img class="more" src="./assets/img/option.png" alt="">
                   </a>
                 </td>
-              </tr>
-              <tr>
-                <td>01</td>
-                <td>Servlet Part 1</td>
-                <td>114</td>
                 <td>
                   <a
                     href=""
@@ -159,7 +194,6 @@
           </table>
         </div>
         <div class="plus-icon"></div>
-      </div>
     </div>
   </body>
 </html>

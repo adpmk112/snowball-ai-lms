@@ -20,5 +20,15 @@ $(document).ready(function () {
       responsive: true
     })
   });
+  $(document).ready(function () {
+    $('#datatable4').DataTable({
+      responsive: true
+    })
+  });
+  $(document).ready(function () {
+    $('#datatable5').DataTable({
+      responsive: true
+    })
+  });
 
  
