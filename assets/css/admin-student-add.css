@@ -5,6 +5,7 @@
     border: 1px solid rgb(216, 210, 210);
     position: relative;
     top: 0px;
+    margin: 80px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
@@ -52,14 +53,6 @@
 
 #student-add-card #student-form-table #btn-add-all{
     outline: none;
-}
-
-#student-add-card #student-table td:last-child{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: left;
-    border:none;    
 }
 
 #student-add-card #student-table td:last-child button{
