@@ -1,5 +1,6 @@
 body{
   overflow-x: hidden;
+  font-family: 'Poppins',sans-serif;
 }
 
 .video-fluid {
@@ -185,3 +186,24 @@ body{
   margin-left: 1.5rem;
   font-size: 2.5rem;
 }  */
+
+.more{
+  width: 1rem;
+ 
+}
+.more-info{
+  outline: 2px solid rgb(198, 198, 244);
+}
+
+.more-info:hover{
+  background: rgb(198, 198, 244);
+}
+
+/* .more-oval{
+  background: #fff;
+-moz-border-radius: 100px / 50px;
+-webkit-border-radius: 100px / 50px;
+border-radius: 25px / 17px;
+
+border:1px solid rgb(45, 56, 70);
+} */
