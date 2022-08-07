@@ -4,20 +4,21 @@
 } */
 
 .assigncontainer{
-    
-    
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
     display: flex;
-    padding-top: 4rem;
-
-
+    margin-top: 2rem;
 }
 
+.assigncontainer .part1{
+    color:#fff;
+    margin-left: 4rem;
+    margin-top:6rem;
+}
 
 .line{
-    border-bottom: 1px solid black;  
+    border-bottom: 1px solid grey;  
 }
 
 .assign-p{
@@ -42,6 +43,8 @@
     border-radius:7px;
     background: #fff;
     box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%), 0 2px 6px 2px rgb(60 64 67 / 15%);
+    margin-top: 5rem;
+    margin-left: 2rem;
     
 }
 .part2 .upload{
