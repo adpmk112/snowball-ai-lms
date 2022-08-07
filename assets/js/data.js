@@ -31,4 +31,10 @@ $(document).ready(function () {
     })
   });
 
+  $(document).ready(function () {
+    $('#datatable6').DataTable({
+      responsive: true
+    })
+  });
+
  
