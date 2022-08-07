@@ -14,3 +14,18 @@ $('#navbar-toggle').on('click', function(){
     
 })
 
+// $('#header .navbar-nav .nav-item .nav-link').click(function(){
+//     $('.navbar-nav .nav-item .nav-link').removeClass('active');
+//     $(this).addClass('active')
+// })
+
+// $(function(){
+//     var current = location.pathname;
+//     $('#navcol-1 li a').each(function(){
+//         var $this = $(this);
+//         // if the current path is like this link, make it active
+//         if($this.attr('href').indexOf(current) !== -1){
+//             $this.addClass('active');
+//         }
+//     })
+// })

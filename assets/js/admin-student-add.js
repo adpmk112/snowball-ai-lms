@@ -4,10 +4,10 @@ $(window).scroll(function(e){
     var $el = $('#student-form-table'); 
     var parentwidth = $(".table-responsive").width();
     var isPositionFixed = ($el.css('position') == 'fixed');
-    if ($(this).scrollTop() > 200 && !isPositionFixed){ 
-        $el.css({'position': 'fixed', 'top': '0px','width':parentwidth}); 
+    if ($(this).scrollTop() > 100 && !isPositionFixed){ 
+        $el.css({'position': 'fixed', 'top': '70px','width':parentwidth}); 
     }
-    if ($(this).scrollTop() < 200 && isPositionFixed){
+    if ($(this).scrollTop() < 100 && isPositionFixed){
         $el.css({'position': 'static', 'top': '0px'}); 
     } 
 });
@@ -119,7 +119,7 @@ $(document).on('click','#btn-update', function(){
 });
 
 //Btn add All
-$('#btn-add-all').click(function(){
+$('#student-add-card #btn-add-all').click(function(){
     $.confirm({
         title: "Upload all students",
         content: 'All student may be saved.',
