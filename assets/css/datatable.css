@@ -5,9 +5,9 @@ body{
 .mytabs{
     display: flex;
     flex-wrap: wrap;
-    width: 90%;
+    width: 100%;
     /* margin: 50px auto; */
-    padding: 25px;
+    padding: 2.5rem;
     margin-left: auto;
     margin-right: auto;
 }
@@ -17,17 +17,19 @@ body{
 }
 
 .mytabs #lab{
-    padding: 25px;
-    background:	#dbf7f5;
+    padding: 11px 20px;
+    background: #fff;
     font-weight: bold;
-    border-top-left-radius:1rem ;
-    border-top-right-radius: 1rem;
+    border-radius: 2rem;
+    margin-left: 0.3rem;
+    color: #2D3845;
+    outline: 1px solid #2D3845;
 }
 
 .mytabs .tab{
     width: 100%;
     padding: 20px;
-    background: #f4fff7;
+   
     order:1;
     display: none;
  
@@ -39,10 +41,15 @@ body{
 }
 .mytabs input[type="radio"]:checked + #lab + .tab {
     display: block;
+    display:flex;
+   flex-wrap: wrap;
+   
 }
 
 .mytabs input[type="radio"]:checked + #lab{
-    background: #f4fff7;
+    background: #2D3845;
+    outline: 1px solid #2D3845;
+    color: #fff;
 }
 
 
