@@ -45,8 +45,8 @@
 } */
 
 #subject .subject-button .button:hover , #subject .subject-button  .active{
-    background: #2d3846;
-    border: 1px solid #2d3846;
+    background: #00458a;
+    border: 1px solid #00458a;
     color: #fff;
 }
 
@@ -124,7 +124,7 @@
 }
  
 .chapter{
-    box-shadow: 0 10px 30px -15px  #2d3846;
+    box-shadow: 0 10px 30px -15px  #00458a;
     display: flex;
     -webkit-box-pack: justify;
     justify-content: space-between;
@@ -146,7 +146,7 @@
 }
 
 .chapter .chapter-text{
-    color:#2d3846;
+    color:#00458a;
 }
 
 .chapter:hover{

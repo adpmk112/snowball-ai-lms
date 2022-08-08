@@ -36,5 +36,10 @@ $(document).ready(function () {
       responsive: true
     })
   });
+  $(document).ready(function () {
+    $('#datatable7').DataTable({
+      responsive: true
+    })
+  });
 
  
