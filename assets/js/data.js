@@ -41,5 +41,9 @@ $(document).ready(function () {
       responsive: true
     })
   });
-
+  $(document).ready(function () {
+    $('#datatable8').DataTable({
+      responsive: true
+    })
+  });
  
