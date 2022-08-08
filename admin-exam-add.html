@@ -22,6 +22,11 @@
                     <div class="exam-header bg-light p-3" id="exam-header">
                         <div class="container">
                             <div class="row">
+                                <div style="text-align: right;">
+                                    <button class="btn text-secondary" style="font-size: 1.2em;"><i class="fa-solid fa-file-circle-plus"></i></button>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-4">Exam Name</div>
                                 <div class="col-4 ">Exam Type</div>
                                 <div class="col-4 ">Duration</div>
@@ -40,7 +45,7 @@
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="answer-type" id="answer-other">
                                         <label class="form-check-label" for="answer-other">
-                                            Other                                          
+                                            File Upload                                         
                                         </label>
                                     </div>
                                 </div>
@@ -57,6 +62,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                
                             </div>                         
                         </div>
                         
@@ -70,7 +76,7 @@
                                     <textarea name="mc-question" class="col-10 form-control question border-none" id="question" rows="1" placeholder="Your question..."></textarea>
                                 </div>                                                    
                                 <div class="col-2">
-                                    <input type="number" class="form-control me-2" style="width: 60px; height: 30px" id="point" min="1" value="1"><label>Points</label>
+                                    <input type="number" class="point form-control me-2" style="width: 60px; height: 30px" id="point" min="1" value="1"><label>Points</label>
                                 </div> 
                                 <div class="col-1">
                                     <button  class="btn rounded-circle question-add text-primary" style="box-shadow: none;"><i class="fa-solid fa-plus"></i></button>
@@ -79,11 +85,17 @@
                             
                             <div class="row mt-1 mc-option" id="mc-option">
                                 <div class="col-8">
-                                    <input type="text" name="option" class="form-control" placeholder="Option 1">
+                                    <input type="text" id="option-input" name="option" class="form-control" placeholder="Option 1">
                                 </div>
                                 <div class="col-4">
-                                    <button  style="box-shadow: none;" class="btn rounded-circle option-plus text-success" ><i class="fa-solid fa-plus"></i></button>
-                                   
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <button  style="box-shadow: none;" class="btn rounded-circle option-plus text-success" ><i class="fa-solid fa-plus"></i></button>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="text" name="mc-answer" class=" col-8 form-control mc-answer" placeholder="Correct Answer">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                                                                                                                                          
@@ -94,10 +106,10 @@
                         <div class="exam-other border border-secondary rounded p-2" id="exam-other">
                             <div class="row">
                                 <div class="col-8 mr-auto">
-                                    <textarea class="col-10 form-control question border-none"  rows="1" placeholder="Your question..."></textarea>
+                                    <textarea id="textarea-other-question" name="other-question" class="col-10 form-control question border-none"  rows="1" placeholder="Your question..."></textarea>
                                 </div>                                                    
                                 <div class="col-2">
-                                    <input type="number" class="form-control me-2" style="width: 70px; height: 30px" id="point" min="1" value="1"><label>Points</label>
+                                    <input type="number" name="point" class="form-control me-2" style="width: 70px; height: 30px" id="point" min="1" value="1"><label>Points</label>
                                 </div> 
                                 <div class="col-1">
                                     <button class="btn btn-other-q rounded-circle  text-primary"  style="box-shadow: none;" ><i class="fa-solid fa-plus"></i></button>
@@ -134,7 +146,7 @@
         })
 
         //add Option
-        $(".option-plus").click(function(){
+        $(document).on("click",".option-plus",function(){
             var option_val = $('input[name="option"]').val();
             var div_row = '<div class="row mt-1 option-added">'+
                                 '<div class="col-8">'+
@@ -146,12 +158,13 @@
                                     '</div>'+
                             '</div>'
 
-            $('#m-choice').append(div_row);
+            $(this).closest('.m-choice').append(div_row);
+            $(this).closest('.m-choice').find('#option-input').val("");
         })
 
         //Add Question
-        $(".question-add").click(function(){
-            var question = $('#m-choice textarea[name="mc-question"]').val();
+        $(document).on("click",".question-add",function(){
+            var question = $('.m-choice textarea[name="mc-question"]').val();
             //var options = $('#m-choice input[name="option"]').val();
             var _radio_question = ' <div class="m-choice card-body border border-secondary rounded mt-2 p-2" >'+
                             '<div class="row">'+
@@ -162,7 +175,7 @@
                                     '<input type="number" class="form-control me-2" style="width: 60px; height: 30px" min="1" value="1"><label>Points</label>'+
                                 '</div>'+ 
                                 '<div class="col-1">'+
-                                    '<button  class=" question-add btn rounded-circle  text-primary" style="box-shadow: none;"><i class="fa-solid fa-plus"></i></button>'+
+                                    '<button  class=" question-remove btn rounded-circle  text-danger" style="box-shadow: none;"><i class="fa-solid fa-minus"></i></button>'+
                                 '</div>'+                                  
                             '</div> '+                               
                             '<div class="row mt-1" >'+
@@ -170,24 +183,35 @@
                                     '<input type="text" name="option" class="form-control" placeholder="Option..">'+
                                 '</div>'+
                                 '<div class="col-4">'+
-                                    '<button  style="box-shadow: none;" class="btn rounded-circle option-plus text-success" ><i class="fa-solid fa-plus"></i></button>'+
+                                    '<div class="row">'+
+                                        '<div class="col-4">'+
+                                            '<button  style="box-shadow: none;" class="btn rounded-circle option-plus text-success" ><i class="fa-solid fa-plus"></i></button>'+
+                                        '</div>'+
+                                        '<div class="col-8">'+
+                                            '<input type="text" name="mc-answer" class=" col-8 form-control mc-answer" placeholder="Correct Answer">'+
+                                        '</div>'+
+                                    '</div>'+
                                 '</div>'+
                             '</div>';
             $('#exam-content').append(_radio_question);
             
         })
 
-        //delete
-        $(' .btn.option-delete').on("click",function(){
-            alert("ok")
-            // var div_row = $(this).closest('.row');
-            // div_row.remove();
+        //Remove Question
+        $(document).on("click",".question-remove",function(){
+            var question_row = $(this).closest('.m-choice');
+            question_row.remove();
         })
-
-        $('.option-added .option-edit').on("click",function(){
-            alert("ok")
+        //Delete
+        $(document).on("click",".option-added .btn.option-delete",function(){
             var div_row = $(this).closest('.row');
-            div_row.remove();
+            div_row.remove();            
+        })
+        //Edit
+        $(document).on("click",".option-added .btn.option-edit", function(){
+            var div_row = $(this).closest('.row');
+            $(div_row).find('input[name="option"]').removeAttr("readonly");
+            div_row.removeAttr("readonly");
         })
 
      </script>
@@ -195,19 +219,26 @@
      <script>
         //Add other question
         $(".btn-other-q").click(function(){
+            var textarea_value = $('textarea[name="other-question"]').val();
+            var point_value = $('input[name="point"]').val();
             var _row = '<div class="row mt-2">'+
                                ' <div class="col-8 mr-auto">' +
-                                    '<textarea class="col-10 form-control question border-none" id="question" rows="1" placeholder="Your question..."></textarea>'+
+                                    '<textarea readonly name="other-question" class="col-10 readonly form-control question border-none" id="question" rows="1" placeholder="Your question...">'+textarea_value+'</textarea>'+
                                 '</div>'+                                                    
                                 '<div class="col-2">'+
-                                    '<input type="number" class="form-control me-2" style="width: 70px; height: 30px" id="point" min="1" value="1"><label>Points</label>'+
+                                    '<input type="number" name="point" readonly class="form-control me-2" style="width: 70px; height: 30px"  min="1" value="'+point_value+'"><label>Points</label>'+
                                 '</div>'+ 
                                 '<div class="col-1">'+
-                                    '<button class="btn rounded-circle  text-secondary" id="btn-other-q" style="box-shadow: none;" ><i class="fa-solid fa-pencil"></i></button>'+
-                                '</div>'+                                 
+                                    '<button class="btn other-question-edit rounded-circle  text-secondary"  style="box-shadow: none;" ><i class="fa-solid fa-pencil"></i></button>'+
+                                '</div>'+                                                                 
                             '</div>';
-
             $('#exam-other').append(_row);
+            $('#textarea-other-question').val("");
+        })
+        //Other Question edit
+        $(document).on("click",".other-question-edit", function(){
+            $(this).closest('.row').find('textarea[name="other-question"]').removeAttr("readonly");
+            $(this).closest('.row').find('input[name="point"]').removeAttr("readonly");
         })
      </script>
 </body>
