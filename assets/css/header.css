@@ -128,7 +128,7 @@ body{
 
 
 .semi-circle{
-  background: #2d3846;
+  background:#00458a;
   border-radius: 0 0 50% 50%;
   height: 30rem;
   left: -5%;
@@ -167,7 +167,7 @@ body{
 
 .banner i{
   font-size:4rem;
-  color:#2d3846;
+  color:#00458a;
 }
 
 .circle{
