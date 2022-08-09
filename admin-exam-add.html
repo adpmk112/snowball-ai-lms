@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ace Inspiration Exam Add</title>
     <link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./assets/css/admin-exam-add.css">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
@@ -14,7 +14,7 @@
 
     <section id="exam">
         <div class="container">
-            <div class="course-title">
+            <div class="course-title text-center">
                 <h3>Course Name</h3>
             </div>
             <div class="exam-form shadow  rounded ">
@@ -23,7 +23,7 @@
                         <div class="container">
                             <div class="row">
                                 <div style="text-align: right;">
-                                    <button class="btn text-secondary" style="font-size: 1.2em;"><i class="fa-solid fa-file-circle-plus"></i></button>
+                                    <button class="btn text-primary" style="font-size: 1.2em;"><i class="fa-solid fa-folder-plus me-1"></i>Create</button>
                                 </div>
                             </div>
                             <div class="row">
@@ -85,16 +85,11 @@
                             
                             <div class="row mt-1 mc-option" id="mc-option">
                                 <div class="col-8">
-                                    <input type="text" id="option-input" name="option" class="form-control" placeholder="Option 1">
+                                    <input type="radio" name="correct-ans" class="me-2"><label><input type="text" id="option-input" name="option" class="form-control" placeholder="Option 1"></label>
                                 </div>
-                                <div class="col-4">
-                                    <div class="row">
-                                        <div class="col-4">
+                                <div class="col-4">                                  
                                             <button  style="box-shadow: none;" class="btn rounded-circle option-plus text-success" ><i class="fa-solid fa-plus"></i></button>
-                                        </div>
-                                        <div class="col-8">
-                                            <input type="text" name="mc-answer" class=" col-8 form-control mc-answer" placeholder="Correct Answer">
-                                        </div>
+                                      
                                     </div>
                                 </div>
                             </div>
@@ -150,16 +145,16 @@
             var option_val = $('input[name="option"]').val();
             var div_row = '<div class="row mt-1 option-added">'+
                                 '<div class="col-8">'+
-                                    '<input type="text" name="option" class="form-control" placeholder="Option" readonly value="'+option_val+'">'+
+                                    '<input type="radio" name="correct-ans" class="me-2"><label><input type="text" id="option-input" name="option" class="form-control" placeholder="Option 1"></label>'+
                                 '</div>'+
                                 '<div class="col-4">'+
-                                    '<button class="btn option-edit rounded-circle text-success" style="box-shadow: none;" ><i class="fa-solid fa-pencil"></i></button>'+
+                                    '<button class="btn option-plus rounded-circle  text-secondary" style="box-shadow: none;" ><i class="fa-solid fa-plus"></i></button>'+
                                     '<button class="btn option-delete rounded-circle  text-danger" style="box-shadow: none;" ><i class="fa-solid fa-delete-left"></i></button>'+
-                                    '</div>'+
+                                '</div>'+
                             '</div>'
 
             $(this).closest('.m-choice').append(div_row);
-            $(this).closest('.m-choice').find('#option-input').val("");
+            //$(this).closest('.m-choice').find('#option-input').val("");
         })
 
         //Add Question
@@ -174,23 +169,21 @@
                                 '<div class="col-2">'+
                                     '<input type="number" class="form-control me-2" style="width: 60px; height: 30px" min="1" value="1"><label>Points</label>'+
                                 '</div>'+ 
-                                '<div class="col-1">'+
+                                '<div class="col-2  ">'+
+                                    '<button  class=" question-add btn rounded-circle  text-primary" style="box-shadow: none;"><i class="fa-solid fa-plus"></i></button>'+
                                     '<button  class=" question-remove btn rounded-circle  text-danger" style="box-shadow: none;"><i class="fa-solid fa-minus"></i></button>'+
                                 '</div>'+                                  
                             '</div> '+                               
                             '<div class="row mt-1" >'+
                                 '<div class="col-8">'+
-                                    '<input type="text" name="option" class="form-control" placeholder="Option..">'+
+                                    '<input type="radio" name="correct-ans" class="me-2"><label><input type="text" id="option-input" name="option" class="form-control" placeholder="Option 1"></label>'+
                                 '</div>'+
                                 '<div class="col-4">'+
-                                    '<div class="row">'+
-                                        '<div class="col-4">'+
+                                    
+                                        
                                             '<button  style="box-shadow: none;" class="btn rounded-circle option-plus text-success" ><i class="fa-solid fa-plus"></i></button>'+
-                                        '</div>'+
-                                        '<div class="col-8">'+
-                                            '<input type="text" name="mc-answer" class=" col-8 form-control mc-answer" placeholder="Correct Answer">'+
-                                        '</div>'+
-                                    '</div>'+
+                                        
+                                       
                                 '</div>'+
                             '</div>';
             $('#exam-content').append(_radio_question);
@@ -230,6 +223,7 @@
                                 '</div>'+ 
                                 '<div class="col-1">'+
                                     '<button class="btn other-question-edit rounded-circle  text-secondary"  style="box-shadow: none;" ><i class="fa-solid fa-pencil"></i></button>'+
+                                    '<button class="btn other-question-delete rounded-circle  text-danger"  style="box-shadow: none;" ><i class="fa-solid fa-delete-left"></i></button>'+
                                 '</div>'+                                                                 
                             '</div>';
             $('#exam-other').append(_row);
@@ -239,6 +233,11 @@
         $(document).on("click",".other-question-edit", function(){
             $(this).closest('.row').find('textarea[name="other-question"]').removeAttr("readonly");
             $(this).closest('.row').find('input[name="point"]').removeAttr("readonly");
+        })
+
+        //Other Question delete
+        $(document).on("click",".other-question-delete", function(){
+            $(this.closest('.row').remove());
         })
      </script>
 </body>
