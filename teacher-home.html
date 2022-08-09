@@ -1,45 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://kit.fontawesome.com/83e4876698.js"
-      crossorigin="anonymous"
-    ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="assets/css/header.css" />
-    <link rel="stylesheet" href="assets/css/main.css" />
-    <link rel="stylesheet" href="assets/css/styles.css" />
-    <script src="./assets/jquery/jquery.min.js"></script>
-    <script>
-      $(function () {
-        $('#header').load('teacher-header.html')
-      })
-    </script>
-    <script>
-      $(function () {
-        $('#footer').load('footer.html')
-      })
-    </script>
-  </head>
 
-  <body class="body-color">
-    <div id="header"></div>
-    <div class="semi-circle"></div>
-    <div class="d-flex flex-column">
-      <div
-        class="cards form-group flex-nowrap justify-content-between teacher-banner"
-      >
-        <!-- <a href="admin-student-page.html" class="unit-a">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+  <script src="https://kit.fontawesome.com/83e4876698.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="assets/css/header.css" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/batchdetails.css" />
+  <script src="./assets/jquery/jquery.min.js"></script>
+  <script>
+    $(function () {
+      $('#header').load('teacher-header.html')
+    })
+  </script>
+  <script>
+    $(function () {
+      $('#footer').load('footer.html')
+    })
+  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css" />
+  <script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+  <script src="assets/js/data.js"></script>
+  <link rel="stylesheet" href="assets/css/batchdetails.css" />
+  <script src="https://kit.fontawesome.com/83e4876698.js" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+</head>
+
+<body class="body-color">
+  <div id="header"></div>
+  <div class="semi-circle"></div>
+  <div class="d-flex flex-column">
+    <div class=" form-group " style=" height: auto; width: auto; margin-bottom: 0px ; ">
+      <div class="banner">
+        <div class="circle">
+          <i class="fa-solid fa-people-group"></i>
+        </div>
+        <div>
+          <h1>Batches</h1>
+          <h3>Total: 4</h3>
+        </div>
+      </div>
+    </div>
+    <div class="cards form-group custom-div1"
+      style=" height: auto; width: 90%; justify-content: left; margin-top: 0px;">
+
+      <!-- <a href="admin-student-page.html" class="unit-a">
           <div class="card-single cs2">
             <div>
               <h1>Student</h1>
@@ -53,69 +68,46 @@
             </div>
           </div>
         </a> -->
-        <!-- <a href="admin-course-page.html" class="unit-a">
-          <div class="card-single cs3">
-            <div>
-              <h1>Course</h1>
-            </div>
-            <div class="card-link">
-              <i class="fa-solid fa-book"></i>
-              <span id="num">13</span>
-              <a href="" class="btn btn-floating" data-mdb-ripple-color="dark">
-                <i class="fa-solid fa-circle-plus" id="add"></i>
-              </a>
-            </div>
-          </div>
-        </a> -->
-        <div class="input-group rounded custom-div1 w-25">
-          <input
-            type="search"
-            class="form-control rounded"
-            placeholder="Search"
-            aria-label="Search"
-            aria-describedby="search-addon"
-          />
-          <span class="input-group-text border-0" id="search-addon">
-            <i class="fas fa-search"></i>
-          </span>
-        </div>
-        <div class="custom-div2">
+      <a href="admin-course-page.html" class="unit-a">
+        <div class="card-single-teacher">
           <div>
-            <a href="teacher-batch-page.html" class="unit-a">
-              <div class="card-single cs4">
-                <div>
-                  <h1>Batch</h1>
-                </div>
-                <div class="card-link">
-                  <i class="fa-solid fa-person-chalkboard"></i>
-                  <span id="num">28</span>
-                  <a
-                    href=""
-                    class="btn btn-floating"
-                    data-mdb-ripple-color="dark"
-                  >
-                    <i class="fa-solid fa-circle-plus" id="add"></i>
-                  </a>
-                </div>
-              </div>
-            </a>
+            <h1>Batch 1</h1>
+          </div>
+          <div class="card-link">
+            <i class="fa-solid fa-people-group" style="color: white;"></i>
+            <span id="num" style="color:white ;">10</span>
+
           </div>
         </div>
-        <!-- <a href="admin-teacher-page.html" class="unit-a">
-          <div class="card-single cs1">
-            <div>
-              <h1>Teacher</h1>
-            </div>
-            <div class="card-link">
-              <i class="fa-solid fa-people-group"></i>
-              <span id="num">10</span>
-              <a href="" class="btn btn-floating" data-mdb-ripple-color="dark">
-                <i class="fa-solid fa-circle-plus" id="add"></i>
-              </a>
-            </div>
+      </a>
+      <a href="admin-course-page.html" class="unit-a">
+        <div class="card-single-teacher">
+          <div>
+            <h1>Batch 1</h1>
           </div>
-        </a> -->
-        <!-- <a href="admin-exam-page.html" class="unit-a">
+          <div class="card-link">
+            <i class="fa-solid fa-people-group" style="color: white;"></i>
+            <span id="num" style="color:white ;">10</span>
+
+          </div>
+        </div>
+      </a>
+      <a href="admin-course-page.html" class="unit-a">
+        <div class="card-single-teacher">
+          <div>
+            <h1>Batch 1</h1>
+          </div>
+          <div class="card-link">
+            <i class="fa-solid fa-people-group" style="color: white;"></i>
+            <span id="num" style="color:white ;">10</span>
+
+          </div>
+        </div>
+      </a>
+
+
+
+      <!-- <a href="admin-exam-page.html" class="unit-a">
           <div class="card-single cs5">
             <div>
               <h1>Exam</h1>
@@ -129,24 +121,170 @@
             </div>
           </div>
         </a> -->
+
+
+      <!-- <a href="admin-teacher-page.html" class="unit-a">
+          <div class="card-single cs1">
+            <div>
+              <h1>Teacher</h1>
+            </div>
+            <div class="card-link">
+              <i class="fa-solid fa-people-group"></i>
+              <span id="num">10</span>
+              <a href="" class="btn btn-floating" data-mdb-ripple-color="dark">
+                <i class="fa-solid fa-circle-plus" id="add"></i>
+              </a>
+            </div>
+          </div>
+        </a> -->
+      <!-- <a href="admin-exam-page.html" class="unit-a">
+          <div class="card-single cs5">
+            <div>
+              <h1>Exam</h1>
+            </div>
+            <div class="card-link">
+              <i class="fa-solid fa-paintbrush"></i>
+              <span id="num">17</span>
+              <a href="" class="btn btn-floating" data-mdb-ripple-color="white">
+                <i class="fa-solid fa-circle-plus" id="add"></i>
+              </a>
+            </div>
+          </div>
+        </a> -->
+    </div>
+
+    <!-- <div class="interface"></div>   -->
+    <div class="charts custom-div d-flex flex-column" style="width: 90%;">
+
+      <select name="cars" id="course" style="color: black; margin-left: 2rem; margin-top: 2rem; width: 300px;">
+        <option value="" selected>Current Batch</option>
+        <option value="">Java</option>
+        <option value="">C++</option>
+        <option value="">.Net</option>
+        <option value="">PHP</option>
+      </select>
+      <div style="margin: 50px;">
+        <div class="container2 " style="display: flex; justify-content: center; ">
+
+          <br />
+
+          <canvas id="myChart" style="height: 300px; width: 80%; "></canvas>
+        </div>
       </div>
 
-      <!-- <div class="interface"></div>   -->
-      <div class="charts custom-div d-flex flex-column">
-        <div class="container2 ms-5">
-          <h3>Current Batch</h3>
-          <br />
+    </div>
+    <div class="charts custom-div d-flex flex-column" style="width: 90%;">
 
-          <canvas id="myChart" style="width: 100%; max-width: 700px;"></canvas>
-        </div>
-        <div class="container2 ms-5">
-          <h3>Current Batch</h3>
-          <br />
+      <select name="cars" id="course" style="color: black; margin-left: 2rem; margin-top: 2rem; width: 300px; ">
+        <option value="" selected>Current Batch</option>
+        <option value="">Java</option>
+        <option value="">C++</option>
+        <option value="">.Net</option>
+        <option value="">PHP</option>
+      </select>
+      <div style="margin: 50px;">
+        <div class="mytabs">
+          <input type="radio" id="tabmarks" name="mytabs" checked />
+          <label for="tabmarks" id="lab">Marks</label>
+          <div class="tab">
+            <div class="mt-3 mb-4 d-flex justify-content-between">
+              <div>
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>Exam</option>
+                  <option value="1">Assignment</option>
+                </select>
+              </div>
+              <div class="add-list">
+                <!-- <label>Add Class</label>
+              <a href="classroom-add-page.html" class="btn btn-outline-success btn-floating" data-mdb-ripple-color="dark">
+                <i class="fa-solid fa-circle-plus"></i>
+              </a> -->
+              </div>
+            </div>
+            <table id="datatable7">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Mg Mg</th>
+                  <th>Ag Hla</th>
+                  <th>Min Oo</th>
+                  <th>Win Maw</th>
 
-          <canvas id="myChart2" style="width: 100%; max-width: 700px;"></canvas>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Final Exam</td>
+                  <td>80/100</td>
+                  <td>80/100</td>
+                  <td>80/100</td>
+                  <td>80/100</td>
+                  <td>
+                    <a href="" class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
+                      <i class="fa-regular fa-pen-to-square"></i>
+                    </a>
+                    <a href="" class="btn btn-outline-danger btn-floating" data-mdb-ripple-color="dark">
+                      <i class="fa-solid fa-circle-minus"></i>
+                    </a>
+                    <p>Add Marks Button</p>
+                  </td>
+                  <td></td>
+                </tr>
+              </tbody>
+              <tbody>
+                <tr>
+                  <td>Semi Exam</td>
+                  <td>80/100</td>
+                  <td>80/100</td>
+                  <td>80/100</td>
+                  <td>80/100</td>
+                  <td>
+                    <a href="" class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
+                      <i class="fa-regular fa-pen-to-square"></i>
+                    </a>
+                    <a href="" class="btn btn-outline-danger btn-floating" data-mdb-ripple-color="dark">
+                      <i class="fa-solid fa-circle-minus"></i>
+                    </a>
+                    <p>Add Marks Button</p>
+                  </td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <input type="radio" id="tabcomment" name="mytabs" />
+          <label for="tabcomment" id="lab">Comment</label>
+          <div class="tab" >
+            <div class="card" style="background-color: rgb(0, 140, 255); border-radius: 20px;">
+              <h5 class="card-header">Vedio 1</h5>
+              <div class="card-body">
+                <h5 class="card-title">Htet Wai Aung</h5>
+                <p class="card-text">Hi Kya Naw Pr sr mayy ma lo  dr ka di lo shi dl lay</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+            <div class="card" style="background-color: rgb(0, 140, 255); border-radius: 20px;">
+              <h5 class="card-header">Vedio 1</h5>
+              <div class="card-body">
+                <h5 class="card-title">Htet Wai Aung</h5>
+                <p class="card-text">Hi Kya Naw Pr sr mayy ma lo  dr ka di lo shi dl lay</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+            <div class="card" style="background-color: rgb(0, 140, 255); border-radius: 20px;">
+              <h5 class="card-header">Vedio 1</h5>
+              <div class="card-body">
+                <h5 class="card-title">Htet Wai Aung</h5>
+                <p class="card-text">Hi Kya Naw Pr sr mayy ma lo  dr ka di lo shi dl lay</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
 
     <div id="footer"></div>
     <script>
@@ -159,9 +297,19 @@
         'Clark',
         'Mg Mg',
         'Hla Hla',
+        'Pkar',
+        'Blake',
+        'Clark',
+        'Mg Mg',
+        'Hla Hla',
       ]
-      var yValues = [55, 73, 84, 45, 93, 69, 34, 70, 80, 90, 100]
+      var yValues = [55, 73, 84, 45, 93, 69, 34, 70, 80, 90, 100, 70, 80]
       var barColors = [
+        '#57c2de',
+        '#57c2de',
+        '#57c2de',
+        '#57c2de',
+        '#57c2de',
         '#57c2de',
         '#57c2de',
         '#57c2de',
@@ -180,14 +328,19 @@
             {
               backgroundColor: barColors,
               data: yValues,
+
             },
           ],
         },
         options: {
+          responsive: true,
+          // overflow
+          maintainAspectRatio: false,
           legend: { display: false },
           title: {
             display: true,
             text: 'Attend Count Per Student Data',
+
           },
         },
       })
@@ -235,5 +388,6 @@
         },
       })
     </script>
-  </body>
+</body>
+
 </html>

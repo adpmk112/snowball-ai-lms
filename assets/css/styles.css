@@ -261,9 +261,27 @@ transform: translateY(-7px);
             padding: 1rem;
             border-radius: 3px;
             border-radius: 25px;
-            box-shadow: 2px 2px 4px lavender;
+            /* box-shadow: 2px 2px 4px lavender; */
             
         }
+
+        .card-single-teacher {
+          margin-left: 5rem;
+          width: 300px;
+          height: 150px;
+          margin: 10px;
+          display: flex;
+          flex-direction: column;
+          /* align-items: ; */
+          padding: 1rem;
+          border-radius: 3px;
+          border-radius: 25px;
+          /* box-shadow: 2px 2px 4px lavender; */
+          color: white; 
+          background-color: #3c80da;
+          
+          
+      }
 
         .card1{
           margin-right: 5rem;
