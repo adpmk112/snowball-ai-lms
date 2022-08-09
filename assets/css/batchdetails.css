@@ -22,8 +22,8 @@ body{
     font-weight: bold;
     border-radius: 2rem;
     margin-left: 0.3rem;
-    color: #2D3845;
-    outline: 1px solid #2D3845;
+    color: #00458a;
+    outline: 1px solid #00458a;
 }
 
 .mytabs .tab{
@@ -46,8 +46,8 @@ body{
 }
 
 .mytabs input[type="radio"]:checked + #lab{
-    background: #2D3845;
-    outline: 1px solid #2D3845;
+    background: #00458a;
+    outline: 1px solid #00458a;
     color: #fff; 
 }
 

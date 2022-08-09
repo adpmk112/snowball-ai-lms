@@ -15,7 +15,6 @@
     ></script>
     <script src="assets/js/data.js"></script>
     <link rel="stylesheet" href="assets/css/batchdetails.css" />
-    <link rel="stylesheet" href="assets/css/styles.css" />
     <script
       src="https://kit.fontawesome.com/83e4876698.js"
       crossorigin="anonymous"
@@ -27,7 +26,6 @@
       crossorigin="anonymous"
     />
   </head>
-
   <body>
     <div id="courselist">
       <div class="bread-crumb d-flex justify-content-between width-90">
@@ -36,7 +34,12 @@
             <ol class="breadcrumb">
               <li class="breadcrumb-item">
                 <a class="text-decoration-none" href="admin-exam-page.html">
-                  Exam List
+                  exam List
+                </a>
+              </li>
+              <li class="breadcrumb-item">
+                <a class="text-decoration-none" href="admin-exam-page-2.html">
+                  exam Details
                 </a>
               </li>
             </ol>
@@ -46,12 +49,12 @@
       </div>
       <div class="mytabs">
         <input type="radio" id="tabunit" name="mytabs" checked="checked" />
-        <label for="tabunit" id="lab">exam List</label>
+        <label for="tabunit" id="lab">exam Name</label>
         <div class="tab">
           <div class="add-list">
-            <label>Add Exam</label>
+            <label>Add questions</label>
             <a
-              href="admin-exam-add.html"
+              href=""
               class="btn btn-outline-success btn-floating"
               data-mdb-ripple-color="dark"
             >
@@ -62,22 +65,24 @@
             <thead>
               <tr>
                 <th>Id</th>
-                <th>name</th>
-                <th>max-marks</th>
-                <th>Countdown</th>
-                <th>Type</th>
+                <th>Question</th>
+                <th>True Answer</th>
+                <th>Option 1</th>
+                <th>Option 2</th>
+                <th>Option 3</th>
+                <th>Option 4</th>
                 <th>Action</th>
-                <th>Details</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>01</td>
-                <td>Exam-1</td>
-                <td>90</td>
-                <td>1hr</td>
-                <td>File Upload</td>
-
+                <td>Whst is 1+1?</td>
+                <td>2</td>
+                <td>A</td>
+                <td>B</td>
+                <td>C</td>
+                <td>D</td>
                 <td>
                   <a
                     href=""
@@ -92,25 +97,17 @@
                     data-mdb-ripple-color="dark"
                   >
                     <i class="fa-solid fa-circle-minus"></i>
-                  </a>
-                </td>
-                <td>
-                  <a
-                    href="admin-exam-page-2.html"
-                    class="more-info btn btn-floating"
-                    data-mdb-ripple-color="dark"
-                  >
-                    <img class="more" src="./assets/img/option.png" alt="" />
                   </a>
                 </td>
               </tr>
               <tr>
                 <td>01</td>
-                <td>Exam-1</td>
-                <td>90</td>
-                <td>1hr</td>
-                <td>Multiple Choice</td>
-
+                <td>Whst is 1+1?</td>
+                <td>2</td>
+                <td>A</td>
+                <td>B</td>
+                <td>C</td>
+                <td>D</td>
                 <td>
                   <a
                     href=""
@@ -127,13 +124,29 @@
                     <i class="fa-solid fa-circle-minus"></i>
                   </a>
                 </td>
+              </tr>
+              <tr>
+                <td>01</td>
+                <td>Whst is 1+1?</td>
+                <td>2</td>
+                <td>A</td>
+                <td>B</td>
+                <td>C</td>
+                <td>D</td>
                 <td>
                   <a
-                    href="admin-exam-page-3.html"
-                    class="more-info btn btn-floating"
+                    href=""
+                    class="btn btn-outline-primary btn-floating"
                     data-mdb-ripple-color="dark"
                   >
-                    <img class="more" src="./assets/img/option.png" alt="" />
+                    <i class="fa-regular fa-pen-to-square"></i>
+                  </a>
+                  <a
+                    href=""
+                    class="btn btn-outline-danger btn-floating"
+                    data-mdb-ripple-color="dark"
+                  >
+                    <i class="fa-solid fa-circle-minus"></i>
                   </a>
                 </td>
               </tr>
