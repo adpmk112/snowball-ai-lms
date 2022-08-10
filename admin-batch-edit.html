@@ -12,51 +12,18 @@
   <link rel="stylesheet" href="assets/css/header.css">
 
   <title>Batch Edit</title>
-  <style>
-    * {
-      padding: 0;
-      margin: 0;
-      box-sizing: border-box;
-
-    }
-
-    .course-add-container {
-
-     
-      height: auto;
-      margin: 50px;
-      
-      display: flex;
-      justify-content: center;
-      border-radius: 5px;
-      flex-direction: column;
-
-    }
-
-    .btn1:hover {
-      border: 1px solid;
-    }
-
-    .part1 {
-      margin: auto;
-    }
-
-    .part2 {
-      margin-top: 40px;
-
-    }
-  </style>
+ 
 </head>
 
 <body>
   <div class=" course-add-container " id="course-add" >
 
-    <div class="bread-crumb d-flex justify-content-between width-90">
-      <div class="bread container-fluid">
+    <div class="bread-crumb1 d-flex justify-content-between width-90">
+      <div class="breadcrumb2 container-fluid">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
-              <a class="text-decoration-none" href="admin-Batch-page.html">
+              <a class="text-decoration-none" href="admin-batch-page.html">
                 Batch List
               </a>
             </li>
@@ -69,11 +36,12 @@
         </nav>
       </div>
     </div>
-    <div class="margin-button">
+    <div class="margin-button mb-4>
 
-      <a href="admin-Batch-page.html">
-        < Back</a>
 
+      
+        <a  href="admin-batch-page.html" class="text-decoration-none text-muted">
+         Back</a>
 
 
     </div>
@@ -88,19 +56,19 @@
       <div class="form-group">
         <label class="col-sm-2 col-form-label" for="id">Id:</label>
         <div class="col-sm-10 ">
-          <input type="text" class="form-control  mt-3 mb-5" id="id" placeholder="Enter Id" name="id">
+          <input style="width:300px" type="text" class="form-control " id="id" placeholder="Enter Id" name="id">
         </div>
       </div>
       <div class="form-group">
         <label class="col-sm-2 col-form-label" for="id">Name:</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="name" placeholder="Enter Name" name="name">
+          <input style="width:300px" type="text" class="form-control" id="name" placeholder="Enter Name" name="name">
         </div>
       </div>
-      <div class="form-group part2">
-        <label class="col-sm-2 col-form-label " for="id">Course:</label>
+      <div class="form-group part2 mb-3">
+        <label class="col-sm-2 col-form-label " for="id" >Course:</label>
         <div class="col-sm-10 ">
-        <select name="cars" id="course">
+        <select name="cars" id="course" style="width: 300px;">
           <option value="">Select</option>
           <option value="">Java</option>
           <option value="">C++</option>
@@ -109,10 +77,10 @@
         </select>
       </div>
     </div>
-    <div class="form-group part2">
+    <div class="form-group part2 mb-4 ">
         <label class="col-sm-2 col-form-label " for="id">Teacher:</label>
         <div class="col-sm-10 ">
-        <select name="cars" id="course">
+        <select name="cars" id="course" style="width: 300px;">
           <option value="">Select</option>
           <option value="">Jone</option>
           <option value="">Smith</option>
@@ -121,7 +89,7 @@
         </select>
       </div>
     </div>
-      <div class="col-sm-offset-2 col-sm-10 part2 ">
+      <div class="col-sm-offset-2 col-sm-10 part2 mb-4" >
         <button type="reset" class="btn btn-warning ">Reset</button>
         <button type="submit" class="btn btn-primary">Submit</button>
       </div>
