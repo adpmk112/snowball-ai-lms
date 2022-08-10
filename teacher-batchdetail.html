@@ -33,6 +33,19 @@
       nomodule
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
     ></script>
+
+    <style>
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      /* Firefox */
+      input[type="number"] {
+        -moz-appearance: textfield;
+      }
+    </style>
   </head>
 
   <body>
@@ -429,58 +442,93 @@
             </thead>
             <tbody>
               <tr>
+                <input type="hidden" name="exam-id" id="exam-id" value="1" />
                 <td>Final Exam</td>
-                <td>80/100</td>
-                <td>80/100</td>
-                <td>80/100</td>
-                <td>80/100</td>
+                <td>
+                  <input
+                    type="hidden"
+                    name="student-id"
+                    id="student-id"
+                    value="1"
+                  />
+                  <input
+                    type="number"
+                    class=""
+                    style="border: none; width: 30px; outline: none"
+                    min="0"
+                    max="100"
+                    value="0"
+                    id="mark"
+                    readonly
+                  />/100
+                </td>
+                <td>
+                  <input
+                    type="hidden"
+                    id="student-id"
+                    name="student-id"
+                    value="2"
+                  />
+                  <input
+                    type="number"
+                    class=""
+                    style="border: none; width: 30px; outline: none"
+                    min="0"
+                    max="100"
+                    value="0"
+                    id="mark"
+                    readonly
+                  />/100
+                </td>
+                <td>
+                  <input
+                    type="hidden"
+                    id="student-id"
+                    name="student-id"
+                    value="3"
+                  />
+                  <input
+                    type="number"
+                    class=""
+                    style="border: none; width: 30px; outline: none"
+                    min="0"
+                    max="100"
+                    value="0"
+                    id="mark"
+                    readonly
+                  />/100
+                </td>
+                <td>
+                  <input
+                    type="hidden"
+                    id="student-id"
+                    name="student-id"
+                    value="2"
+                  />
+                  <input
+                    type="number"
+                    class=""
+                    style="border: none; width: 30px; outline: none"
+                    min="0"
+                    max="100"
+                    value="0"
+                    id="mark"
+                    readonly
+                  />/100
+                </td>
                 <td>
                   <a
                     href=""
-                    class="btn btn-outline-primary btn-floating"
+                    class="btn btn-mark-edit btn-outline-primary btn-floating"
                     data-mdb-ripple-color="dark"
                   >
-                    <ion-icon name="checkmark-done-outline"></ion-icon>
-                    Add Mark
-                  </a>
-                  <a
-                    href=""
-                    class="btn btn-outline-danger btn-floating"
-                    data-mdb-ripple-color="dark"
-                  >
-                    <i class="fa-solid fa-circle-minus"></i>
+                    <i class="fa-regular fa-pen-to-square"></i>
                   </a>
                 </td>
                 <td></td>
               </tr>
             </tbody>
-            <tbody>
-              <tr>
-                <td>Semi Exam</td>
-                <td>80/100</td>
-                <td>80/100</td>
-                <td>80/100</td>
-                <td>80/100</td>
-                <td>
-                  <a
-                    href=""
-                    class="btn btn-outline-primary btn-floating"
-                    data-mdb-ripple-color="dark"
-                  >
-                    <ion-icon name="checkmark-done-outline"></ion-icon>
-                    Add Mark
-                  </a>
-                  <a
-                    href=""
-                    class="btn btn-outline-danger btn-floating"
-                    data-mdb-ripple-color="dark"
-                  >
-                    <i class="fa-solid fa-circle-minus"></i>
-                  </a>
-                </td>
-                <td></td>
-              </tr>
-            </tbody>
+            <tbody></tbody>
           </table>
         </div>
         <input type="radio" id="tabcomment" name="mytabs" />
@@ -622,5 +670,46 @@
         <div class="plus-icon"></div>
       </div>
     </div>
+
+    <script>
+      $(document).on("click", ".btn.btn-mark-edit", function (e) {
+        e.preventDefault();
+        var _input = $(this).closest("tr").find('input[type="number"]');
+        var edit_btn = $(this).find(".fa-pen-to-square");
+        if (edit_btn.length > 0) {
+          edit_btn
+            .removeClass("fa-pen-to-square")
+            .addClass("fa-solid fa-check");
+          _input.removeAttr("readonly");
+          _input.css("border", "1px solid red");
+        } else {
+          $(this)
+            .find(".fa-solid.fa-check")
+            .removeClass("fa-solid fa-check")
+            .addClass("fa-pen-to-square");
+          _input.attr("readonly", true);
+          _input.css("border", "none");
+          var marks = [];
+          var _tr = $(".fa-solid.fa-check").closest("tr");
+          var exam_id = _tr.find("#exam-id").val();
+          console.log(exam_id);
+          var _td = _tr.find("td");
+          console.log(_td.length);
+          _td.each(function () {
+            var student_mark = {};
+            if ($(this).find("#student-id").length > 0) {
+              student_mark["student_id"] = $(this).find("#student-id").val();
+            }
+            if ($(this).find("#mark").length > 0) {
+              student_mark["mark"] = $(this).find("#mark").val();
+            }
+            student_mark["exam_id"] = exam_id;
+            if (student_mark["student_id"] && student_mark["mark"])
+              marks.push(student_mark);
+          });
+          console.log(marks);
+        }
+      });
+    </script>
   </body>
 </html>
