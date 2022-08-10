@@ -12,13 +12,13 @@
     <script src="./assets/jquery/jquery.min.js"></script>
     <script>
       $(function () {
-        $('#header').load('header.html')
-      })
+        $("#header").load("header.html");
+      });
     </script>
     <script>
       $(function () {
-        $('#footer').load('footer.html')
-      })
+        $("#footer").load("footer.html");
+      });
     </script>
     <script
       src="https://kit.fontawesome.com/83e4876698.js"
@@ -36,8 +36,19 @@
         <h3>Batch 01</h3>
       </div>
     </div>
-    <section id="exam" style="margin-top: 8px;" class="custom-div">
-      <div class="container" id="exam-content" style="background-color: white;">
+    <section id="exam" style="margin-top: 8px" class="custom-div">
+      <div class="container" id="exam-content" style="background-color: white">
+        <div class="exam-header">
+          <div class="exam-title">
+            <h4 class="text-center">Final Exam</h4>
+            <div class="row">
+              <div class="col-6">
+                <span class="ms-2 mark " style="background:transparent ;" id="mark">100</span>Marks
+              </div>
+              <div id="count-time" class="col-6 text-end count-time"></div>
+            </div>
+          </div>
+        </div>
         <ul class="exam-body">
           <ol class="exam-list">
             <li class="exam-question">
@@ -171,7 +182,7 @@
         </ul>
         <!--End exam body-->
         <div class="exam-button m-5 from-control">
-          <button class="btn btn-success">Submit Answer</button>
+          <button id="submit" class="btn btn-success">Submit Answer</button>
         </div>
       </div>
       <!--End exam content-->
@@ -182,5 +193,62 @@
 
     <script src="assets/js/subject-carousel.js"></script>
     <script src="assets/js/header.js"></script>
+
+    <script>
+      //Exam countdown
+      var totalAmount = localStorage.getItem("countDown") || 0,
+        timeloop;
+
+      if (totalAmount) {
+        timeSet();
+      }
+
+      function timeSet() {
+        totalAmount--;
+        // Refresh value in localStorage
+        localStorage.setItem("countDown", totalAmount);
+
+        // If countdown is over, then remove value from storage and clear timeout
+        if (totalAmount < 0) {
+          localStorage.removeItem("countDown");
+          totalAmount = 0;
+          clearTimeout(timeloop);
+          return;
+        }
+
+        var hour = parseInt(totalAmount / 3600);
+        var minutes = parseInt((totalAmount % 3600) / 60);
+        var seconds = parseInt((totalAmount % 3660) % 60);
+
+        if (seconds < 10) seconds = "0" + seconds;
+        if (minutes < 10) minutes = "0" + minutes;
+
+        $("#count-time").text(hour + ":" + minutes + ":" + seconds);
+
+        timeloop = setTimeout(timeSet, 1000);
+      }
+
+      $(document).ready(function () {
+
+        //var reqVal = $("#request").val();
+        var parAmt = parseInt(3600);
+
+        if (timeloop) {
+          clearTimeout(timeloop);
+        }
+
+        totalAmount = parAmt;
+
+        //$("#request").val(" ");
+
+        timeSet();
+      });
+
+      $("#submit").on("click", function () {
+        totalAmount = 0;
+        clearTimeout(timeloop);
+        localStorage.removeItem("countDown");
+      });
+    </script>
   </body>
 </html>
