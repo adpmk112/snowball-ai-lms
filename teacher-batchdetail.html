@@ -8,6 +8,8 @@
       type="text/css"
       href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css"
     />
+    <link rel="stylesheet" href="./teacher-batchdetail-grid.css">
+
     <script
       type="text/javascript"
       charset="utf8"
@@ -281,7 +283,8 @@
             </tbody>
           </table>
         </div>
-        <input type="radio" id="tabattendance" name="mytabs" />
+        <!-- Attendance radio button-->
+        <input type="radio" id="tabattendance"  name="mytabs" />
         <label for="tabattendance" id="lab">Attendance</label>
         <div class="tab">
           <div class="add-list">
@@ -294,6 +297,7 @@
               <i class="fa-solid fa-circle-plus"></i>
             </a>
           </div>
+          <!-- Start Attendance Table-->
           <table id="datatable5">
             <thead>
               <tr>
@@ -307,18 +311,48 @@
             </thead>
             <tbody>
               <tr>
-                <td>12-01-2022</td>
-                <td>present</td>
-                <td>absent</td>
-                <td>present</td>
-                <td>absent</td>
+                <td>
+                  <input type="date" class="form-control" name="attend-date" id="attend-date"  value="12-01-2022">
+                </td>
+                <td class="stu-attendance">
+                  <input type="hidden" id="student-id" value="student-id" name="student-id">
+                  <select class="form-control" name="attend-type" class="attend-type" id="attend-type" >
+                    <option selected value="present">present</option>
+                    <option value="absent">absent</option>
+                    <option value="leave">leave</option>                    
+                  </select>
+                </td>
+                <td class="stu-attendance">
+                  <input type="hidden" id="student-id" value="student-id" name="student-id">
+                  <select class="form-control" name="attend-type" class="attend-type" id="attend-type" >
+                    <option selected value="present">present</option>
+                    <option value="absent">absent</option>
+                    <option value="leave">leave</option>                    
+                  </select>
+                </td >
+                <td class="stu-attendance">
+                  <input type="hidden" id="student-id" value="student-id" name="student-id">
+                  <select class="form-control" name="attend-type" class="attend-type" id="attend-type" >
+                    <option selected value="present">present</option>
+                    <option value="absent">absent</option>
+                    <option value="leave">leave</option>                    
+                  </select>
+                </td>
+                <td class="stu-attendance">
+                  <input type="hidden" id="student-id" value="student-id" name="student-id">
+                  <select class="form-control" name="attend-type" class="attend-type" id="attend-type" >
+                    <option selected value="present">present</option>
+                    <option value="absent">absent</option>
+                    <option value="leave">leave</option>                    
+                  </select>
+                </td>
                 <td>
                   <a
                     href=""
-                    class="btn btn-outline-primary btn-floating"
+                    class="btn btn-attendance-edit btn-outline-primary btn-floating"
                     data-mdb-ripple-color="dark"
                   >
-                    <i class="fa-regular fa-pen-to-square"></i>
+                    <i class="fa-regular  fa-pen-to-square"></i>
                   </a>
                   <a
                     href=""
@@ -330,7 +364,7 @@
                 </td>
               </tr>
             </tbody>
-          </table>
+          </table> <!-- End attendance table-->
         </div>
         <input type="radio" id="tabclassroom" name="mytabs" />
         <label for="tabclassroom" id="lab">Classroom</label>
@@ -428,6 +462,8 @@
             </a> -->
             </div>
           </div>
+
+          <!-- Mark Table -->
           <table id="datatable7">
             <thead>
               <tr>
@@ -528,8 +564,8 @@
                 <td></td>
               </tr>
             </tbody>
-            <tbody></tbody>
-          </table>
+            
+          </table><!-- End mark Table-->
         </div>
         <input type="radio" id="tabcomment" name="mytabs" />
         <label for="tabcomment" id="lab">Comment</label>
@@ -671,45 +707,7 @@
       </div>
     </div>
 
-    <script>
-      $(document).on("click", ".btn.btn-mark-edit", function (e) {
-        e.preventDefault();
-        var _input = $(this).closest("tr").find('input[type="number"]');
-        var edit_btn = $(this).find(".fa-pen-to-square");
-        if (edit_btn.length > 0) {
-          edit_btn
-            .removeClass("fa-pen-to-square")
-            .addClass("fa-solid fa-check");
-          _input.removeAttr("readonly");
-          _input.css("border", "1px solid red");
-        } else {
-          $(this)
-            .find(".fa-solid.fa-check")
-            .removeClass("fa-solid fa-check")
-            .addClass("fa-pen-to-square");
-          _input.attr("readonly", true);
-          _input.css("border", "none");
-          var marks = [];
-          var _tr = $(".fa-solid.fa-check").closest("tr");
-          var exam_id = _tr.find("#exam-id").val();
-          console.log(exam_id);
-          var _td = _tr.find("td");
-          console.log(_td.length);
-          _td.each(function () {
-            var student_mark = {};
-            if ($(this).find("#student-id").length > 0) {
-              student_mark["student_id"] = $(this).find("#student-id").val();
-            }
-            if ($(this).find("#mark").length > 0) {
-              student_mark["mark"] = $(this).find("#mark").val();
-            }
-            student_mark["exam_id"] = exam_id;
-            if (student_mark["student_id"] && student_mark["mark"])
-              marks.push(student_mark);
-          });
-          console.log(marks);
-        }
-      });
-    </script>
+  <script src="./teacher-batchdetail-grid.js"></script> 
+
   </body>
 </html>
