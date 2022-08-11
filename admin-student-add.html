@@ -36,6 +36,7 @@
                                 <th class="align-middle">Password</th>
                                 <th class="align-middle">Name</th>
                                 <th>
+                                    <span id="total-student">Total: 1</span>
                                     <button type="submit" class="btn text-primary"><i class="fa-solid fa-file me-1"></i>Save</button>
                                 </th>
                             </tr>                       
@@ -88,6 +89,7 @@
                         '</tr>';
             $("#student-table").append(_row);
             minRow ++;
+            $("#total-student").text('Total : '+minRow);
         })
 
 
@@ -97,6 +99,7 @@
             if(minRow > 1){
                 $(this).parent().closest('tr').remove();
                 minRow--;
+                $("#total-student").text('Total : '+minRow);
             }
         })
        
