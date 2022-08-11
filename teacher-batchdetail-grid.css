@@ -1,0 +1,15 @@
+
+input[name="attend-date"], input:disabled{
+    border: none ; 
+    outline: none; 
+    width: 135px;
+    cursor: pointer;
+    background: transparent;
+}
+
+select[name="attend-type"]{
+    width: 80px; border: none; outline: none;
+    cursor: pointer;
+    margin: 0px;
+}
+
