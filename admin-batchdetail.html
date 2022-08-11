@@ -259,6 +259,7 @@
               <i class="fa-solid fa-circle-plus"></i>
             </a>
           </div>
+          <!-- Start Attendance Table-->
           <table id="datatable5">
             <thead>
               <tr>
@@ -272,18 +273,48 @@
             </thead>
             <tbody>
               <tr>
-                <td>12-01-2022</td>
-                <td>present</td>
-                <td>absent</td>
-                <td>present</td>
-                <td>absent</td>
+                <td>
+                  <input type="date" class="form-control" name="attend-date" id="attend-date"  value="12-01-2022">
+                </td>
+                <td class="stu-attendance">
+                  <input type="hidden" id="student-id" value="student-id" name="student-id">
+                  <select class="form-control" name="attend-type" class="attend-type" id="attend-type" >
+                    <option selected value="present">present</option>
+                    <option value="absent">absent</option>
+                    <option value="leave">leave</option>                    
+                  </select>
+                </td>
+                <td class="stu-attendance">
+                  <input type="hidden" id="student-id" value="student-id" name="student-id">
+                  <select class="form-control" name="attend-type" class="attend-type" id="attend-type" >
+                    <option selected value="present">present</option>
+                    <option value="absent">absent</option>
+                    <option value="leave">leave</option>                    
+                  </select>
+                </td >
+                <td class="stu-attendance">
+                  <input type="hidden" id="student-id" value="student-id" name="student-id">
+                  <select class="form-control" name="attend-type" class="attend-type" id="attend-type" >
+                    <option selected value="present">present</option>
+                    <option value="absent">absent</option>
+                    <option value="leave">leave</option>                    
+                  </select>
+                </td>
+                <td class="stu-attendance">
+                  <input type="hidden" id="student-id" value="student-id" name="student-id">
+                  <select class="form-control" name="attend-type" class="attend-type" id="attend-type" >
+                    <option selected value="present">present</option>
+                    <option value="absent">absent</option>
+                    <option value="leave">leave</option>                    
+                  </select>
+                </td>
                 <td>
                   <a
                     href=""
-                    class="btn btn-outline-primary btn-floating"
+                    class="btn btn-attendance-edit btn-outline-primary btn-floating"
                     data-mdb-ripple-color="dark"
                   >
-                    <i class="fa-regular fa-pen-to-square"></i>
+                    <i class="fa-regular  fa-pen-to-square"></i>
                   </a>
                   <a
                     href=""
@@ -295,7 +326,7 @@
                 </td>
               </tr>
             </tbody>
-          </table>
+          </table> <!-- End attendance table-->
         </div>
         <input type="radio" id="tabclassroom" name="mytabs" />
         <label for="tabclassroom" id="lab">Classroom</label>
@@ -562,5 +593,6 @@
       nomodule
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
     ></script>
+    <script src="./assets/js/admin-batch-detail.js"></script>
   </body>
 </html>
