@@ -25,13 +25,13 @@
 
     <script>
       $(function () {
-        $("#header").load("header.html");
-      });
+        $('#header').load('header.html')
+      })
     </script>
     <script>
       $(function () {
-        $("#footer").load("footer.html");
-      });
+        $('#footer').load('footer.html')
+      })
     </script>
     <script
       src="https://kit.fontawesome.com/83e4876698.js"
@@ -48,14 +48,14 @@
         <h1>Exams</h1>
       </div>
     </div>
-    <div class="class-margin custom-div" style="margin-top: 8px">
-      <div class="mytabs">
-        <input type="radio" id="tabupcoming" name="mytabs" checked="checked" />
-        <label for="tabupcoming" id="lab">Upcoming</label>
-        <div class="tab exam-card-container">
+    <div class="class-margin custom-div" style="margin-top: 8px;">
+      <div class="mytabs1">
+        <input type="radio" id="tabupcoming" name="mytabs1" checked="checked" />
+        <label for="tabupcoming" id="lab1">Upcoming</label>
+        <div class="tab1 exam-card-container">
           <div class="exam-card">
             <a href="student-exam.html" class="exam-confirm">
-              <div style="max-width: 100%">
+              <div style="max-width: 100%;">
                 <div class="card-header exam-text">Core Java Test</div>
                 <div class="card-body">
                   <h5 class="card-title exam-text">Multiple Choice</h5>
@@ -71,7 +71,7 @@
 
           <div class="exam-card">
             <a href="student-exam.html" class="exam-confirm">
-              <div style="max-width: 100%">
+              <div style="max-width: 100%;">
                 <div class="card-header exam-text">Core Java Test</div>
                 <div class="card-body">
                   <h5 class="card-title exam-text">Code Test</h5>
@@ -86,11 +86,11 @@
           </div>
         </div>
 
-        <input type="radio" id="tabprevious" name="mytabs" />
-        <label for="tabprevious" id="lab">Previous</label>
-        <div class="tab exam-card-container">
+        <input type="radio" id="tabprevious" name="mytabs1" />
+        <label for="tabprevious" id="lab1">Previous</label>
+        <div class="tab1 exam-card-container">
           <div class="exam-card">
-            <div style="max-width: 100%">
+            <div style="max-width: 100%;">
               <div class="card-header exam-text">Entrance Exam</div>
               <div class="card-body">
                 <h5 class="card-title exam-text">Multiple Choice</h5>
@@ -100,7 +100,7 @@
           </div>
 
           <div class="exam-card">
-            <div style="max-width: 100%">
+            <div style="max-width: 100%;">
               <div class="card-header exam-text">Java Fundamental</div>
               <div class="card-body">
                 <h5 class="card-title exam-text">Code Test</h5>
@@ -113,7 +113,7 @@
     </div>
     <section
       class="gradient-custom custom-comment-box"
-      style="background-color: rgb(255, 255, 255)"
+      style="background-color: rgb(255, 255, 255);"
     >
       <div class="container my-5 py-5">
         <div class="row d-flex justify-content-center">
@@ -331,7 +331,7 @@
 
                     <div
                       class="card-footer py-3 border-0"
-                      style="background-color: #f8f9fa"
+                      style="background-color: #f8f9fa;"
                     >
                       <div class="d-flex flex-start w-100">
                         <img
@@ -346,7 +346,7 @@
                             class="form-control"
                             id="textAreaExample"
                             rows="4"
-                            style="background: #fff"
+                            style="background: #fff;"
                           ></textarea>
                           <label class="form-label" for="textAreaExample">
                             Message
@@ -383,25 +383,23 @@
     <script>
       // $(document).on('click','a .exam-confirm',function(e){
       //   e.preventDefault();
-      $(document).ready(function(){
-        $("a.exam-confirm").confirm({
-          closeIcon :true,
-          theme: "Material",
+      $(document).ready(function () {
+        $('a.exam-confirm').confirm({
+          closeIcon: true,
+          theme: 'Material',
           //icon: 'fa-solid fa-warning',
-          
-          title: "Exam will start now!",
-          content:
-            "When time is up, result will be auto saved. Are you sure to continue! ",
-          animation: "Scale",
-          buttons: {
-            Yes: function(){              
-              window.location = "student-exam.html";
-            },
-            No: function(){
 
-            }
-          }
-        });
+          title: 'Exam will start now!',
+          content:
+            'When time is up, result will be auto saved. Are you sure to continue! ',
+          animation: 'Scale',
+          buttons: {
+            Yes: function () {
+              window.location = 'student-exam.html'
+            },
+            No: function () {},
+          },
+        })
       })
 
       //})
