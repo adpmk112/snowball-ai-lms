@@ -17,15 +17,22 @@ body{
 }
 
 .mytabs #lab{
-    padding: 11px 20px;
+    padding: 6px 20px;
     background: #fff;
     font-weight: bold;
-    border-radius: 2rem;
-    margin-left: 0.3rem;
+    border-radius: 30px;
+    margin: 5px 5px 0px 0px;
     color: #00458a;
-    outline: 1px solid #00458a;
+    border : .5px solid #1775d3;
+    outline: none;
+    transition: all 0.5s;
 }
-
+.mytabs #lab:hover{
+    cursor: pointer;
+    background: #1775d3;
+    outline:none;
+    color: #fff; 
+}
 .mytabs .tab{
     width: 100%;
     padding: 11px;
@@ -46,8 +53,8 @@ body{
 }
 
 .mytabs input[type="radio"]:checked + #lab{
-    background: #00458a;
-    outline: 1px solid #00458a;
+    background: #116ac4;
+    outline: none;
     color: #fff; 
 }
 
@@ -65,7 +72,9 @@ body{
 }
 
 
-input[name="attend-date"], input:disabled{
+input[name="attend-date"],
+input[type="date"],
+ input:disabled{
     border: none ; 
     outline: none; 
     width: 135px;

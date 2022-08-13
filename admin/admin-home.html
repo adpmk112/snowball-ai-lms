@@ -10,26 +10,14 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
-    <script
-      src="https://kit.fontawesome.com/83e4876698.js"
-      crossorigin="anonymous"
-    ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    
+   
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="assets/css/header.css" />
-    <link rel="stylesheet" href="assets/css/main.css" />
-    <link rel="stylesheet" href="assets/css/styles.css" />
-    <script src="./assets/jquery/jquery.min.js"></script>
-    <script>
-      $(function () {
-        $('#header').load('admin-header.html')
-      })
-    </script>
-    <script>
-      $(function () {
-        $('#footer').load('footer.html')
-      })
-    </script>
+    <link rel="stylesheet" href="../assets/css/header.css" />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link rel="stylesheet" href="../assets/css/styles.css" />
+
+    
   </head>
 
   <body class="body-color">
@@ -51,7 +39,7 @@
             </div>
           </div>
         </a> -->
-        <a href="admin-course-page.html" class="unit-a">
+        <a href="./admin-course.html" class="unit-a">
           <div class="card-single cs3">
             <div>
               <h1>Course</h1>
@@ -65,7 +53,7 @@
             </div>
           </div>
         </a>
-        <a href="admin-batch-page.html" class="unit-a">
+        <a href="admin-batch.html" class="unit-a">
           <div class="card-single cs4">
             <div>
               <h1>Batch</h1>
@@ -79,7 +67,7 @@
             </div>
           </div>
         </a>
-        <a href="admin-teacher-page.html" class="unit-a">
+        <a href="admin-teacher.html" class="unit-a">
           <div class="card-single cs1">
             <div>
               <h1>Teacher</h1>
@@ -93,20 +81,7 @@
             </div>
           </div>
         </a>
-        <!-- <a href="admin-exam-page.html" class="unit-a">
-          <div class="card-single cs5">
-            <div>
-              <h1>Exam</h1>
-            </div>
-            <div class="card-link">
-              <i class="fa-solid fa-paintbrush"></i>
-              <span id="num">17</span>
-              <a href="" class="btn btn-floating" data-mdb-ripple-color="white">
-                <i class="fa-solid fa-circle-plus" id="add"></i>
-              </a>
-            </div>
-          </div>
-        </a> -->
+      
       </div>
 
       <!-- <div class="interface"></div>   -->
@@ -127,6 +102,20 @@
     </div>
 
     <div id="footer"></div>
+
+    <script src="../assets/jquery/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/83e4876698.js" crossorigin="anonymous" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script>
+      $(function () {
+        $('#header').load('admin-header.html')
+      })
+    </script>
+    <script>
+      $(function () {
+        $('#footer').load('../footer.html')
+      })
+    </script>
     <script>
       var xValues = [
         'Smith',
@@ -213,5 +202,6 @@
         },
       })
     </script>
+
   </body>
 </html>
