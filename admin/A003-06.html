@@ -41,15 +41,12 @@
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                      <a class="text-decoration-none" href="admin-batch.html">
+                      <a class="text-decoration-none" href="A003.html">
                         Batch List
                       </a>
                     </li>
                     <li class="breadcrumb-item">
-                      <a
-                        class="text-decoration-none"
-                        href="admin-batch-detail.html"
-                      >
+                      <a class="text-decoration-none" href="A003-03.html">
                         Batch Details
                       </a>
                     </li>
@@ -61,10 +58,10 @@
           <div class="">
             <a
               class="text-decoration-none text-muted"
-              href="admin-batch-detail.html"
+              href="A003-03.html"
               style="margin-top: 0px;"
             >
-              &lt; Back
+              < Back
             </a>
           </div>
 
@@ -93,8 +90,8 @@
                   type="date"
                   class="form-control"
                   id="name"
-                  placeholder="Enter Name"
-                  name="name"
+                  placeholder="Enter Date"
+                  name="date"
                 />
               </div>
             </div>
@@ -109,25 +106,17 @@
                 />
               </div>
             </div>
-            <!-- <div class="row mb-3">
-                      <label class="col-sm-4 col-form-label" for="id">Live Sessions link:</label>
-                      <div class="col-sm-8">
-                          <input type="text" class="form-control" id="name" placeholder="Enter Name" name="name">
-                      </div>
-                  </div> -->
             <div class="row mb-3">
               <label class="col-sm-4 col-form-label" for="id">
-                Record Video:
+                Live Session link:
               </label>
               <div class="col-sm-8">
                 <input
-                  type="file"
+                  type="text"
                   class="form-control"
-                  id="video"
-                  accept="video/mp4,video/x-m4v,video/*"
-                  placeholder="Enter Video"
-                  name="video"
-                  multiple
+                  id="name"
+                  placeholder="Enter Link"
+                  name="link"
                 />
               </div>
             </div>
@@ -135,7 +124,7 @@
               <div class="col-sm-4"></div>
               <div class="col-sm-8 text-end">
                 <button type="reset" class="btn btn-secondary">Reset</button>
-                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="submit" class="btn btn-primary">Add</button>
               </div>
             </div>
           </form>
@@ -163,7 +152,7 @@
     ></script>
     <script>
       $(function () {
-        $('#header').load('admin-header.html')
+        $('#header').load('A006.html')
       })
     </script>
     <script>
@@ -171,7 +160,6 @@
         $('#footer').load('../footer.html')
       })
     </script>
-
     <script
       type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"

@@ -20,7 +20,7 @@
       </div>
       <div>
         <h1>Exam</h1>
-        <h3></h3>
+        <h3>Course</h3>
       </div>
     </div>
     <div class="custom-div margin-top-8">        
@@ -40,8 +40,7 @@
                                         <span>100 Points</span>
                                     </div>
                                     <div class="col-4 ">
-                                        <button class=" float-end btn text-danger" style="font-size: 1em;"><i class="fa-solid me-1"></i>Update</button>
-                                        <a href="./admin-course-detail.html" class=" float-end btn text-primary" style="font-size: 1em;"><i class="fa-solid fa-xmar  me-1"></i>Cancel</a>
+                                        <button class=" float-end btn text-primary" style="font-size: 1em;"><i class="fa-solid fa-folder-plus me-1"></i>Create</button>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -51,7 +50,7 @@
                                 </div>
                                 <div class="row mt-1 d-flex">
                                     <div class="col-4">
-                                        <input type="text" class="form-control" name="name" placeholder="Exam Name" value="Final Exam">
+                                        <input type="text" class="form-control" name="name" placeholder="Exam Name">
                                     </div>
                                     <div class="col-4">
                                         <div class="form-check form-check-inline">
@@ -88,7 +87,7 @@
     
                         <div class="exam-content p-3  rounded " id="exam-content">
     
-                            <div class="m-choice card-body border  rounded p-2" id="m-choice">
+                            <div class="m-choice card-body border border-secondary rounded p-2" id="m-choice">
                                 <div class="row">
                                     <div class="col-8 mr-auto">
                                         <textarea name="mc-question" class="col-10 form-control question border-none" id="question" rows="1" placeholder="Your question..."></textarea>
@@ -101,7 +100,7 @@
                                     </div>                                  
                                 </div>                                 
                                 
-                                <div class="row mt-1 option-added" id="mc-option">
+                                <div class="row mt-1 mc-option" id="mc-option">
                                     <div class="col-8">
                                         <input type="radio" name="correct-ans" class="me-2"><label><input type="text" id="option-input" name="option" class="form-control" placeholder="Option 1"></label>
                                     </div>
@@ -109,22 +108,8 @@
                                                 <button  style="box-shadow: none;" class="btn rounded-circle option-plus text-success" ><i class="fa-solid fa-plus"></i></button>
                                           
                                         </div>
-                                </div>
-
-                                <!-- Option Added-->
-                                <div class="row mt-1 option-added">
-                                    <div class="col-8">
-                                        <input type="radio" name="correct-ans" class="me-2"><label><input type="text" id="option-input" name="option" class="form-control" placeholder="Option 1"></label>
-                                    </div>
-                                    <div class="col-4">
-                                        <button class="btn option-plus rounded-circle  text-secondary" style="box-shadow: none;" ><i class="fa-solid fa-plus"></i></button>
-                                        <button class="btn option-delete rounded-circle  text-danger" style="box-shadow: none;" ><i class="fa-solid fa-delete-left"></i></button>
                                     </div>
                                 </div>
-
-
-                            </div><!-- A question -->
-
                                                                                                                                              
     
                             </div><!-- End Multiple choice question-->
@@ -154,7 +139,7 @@
     <script src="https://kit.fontawesome.com/83e4876698.js" crossorigin="anonymous"></script>
     <script>
         $(function(e){           
-            $("#header").load("./admin-header.html");
+            $("#header").load("./A006.html");
         })
     </script>
     <script>
