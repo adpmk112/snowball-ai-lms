@@ -16,12 +16,14 @@
       type="text/css"
       href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css"
     />
-    <link rel="stylesheet" href="../assets/css/batchdetails.css" />   
+    <link rel="stylesheet" href="../assets/css/batchdetails.css" />
     <link rel="stylesheet" href="../assets/css/courselist.css" />
     <link rel="stylesheet" href="../assets/css/styles.css" />
     <link rel="stylesheet" href="../assets/css/header.css" />
-    <link rel="stylesheet" href="../assets/jquery-confirm/jquery-confirm.min.css">
-    
+    <link
+      rel="stylesheet"
+      href="../assets/jquery-confirm/jquery-confirm.min.css"
+    />
   </head>
 
   <body style="background-color: rgb(235, 235, 235);">
@@ -38,19 +40,18 @@
     </div>
     <div class="custom-div margin-top-8">
       <div id="courselist" class="width-100">
-
         <div id="batchdetail">
           <div class="bread-crumb d-flex justify-content-between width-90">
             <div class="bread container-fluid">
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item">
-                    <a class="text-decoration-none" href="admin-batch.html">
+                    <a class="text-decoration-none" href="A003.html">
                       Batch List
                     </a>
                   </li>
                   <li class="breadcrumb-item">
-                    <a class="text-decoration-none" href="admin-batch-detail.html">
+                    <a class="text-decoration-none" href="A003-03.html">
                       Batch Details
                     </a>
                   </li>
@@ -82,8 +83,22 @@
                   <tr>
                     <td>Servlet Part 1</td>
                     <td>Not Added</td>
-                    <td><input type="date" class="form-control" name="start-date" value=""></td>
-                    <td><input type="date" class="form-control" name="end-date" value=""></td>
+                    <td>
+                      <input
+                        type="date"
+                        class="form-control"
+                        name="start-date"
+                        value=""
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="date"
+                        class="form-control"
+                        name="end-date"
+                        value=""
+                      />
+                    </td>
                     <td>
                       <a
                         href=""
@@ -92,7 +107,7 @@
                       >
                         <i class="fa-regular fa-pen-to-square"></i>
                       </a>
-    
+
                       <!-- <p>Custom Assignment add button htae pay pr</p> -->
                     </td>
                   </tr>
@@ -101,8 +116,22 @@
                   <tr>
                     <td>Servlet Part 2</td>
                     <td>In Progess</td>
-                    <td><input type="date" class="form-control" name="start-date" value=""></td>
-                    <td><input type="date" class="form-control" name="end-date" value=""></td>
+                    <td>
+                      <input
+                        type="date"
+                        class="form-control"
+                        name="start-date"
+                        value=""
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="date"
+                        class="form-control"
+                        name="end-date"
+                        value=""
+                      />
+                    </td>
                     <td>
                       <a
                         href=""
@@ -111,21 +140,21 @@
                       >
                         <i class="fa-regular fa-pen-to-square"></i>
                       </a>
-    
+
                       <!-- <p>Custom Assignment add button htae pay pr</p> -->
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
-    
+
             <input type="radio" id="tabstudent" name="mytabs" />
             <label for="tabstudent" id="lab">Student</label>
             <div class="tab">
               <div class="add-list">
                 <label>Add Student List</label>
                 <a
-                  href="admin-batch-student-add.html"
+                  href="A003-04.html"
                   class="btn btn-outline-success btn-floating"
                   data-mdb-ripple-color="dark"
                 >
@@ -137,7 +166,7 @@
                   <tr>
                     <th>Student Id</th>
                     <th>Student Name</th>
-                    <th>Password</th>                    
+                    <th>Password</th>
                     <th>Attendance %</th>
                     <th>Action</th>
                   </tr>
@@ -150,7 +179,7 @@
                     <td>70%</td>
                     <td>
                       <a
-                        href=""
+                        href=" A003-05.html"
                         class="btn btn-outline-primary btn-floating student-edit"
                         data-mdb-ripple-color="dark"
                       >
@@ -168,7 +197,7 @@
                 </tbody>
               </table>
             </div>
-    
+
             <input type="radio" id="tabteacher" name="mytabs" />
             <label for="tabteacher" id="lab">Teacher</label>
             <div class="tab">
@@ -189,7 +218,7 @@
                   <tr>
                     <th>Teacher Photo</th>
                     <th>Name</th>
-    
+
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -197,9 +226,8 @@
                   <tr>
                     <td>Photo</td>
                     <td>Tr Su</td>
-    
+
                     <td>
-                      
                       <a
                         href=""
                         class="btn btn-outline-danger btn-floating remove-teacher"
@@ -212,16 +240,16 @@
                 </tbody>
               </table>
             </div>
-    
+
             <input type="radio" id="tabexam" name="mytabs" />
             <label for="tabexam" id="lab">Exam-Schedule</label>
             <div class="tab">
               <div class="add-list">
-              <!-- <label>Add Exam List</label>
+                <!-- <label>Add Exam List</label>
               <a href="exam-add-page.html" class="btn btn-outline-success btn-floating" data-mdb-ripple-color="dark">
                 <i class="fa-solid fa-circle-plus"></i>
               </a> -->
-            </div>
+              </div>
               <table id="datatable4">
                 <thead>
                   <tr>
@@ -235,16 +263,30 @@
                 <tbody>
                   <tr>
                     <td>Exam 1</td>
-                    <td><input type="date" class="form-control" name="start-date" id="start-date"></td>
-                    <td><input type="date" class="form-control" name="end-date" id="end-date"></td>
+                    <td>
+                      <input
+                        type="date"
+                        class="form-control"
+                        name="start-date"
+                        id="start-date"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="date"
+                        class="form-control"
+                        name="end-date"
+                        id="end-date"
+                      />
+                    </td>
                     <td>Pending</td>
                     <td>
                       <a
-                        href="admin-exam-schedule-edit-page.html"
+                        href=""
                         class="btn btn-outline-primary btn-floating btn-exam-schedule-edit"
                         data-mdb-ripple-color="dark"
                       >
-                      <i class="fa-regular  fa-pen-to-square"></i>
+                        <i class="fa-regular fa-pen-to-square"></i>
                       </a>
                       <a
                         href=""
@@ -253,7 +295,6 @@
                       >
                         <i class="fa-solid fa-circle-minus"></i>
                       </a>
-                      
                     </td>
                   </tr>
                 </tbody>
@@ -289,38 +330,84 @@
                 <tbody>
                   <tr>
                     <td>
-                      <input type="date" class="form-control" name="attend-date" id="attend-date"  value="12-01-2022">
+                      <input
+                        type="date"
+                        class="form-control"
+                        name="attend-date"
+                        id="attend-date"
+                        value="12-01-2022"
+                      />
                     </td>
                     <td class="stu-attendance">
-                      <input type="hidden" id="student-id" value="student-id" name="student-id">
-                      <select class="form-control" name="attend-type" class="attend-type" id="attend-type" >
+                      <input
+                        type="hidden"
+                        id="student-id"
+                        value="student-id"
+                        name="student-id"
+                      />
+                      <select
+                        class="form-control"
+                        name="attend-type"
+                        class="attend-type"
+                        id="attend-type"
+                      >
                         <option selected value="present">present</option>
                         <option value="absent">absent</option>
-                        <option value="leave">leave</option>                    
+                        <option value="leave">leave</option>
                       </select>
                     </td>
                     <td class="stu-attendance">
-                      <input type="hidden" id="student-id" value="student-id" name="student-id">
-                      <select class="form-control" name="attend-type" class="attend-type" id="attend-type" >
+                      <input
+                        type="hidden"
+                        id="student-id"
+                        value="student-id"
+                        name="student-id"
+                      />
+                      <select
+                        class="form-control"
+                        name="attend-type"
+                        class="attend-type"
+                        id="attend-type"
+                      >
                         <option selected value="present">present</option>
                         <option value="absent">absent</option>
-                        <option value="leave">leave</option>                    
-                      </select>
-                    </td >
-                    <td class="stu-attendance">
-                      <input type="hidden" id="student-id" value="student-id" name="student-id">
-                      <select class="form-control" name="attend-type" class="attend-type" id="attend-type" >
-                        <option selected value="present">present</option>
-                        <option value="absent">absent</option>
-                        <option value="leave">leave</option>                    
+                        <option value="leave">leave</option>
                       </select>
                     </td>
                     <td class="stu-attendance">
-                      <input type="hidden" id="student-id" value="student-id" name="student-id">
-                      <select class="form-control" name="attend-type" class="attend-type" id="attend-type" >
+                      <input
+                        type="hidden"
+                        id="student-id"
+                        value="student-id"
+                        name="student-id"
+                      />
+                      <select
+                        class="form-control"
+                        name="attend-type"
+                        class="attend-type"
+                        id="attend-type"
+                      >
                         <option selected value="present">present</option>
                         <option value="absent">absent</option>
-                        <option value="leave">leave</option>                    
+                        <option value="leave">leave</option>
+                      </select>
+                    </td>
+                    <td class="stu-attendance">
+                      <input
+                        type="hidden"
+                        id="student-id"
+                        value="student-id"
+                        name="student-id"
+                      />
+                      <select
+                        class="form-control"
+                        name="attend-type"
+                        class="attend-type"
+                        id="attend-type"
+                      >
+                        <option selected value="present">present</option>
+                        <option value="absent">absent</option>
+                        <option value="leave">leave</option>
                       </select>
                     </td>
                     <td>
@@ -329,7 +416,7 @@
                         class="btn btn-attendance-edit btn-outline-primary btn-floating"
                         data-mdb-ripple-color="dark"
                       >
-                        <i class="fa-regular  fa-pen-to-square"></i>
+                        <i class="fa-regular fa-pen-to-square"></i>
                       </a>
                       <a
                         href=""
@@ -341,7 +428,8 @@
                     </td>
                   </tr>
                 </tbody>
-              </table> <!-- End attendance table-->
+              </table>
+              <!-- End attendance table-->
             </div>
             <input type="radio" id="tabclassroom" name="mytabs" />
             <label for="tabclassroom" id="lab">Classroom</label>
@@ -349,7 +437,7 @@
               <div class="add-list">
                 <label>Add Class</label>
                 <a
-                  href="admin-batch-classroom-add.html"
+                  href="A003-06.html"
                   class="btn btn-outline-success btn-floating"
                   data-mdb-ripple-color="dark"
                 >
@@ -378,7 +466,7 @@
                     <td>record.mp4</td>
                     <td>
                       <a
-                        href="./admin-batch-classroom-edit.html"
+                        href="./A003-07.html"
                         class="btn btn-outline-primary btn-floating"
                         data-mdb-ripple-color="dark"
                       >
@@ -404,7 +492,7 @@
                     <td>record.mp4</td>
                     <td>
                       <a
-                        href="./admin-batch-classroom-edit.html"
+                        href="./A003-07.html"
                         class="btn btn-outline-primary btn-floating"
                         data-mdb-ripple-color="dark"
                       >
@@ -422,24 +510,34 @@
                 </tbody>
               </table>
             </div>
-           
+
             <div class="plus-icon"></div>
           </div>
         </div>
-
       </div>
     </div>
     <!-- End Main-->
 
-   
-
     <!-- Modal for teacher add-->
-    <div class="modal fade" id="teacher-add" aria-hidden="true" aria-labelledby="Teachareaddmodal" tabindex="-1">
+    <div
+      class="modal fade"
+      id="teacher-add"
+      aria-hidden="true"
+      aria-labelledby="Teachareaddmodal"
+      tabindex="-1"
+    >
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalToggleLabel2">Add Teacher</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <h5 class="modal-title" id="exampleModalToggleLabel2">
+              Add Teacher
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
           <div class="modal-body">
             <form action="">
@@ -454,33 +552,46 @@
               </select>
               <div class="modal-footer">
                 <button class="btn btn-secondary">Cancel</button>
-                <button class="btn btn-primary" >Add</button>
+                <button class="btn btn-primary">Add</button>
               </div>
-
             </form>
           </div>
         </div>
       </div>
     </div>
 
-     <!--Modal for Date Add in attendance-->
-     <div class="modal fade" id="attendance-date-add" aria-hidden="true" aria-labelledby="Teachareaddmodal" tabindex="-1">
+    <!--Modal for Date Add in attendance-->
+    <div
+      class="modal fade"
+      id="attendance-date-add"
+      aria-hidden="true"
+      aria-labelledby="Teachareaddmodal"
+      tabindex="-1"
+    >
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalToggleLabel2">Add Date</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
           <div class="modal-body">
-            <form action="" >             
-               
-              <input type="date" class="form-control text-center mb-3 mx-auto" id="attendance-date" style="width: 80%; border: 1px solid;">
-              
+            <form action="">
+              <input
+                type="date"
+                class="form-control text-center mb-3 mx-auto"
+                id="attendance-date"
+                style="width: 80%; border: 1px solid;"
+              />
+
               <div class="modal-footer">
                 <button class="btn btn-secondary">Cancel</button>
-                <button class="btn btn-primary" >Add</button>
+                <button class="btn btn-primary">Add</button>
               </div>
-
             </form>
           </div>
         </div>
@@ -488,9 +599,6 @@
     </div>
 
     <div id="footer"></div>
-
-
-
 
     <script src="../assets/jquery/jquery.min.js"></script>
     <script src="../assets/js/data.js"></script>
@@ -500,23 +608,23 @@
       src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"
     ></script>
     <script
-    src="https://kit.fontawesome.com/83e4876698.js"
-    crossorigin="anonymous"
+      src="https://kit.fontawesome.com/83e4876698.js"
+      crossorigin="anonymous"
     ></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../assets/jquery-confirm/jquery-confirm.min.js"></script>
+    <script src="assets/jquery-confirm/jquery-confirm.min.js"></script>
     <script
-    type="module"
-    src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
-  ></script>
-  <script
-    nomodule
-    src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
-  ></script>
-  <script src="../assets/js/admin-batch-detail.js"></script>
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+    <script src="../assets/js/admin-batch-detail.js"></script>
     <script>
       $(function () {
-        $('#header').load('admin-header.html')
+        $('#header').load('A006.html')
       })
     </script>
     <script>
@@ -527,118 +635,97 @@
 
     <!-- For student delet confirm-->
     <script>
-       $(document).ready(function(){
-        $("a.remove-student").confirm({
-          closeIcon :true,
-          theme: "Material",
+      $(document).ready(function () {
+        $('a.remove-student').confirm({
+          closeIcon: true,
+          theme: 'Material',
           //icon: 'fa-solid fa-warning',
-          
-          title: "Remove Student",
-          content:
-            "Are you sure to remove this student?",
-          animation: "Scale",
-          buttons: {
-            Yes: function(){              
-            },
-            No: function(){
 
-            }
-          }
+          title: 'Remove Student',
+          content: 'Are you sure to remove this student?',
+          animation: 'Scale',
+          buttons: {
+            Yes: function () {},
+            No: function () {},
+          },
         })
       })
     </script>
 
     <!-- For teacher delet confirm-->
     <script>
-      $(document).ready(function(){
-       $("a.remove-teacher").confirm({
-         closeIcon :true,
-         theme: "Material",
-         //icon: 'fa-solid fa-warning',
-         
-         title: "Remove Teacher",
-         content:
-           "Are you sure to remove?",
-         animation: "Scale",
-         buttons: {
-           Yes: function(){              
-           },
-           No: function(){
+      $(document).ready(function () {
+        $('a.remove-teacher').confirm({
+          closeIcon: true,
+          theme: 'Material',
+          //icon: 'fa-solid fa-warning',
 
-           }
-         }
-       })
-     })
-   </script>
+          title: 'Remove Teacher',
+          content: 'Are you sure to remove?',
+          animation: 'Scale',
+          buttons: {
+            Yes: function () {},
+            No: function () {},
+          },
+        })
+      })
+    </script>
 
-   <!-- For exam-schedule delete confirm -->
-   <script>
-    $(document).ready(function(){
-     $("a.remove-exam").confirm({
-       closeIcon :true,
-       theme: "Material",
-       //icon: 'fa-solid fa-warning',
-       
-       title: "Remove Exam!",
-       content:
-         "Are you sure to remove this exam?",
-       animation: "Scale",
-       buttons: {
-         Yes: function(){              
-         },
-         No: function(){
+    <!-- For exam-schedule delete confirm -->
+    <script>
+      $(document).ready(function () {
+        $('a.remove-exam').confirm({
+          closeIcon: true,
+          theme: 'Material',
+          //icon: 'fa-solid fa-warning',
 
-         }
-       }
-     })
-   })
-  </script>
+          title: 'Remove Exam!',
+          content: 'Are you sure to remove this exam?',
+          animation: 'Scale',
+          buttons: {
+            Yes: function () {},
+            No: function () {},
+          },
+        })
+      })
+    </script>
 
- <!-- For Remove Attencance confirm -->
- <script>
-  $(document).ready(function(){
-   $("a.remove-attendance").confirm({
-     closeIcon :true,
-     theme: "Material",
-     //icon: 'fa-solid fa-warning',
-     
-     title: "Remove Row!",
-     content:
-       "Do you want to remove this row?",
-     animation: "Scale",
-     buttons: {
-       Yes: function(){              
-       },
-       No: function(){
+    <!-- For Remove Attencance confirm -->
+    <script>
+      $(document).ready(function () {
+        $('a.remove-attendance').confirm({
+          closeIcon: true,
+          theme: 'Material',
+          //icon: 'fa-solid fa-warning',
 
-       }
-     }
-   })
- })
-</script>
+          title: 'Remove Row!',
+          content: 'Do you want to remove this row?',
+          animation: 'Scale',
+          buttons: {
+            Yes: function () {},
+            No: function () {},
+          },
+        })
+      })
+    </script>
 
-<!--For Classroom Delete confirm -->
-<script>
-  $(document).ready(function(){
-   $("a.remove-classroom").confirm({
-     closeIcon :true,
-     theme: "Material",
-     //icon: 'fa-solid fa-warning',
-     
-     title: "Remove Classroom!",
-     content:
-       "Are you sure to remove this classroom?",
-     animation: "Scale",
-     buttons: {
-       Yes: function(){              
-       },
-       No: function(){
+    <!--For Classroom Delete confirm -->
+    <script>
+      $(document).ready(function () {
+        $('a.remove-classroom').confirm({
+          closeIcon: true,
+          theme: 'Material',
+          //icon: 'fa-solid fa-warning',
 
-       }
-     }
-   })
- })
-</script>
-
+          title: 'Remove Classroom!',
+          content: 'Are you sure to remove this classroom?',
+          animation: 'Scale',
+          buttons: {
+            Yes: function () {},
+            No: function () {},
+          },
+        })
+      })
+    </script>
   </body>
 </html>

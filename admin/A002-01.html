@@ -10,18 +10,20 @@
       rel="stylesheet"
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
-    />  
+    />
     <link
       rel="stylesheet"
       type="text/css"
       href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css"
-    /> 
+    />
     <link rel="stylesheet" href="../assets/css/batchdetails.css" />
-    <link rel="stylesheet" href="../assets/jquery-confirm/jquery-confirm.min.css">
+    <link
+      rel="stylesheet"
+      href="../assets/jquery-confirm/jquery-confirm.min.css"
+    />
     <link rel="stylesheet" href="../assets/css/courselist.css" />
     <link rel="stylesheet" href="../assets/css/styles.css" />
     <link rel="stylesheet" href="../assets/css/header.css" />
-   
   </head>
 
   <body style="background-color: rgb(235, 235, 235);">
@@ -38,18 +40,17 @@
     </div>
     <div class="custom-div margin-top-8">
       <div id="course-detail" class="width-100">
-
         <div class="bread-crumb d-flex justify-content-between width-90">
           <div class="bread container-fluid">
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                  <a class="text-decoration-none" href="admin-course.html">
+                  <a class="text-decoration-none" href="A002.html">
                     Course List
                   </a>
                 </li>
                 <li class="breadcrumb-item">
-                  <a class="text-decoration-none" href="admin-course-detail.html">
+                  <a class="text-decoration-none" href="A003-03.html">
                     Course Details
                   </a>
                 </li>
@@ -57,17 +58,21 @@
             </nav>
           </div>
         </div>
-        
+
         <div class="mytabs position-relative">
-             <div class="java position-absolute top-0 start-100 translate-middle-x"><h3>Java</h3></div>
+          <div
+            class="java position-absolute top-0 start-100 translate-middle-x"
+          >
+            <h3>Java</h3>
+          </div>
           <input type="radio" id="tabchapter" name="mytabs" checked />
-          <label for="tabchapter" id="lab">Java </label>
-        
+          <label for="tabchapter" id="lab">Java</label>
+
           <div class="tab">
             <div class="add-list">
               <label>Add Chapter</label>
               <a
-                href="admin-course-detail-chapter-add.html"
+                href="A002-02.html"
                 class="btn btn-outline-success btn-floating"
                 data-mdb-ripple-color="dark"
               >
@@ -89,17 +94,18 @@
                   <td>01</td>
                   <td>Servlet</td>
                   <td>3</td>
-                  <td> 
-                    <a href="./admin-course-detail-chapter-detail.html"
+                  <td>
+                    <a
+                      href="./A002-03.html"
                       class="more-info btn btn-floating"
                       data-mdb-ripple-color="dark"
                     >
-                       <img class="more" src="../assets/img/option.png" alt="">
+                      See More
                     </a>
                   </td>
                   <td>
                     <a
-                      href="admin-course-detail-chapter-edit.html"
+                      href="A002-04.html"
                       class="more-info btn btn-outline-primary btn-floating"
                       data-mdb-ripple-color="dark"
                     >
@@ -118,17 +124,18 @@
                   <td>02</td>
                   <td>Java Core</td>
                   <td>4</td>
-                  <td> 
-                    <a href="./admin-course-detail-chapter-detail.html"
+                  <td>
+                    <a
+                      href="./A002-03.html"
                       class="more-info btn btn-floating"
                       data-mdb-ripple-color="dark"
                     >
-                       <img class="more" src="../assets/img/option.png" alt="">
+                      See More
                     </a>
                   </td>
                   <td>
                     <a
-                      href="admin-course-detail-chapter-edit.html"
+                      href="A002-04.html"
                       class="btn btn-outline-primary btn-floating"
                       data-mdb-ripple-color="dark"
                     >
@@ -142,8 +149,7 @@
                       <i class="fa-solid fa-circle-minus"></i>
                     </a>
                   </td>
-                </tr>               
-               
+                </tr>
               </tbody>
             </table>
           </div>
@@ -153,7 +159,7 @@
             <div class="add-list">
               <label>Add Exam</label>
               <a
-                href="./admin-course-exam-add.html"
+                href="./A002-05.html"
                 class="btn btn-outline-success btn-floating"
                 data-mdb-ripple-color="dark"
               >
@@ -179,10 +185,10 @@
                   <td>90</td>
                   <td>1hr</td>
                   <td>File Upload</td>
-  
+
                   <td>
                     <a
-                      href="./admin-course-exam-edit.html"
+                      href="./A002-06.html"
                       class="btn btn-outline-primary btn-floating"
                       data-mdb-ripple-color="dark"
                     >
@@ -212,10 +218,10 @@
                   <td>90</td>
                   <td>1hr</td>
                   <td>Multiple Choice</td>
-  
+
                   <td>
                     <a
-                      href="./admin-course-exam-add.html"
+                      href="./A002-05.html"
                       class="btn btn-outline-primary btn-floating"
                       data-mdb-ripple-color="dark"
                     >
@@ -243,24 +249,28 @@
             </table>
           </div>
           <div class="plus-icon"></div>
-      </div>
-
+        </div>
       </div>
     </div>
 
     <div id="footer"></div>
 
-
     <script src="../assets/jquery/jquery.min.js"></script>
     <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="https://kit.fontawesome.com/83e4876698.js" crossorigin="anonymous" ></script>
+    <script
+      src="https://kit.fontawesome.com/83e4876698.js"
+      crossorigin="anonymous"
+    ></script>
     <script src="../assets/jquery-confirm/jquery-confirm.min.js"></script>
-    <script src="../assets/js/data.js"></script>  
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"
+    <script src="../assets/js/data.js"></script>
+    <script
+      type="text/javascript"
+      charset="utf8"
+      src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"
     ></script>
     <script>
       $(function () {
-        $('#header').load('./admin-header.html')
+        $('#header').load('./A006.html')
       })
     </script>
     <script>
@@ -271,46 +281,38 @@
 
     <!--Confirm for chapter delete-->
     <script>
-       $(document).ready(function(){
-       $("a.delete-chapter").confirm({
-          closeIcon :true,
-          theme: "Material",
+      $(document).ready(function () {
+        $('a.delete-chapter').confirm({
+          closeIcon: true,
+          theme: 'Material',
           //icon: 'fa-solid fa-warning',
-          
-          title: "Delete Chapter",
-          content:
-            "Are you sure to delete this chapter?",
-          animation: "Scale",
-          buttons: {
-            Yes: function(){              
-            },
-            No: function(){
 
-            }
-          }
+          title: 'Delete Chapter',
+          content: 'Are you sure to delete this chapter?',
+          animation: 'Scale',
+          buttons: {
+            Yes: function () {},
+            No: function () {},
+          },
         })
       })
     </script>
 
     <!-- Confirm for exam delete -->
     <script>
-       $(document).ready(function(){
-       $("a.delete-exam").confirm({
-          closeIcon :true,
-          theme: "Material",
+      $(document).ready(function () {
+        $('a.delete-exam').confirm({
+          closeIcon: true,
+          theme: 'Material',
           //icon: 'fa-solid fa-warning',
-          
-          title: "Delete Exam",
-          content:
-            "Are you sure to delete this exam?",
-          animation: "Scale",
-          buttons: {
-            Yes: function(){              
-            },
-            No: function(){
 
-            }
-          }
+          title: 'Delete Exam',
+          content: 'Are you sure to delete this exam?',
+          animation: 'Scale',
+          buttons: {
+            Yes: function () {},
+            No: function () {},
+          },
         })
       })
     </script>
