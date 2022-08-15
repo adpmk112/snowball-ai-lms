@@ -16,8 +16,11 @@
       type="text/css"
       href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css"
     />
+    <link rel="stylesheet" href="../assets/jquery-confirm/jquery-confirm.min.css">
     <link rel="stylesheet" href="../assets/css/batchdetails.css" />
-
+    <link rel="stylesheet" href="../assets/owlcarousel/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../assets/owlcarousel/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="../assets/css/assignment-comment-carousel.css">
     <link rel="stylesheet" href="../assets/css/courselist.css" />
     <link rel="stylesheet" href="../assets/css/styles.css" />
     <link rel="stylesheet" href="../assets/css/header.css" />
@@ -59,7 +62,7 @@
           <div class="mytabs">
             <input type="radio" id="tabunit" name="mytabs" checked="checked" />
             <label for="tabunit" id="lab">Chapter</label>
-            <div class="tab">
+            <div class="tab table-responsive">
               <div class="add-list">
                 <label>Add New Activity</label>
                 <a
@@ -70,6 +73,7 @@
                   <i class="fa-solid fa-circle-plus"></i>
                 </a>
               </div>
+
               <table id="datatable">
                 <thead>
                   <tr>
@@ -82,7 +86,7 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Servlet Part 1</td>
+                    <td>Chapter</td>
                     <td>Not Added</td>
                     <td>
                       <input
@@ -103,32 +107,34 @@
                     <td>
                       <a
                         href=""
-                        class="btn btn-outline-primary btn-floating btn-exam-schedule-edit"
+                        class="btn btn-outline-primary btn-floating btn-chapter-edit"
                         data-mdb-ripple-color="dark"
                       >
                         <i class="fa-regular fa-pen-to-square"></i>
                       </a>
-                      <a
+                      <!-- <a
                         href=""
-                        class="btn btn-outline-danger btn-floating"
+                        class="btn btn-outline-danger chapter-remove btn-floating"
                         data-mdb-ripple-color="dark"
                       >
                         <i class="fa-solid fa-circle-minus"></i>
-                      </a>
+                      </a> -->
                       <a href="" class="btn btn-outline-success btn-floating">
-                        <img
-                          id="custom-button"
-                          src="./assets/img/pencil.png"
-                          alt=""
-                        />
-                        Customize Assignment
+                        <i class="fa-solid fa-folder-plus me-1"></i>
+                        Add Assignment
                       </a>
+
+                      <!-- <a
+                        href=""
+                        class="btn btn-outline-success btn-floating btn-chapter-edit"
+                        data-mdb-ripple-color="dark"
+                      >
+                        <i class="fa-regular fa-pen-to-square"></i>
+                      </a> -->
                     </td>
                   </tr>
-                </tbody>
-                <tbody>
                   <tr>
-                    <td>Servlet Part 2</td>
+                    <td>Activity</td>
                     <td>In Progess</td>
                     <td>
                       <input
@@ -149,29 +155,32 @@
                     <td>
                       <a
                         href=""
-                        class="btn btn-outline-primary btn-floating btn-exam-schedule-edit"
+                        class="btn btn-outline-primary btn-floating btn-chapter-edit"
                         data-mdb-ripple-color="dark"
                       >
                         <i class="fa-regular fa-pen-to-square"></i>
                       </a>
                       <a
                         href=""
-                        class="btn btn-outline-danger btn-floating"
+                        class="btn btn-outline-danger chapter-remove btn-floating"
                         data-mdb-ripple-color="dark"
                       >
                         <i class="fa-solid fa-circle-minus"></i>
                       </a>
-                      <a
+                      <!-- <a
                         href=""
                         class="btn btn-outline-success btn-floating"
                         data-mdb-ripple-color="dark"
                       >
-                        <img
-                          id="custom-button"
-                          src="./assets/img/pencil.png"
-                          alt=""
-                        />
-                        Customize Assignment
+                        <i class="fa-solid fa-folder-plus me-1"></i>
+                        Assignment
+                      </a> -->
+                      <a
+                        href=""
+                        class="btn btn-outline-success btn-floating btn-chapter-edit"
+                        data-mdb-ripple-color="dark"
+                      >
+                        <i class="fa-regular fa-pen-to-square"></i>
                       </a>
                     </td>
                   </tr>
@@ -240,8 +249,8 @@
             </div>
             <input type="radio" id="tabattendance" name="mytabs" />
             <label for="tabattendance" id="lab">Attendance</label>
-            <div class="tab">
-              <div class="add-list">
+            <div class="tab table-responsive">
+              <!-- <div class="add-list">
                 <label>Add Date</label>
                 <a
                   href=""
@@ -252,7 +261,7 @@
                 >
                   <i class="fa-solid fa-circle-plus"></i>
                 </a>
-              </div>
+              </div> -->
               <!-- Start Attendance Table-->
               <table id="datatable5">
                 <thead>
@@ -375,7 +384,7 @@
               <div class="add-list">
                 <label>Add Class</label>
                 <a
-                  href="T004-01.html"
+                  href="T004.html"
                   class="btn btn-outline-success btn-floating"
                   data-mdb-ripple-color="dark"
                 >
@@ -430,7 +439,7 @@
                     <td>record.mp4</td>
                     <td>
                       <a
-                        href=""
+                        href="T004-01.html"
                         class="btn btn-outline-primary btn-floating"
                         data-mdb-ripple-color="dark"
                       >
@@ -582,18 +591,17 @@
               </table>
               <!-- End mark Table-->
             </div>
-            <input
-              type="radio"
-              id="tabcomment"
-              name="mytabs"
-              checked="checked"
-            />
+            <input type="radio" id="tabcomment" checked name="mytabs" />
             <label for="tabcomment" id="lab">Comment</label>
+           
             <div class="tab">
               <div class="mt-3 mb-4 d-flex justify-content-between">
                 <div>
                   <p>
-                    <a class="text-decoration-none" href="T003.html">
+                    <a
+                      class="text-decoration-none"
+                      href="T003.html"
+                    >
                       &lt; back
                     </a>
                   </p>
@@ -609,67 +617,231 @@
                   </a> -->
                 </div>
               </div>
-              <table id="datatable8">
-                <thead>
-                  <tr>
-                    <th>Student Name</th>
-                    <th>Assignment 1</th>
-                    <th>Assignment 2</th>
-                    <th>Assignment 3</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Mg Mg</td>
 
-                    <td>
-                      <a
-                        href="T005-01.html"
-                        class="more-info btn btn-floating"
-                        data-mdb-ripple-color="dark"
-                      >
-                        See More
-                      </a>
-                      <!-- <a href="teacher-assignment-comment-page.html" class="more-info btn btn-floating"
-                      data-mdb-ripple-color="dark"> -->
-                      <ion-icon
-                        class="position-absolute"
-                        name="notifications-circle-outline"
-                      ></ion-icon>
-                    </td>
-                    <td>
-                      <a
-                        href="T005-01.html"
-                        class="more-info btn btn-floating"
-                        data-mdb-ripple-color="dark"
-                      >
-                        See More
-                      </a>
 
-                      <ion-icon
-                        class="position-absolute"
-                        name="notifications-circle-outline"
-                      ></ion-icon>
-                    </td>
-                    <td>
-                      <a
-                        href="T005-01.html"
-                        class="more-info btn btn-floating"
-                        data-mdb-ripple-color="dark"
-                      >
-                        See More
+              
+              <!-- Assigment with carousel -->
+            <div class="d-flex flex-column text-start">
+              <a href="#" class=" btn text-primary text-start  assignment-collapse position-relative" type="button" data-bs-toggle="collapse" data-bs-target="#assignment1" aria-expanded="false" aria-controls="collapseExample">
+                Assigment 1 <i class="fa-solid fa-angle-down"></i>
+              </a>          
+              <div class="collapse float-xs-right mt-3" id="assignment1">
+                <div class="container">
+                  
+                  <div class="carousel-container">
+                    <div class="owl-carousel show owl-theme" id="inprogress-show">
+  
+                      <a href="#" class="unit-a">
+                        <div class="student-card bg-light">
+                          <div style="max-width: 100%;">
+                          
+                              <div class="card-body">
+                                <div class="student-img d-flex justify-content-center"> 
+                                  
+                                  <img class="position-relative student-image" src="../assets/img/images.jfif" alt="user" style="width: 50px; height: 50px; border-radius: 50%;"/>
+                                  <span class="badge position-absolute rounded-pill bg-danger" style="top: 15px; left: 60% ;"><i class="fa-solid fa-bell"></i></span>
+                                  
+                                </div>
+                                <div class="card-title text-center student-name">Htet Pyae Phyo Maung</div>
+                              </div>
+                        
+                          </div>
+                        </div>
                       </a>
-                      <ion-icon
-                        class="position-absolute"
-                        name="notifications-circle-outline"
-                      ></ion-icon>
-                      <!-- <a href="teacher-assignment-comment-page.html" class="more-info btn btn-floating"
-                      data-mdb-ripple-color="dark"> -->
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+      
+                      <a href="#" class="unit-a">
+                        <div class="student-card bg-light">
+                          <div style="max-width: 100%;">
+                          
+                              <div class="card-body">
+                                <div class="student-img d-flex justify-content-center"> 
+                                  
+                                  <img class="position-relative student-image" src="../assets/img/images.jfif" alt="user" style="width: 50px; height: 50px; border-radius: 50%;"/>
+                                  <span class="badge position-absolute rounded-pill bg-secondary" style="top: 15px; left: 60% ;"><i class="fa-solid fa-bell"></i></span>
+                                  
+                                </div>
+                                <div class="card-title text-center student-name">Htet Pyae Phyo Maung</div>
+                              </div>
+                        
+                          </div>
+                        </div>
+                      </a>
+                      <a href="#" class="unit-a">
+                        <div class="student-card bg-light">
+                          <div style="max-width: 100%;">
+                          
+                              <div class="card-body">
+                                <div class="student-img d-flex justify-content-center"> 
+                                  
+                                  <img class="position-relative student-image" src="../assets/img/images.jfif" alt="user" style="width: 50px; height: 50px; border-radius: 50%;"/>
+                                  <span class="badge position-absolute rounded-pill bg-secondary" style="top: 15px; left: 60% ;"><i class="fa-solid fa-bell"></i></span>
+                                  
+                                </div>
+                                <div class="card-title text-center student-name">Htet Pyae Phyo Maung</div>
+                              </div>
+                        
+                          </div>
+                        </div>
+                      </a>
+                      
+                      <a href="#" class="unit-a">
+                        <div class="student-card bg-light">
+                          <div style="max-width: 100%;">
+                          
+                              <div class="card-body">
+                                <div class="student-img d-flex justify-content-center"> 
+                                  
+                                  <img class="position-relative student-image" src="../assets/img/images.jfif" alt="user" style="width: 50px; height: 50px; border-radius: 50%;"/>
+                                  <span class="badge position-absolute rounded-pill bg-danger" style="top: 15px; left: 60% ;"><i class="fa-solid fa-bell"></i></span>
+                                  
+                                </div>
+                                <div class="card-title text-center student-name">Htet Pyae Phyo Maung</div>
+                              </div>
+                        
+                          </div>
+                        </div>
+                      </a>
+                      
+                      <a href="#" class="unit-a">
+                        <div class="student-card bg-light">
+                          <div style="max-width: 100%;">
+                          
+                              <div class="card-body">
+                                <div class="student-img d-flex justify-content-center"> 
+                                  
+                                  <img class="position-relative student-image" src="../assets/img/images.jfif" alt="user" style="width: 50px; height: 50px; border-radius: 50%;"/>
+                                  <span class="badge position-absolute rounded-pill bg-danger" style="top: 15px; left: 60% ;"><i class="fa-solid fa-bell"></i></span>
+                                  
+                                </div>
+                                <div class="card-title text-center student-name">Htet Pyae Phyo Maung</div>
+                              </div>
+                        
+                          </div>
+                        </div>
+                      </a>
+                  
+  
+                      
+                    </div> <!--End owl-carousel-->
+                </div>
+              </div>
+  
+                
+        
+                <div class="plus-icon"></div>
+              </div><!-- End assignment 1-->
+  
+              <a href="#" class=" btn text-primary text-start assignment-collapse position-relative" type="button" data-bs-toggle="collapse" data-bs-target="#assignment2" aria-expanded="false" aria-controls="collapseExample">
+                Assigment 2 <i class="fa-solid fa-angle-down"></i>
+              </a>          
+              <div class="collapse float-xs-right mt-3" id="assignment2">
+                <div class="container">
+                  
+                  <div class="carousel-container">
+                    <div class="owl-carousel show owl-theme" id="inprogress-show">
+  
+                      <a href="#" class="unit-a">
+                        <div class="student-card bg-light">
+                          <div style="max-width: 100%;">
+                          
+                              <div class="card-body">
+                                <div class="student-img d-flex justify-content-center"> 
+                                  
+                                  <img class="position-relative student-image" src="images.jfif" alt="user" style="width: 50px; height: 50px; border-radius: 50%;"/>
+                                  <span class="badge position-absolute rounded-pill bg-danger" style="top: 15px; left: 60% ;"><i class="fa-solid fa-bell"></i></span>
+                                  
+                                </div>
+                                <div class="card-title text-center student-name">Htet Pyae Phyo Maung</div>
+                              </div>
+                        
+                          </div>
+                        </div>
+                      </a>
+      
+                      <a href="#" class="unit-a">
+                        <div class="student-card bg-light">
+                          <div style="max-width: 100%;">
+                          
+                              <div class="card-body">
+                                <div class="student-img d-flex justify-content-center"> 
+                                  
+                                  <img class="position-relative student-image" src="images.jfif" alt="user" style="width: 50px; height: 50px; border-radius: 50%;"/>
+                                  <span class="badge position-absolute rounded-pill bg-secondary" style="top: 15px; left: 60% ;"><i class="fa-solid fa-bell"></i></span>
+                                  
+                                </div>
+                                <div class="card-title text-center student-name">Htet Pyae Phyo Maung</div>
+                              </div>
+                        
+                          </div>
+                        </div>
+                      </a>
+                      <a href="#" class="unit-a">
+                        <div class="student-card bg-light">
+                          <div style="max-width: 100%;">
+                          
+                              <div class="card-body">
+                                <div class="student-img d-flex justify-content-center"> 
+                                  
+                                  <img class="position-relative student-image" src="images.jfif" alt="user" style="width: 50px; height: 50px; border-radius: 50%;"/>
+                                  <span class="badge position-absolute rounded-pill bg-secondary" style="top: 15px; left: 60% ;"><i class="fa-solid fa-bell"></i></span>
+                                  
+                                </div>
+                                <div class="card-title text-center student-name">Htet Pyae Phyo Maung</div>
+                              </div>
+                        
+                          </div>
+                        </div>
+                      </a>
+                      
+                      <a href="#" class="unit-a">
+                        <div class="student-card bg-light">
+                          <div style="max-width: 100%;">
+                          
+                              <div class="card-body">
+                                <div class="student-img d-flex justify-content-center"> 
+                                  
+                                  <img class="position-relative student-image" src="images.jfif" alt="user" style="width: 50px; height: 50px; border-radius: 50%;"/>
+                                  <span class="badge position-absolute rounded-pill bg-danger" style="top: 15px; left: 60% ;"><i class="fa-solid fa-bell"></i></span>
+                                  
+                                </div>
+                                <div class="card-title text-center student-name">Htet Pyae Phyo Maung</div>
+                              </div>
+                        
+                          </div>
+                        </div>
+                      </a>
+                      
+                      <a href="#" class="unit-a">
+                        <div class="student-card bg-light">
+                          <div style="max-width: 100%;">
+                          
+                              <div class="card-body">
+                                <div class="student-img d-flex justify-content-center"> 
+                                  
+                                  <img class="position-relative student-image" src="images.jfif" alt="user" style="width: 50px; height: 50px; border-radius: 50%;"/>
+                                  <span class="badge position-absolute rounded-pill bg-danger" style="top: 15px; left: 60% ;"><i class="fa-solid fa-bell"></i></span>
+                                  
+                                </div>
+                                <div class="card-title text-center student-name">Htet Pyae Phyo Maung</div>
+                              </div>
+                        
+                          </div>
+                        </div>
+                      </a>
+                  
+  
+                      
+                    </div> <!--End owl-carousel-->
+                </div>
+              </div>
+  
+                
+        
+                <div class="plus-icon"></div>
+              </div><!-- End Assignment 2 -->
+
             </div>
+        </div>
 
             <div class="plus-icon"></div>
           </div>
@@ -677,21 +849,64 @@
       </div>
     </div>
 
-    <div id="footer"></div>
-    <script src="../assets/jquery/jquery.min.js"></script>
+    <!--Modal for Date Add in attendance-->
+    <div
+      class="modal fade"
+      id="attendance-date-add"
+      aria-hidden="true"
+      aria-labelledby="Teachareaddmodal"
+      tabindex="-1"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalToggleLabel2">Add Date</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form action="">
+              <input
+                type="date"
+                class="form-control text-center mb-3 mx-auto"
+                id="attendance-date"
+                style="width: 80%; border: 1px solid;"
+              />
 
-    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
-    <script
-      src="https://kit.fontawesome.com/83e4876698.js"
-      crossorigin="anonymous"
-    ></script>
-    <script src="../assets/js/data.js"></script>
+              <div class="modal-footer">
+                <button class="btn btn-secondary">Cancel</button>
+                <button class="btn btn-primary">Add</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="footer"></div>
+
+    <script src="../assets/jquery/jquery.min.js"></script>
     <script
       type="text/javascript"
       charset="utf8"
       src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"
     ></script>
+    <script
+    src="https://kit.fontawesome.com/83e4876698.js"
+    crossorigin="anonymous"
+    ></script>
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../assets/owlcarousel/js/owl.carousel.min.js"></script>
+    <script src="../assets/js/assignment-comment-carousel.js"></script>
+    <script src="../assets/js/data.js"></script>
+    <!-- <script src="../assets/js/admin-batch-detail.js"></script> -->
     <script src="../assets/js/teacher-batchdetail-grid.js"></script>
+    <script src="../assets/jquery-confirm/jquery-confirm.min.js"></script>
+    <script src=""></script>
 
     <script>
       $(function () {
@@ -700,16 +915,61 @@
     </script>
     <script>
       $(function () {
-        $('#footer').load('F001.html')
+        $('#footer').load('../F001.html')
       })
     </script>
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
-    ></script>
+
+    <!-- Confirm Box-->
+    <script>
+      $(document).ready(function () {
+        $('a.chapter-remove').confirm({
+          closeIcon: true,
+          theme: 'Material',
+          //icon: 'fa-solid fa-warning',
+
+          title: 'Remove Chapter!',
+          content: 'Are you sure to remove?',
+          animation: 'Scale',
+          buttons: {
+            Yes: function () {},
+            No: function () {},
+          },
+        })
+      })
+    </script>
+
+    <script>
+      $(document).ready(function () {
+        $('a.remove-attendance').confirm({
+          closeIcon: true,
+          theme: 'Material',
+          //icon: 'fa-solid fa-warning',
+
+          title: 'Remove Row!',
+          content: 'Do you want to remove this row?',
+          animation: 'Scale',
+          buttons: {
+            Yes: function () {},
+            No: function () {},
+          },
+        })
+      })
+
+      $(document).ready(function () {
+        $('a.remove-classroom').confirm({
+          closeIcon: true,
+          theme: 'Material',
+          //icon: 'fa-solid fa-warning',
+
+          title: 'Remove Classroom!',
+          content: 'Are you sure to remove this classroom?',
+          animation: 'Scale',
+          buttons: {
+            Yes: function () {},
+            No: function () {},
+          },
+        })
+      })
+    </script>
   </body>
 </html>
