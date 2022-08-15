@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Student-Classroom</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css"
+    />
+
+    <script
+      type="text/javascript"
+      charset="utf8"
+      src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"
+    ></script>
+
+    <script src="assets/js/data.js"></script>
+    <link rel="stylesheet" href="assets/css/datatable.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="assets/jquery-confirm/jquery-confirm.min.css"
+    />
+
+    <script>
+      $(function () {
+        $('#header').load('S005.html')
+      })
+    </script>
+    <script>
+      $(function () {
+        $('#footer').load('F001.html')
+      })
+    </script>
+    <script
+      src="https://kit.fontawesome.com/83e4876698.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body class="body-color">
+    <div id="header"></div>
+    <div class="semi-circle"></div>
+    <div class="banner">
+      <div class="circle"><i class="fa-solid fa-paintbrush"></i></div>
+      <div>
+        <h1>Exams</h1>
+      </div>
+    </div>
+    <div class="class-margin custom-div" style="margin-top: 8px;">
+      <div class="mytabs1">
+        <input type="radio" id="tabupcoming" name="mytabs1" checked="checked" />
+        <label for="tabupcoming" id="lab1">Upcoming</label>
+        <div class="tab1 exam-card-container">
+          <div class="exam-card">
+            <a href="S003-01.html" class="exam-confirm">
+              <div style="max-width: 100%;">
+                <div class="card-header exam-text">Core Java Test</div>
+                <div class="card-body">
+                  <h5 class="card-title exam-text">Multiple Choice</h5>
+                  <p>
+                    Total Mark: 50
+                    <br />
+                    Time Allowed: 1hr
+                  </p>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <div class="exam-card">
+            <a href="S003-01.html" class="exam-confirm">
+              <div style="max-width: 100%;">
+                <div class="card-header exam-text">Core Java Test</div>
+                <div class="card-body">
+                  <h5 class="card-title exam-text">Code Test</h5>
+                  <p>
+                    Total Mark: 50
+                    <br />
+                    Time Allowed: 1hr
+                  </p>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <input type="radio" id="tabprevious" name="mytabs1" />
+        <label for="tabprevious" id="lab1">Previous</label>
+        <div class="tab1 exam-card-container">
+          <div class="exam-card">
+            <div style="max-width: 100%;">
+              <div class="card-header exam-text">Entrance Exam</div>
+              <div class="card-body">
+                <h5 class="card-title exam-text">Multiple Choice</h5>
+                <p>Mark Achieved: 50/50</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="exam-card">
+            <div style="max-width: 100%;">
+              <div class="card-header exam-text">Java Fundamental</div>
+              <div class="card-body">
+                <h5 class="card-title exam-text">Code Test</h5>
+                <p>Total Mark: 40/50</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <section
+      class="gradient-custom custom-comment-box"
+      style="background-color: rgb(255, 255, 255);"
+    >
+      <div class="container my-5 py-5">
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-lg-10 col-xl-8">
+            <div class="">
+              <div class="card-body p-4">
+                <div class="row">
+                  <div class="col">
+                    <div class="d-flex flex-start">
+                      <img
+                        class="rounded-circle shadow-1-strong me-3"
+                        src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp"
+                        alt="avatar"
+                        width="65"
+                        height="65"
+                      />
+                      <div class="flex-grow-1 flex-shrink-1">
+                        <div>
+                          <div
+                            class="d-flex justify-content-between align-items-center"
+                          >
+                            <p class="mb-1">
+                              Maria Smantha
+                              <span class="small">- 2 hours ago</span>
+                            </p>
+                            <a href="#!">
+                              <i class="fas fa-reply fa-xs"></i>
+                              <span class="small">reply</span>
+                            </a>
+                          </div>
+                          <p class="small mb-0">
+                            It is a long established fact that a reader will be
+                            distracted by the readable content of a page.
+                          </p>
+                        </div>
+
+                        <div class="d-flex flex-start mt-4">
+                          <a class="me-3" href="#">
+                            <img
+                              class="rounded-circle shadow-1-strong"
+                              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(11).webp"
+                              alt="avatar"
+                              width="65"
+                              height="65"
+                            />
+                          </a>
+                          <div class="flex-grow-1 flex-shrink-1">
+                            <div>
+                              <div
+                                class="d-flex justify-content-between align-items-center"
+                              >
+                                <p class="mb-1">
+                                  Simona Disa
+                                  <span class="small">- 3 hours ago</span>
+                                </p>
+                              </div>
+                              <p class="small mb-0">
+                                letters, as opposed to using 'Content here,
+                                content here', making it look like readable
+                                English.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="d-flex flex-start mt-4">
+                          <a class="me-3" href="#">
+                            <img
+                              class="rounded-circle shadow-1-strong"
+                              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp"
+                              alt="avatar"
+                              width="65"
+                              height="65"
+                            />
+                          </a>
+                          <div class="flex-grow-1 flex-shrink-1">
+                            <div>
+                              <div
+                                class="d-flex justify-content-between align-items-center"
+                              >
+                                <p class="mb-1">
+                                  John Smith
+                                  <span class="small">- 4 hours ago</span>
+                                </p>
+                              </div>
+                              <p class="small mb-0">
+                                the majority have suffered alteration in some
+                                form, by injected humour, or randomised words.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="d-flex flex-start mt-4">
+                      <img
+                        class="rounded-circle shadow-1-strong me-3"
+                        src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(12).webp"
+                        alt="avatar"
+                        width="65"
+                        height="65"
+                      />
+                      <div class="flex-grow-1 flex-shrink-1">
+                        <div>
+                          <div
+                            class="d-flex justify-content-between align-items-center"
+                          >
+                            <p class="mb-1">
+                              Natalie Smith
+                              <span class="small">- 2 hours ago</span>
+                            </p>
+                            <a href="#!">
+                              <i class="fa-solid fa-reply"></i>
+                              <span class="small">reply</span>
+                            </a>
+                          </div>
+                          <p class="small mb-0">
+                            The standard chunk of Lorem Ipsum used since the
+                            1500s is reproduced below for those interested.
+                            Sections 1.10.32 and 1.10.33.
+                          </p>
+                        </div>
+
+                        <div class="d-flex flex-start mt-4">
+                          <a class="me-3" href="#">
+                            <img
+                              class="rounded-circle shadow-1-strong"
+                              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(31).webp"
+                              alt="avatar"
+                              width="65"
+                              height="65"
+                            />
+                          </a>
+                          <div class="flex-grow-1 flex-shrink-1">
+                            <div>
+                              <div
+                                class="d-flex justify-content-between align-items-center"
+                              >
+                                <p class="mb-1">
+                                  Lisa Cudrow
+                                  <span class="small">- 4 hours ago</span>
+                                </p>
+                              </div>
+                              <p class="small mb-0">
+                                Cras sit amet nibh libero, in gravida nulla.
+                                Nulla vel metus scelerisque ante sollicitudin
+                                commodo. Cras purus odio, vestibulum in
+                                vulputate at, tempus viverra turpis.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="d-flex flex-start mt-4">
+                          <a class="me-3" href="#">
+                            <img
+                              class="rounded-circle shadow-1-strong"
+                              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(29).webp"
+                              alt="avatar"
+                              width="65"
+                              height="65"
+                            />
+                          </a>
+                          <div class="flex-grow-1 flex-shrink-1">
+                            <div>
+                              <div
+                                class="d-flex justify-content-between align-items-center"
+                              >
+                                <p class="mb-1">
+                                  Maggie McLoan
+                                  <span class="small">- 5 hours ago</span>
+                                </p>
+                              </div>
+                              <p class="small mb-0">
+                                a Latin professor at Hampden-Sydney College in
+                                Virginia, looked up one of the more obscure
+                                Latin words, consectetur
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="d-flex flex-start mt-4">
+                          <a class="me-3" href="#">
+                            <img
+                              class="rounded-circle shadow-1-strong"
+                              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp"
+                              alt="avatar"
+                              width="65"
+                              height="65"
+                            />
+                          </a>
+                          <div class="flex-grow-1 flex-shrink-1">
+                            <div>
+                              <div
+                                class="d-flex justify-content-between align-items-center"
+                              >
+                                <p class="mb-1">
+                                  John Smith
+                                  <span class="small">- 6 hours ago</span>
+                                </p>
+                              </div>
+                              <p class="small mb-0">
+                                Autem, totam debitis suscipit saepe sapiente
+                                magnam officiis quaerat necessitatibus odio
+                                assumenda, perferendis quae iusto labore
+                                laboriosam minima numquam impedit quam dolorem!
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      class="card-footer py-3 border-0"
+                      style="background-color: #f8f9fa;"
+                    >
+                      <div class="d-flex flex-start w-100">
+                        <img
+                          class="rounded-circle shadow-1-strong me-3"
+                          src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp"
+                          alt="avatar"
+                          width="40"
+                          height="40"
+                        />
+                        <div class="form-outline w-100">
+                          <textarea
+                            class="form-control"
+                            id="textAreaExample"
+                            rows="4"
+                            style="background: #fff;"
+                          ></textarea>
+                          <label class="form-label" for="textAreaExample">
+                            Message
+                          </label>
+                        </div>
+                      </div>
+                      <div class="float-end mt-2 pt-1">
+                        <button type="button" class="btn btn-primary btn-sm">
+                          Post comment
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-outline-primary btn-sm"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div id="footer"></div>
+
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/jquery-confirm/jquery-confirm.min.js"></script>
+    <script src="assets/js/subject-carousel.js"></script>
+    <script src="assets/js/header.js"></script>
+
+    <script>
+      // $(document).on('click','a .exam-confirm',function(e){
+      //   e.preventDefault();
+      $(document).ready(function () {
+        $('a.exam-confirm').confirm({
+          closeIcon: true,
+          theme: 'Material',
+          //icon: 'fa-solid fa-warning',
+
+          title: 'Exam will start now!',
+          content:
+            'When time is up, result will be auto saved. Are you sure to continue! ',
+          animation: 'Scale',
+          buttons: {
+            Yes: function () {
+              window.location = 'student-exam.html'
+            },
+            No: function () {},
+          },
+        })
+      })
+
+      //})
+    </script>
+  </body>
+</html>
