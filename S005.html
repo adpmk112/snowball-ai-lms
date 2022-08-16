@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <title>Student</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css" />
+    <link rel="stylesheet" href="assets/css/header.css" />
+  </head>
+
+  <body>
+    <header id="header" style="background-color: Lavender;">
+      <div id="header-div">
+        <nav class="navbar navbar-light navbar-expand-md">
+          <div class="container-fluid">
+            <a class="navbar-brand" id="navbar-brand" href="#">
+              <img src="./assets/img/ace-logo-long.png" alt="" width="180px" />
+            </a>
+
+            <button
+              data-bs-toggle="collapse"
+              class="navbar-toggler"
+              data-bs-target="#navcol-1"
+              id="navbar-toggle"
+            >
+              <span class="close">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  class="menu-icon-close"
+                >
+                  <path
+                    d="M6.2253 4.81108C5.83477 4.42056 5.20161 4.42056 4.81108 4.81108C4.42056 5.20161 4.42056 5.83477 4.81108 6.2253L10.5858 12L4.81114 17.7747C4.42062 18.1652 4.42062 18.7984 4.81114 19.1889C5.20167 19.5794 5.83483 19.5794 6.22535 19.1889L12 13.4142L17.7747 19.1889C18.1652 19.5794 18.7984 19.5794 19.1889 19.1889C19.5794 18.7984 19.5794 18.1652 19.1889 17.7747L13.4142 12L19.189 6.2253C19.5795 5.83477 19.5795 5.20161 19.189 4.81108C18.7985 4.42056 18.1653 4.42056 17.7748 4.81108L12 10.5858L6.2253 4.81108Z"
+                    fill="currentColor"
+                  ></path>
+                </svg>
+              </span>
+              <span class="navbar-toggler-icon" id="menu-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navcol-1">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="S001.html" select>Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="S002.html">
+                    Live Sessions
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="S003.html">Exam</a>
+                </li>
+              </ul>
+            </div>
+
+            <div id="profile-dropdown" class="dropdown">
+              <a
+                id="dropdown-toggle"
+                class=""
+                aria-expanded="false"
+                data-bs-toggle="dropdown"
+                href="#"
+              >
+                <img id="profile-img" src="assets/img/profileboy.jpg" />
+              </a>
+              <div class="dropdown-menu dropdown-menu-end">
+                <a class="dropdown-item name" href="#">Name</a>
+                <a class="dropdown-item" href="S004.html">
+                  <svg
+                    class="dropdown-menu-item"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="1em"
+                    height="1em"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M16 9C16 11.2091 14.2091 13 12 13C9.79086 13 8 11.2091 8 9C8 6.79086 9.79086 5 12 5C14.2091 5 16 6.79086 16 9ZM14 9C14 10.1046 13.1046 11 12 11C10.8954 11 10 10.1046 10 9C10 7.89543 10.8954 7 12 7C13.1046 7 14 7.89543 14 9Z"
+                      fill="currentColor"
+                    ></path>
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1ZM3 12C3 14.0902 3.71255 16.014 4.90798 17.5417C6.55245 15.3889 9.14627 14 12.0645 14C14.9448 14 17.5092 15.3531 19.1565 17.4583C20.313 15.9443 21 14.0524 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12ZM12 21C9.84977 21 7.87565 20.2459 6.32767 18.9878C7.59352 17.1812 9.69106 16 12.0645 16C14.4084 16 16.4833 17.1521 17.7538 18.9209C16.1939 20.2191 14.1881 21 12 21Z"
+                      fill="currentColor"
+                    ></path>
+                  </svg>
+                  Profile
+                </a>
+                <a class="dropdown-item" href="./admin/ALGN001.html">
+                  <i class="fa fa-sign-out dropdown-menu-item"></i>
+                  Logout
+                </a>
+              </div>
+            </div>
+          </div>
+          <!--End container fluid-->
+        </nav>
+      </div>
+      <!--End header-div-->
+    </header>
+
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/header.js"></script>
+  </body>
+</html>

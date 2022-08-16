@@ -207,6 +207,7 @@
         theme: 'Material',
         //icon: 'fa-solid fa-warning',
 
+<<<<<<< HEAD
         title: 'Delete Course',
         content:
           'This will delete the course and all chapters. Are you sure?',
@@ -214,6 +215,36 @@
         buttons: {
           Yes: function () {
             console.log($(this).parent().closest('#course-row').length)
+=======
+    <!-- Custom -->
+    <script>
+      $(function () {
+        $('#header').load('./A006.html')
+      })
+    </script>
+    <script>
+      $(function () {
+        $('#footer').load('../F001.html')
+      })
+    </script>
+    <!-- Confirm Box to Delete-->
+    <script>
+      $(document).ready(function () {
+        $('a.delete-course').confirm({
+          closeIcon: true,
+          theme: 'Material',
+          //icon: 'fa-solid fa-warning',
+
+          title: 'Delete Course',
+          content:
+            'This will delete the course and all chapters. Are you sure?',
+          animation: 'Scale',
+          buttons: {
+            Yes: function () {
+              console.log($(this).parent().closest('#course-row').length)
+            },
+            No: function () {},
+>>>>>>> refs/remotes/origin/main
           },
           No: function () { },
         },

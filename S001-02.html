@@ -1,115 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
-    <title>Student-Classroom</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css"
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
     />
-
-    <script
-      type="text/javascript"
-      charset="utf8"
-      src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"
-    ></script>
-
-    <script src="assets/js/data.js"></script>
-    <link rel="stylesheet" href="assets/css/datatable.css" />
+    <title>header</title>
+    <link rel="stylesheet" href="assets/css/html5-video.css" />
+    <link rel="stylesheet" href="assets/css/ml-video-1.css" />
+    <link rel="stylesheet" href="assets/css/ml-video.css" />
     <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css" />
+
+    <!-- subject-css -->
+    <link rel="stylesheet" href="./assets/css/subject.css" />
     <link
       rel="stylesheet"
-      href="assets/jquery-confirm/jquery-confirm.min.css"
-    />
-
-    <script>
-      $(function () {
-        $('#header').load('header.html')
-      })
-    </script>
-    <script>
-      $(function () {
-        $('#footer').load('footer.html')
-      })
-    </script>
-    <script
-      src="https://kit.fontawesome.com/83e4876698.js"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+      integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
       crossorigin="anonymous"
-    ></script>
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="assets/css/header.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <script src="./assets/jquery/jquery.min.js"></script>
+    <script>
+      $(function () {
+        $('#header').load('S005.html')
+      })
+    </script>
+    <script>
+      $(function () {
+        $('#footer').load('F001.html')
+      })
+    </script>
   </head>
 
   <body class="body-color">
     <div id="header"></div>
-    <div class="semi-circle"></div>
-    <div class="banner">
-      <div class="circle"><i class="fa-solid fa-paintbrush"></i></div>
-      <div>
-        <h1>Exams</h1>
+
+    <div
+      class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label header-unit"
+    >
+      <div style="margin-left: auto; width: 80%; margin-right: auto;">
+        <h3>
+          Video.mp4
+        </h3>
       </div>
     </div>
-    <div class="class-margin custom-div" style="margin-top: 8px;">
-      <div class="mytabs1">
-        <input type="radio" id="tabupcoming" name="mytabs1" checked="checked" />
-        <label for="tabupcoming" id="lab1">Upcoming</label>
-        <div class="tab1 exam-card-container">
-          <div class="exam-card">
-            <a href="student-exam.html" class="exam-confirm">
-              <div style="max-width: 100%;">
-                <div class="card-header exam-text">Core Java Test</div>
-                <div class="card-body">
-                  <h5 class="card-title exam-text">Multiple Choice</h5>
-                  <p>
-                    Total Mark: 50
-                    <br />
-                    Time Allowed: 1hr
-                  </p>
-                </div>
-              </div>
-            </a>
-          </div>
-
-          <div class="exam-card">
-            <a href="student-exam.html" class="exam-confirm">
-              <div style="max-width: 100%;">
-                <div class="card-header exam-text">Core Java Test</div>
-                <div class="card-body">
-                  <h5 class="card-title exam-text">Code Test</h5>
-                  <p>
-                    Total Mark: 50
-                    <br />
-                    Time Allowed: 1hr
-                  </p>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <input type="radio" id="tabprevious" name="mytabs1" />
-        <label for="tabprevious" id="lab1">Previous</label>
-        <div class="tab1 exam-card-container">
-          <div class="exam-card">
-            <div style="max-width: 100%;">
-              <div class="card-header exam-text">Entrance Exam</div>
-              <div class="card-body">
-                <h5 class="card-title exam-text">Multiple Choice</h5>
-                <p>Mark Achieved: 50/50</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="exam-card">
-            <div style="max-width: 100%;">
-              <div class="card-header exam-text">Java Fundamental</div>
-              <div class="card-body">
-                <h5 class="card-title exam-text">Code Test</h5>
-                <p>Total Mark: 40/50</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="embed-responsive embed-responsive-16by9">
+      <video class="video-fluid z-depth-1" autoplay controls>
+        <source src="assets/img/Mr.Kitty - After Dark.mp4" type="video/mp4" />
+      </video>
     </div>
     <section
       class="gradient-custom custom-comment-box"
@@ -376,33 +320,7 @@
     <div id="footer"></div>
 
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/jquery-confirm/jquery-confirm.min.js"></script>
-    <script src="assets/js/subject-carousel.js"></script>
-    <script src="assets/js/header.js"></script>
-
-    <script>
-      // $(document).on('click','a .exam-confirm',function(e){
-      //   e.preventDefault();
-      $(document).ready(function () {
-        $('a.exam-confirm').confirm({
-          closeIcon: true,
-          theme: 'Material',
-          //icon: 'fa-solid fa-warning',
-
-          title: 'Exam will start now!',
-          content:
-            'When time is up, result will be auto saved. Are you sure to continue! ',
-          animation: 'Scale',
-          buttons: {
-            Yes: function () {
-              window.location = 'student-exam.html'
-            },
-            No: function () {},
-          },
-        })
-      })
-
-      //})
-    </script>
+    <script src="assets/js/Material-Text-Input.js"></script>
+    <script src="assets/js/ml-video.js"></script>
   </body>
 </html>

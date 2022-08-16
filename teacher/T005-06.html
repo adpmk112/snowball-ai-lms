@@ -16,6 +16,8 @@
       type="text/css"
       href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css"
     />
+    <link rel="stylesheet" href="../assets/fonts/font-awesome.min.css" />
+    <link rel="stylesheet" href="../teacher-batchdetail-grid.css" />
     <link rel="stylesheet" href="../assets/css/batchdetails.css" />
     <link rel="stylesheet" href="../assets/css/courselist.css" />
     <link rel="stylesheet" href="../assets/css/styles.css" />
@@ -40,18 +42,18 @@
     </div>
     <div class="custom-div margin-top-8">
       <div id="courselist" class="width-100">
-        <div id="batchdetail">
+        <div id="courselist">
           <div class="bread-crumb d-flex justify-content-between width-90">
             <div class="bread container-fluid">
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item">
-                    <a class="text-decoration-none" href="A003.html">
+                    <a class="text-decoration-none" href="T002.html">
                       Batch List
                     </a>
                   </li>
                   <li class="breadcrumb-item">
-                    <a class="text-decoration-none" href="A003-03.html">
+                    <a class="text-decoration-none" href="T003.html">
                       Batch Details
                     </a>
                   </li>
@@ -62,13 +64,18 @@
           <div class="mytabs">
             <input type="radio" id="tabunit" name="mytabs" checked="checked" />
             <label for="tabunit" id="lab">Chapter</label>
-            <div class="tab">
-              <!-- <div class="add-list">
-              <label>Add New Activity</label>
-              <a href="activity-add-page.html" class="btn btn-outline-success btn-floating" data-mdb-ripple-color="dark">
-                <i class="fa-solid fa-circle-plus"></i>
-              </a>
-            </div> -->
+            <div class="tab table-responsive">
+              <div class="add-list">
+                <label>Add New Activity</label>
+                <a
+                  href="T003-01.html"
+                  class="btn btn-outline-success btn-floating"
+                  data-mdb-ripple-color="dark"
+                >
+                  <i class="fa-solid fa-circle-plus"></i>
+                </a>
+              </div>
+
               <table id="datatable">
                 <thead>
                   <tr>
@@ -81,14 +88,14 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Servlet Part 1</td>
+                    <td>Chapter</td>
                     <td>Not Added</td>
                     <td>
                       <input
                         type="date"
                         class="form-control"
                         name="start-date"
-                        value=""
+                        id="start-date"
                       />
                     </td>
                     <td>
@@ -96,40 +103,7 @@
                         type="date"
                         class="form-control"
                         name="end-date"
-                        value=""
-                      />
-                    </td>
-                    <td>
-                      <a
-                        href=""
-                        class="btn btn-outline-primary btn-chapter-edit btn-floating"
-                        data-mdb-ripple-color="dark"
-                      >
-                        <i class="fa-regular fa-pen-to-square"></i>
-                      </a>
-
-                      <!-- <p>Custom Assignment add button htae pay pr</p> -->
-                    </td>
-                  </tr>
-                </tbody>
-                <tbody>
-                  <tr>
-                    <td>Servlet Part 2</td>
-                    <td>In Progess</td>
-                    <td>
-                      <input
-                        type="date"
-                        class="form-control"
-                        name="start-date"
-                        value=""
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="date"
-                        class="form-control"
-                        name="end-date"
-                        value=""
+                        id="end-date"
                       />
                     </td>
                     <td>
@@ -140,100 +114,75 @@
                       >
                         <i class="fa-regular fa-pen-to-square"></i>
                       </a>
+                      <!-- <a
+                        href=""
+                        class="btn btn-outline-danger chapter-remove btn-floating"
+                        data-mdb-ripple-color="dark"
+                      >
+                        <i class="fa-solid fa-circle-minus"></i>
+                      </a> -->
+                      <a href="" class="btn btn-outline-success btn-floating">
+                        <i class="fa-solid fa-folder-plus me-1"></i>
+                        Add Assignment
+                      </a>
 
-                      <!-- <p>Custom Assignment add button htae pay pr</p> -->
+                      <!-- <a
+                        href=""
+                        class="btn btn-outline-success btn-floating btn-chapter-edit"
+                        data-mdb-ripple-color="dark"
+                      >
+                        <i class="fa-regular fa-pen-to-square"></i>
+                      </a> -->
                     </td>
                   </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <input type="radio" id="tabstudent" name="mytabs" />
-            <label for="tabstudent" id="lab">Student</label>
-            <div class="tab">
-              <div class="add-list">
-                <label>Add Student List</label>
-                <a
-                  href="A003-04.html"
-                  class="btn btn-outline-success btn-floating"
-                  data-mdb-ripple-color="dark"
-                >
-                  <i class="fa-solid fa-circle-plus"></i>
-                </a>
-              </div>
-              <table id="datatable1">
-                <thead>
                   <tr>
-                    <th>Student Id</th>
-                    <th>Student Name</th>
-                    <th>Password</th>
-                    <th>Attendance %</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>STUid</td>
-                    <td>Aung Aung</td>
-                    <td>123</td>
-                    <td>70%</td>
+                    <td>Activity</td>
+                    <td>In Progess</td>
+                    <td>
+                      <input
+                        type="date"
+                        class="form-control"
+                        name="start-date"
+                        id="start-date"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="date"
+                        class="form-control"
+                        name="end-date"
+                        id="end-date"
+                      />
+                    </td>
                     <td>
                       <a
-                        href=" A003-05.html"
-                        class="btn btn-outline-primary btn-floating student-edit"
+                        href=""
+                        class="btn btn-outline-primary btn-floating btn-chapter-edit"
                         data-mdb-ripple-color="dark"
                       >
                         <i class="fa-regular fa-pen-to-square"></i>
                       </a>
                       <a
                         href=""
-                        class="btn btn-outline-danger btn-floating remove-student"
+                        class="btn btn-outline-danger chapter-remove btn-floating"
                         data-mdb-ripple-color="dark"
                       >
                         <i class="fa-solid fa-circle-minus"></i>
                       </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <input type="radio" id="tabteacher" name="mytabs" />
-            <label for="tabteacher" id="lab">Teacher</label>
-            <div class="tab">
-              <div class="add-list">
-                <label>Add Teacher</label>
-                <a
-                  href=""
-                  class="btn btn-outline-success btn-floating"
-                  data-bs-toggle="modal"
-                  data-bs-target="#teacher-add"
-                  data-mdb-ripple-color="dark"
-                >
-                  <i class="fa-solid fa-circle-plus"></i>
-                </a>
-              </div>
-              <table id="datatable2">
-                <thead>
-                  <tr>
-                    <th>Teacher Photo</th>
-                    <th>Name</th>
-
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Photo</td>
-                    <td>Tr Su</td>
-
-                    <td>
-                      <a
+                      <!-- <a
                         href=""
-                        class="btn btn-outline-danger btn-floating remove-teacher"
+                        class="btn btn-outline-success btn-floating"
                         data-mdb-ripple-color="dark"
                       >
-                        <i class="fa-solid fa-circle-minus"></i>
+                        <i class="fa-solid fa-folder-plus me-1"></i>
+                        Assignment
+                      </a> -->
+                      <a
+                        href=""
+                        class="btn btn-outline-success btn-floating btn-chapter-edit"
+                        data-mdb-ripple-color="dark"
+                      >
+                        <i class="fa-regular fa-pen-to-square"></i>
                       </a>
                     </td>
                   </tr>
@@ -302,7 +251,7 @@
             </div>
             <input type="radio" id="tabattendance" name="mytabs" />
             <label for="tabattendance" id="lab">Attendance</label>
-            <div class="tab">
+            <div class="tab table-responsive">
               <div class="add-list">
                 <label>Add Date</label>
                 <a
@@ -437,7 +386,7 @@
               <div class="add-list">
                 <label>Add Class</label>
                 <a
-                  href="A003-06.html"
+                  href="T004.html"
                   class="btn btn-outline-success btn-floating"
                   data-mdb-ripple-color="dark"
                 >
@@ -466,7 +415,7 @@
                     <td>record.mp4</td>
                     <td>
                       <a
-                        href="./A003-07.html"
+                        href="T004-01.html"
                         class="btn btn-outline-primary btn-floating"
                         data-mdb-ripple-color="dark"
                       >
@@ -474,7 +423,7 @@
                       </a>
                       <a
                         href=""
-                        class="btn btn-outline-danger remove-classroom btn-floating"
+                        class="btn btn-outline-danger btn-floating"
                         data-mdb-ripple-color="dark"
                       >
                         <i class="fa-solid fa-circle-minus"></i>
@@ -492,7 +441,7 @@
                     <td>record.mp4</td>
                     <td>
                       <a
-                        href="./A003-07.html"
+                        href="T004-01.html"
                         class="btn btn-outline-primary btn-floating"
                         data-mdb-ripple-color="dark"
                       >
@@ -500,7 +449,7 @@
                       </a>
                       <a
                         href=""
-                        class="btn btn-outline-danger remove-classroom btn-floating"
+                        class="btn btn-outline-danger btn-floating"
                         data-mdb-ripple-color="dark"
                       >
                         <i class="fa-solid fa-circle-minus"></i>
@@ -510,51 +459,285 @@
                 </tbody>
               </table>
             </div>
+            <input type="radio" id="tabmarks" name="mytabs" />
+            <label for="tabmarks" id="lab">Marks</label>
+            <div class="tab">
+              <div class="mt-3 mb-4 d-flex justify-content-between">
+                <div>
+                  <select
+                    class="form-select"
+                    aria-label="Default select example"
+                  >
+                    <option selected>Exam</option>
+                    <option value="1">Assignment</option>
+                  </select>
+                </div>
+                <div class="add-list">
+                  <!-- <label>Add Class</label>
+                <a href="classroom-add-page.html" class="btn btn-outline-success btn-floating" data-mdb-ripple-color="dark">
+                  <i class="fa-solid fa-circle-plus"></i>
+                </a> -->
+                </div>
+              </div>
+
+              <!-- Mark Table -->
+              <table id="datatable7">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Mg Mg</th>
+                    <th>Ag Hla</th>
+                    <th>Min Oo</th>
+                    <th>Win Maw</th>
+
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <input
+                      type="hidden"
+                      name="exam-id"
+                      id="exam-id"
+                      value="1"
+                    />
+                    <td>Final Exam</td>
+                    <td>
+                      <input
+                        type="hidden"
+                        name="student-id"
+                        id="student-id"
+                        value="1"
+                      />
+                      <input
+                        type="number"
+                        class=""
+                        style="border: none; width: 30px; outline: none;"
+                        min="0"
+                        max="100"
+                        value="0"
+                        id="mark"
+                        readonly
+                      />
+                      /100
+                    </td>
+                    <td>
+                      <input
+                        type="hidden"
+                        id="student-id"
+                        name="student-id"
+                        value="2"
+                      />
+                      <input
+                        type="number"
+                        class=""
+                        style="border: none; width: 30px; outline: none;"
+                        min="0"
+                        max="100"
+                        value="0"
+                        id="mark"
+                        readonly
+                      />
+                      /100
+                    </td>
+                    <td>
+                      <input
+                        type="hidden"
+                        id="student-id"
+                        name="student-id"
+                        value="3"
+                      />
+                      <input
+                        type="number"
+                        class=""
+                        style="border: none; width: 30px; outline: none;"
+                        min="0"
+                        max="100"
+                        value="0"
+                        id="mark"
+                        readonly
+                      />
+                      /100
+                    </td>
+                    <td>
+                      <input
+                        type="hidden"
+                        id="student-id"
+                        name="student-id"
+                        value="2"
+                      />
+                      <input
+                        type="number"
+                        class=""
+                        style="border: none; width: 30px; outline: none;"
+                        min="0"
+                        max="100"
+                        value="0"
+                        id="mark"
+                        readonly
+                      />
+                      /100
+                    </td>
+                    <td>
+                      <a
+                        href=""
+                        class="btn btn-mark-edit btn-outline-primary btn-floating"
+                        data-mdb-ripple-color="dark"
+                      >
+                        <i class="fa-regular fa-pen-to-square"></i>
+                      </a>
+                    </td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- End mark Table-->
+            </div>
+            <input type="radio" id="tabcomment" name="mytabs" />
+            <label for="tabcomment" id="lab">Comment</label>
+            
+            <div class="tab">
+              <div class="mt-3 mb-4 d-flex justify-content-between">
+                <div>
+                  <p>
+                    <a href="T003.html">
+                      &lt; back
+                    </a>
+                  </p>
+                </div>
+                <div class="add-list">
+                  <!-- <label>Add Class</label>
+                  <a
+                    href="classroom-add-page.html"
+                    class="btn btn-outline-success btn-floating"
+                    data-mdb-ripple-color="dark"
+                  >
+                    <i class="fa-solid fa-circle-plus"></i>
+                  </a> -->
+                </div>
+              </div>
+              <table id="datatable8">
+                <thead>
+                  <tr>
+                    <th>Video Name</th>
+                    <th>Go To Comment</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Video 1</td>
+
+                    <td>
+                      <a
+                        href="T005-07.html"
+                        class="more-info btn btn-floating"
+                        data-mdb-ripple-color="dark"
+                      >
+                        <img
+                          class="more"
+                          src="../assets/img/option.png"
+                          alt=""
+                        />
+                      </a>
+                      <img class="more" src="./assets/img/option.png" alt="" />
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Video 1</td>
+
+                    <td>
+                      <a
+                        href="T005-07.html"
+                        class="more-info btn btn-floating"
+                        data-mdb-ripple-color="dark"
+                      >
+                        <img
+                          class="more"
+                          src="../assets/img/option.png"
+                          alt=""
+                        />
+                      </a>
+                      <img class="more" src="./assets/img/option.png" alt="" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Video 1</td>
+
+                    <td>
+                      <a
+                        href="T005-07.html"
+                        class="more-info btn btn-floating"
+                        data-mdb-ripple-color="dark"
+                      >
+                        <img
+                          class="more"
+                          src="../assets/img/option.png"
+                          alt=""
+                        />
+                      </a>
+                      <img class="more" src="./assets/img/option.png" alt="" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Video 1</td>
+
+                    <td>
+                      <a
+                        href="T005-07.html"
+                        class="more-info btn btn-floating"
+                        data-mdb-ripple-color="dark"
+                      >
+                        <img
+                          class="more"
+                          src="../assets/img/option.png"
+                          alt=""
+                        />
+                      </a>
+                      <img class="more" src="./assets/img/option.png" alt="" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Video 1</td>
+
+                    <td>
+                      <a
+                        href="T005-07.html"
+                        class="more-info btn btn-floating"
+                        data-mdb-ripple-color="dark"
+                      >
+                        <img
+                          class="more"
+                          src="../assets/img/option.png"
+                          alt=""
+                        />
+                      </a>
+                      <img class="more" src="./assets/img/option.png" alt="" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Video 1</td>
+
+                    <td>
+                      <a
+                        href="T005-07.html"
+                        class="more-info btn btn-floating"
+                        data-mdb-ripple-color="dark"
+                      >
+                        <img
+                          class="more"
+                          src="../assets/img/option.png"
+                          alt=""
+                        />
+                      </a>
+                      <img class="more" src="./assets/img/option.png" alt="" />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
 
             <div class="plus-icon"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- End Main-->
-
-    <!-- Modal for teacher add-->
-    <div
-      class="modal fade"
-      id="teacher-add"
-      aria-hidden="true"
-      aria-labelledby="Teachareaddmodal"
-      tabindex="-1"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalToggleLabel2">
-              Add Teacher
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <form action="">
-              <select class="form-select" aria-label="Default select example">
-                <option selected>Select Teacher</option>
-                <option value="1">Teacher 1</option>
-                <option value="2">Teacher 2</option>
-                <option value="3">Teacher 3</option>
-                <option value="1">Teacher 1</option>
-                <option value="2">Teacher 2</option>
-                <option value="3">Teacher 3</option>
-              </select>
-              <div class="modal-footer">
-                <button class="btn btn-secondary">Cancel</button>
-                <button class="btn btn-primary">Add</button>
-              </div>
-            </form>
           </div>
         </div>
       </div>
@@ -601,7 +784,6 @@
     <div id="footer"></div>
 
     <script src="../assets/jquery/jquery.min.js"></script>
-    <script src="../assets/js/data.js"></script>
     <script
       type="text/javascript"
       charset="utf8"
@@ -611,56 +793,33 @@
       src="https://kit.fontawesome.com/83e4876698.js"
       crossorigin="anonymous"
     ></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/jquery-confirm/jquery-confirm.min.js"></script>
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
-    ></script>
-    <script src="../assets/js/admin-batch-detail.js"></script>
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../assets/js/data.js"></script>
+    <!-- <script src="../assets/js/admin-batch-detail.js"></script> -->
+    <script src="../assets/js/teacher-batchdetail-grid.js"></script>
+    <script src="../assets/jquery-confirm/jquery-confirm.min.js"></script>
+    <script src=""></script>
+
     <script>
       $(function () {
-        $('#header').load('A006.html')
+        $('#header').load('T007.html')
       })
     </script>
     <script>
       $(function () {
-        $('#footer').load('F001.html')
+        $('#footer').load('../F001.html')
       })
     </script>
 
-    <!-- For student delet confirm-->
+    <!-- Confirm Box-->
     <script>
       $(document).ready(function () {
-        $('a.remove-student').confirm({
+        $('a.chapter-remove').confirm({
           closeIcon: true,
           theme: 'Material',
           //icon: 'fa-solid fa-warning',
 
-          title: 'Remove Student',
-          content: 'Are you sure to remove this student?',
-          animation: 'Scale',
-          buttons: {
-            Yes: function () {},
-            No: function () {},
-          },
-        })
-      })
-    </script>
-
-    <!-- For teacher delet confirm-->
-    <script>
-      $(document).ready(function () {
-        $('a.remove-teacher').confirm({
-          closeIcon: true,
-          theme: 'Material',
-          //icon: 'fa-solid fa-warning',
-
-          title: 'Remove Teacher',
+          title: 'Remove Chapter!',
           content: 'Are you sure to remove?',
           animation: 'Scale',
           buttons: {
@@ -671,26 +830,6 @@
       })
     </script>
 
-    <!-- For exam-schedule delete confirm -->
-    <script>
-      $(document).ready(function () {
-        $('a.remove-exam').confirm({
-          closeIcon: true,
-          theme: 'Material',
-          //icon: 'fa-solid fa-warning',
-
-          title: 'Remove Exam!',
-          content: 'Are you sure to remove this exam?',
-          animation: 'Scale',
-          buttons: {
-            Yes: function () {},
-            No: function () {},
-          },
-        })
-      })
-    </script>
-
-    <!-- For Remove Attencance confirm -->
     <script>
       $(document).ready(function () {
         $('a.remove-attendance').confirm({
@@ -707,10 +846,7 @@
           },
         })
       })
-    </script>
 
-    <!--For Classroom Delete confirm -->
-    <script>
       $(document).ready(function () {
         $('a.remove-classroom').confirm({
           closeIcon: true,
