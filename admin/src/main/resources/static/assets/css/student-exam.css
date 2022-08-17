@@ -1,0 +1,56 @@
+#exam{
+    margin-top: 80px;
+    background: white;    
+}
+#exam-content{
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    background: rgba(223, 222, 222, 0.411);
+    padding: 15px 10px;
+}
+
+#exam-content .exam-header{
+    margin: 10px 0px;
+    padding: 15px 20px;
+
+}
+
+#exam-content .exam-body{
+    background: white;
+}
+
+.exam-body .exam-list{
+    padding : 10px;
+    margin: 5px;
+}
+
+#exam .exam-list .exam-question{
+    padding: 10px;
+    margin: 10px 0px;
+}
+
+#exam .exam-answer{
+
+}
+#exam .exam-answer li{
+    list-style: upper-alpha;
+}
+#exam .list-item .answer{
+    margin-left: 15px;
+}
+#exam .exam-answer textarea{
+    border-radius: none;
+    border-color: transparent;
+    box-shadow: none;
+    outline: 0px none transparent;
+    
+}
+
+#exam .exam-answer .file-input{
+    width: auto;
+}
+
+#exam .exam-button{
+    
+}

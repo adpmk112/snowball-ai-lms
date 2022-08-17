@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layouts/main :: layout(~{::main})}">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+ 
+  <link rel="stylesheet" href="./assets/css/styles.css">
+  <link rel="stylesheet" href="./assets/css/header.css">
+
+  <title>Batch Add</title>
+  
+</head>
+
+<body>
+<main role="main">
+  <div th:fragment="admin-batch-add" class="course-add-container " id="course-add" >
+
+    <div class="bread-crumb1 d-flex justify-content-between width-90">
+      <div class="bread container-fluid">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a class="text-decoration-none" href="admin-Batch-page.html">
+                Batch List
+              </a>
+            </li>
+            <li class="breadcrumb-item">
+              <a class="text-decoration-none" href="">
+                Batch Add
+              </a>
+            </li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <div class="margin-button">
+
+      <a class="text-decoration-none text-muted" href="admin-Batch-page.html">
+        < Back</a>
+
+
+
+    </div>
+    <div >
+    <form class="form-horizontal part1">
+      <div class="form-group part2">
+
+        <label class="col-sm-3 col-form-label" for="id">
+          <h2>Create Batch</h2>
+        </label>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 col-form-label" for="id">Id:</label>
+        <div class="col-sm-10 ">
+          <input style="width:300px" type="text" class="form-control form-input-box" id="id" placeholder="Enter Id" name="id">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 col-form-label" for="id">Name:</label>
+        <div class="col-sm-10">
+          <input style="width:300px"    type="text" class="form-control" id="name" placeholder="Enter Name" name="name">
+        </div>
+      </div>
+      <div class="form-group part2">
+        <label class="col-sm-2 col-form-label " for="id">Course:</label>
+        <div class="col-sm-10 ">
+        <select name="cars" id="course" style="width:200px">
+          <option value="">Select</option>
+          <option value="">Java</option>
+          <option value="">C++</option>
+          <option value="">.Net</option>
+          <option value="">PHP</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group part2 mb-4">
+        <label class="col-sm-2 col-form-label " for="id">Teacher:</label>
+        <div class="col-sm-10 ">
+        <select name="cars" id="course" style="width:200px">
+          <option value="">Select</option>
+          <option value="">Jone</option>
+          <option value="">Smith</option>
+          <option value="">Mg Mg</option>
+          <option value="">Hla Hla</option>
+        </select>
+      </div>
+    </div>
+      <div class="col-sm-offset-2 col-sm-10 part2 mb-4 ">
+        <button type="reset" class="btn btn-warning ">Reset</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
+  </div>
+</main>
+</body>
+
+</html>

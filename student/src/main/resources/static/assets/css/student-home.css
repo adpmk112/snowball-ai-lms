@@ -1,0 +1,154 @@
+/* Subject is student-home.css */
+
+*{
+    margin: 0px;
+    padding: 0px;
+    border: none;
+}
+
+/* subject section */
+#subject{
+    margin-top: 100px;
+    width: auto;
+    height: auto;
+    border-radius: 15px;
+    background: #fff;
+    padding: 10px;
+    /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px; */
+    
+}   
+
+.subject{
+    z-index:999;
+    
+} 
+
+#subject .subject-button{
+    max-width: 400px;
+    margin-top: 5px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+#subject .subject-button .button{
+    box-shadow: none;
+    border-radius: 30px;
+    min-width: 100px;
+    margin: 0px 10px 0px 10px;
+    border: 1px solid #2d3846;
+    transition: all .7s;
+}
+
+/* #subject .subject-button  .active{
+    background: none;
+} */
+
+#subject .subject-button .button:hover , #subject .subject-button  .active{
+    background: #00458a;
+    border: 1px solid #00458a;
+    color: #fff;
+}
+
+
+/* For .owl-carousel show and hide */
+
+.carousel-container{
+    display: flex;
+    flex-direction: row;
+}
+
+#subject .subject{
+    position: relative;
+}
+
+#subject .owl-carousel{
+    opacity: 0%;
+    display: none;
+}
+#subject .owl-carousel.show{
+    display: block;
+    opacity: 100%;
+}
+
+/* For owl .owl-carousel */
+
+.owl-carousel  .owl-nav{
+    position: absolute;
+    width: 100%;
+    top: 30%;
+    line-height: 5px;
+      
+}
+.owl-carousel .owl-prev{
+   position: relative;
+   right: 50%;
+
+}
+.owl-carousel .owl-next{
+    position: relative;
+    left: 50%;
+ }
+
+ .owl-carousel .owl-prev,
+ .owl-carousel .owl-next{
+    width: 45px; 
+    height: 45px;
+    display: flex;
+    background: rgb(110, 156, 241)  !important;
+    justify-content: center;
+    border-radius: 50% !important;
+    transition: all .5s;
+ }
+
+
+.owl-carousel .owl-prev span, 
+.owl-carousel .owl-next span{
+    font-size: 3em;
+    color:#fff;
+}
+
+
+.owl-carousel .owl-prev:hover , 
+.owl-carousel .owl-next:hover 
+{
+    background: rgb(59, 126, 250) !important;
+
+}
+
+
+.owl-carousel .owl-dots .owl-dot:hover span,
+.owl-carousel .owl-dots .owl-dot.active span
+{
+    background: #1ccacd !important; 
+}
+ 
+.chapter{
+    box-shadow: 0 10px 30px -15px  #00458a;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    flex-direction: column;
+    align-items:flex-start;
+    position: relative;
+    height: 14rem;
+    padding: 1rem 1rem;
+    border-radius: 4px;
+  
+    background:lavender;
+    overflow: auto;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    width:14rem;
+    
+   
+}
+
+.chapter .chapter-text{
+    color:#00458a;
+}
+
+.chapter:hover{
+transform: translateY(-7px);
+}

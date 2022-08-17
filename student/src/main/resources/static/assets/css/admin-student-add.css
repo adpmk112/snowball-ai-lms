@@ -1,0 +1,62 @@
+#student-add-card{
+    background: white;
+    padding: 0px 0px 10px 0px;
+    border-radius: 6px;
+    border: 1px solid rgb(216, 210, 210);
+    position: relative;
+    top: 0px;
+    margin: 80px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+#student-add-card .title{
+    background: rgb(235, 232, 232);
+    padding: 10px 15px 0px 15px;
+    
+}
+
+#student-add-card .title .main-title{
+    text-transform: uppercase;    
+
+}
+
+#student-add-card .sub-title h4{
+    font-size: 16px;
+    padding: 0px 0px 10px 0px;
+}
+#student-add-card .table{
+    font-size: 14px;
+}
+
+#student-add-card #student-form-table{
+    width: 100%;
+}
+
+#student-add-card #student-form-table td[class="btn-td"]{
+    position: relative;
+}
+
+#student-add-card #student-form-table td[class="btn-td"] #btn-update{
+    position: absolute;
+    top: 10px;
+    opacity: 0;        
+}
+#student-add-card #student-form-table td button{
+    border-radius: 6px;
+    display: flex;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    margin: 0px;
+}
+
+#student-add-card #student-form-table #btn-add-all{
+    outline: none;
+}
+
+#student-add-card #student-table td:last-child button{
+    border-radius: 6px;
+    border: none;
+}
+

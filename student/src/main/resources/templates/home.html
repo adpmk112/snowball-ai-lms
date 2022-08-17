@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <title>header</title>
+    <link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./assets/fonts/font-awesome.min.css" />
+
+    <!-- carousel-css -->
+    <link
+            rel="stylesheet"
+            href="./assets/owlcarousel/css/owl.carousel.min.css"
+    />
+    <link
+            rel="stylesheet"
+            href="./assets/owlcarousel/css/owl.theme.default.min.css"
+    />
+
+<!--    &lt;!&ndash; subject-css &ndash;&gt;-->
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+    <link rel="stylesheet" href="./assets/css/student-home.css" />
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+            integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./assets/css/header.css" />
+    <link rel="stylesheet" href="./assets/css/main.css" />
+    <script src="./assets/jquery/jquery.min.js"></script>
+    <script
+            src="https://kit.fontawesome.com/83e4876698.js"
+            crossorigin="anonymous"
+    ></script>
+
+</head>
+
+<body class="body-color">
+<header th:replace="fragments :: header"></header>
+<main th:replace="fragments/home-frag:: home">
+</main>
+
+
+<script src="./assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="./assets/js/jquery.min.js"></script>
+<script src="./assets/owlcarousel/js/owl.carousel.min.js"></script>
+<script src="./assets/js/subject-carousel.js"></script>
+<script src="./assets/js/header.js"></script>
+
+<script>
+    $('#subject .subject .button').click(function () {
+        $('#subject .subject .button').removeClass('active')
+        $(this).addClass('active')
+        //$(".owl-carousel").addClass("d-none");
+        //$("#"+$(this).attr("id")+"-show").removeClass("d-none");
+        $('.owl-carousel').removeClass('show')
+        $('#' + $(this).attr('id') + '-show').addClass('show')
+    })
+</script>
+</body>
+</html>

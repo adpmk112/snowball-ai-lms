@@ -1,0 +1,404 @@
+body{
+  overflow-x: hidden;
+  font-family: 'Poppins',sans-serif;
+}
+
+.video-fluid {
+    width: 70%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  .embed-responsive{
+    display: flex;
+    justify-content: center;
+  }
+
+  .subject-title {
+    width: 700px;
+    height: 100px;
+    padding-top: 20px;
+    padding-left: 225px;
+    margin-left: 270px;
+    margin-top: 20px;
+  }
+
+.pointer-off{
+  pointer-events: none;
+}
+
+
+.h1-label {
+      font-size: 2.5rem;
+} 
+
+.h2-label{
+    padding-top: 60px;
+    padding-left: 80px;
+    font-size: 2rem;
+} 
+
+
+
+.file-link{
+    padding-left: 80px;
+} 
+
+.header-unit{
+    margin-top: 120px;
+} 
+
+.footer-margin{
+  margin-bottom: 100px;
+}
+.unit-a{
+  text-decoration: none;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.body-color{
+  background-color: rgb(235, 235, 235) ;
+}
+
+.shodow-div-profile {
+  background-color: white;
+  border-radius: 30px;
+  box-shadow: 8px 8px 12px rgb(201, 201, 201);
+}
+
+/* #file {
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+} */
+.logo-fix{
+ 
+    justify-content: center;
+  
+}
+
+body{
+  background-color: rgb(235, 235, 235);
+}
+
+.image-margin{
+  margin-top: 150px;
+}
+.btn1 {
+  border: none;
+  outline: none;
+  height: 50px;
+  width: 100%;
+  background-color: black;
+  color: white;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.btn1:hover {
+  background: white;
+  border: 1px solid;
+  color: black;
+}
+
+.dot {
+  height: 100px;
+  width: 100px;
+  background-color: #bbb;
+  border-radius: 50%;
+  margin-top: 100px;
+
+}
+
+.header-margin {
+  margin-top: 150px;
+
+}
+
+.form-color {
+  background-color: lavender;
+}
+
+.file-choose {
+  margin-top: 28px;
+}
+
+
+
+.custom-comment-box{
+  
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 8px;
+  margin-bottom: 50px;
+  width: 90%;
+  border-radius: 15px;
+  
+}
+
+.custom-div{
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+  width: 90%;
+  border-radius: 15px;
+  background-color: white;
+  height: auto;
+ 
+}
+
+.space-between{
+  margin-top: 50px;
+}
+.class-margin{
+  margin-top: 125px;
+}
+
+.width-90{
+  width: 90%;
+}
+
+.width-100{
+  width: 100%;
+}
+
+.margin-top-50{
+  margin-top: 50px ;
+}
+ /* .ban{
+  background: #53647b;
+  display: flex;
+  flex-direction: column;
+}
+
+.ban h3{
+  margin-left: 1.5rem;
+  color:#fff;
+}
+.ban i{
+  color:#fff;
+  margin-left: 1.5rem;
+  font-size: 2.5rem;
+}  */
+
+.more{
+  width: 1rem;
+ 
+}
+.more-info{
+  outline: 2px solid rgb(198, 198, 244);
+}
+
+.more-info:hover{
+  background: rgb(198, 198, 244);
+}
+
+/* .more-oval{
+  background: #fff;
+-moz-border-radius: 100px / 50px;
+-webkit-border-radius: 100px / 50px;
+border-radius: 25px / 17px;
+
+border:1px solid rgb(45, 56, 70);
+} */
+
+
+/* exam card design */
+
+.exam-card{
+  box-shadow: 0 10px 30px -15px  #2d3846;
+  justify-content: space-between;
+  padding: 1rem 1rem;
+  border-radius: 4px;
+  background:lavender;
+  overflow: auto;
+  margin-top: 1rem;
+  margin-left: 1rem;
+  width: 13rem;
+  height: 13rem;
+}
+
+.exam-card-container a{
+    text-decoration: none;
+}
+
+.exam .exam-text{
+  color:#2d3846;
+}
+
+.exam-card:hover{
+transform: translateY(-7px);
+}
+
+
+.cards {
+            /* display: grid;
+            grid-template-rows: repeat(5,lfr);
+            grid-gap: 2rem; */
+            margin-top: 5%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            margin-top:9rem;
+        }
+
+        .card-single {
+            margin-left: 5rem;
+            width: 425px;
+            height: 150px;
+            margin: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            border-radius: 3px;
+            border-radius: 25px;
+            /* box-shadow: 2px 2px 4px lavender; */
+            
+        }
+
+        .card-single-teacher {
+          margin-left: 5rem;
+          width: 300px;
+          height: 150px;
+          margin: 10px;
+          display: flex;
+          flex-direction: column;
+          /* align-items: ; */
+          padding: 1rem;
+          border-radius: 3px;
+          border-radius: 25px;
+          /* box-shadow: 2px 2px 4px lavender; */
+          color: white; 
+          background-color: #3c80da;
+          
+          
+      }
+
+        .card1{
+          margin-right: 5rem;
+          margin-bottom: 3rem;
+        }
+
+        .card-single .card-link,
+        .card-single h1 {
+            display: block;
+        }
+
+        .card-single div:last-child i {
+            color: cornflowerblue;
+            font-size: 25px;
+        }
+
+        #num {
+            color: rgb(64, 0, 255);
+            font-size: 30px;
+            margin-right: 30px;
+        }
+
+        #add {
+            color: green;
+        }
+
+        .interface {
+            width: 100%;
+            height: 100px;
+        }
+
+        .container2 {
+            width: 100%;
+            height: auto;
+            
+        }
+
+        .cs1 {
+            background-color: #99ccff;
+        }
+
+        .cs2 {
+            background-color: #c994f8;
+        }
+
+        .cs3 {
+            background-color: #ccffcc;
+        }
+
+        .cs4 {
+            background-color: #ffcccc;
+        }
+
+        .cs5 {
+            background-color: #ff99cc;
+        }
+
+
+  .batch-caption{
+    color:blue;
+    margin-left: 2.5rem;
+
+  }
+
+  .search-chart{
+  
+    display: flex;
+    flex-direction: row;
+  }
+
+  .custom-div1{
+    display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+  width: 90%;
+  border-radius: 15px;
+  
+  height: auto;
+  }
+
+  .custom-div2{
+    display: flex;
+    margin-left: 2rem;
+    margin-right:5rem;
+    margin-bottom: 50px;
+    border-radius: 15px;
+    background-color: white;
+    height: auto;
+   
+  }
+ 
+  #custom-button{
+    width:20px;
+  }
+
+  .course-add-container {
+
+
+    height: auto;
+    /* margin: 50px; */
+    margin-left: 50px;
+    margin-right: 50px;
+    display: flex;
+    justify-content: center;
+    border-radius: 5px;
+    flex-direction: column;
+
+}
+
+.btn1:hover {
+    border: 1px solid;
+}
+
+.part1 {
+    margin: auto;
+}
+.form-input-box{
+  width:300px;
+}

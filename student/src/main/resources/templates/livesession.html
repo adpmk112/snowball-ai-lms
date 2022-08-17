@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Student-Classroom</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css"
+  />
+  <script
+          type="text/javascript"
+          charset="utf8"
+          src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"
+  ></script>
+
+  <script src="assets/js/data.js"></script>
+  <link rel="stylesheet" href="assets/css/datatable.css" />
+  <link rel="stylesheet" href="./assets/css/header.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <script
+          src="https://kit.fontawesome.com/83e4876698.js"
+          crossorigin="anonymous"
+  ></script>
+
+  <link rel="stylesheet" href="./assets/css/student-home.css" />
+  <link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.min.css" />
+</head>
+
+
+<body class="body-color">
+<header th:replace="fragments :: header"></header>
+<main th:replace="fragments/livesession-frag :: livesession">
+</main>
+
+<script src="./assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="./assets/js/subject-carousel.js"></script>
+<script src="./assets/js/header.js"></script>
+
+
+
+</body>
+</html>

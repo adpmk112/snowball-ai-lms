@@ -1,0 +1,33 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  .container {
+    width: 100%;
+    height: 30%;
+    padding: 50px;
+    margin: 50px;
+    border-radius: 5px;
+    
+  }
+  .btn1:hover {
+    border: 1px solid;
+  }
+
+  .part3 {
+    margin-top: 40px;
+  }
+  .part2 {
+    margin-bottom: 50px;
+  }
+  #course {
+    width: 100px;
+    height: 30px;
+    background-color: lavender;
+  }
+
+  .margin-button{
+    margin-bottom: 50px;
+  }
