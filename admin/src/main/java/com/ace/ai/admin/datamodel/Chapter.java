@@ -4,25 +4,25 @@ import javax.persistence.*;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Data
-public class Chapter {
+public class Chapter implements Serializable {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
     private String name;
-    private boolean delete_status;
+    private boolean deleteStatus;
 
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course course;
 
     @OneToMany(mappedBy = "chapter")
-    private List<Chapter_Batch> chapter_Batches = new ArrayList<>();
+    private List<ChapterBatch> chapterBatches = new ArrayList<>();
 
     @OneToMany(mappedBy = "chapter")
-    private List<Chapter_File> chapter_Files = new ArrayList<>();
+    private List<ChapterFile> chapterFiles = new ArrayList<>();
 }
