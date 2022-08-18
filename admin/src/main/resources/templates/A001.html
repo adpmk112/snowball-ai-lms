@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <div th:replace="fragments :: head"></div>
+  <title>Admin Home</title>
+  </head>
+
+  <body class="body-color">
+  <header th:replace="fragments :: header"></header>
+  <main role="main">
+    <div th:replace="fragments/A001 :: admin-home"></div>
+  </main>
+  <footer th:replace="fragments :: footer"></footer>
+ <div th:replace="fragments :: scripts"></div>
+  </body>
+</html>

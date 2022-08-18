@@ -16,10 +16,10 @@
       type="text/css"
       href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css"
     />
-    <link rel="stylesheet" href="../assets/css/batchdetails.css" />
-    <link rel="stylesheet" href="../assets/css/courselist.css" />
-    <link rel="stylesheet" href="../assets/css/styles.css" />
-    <link rel="stylesheet" href="../assets/css/header.css" />
+    <link rel="stylesheet" href="./assets/css/batchdetails.css" />
+    <link rel="stylesheet" href="./assets/css/courselist.css" />
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+    <link rel="stylesheet" href="./assets/css/header.css" />
     <link
       rel="stylesheet"
       href="../assets/jquery-confirm/jquery-confirm.min.css"
@@ -27,7 +27,7 @@
   </head>
 
   <body style="background-color: rgb(235, 235, 235);">
-    <div id="header"></div>
+  <div th:fragment="">
     <div class="semi-circle"></div>
     <div class="banner">
       <div class="circle">
@@ -171,12 +171,12 @@
                 <input
                   type="text"
                   class="form-control"
-                  id="recipient-name"
+
                   placeholder="File Name"
                 />
               </div>
               <div class="mb-3">
-                <input type="file" class="form-control" id="message-text" />
+                <input type="file" class="form-control"  />
               </div>
             </form>
             <div class="modal-footer">
@@ -206,7 +206,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Edit File</h5>
+            <h5 class="modal-title" >Edit File</h5>
             <button
               type="button"
               class="btn-close"
@@ -242,32 +242,23 @@
         </div>
       </div>
     </div>
+      </div>
 
-    <div id="footer"></div>
 
-    <script src="../assets/jquery/jquery.min.js"></script>
+    <script src="./assets/jquery/jquery.min.js"></script>
     <script
       src="https://kit.fontawesome.com/83e4876698.js"
       crossorigin="anonymous"
     ></script>
-    <script src="../assets/js/data.js"></script>
+    <script src="./assets/js/data.js"></script>
     <!-- <script src="../assets/bootstrap/js/bootstrap.min.js"></script> -->
-    <script src="../assets/jquery-confirm/jquery-confirm.min.js"></script>
+    <script src="./assets/jquery-confirm/jquery-confirm.min.js"></script>
     <script
       type="text/javascript"
       charset="utf8"
       src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"
     ></script>
-    <script>
-      $(function () {
-        $('#header').load('A006.html')
-      })
-    </script>
-    <script>
-      $(function () {
-        $('#footer').load('F001.html')
-      })
-    </script>
+
     <script>
       $(document).ready(function () {
         $('a.delete-chapter-file').confirm({

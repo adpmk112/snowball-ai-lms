@@ -1,0 +1,83 @@
+.carousel-container{
+    display: flex;
+    flex-direction: row;
+}
+
+#subject .subject{
+    position: relative;
+}
+
+#subject .owl-carousel{
+    opacity: 0%;
+    display: none;
+}
+#subject .owl-carousel.show{
+    display: block;
+    opacity: 100%;
+}
+
+/* For owl .owl-carousel */
+
+.owl-carousel  .owl-nav{
+    position: absolute;
+    width: 100%;
+    top: 20%;
+    line-height: 20px;
+      
+}
+.owl-carousel .owl-prev{
+   position: relative;
+   right: 50%;
+
+}
+.owl-carousel .owl-next{
+    position: relative;
+    left: 50%;
+ }
+
+ .owl-carousel .owl-prev,
+ .owl-carousel .owl-next{
+    width: 30px; 
+    height: 30px;
+    display: flex;
+    background: rgb(110, 156, 241)  !important;
+    justify-content: center;
+    
+    border-radius: 50% !important;
+    transition: all .5s;
+ }
+
+
+.owl-carousel .owl-prev span, 
+.owl-carousel .owl-next span{
+    font-size: 1em;
+    color:#fff;
+}
+
+
+.owl-carousel .owl-prev:hover , 
+.owl-carousel .owl-next:hover 
+{
+    background: rgb(59, 126, 250) !important;
+
+}
+
+
+.owl-carousel .owl-dots .owl-dot:hover span,
+.owl-carousel .owl-dots .owl-dot.active span
+{
+    background: #1ccacd !important; 
+}
+
+
+/* For assignment collapse */
+a.assignment-collapse {
+    outline: none;
+    box-shadow: none !important;
+    border: none;   
+}
+
+.assignment-collapse i{
+    transition: all .4s;
+    margin-left: 50px;
+}

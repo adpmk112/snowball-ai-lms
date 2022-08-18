@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head >
+    <div th:replace="fragments :: head"></div>
+    <title>Batches</title>
+  </head>
+
+  <body style="background-color: rgb(235, 235, 235);">
+  <header th:replace="fragments :: header"></header>
+  <main role="main">
+    <div th:replace="fragments/A003 :: admin-batch"></div>
+  </main>
+  <footer th:replace="fragments :: footer"></footer>
+  <div th:replace="fragments :: scripts"> </div>
+
+    <!-- <script src="../assets/bootstrap/js/bootstrap.min.js"></script> -->
+    <script th:src="@{/assets/jquery/jquery.min.js}"></script>
+    <script th:src="@{/assets/js/data.js}"></script>
+    <script
+      type="text/javascript"
+      charset="utf8"
+      src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/83e4876698.js"
+      crossorigin="anonymous"
+    ></script>
+    <script th:src="@{/assets/jquery-confirm/jquery-confirm.min.js}"></script>
+
+
+    <!-- Batch Lock -->
+    <script>
+      $(document).ready(function () {
+        $('a.batch-close').confirm({
+          closeIcon: true,
+          theme: 'Material',
+          //icon: 'fa-solid fa-warning',
+
+          title: 'Batch Close!',
+          content: 'Are you sure to close?',
+          animation: 'Scale',
+          buttons: {
+            No: function () {},
+            Yes: function () {},
+          },
+        });
+
+        $('a.batch-reopen').confirm({
+          closeIcon: true,
+          theme: 'Material',
+          //icon: 'fa-solid fa-warning',
+
+          title: 'Reopen Batch!',
+          content: 'Are you sure?',
+          animation: 'Scale',
+          buttons: {
+            No: function () {},
+            Yes: function () {},
+          },
+        });
+      })
+    </script>
+
+    <!-- Batch Reopen -->
+
+  </body>
+</html>
