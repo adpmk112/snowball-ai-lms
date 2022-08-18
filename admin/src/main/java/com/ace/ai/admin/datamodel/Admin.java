@@ -18,5 +18,4 @@ public class Admin {
     private String code;
     private String password;
     private boolean delete_status;
-
 }
