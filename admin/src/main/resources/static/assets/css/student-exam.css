@@ -30,9 +30,7 @@
     margin: 10px 0px;
 }
 
-#exam .exam-answer{
 
-}
 #exam .exam-answer li{
     list-style: upper-alpha;
 }
@@ -51,6 +49,3 @@
     width: auto;
 }
 
-#exam .exam-button{
-    
-}

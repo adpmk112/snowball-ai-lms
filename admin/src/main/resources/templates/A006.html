@@ -19,7 +19,7 @@
   </head>
 
   <body class="body-color">
-    <header id="header" style="background-color: Lavender;">
+    <header th:fragment="header" id="header" style="background-color: Lavender;">
       <div id="header-div">
         <nav class="navbar navbar-light navbar-expand-md">
           <div class="container-fluid">
@@ -84,7 +84,7 @@
                 data-bs-toggle="dropdown"
                 href="#"
               >
-                <img id="profile-img" src="../assets/img/profileboy.jpg" />
+                <img id="profile-img" src="./assets/img/profileboy.jpg" />
               </a>
               <div class="dropdown-menu dropdown-menu-end">
                 <a class="dropdown-item name" href="#">Name</a>

@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class IndexController {
     @GetMapping({"/","/home"})
     public String index(){
-        return "admin-batch-add-page";
+        return "A001";
     }
 }
