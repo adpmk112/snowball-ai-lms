@@ -62,8 +62,8 @@
                                     <td th:text="${iterationStatus.count}"></td>
                                     <td th:text="${batch.id}"></td>
                                     <td th:text="${batch.name}"></td>
-                                    <td th:if="${batch.delete_status}">Closed</td>
-                                    <td th:unless="${batch.delete_status}">Open</td>
+                                    <td th:if="${batch.deleteStatus}">Closed</td>
+                                    <td th:unless="${batch.deleteStatus}">Open</td>
                                     <td>
                                         <a      th:href="@{/A003-03(id=${batch.id})}"
                                                 href="A003-03.html"
