@@ -2,13 +2,17 @@ package com.ace.ai.admin.datamodel;
 
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-@Data
+
 @Entity
+@Getter
+@Setter
 public class Chapter_Batch implements Serializable {
     /**
      *
@@ -17,9 +21,9 @@ public class Chapter_Batch implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
-    private Date start_date;
-    private Date end_date;
-    private int delete_status;
+    private String start_date;
+    private String end_date;
+    private Boolean delete_status;
 
     @ManyToOne
     @JoinColumn(name="chapter_id")
@@ -28,4 +32,6 @@ public class Chapter_Batch implements Serializable {
     @ManyToOne
     @JoinColumn(name="batch_id")
     private Batch batch;
+
+
 }

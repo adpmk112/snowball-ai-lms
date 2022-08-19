@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{layouts/main :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" th:replace="~{layouts/main :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org" xmlns:batch>
 <body>
 <main role="main">
 <div th:fragment="admin-batch">
@@ -47,6 +47,7 @@
                         <table id="datatable">
                             <thead>
                             <tr>
+                                <th>No.</th>
                                 <th>Id</th>
                                 <th>Name</th>
                                 <th>Status</th>
@@ -55,69 +56,44 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>01</td>
-                                <td>OJT-001</td>
-                                <td class="text-success">Active</td>
-                                <td>
-                                    <a      th:href="@{/A003-03}"
-                                            href="A003-03.html"
-                                            class="more-info btn btn-floating"
-                                            data-mdb-ripple-color="dark"
-                                    >
-                                        See More
-                                    </a>
-                                </td>
+                            <!--/*@thymesVar id="batchtList" type="batchList"*/-->
+                            <form th:action="@{/AddDate}" method="post" th:object="${batchList}" >
+                                <tr th:each="batch,iterationStatus: ${batchList}">
+                                    <td th:text="${iterationStatus.count}"></td>
+                                    <td th:text="${batch.id}"></td>
+                                    <td th:text="${batch.name}"></td>
+                                    <td th:if="${batch.delete_status}">Closed</td>
+                                    <td th:unless="${batch.delete_status}">Open</td>
+                                    <td>
+                                        <a      th:href="@{/A003-03(id=${batch.id})}"
+                                                href="A003-03.html"
+                                                class="more-info btn btn-floating"
+                                                data-mdb-ripple-color="dark"
+                                        >
+                                            See More
+                                        </a>
+                                    </td>
 
-                                <td>
-                                    <a
-                                            href="A003-02.html"
-                                            class="btn btn-outline-primary btn-floating"
-                                            data-mdb-ripple-color="dark"
-                                    >
-                                        <i class="fa-regular fa-pen-to-square"></i>
-                                    </a>
-                                    <a
-                                            href=""
-                                            class="btn batch-close btn-outline-danger btn-floating"
-                                            data-mdb-ripple-color="dark"
-                                    >
-                                        <i class="fa-solid fa-lock"></i>
-                                    </a>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>01</td>
-                                <td>OJT-001</td>
-                                <td class="text-secondary">Closed</td>
-                                <td>
-                                    <a
-                                            href="aA003-03.html"
-                                            class="more-info btn btn-floating"
-                                            data-mdb-ripple-color="dark"
-                                    >
-                                        See More
-                                    </a>
-                                </td>
-                                <td>
-                                    <a
-                                            href="A003-02.html"
-                                            class="btn btn-outline-primary btn-floating"
-                                            data-mdb-ripple-color="dark"
-                                    >
-                                        <i class="fa-regular fa-pen-to-square"></i>
-                                    </a>
-                                    <a
-                                            href=""
-                                            class="btn batch-reopen btn-outline-secondary btn-floating"
-                                            data-mdb-ripple-color="dark"
-                                    >
-                                        <i class="fa-solid fa-lock"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                                    <td>
+                                        <a
+                                                href="A003-02.html"
+                                                class="btn btn-outline-primary btn-floating"
+                                                data-mdb-ripple-color="dark"
+                                        >
+                                            <i class="fa-regular fa-pen-to-square"></i>
+                                        </a>
+                                        <a
+                                                href=""
+                                                class="btn batch-close btn-outline-danger btn-floating"
+                                                data-mdb-ripple-color="dark"
+                                        >
+                                            <i class="fa-solid fa-lock"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </form>
                             </tbody>
+
                         </table>
                     </div>
                     <div class="plus-icon"></div>

@@ -15,6 +15,7 @@ $(document).on("click", ".btn.btn-mark-edit", function (e) {
       .find(".fa-solid.fa-check")
       .removeClass("fa-solid fa-check")
       .addClass("fa-pen-to-square");
+
     _input.attr("readonly", true);
     _input.css("border", "none");
     var marks = [];
@@ -127,6 +128,7 @@ $(document).on("click", ".btn.btn-chapter-edit", function(e){
       edit_btn
         .removeClass("fa-pen-to-square")
         .addClass("fa-solid fa-check");
+
       _start_date.removeAttr("disabled");
       _end_date.removeAttr("disabled");
       _start_date.css("border", "1px solid red");
@@ -137,10 +139,24 @@ $(document).on("click", ".btn.btn-chapter-edit", function(e){
     .find(".fa-solid.fa-check")
     .removeClass("fa-solid fa-check")
     .addClass("fa-pen-to-square");
+
   _start_date.attr("disabled", true);
   _end_date.attr("disabled", true);
-  _start_date.css("border", "none");
-  _end_date.css("border", "none");
+ console.log(_start_date);
+ _start_date =document.getElementById("start-date").value;
+ _end_date=document.getElementById("end-date").value;
+      if(_start_date.getTime() < _end_date.getTime())
+      {
+          console.log('start_date date is lower than end_date')
+          _start_date.css("border", "none");
+          _end_date.css("border", "none");
+          $(this).id='submitButton';
+      }
+      else
+      {
+          console.log('end_date date is greater than end_date')
+      }
+
   
   //Attendancce array
   // let attendance = [];

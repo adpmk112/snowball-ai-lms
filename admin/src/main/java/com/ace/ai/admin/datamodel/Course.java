@@ -11,7 +11,7 @@ public class Course {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
     private String name;
-    private Date created_date;
+    private String created_date;
     private Boolean delete_status;
 
     @OneToMany(mappedBy = "course")
