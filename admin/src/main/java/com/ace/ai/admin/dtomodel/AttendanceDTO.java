@@ -5,5 +5,4 @@ public class AttendanceDTO {
     private String date;
     private String student_name;
     private String status;
-
 }

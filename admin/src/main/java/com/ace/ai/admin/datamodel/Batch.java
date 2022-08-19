@@ -1,29 +1,46 @@
 package com.ace.ai.admin.datamodel;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
+
+import lombok.Data;
+
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
-public class Batch {
+@Data
+public class Batch implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
     private String name;
+    private boolean deleteStatus;
+    private String createdDate;
 
     @ManyToOne
     @JoinColumn(name="course_id")
     private Course course;
 
     @OneToMany(mappedBy = "batch")
-    private List<Chapter_Batch> chapter_batches = new ArrayList<>();
+    private List<ChapterBatch> chapterBatches = new ArrayList<>();
 
-    private boolean delete_status;
-    private String created_date;
+    @OneToMany(mappedBy = "batch")
+    private List<BatchExamForm> batchExamForms = new ArrayList<>();
+
+    @OneToMany(mappedBy = "batch")
+    private List<TeacherBatch> teacherBatches = new ArrayList<>();
+
+    @OneToMany(mappedBy = "batch")
+    private List<CustomChapter> customChapters = new ArrayList<>();
+
+    @OneToMany(mappedBy = "batch")
+    private List<Comment> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "batch")
+    private List<Student> students = new ArrayList<>();
+
+    @OneToMany(mappedBy = "batch")
+    private List<Classroom> classrooms = new ArrayList<>();
+    
 }

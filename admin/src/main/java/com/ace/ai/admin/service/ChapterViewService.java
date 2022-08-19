@@ -1,41 +1,35 @@
 package com.ace.ai.admin.service;
 
-import com.ace.ai.admin.datamodel.Chapter_Batch;
+import com.ace.ai.admin.datamodel.ChapterBatch;
 import com.ace.ai.admin.dtomodel.ChapterDTO;
+import com.ace.ai.admin.repository.ChapterBatchRepository;
 import com.ace.ai.admin.repository.ChapterRepository;
-import com.ace.ai.admin.repository.Chapter_BatchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
-
-import static java.util.Calendar.getInstance;
 
 @Service
 public class ChapterViewService {
 
     @Autowired
-    Chapter_BatchRepository chapter_batchRepository;
+    ChapterBatchRepository chapterBatchRepository;
     @Autowired
     ChapterRepository chapterRepository;
 
     public List<ChapterDTO> findAllChapterInChapterBatchByBatchId(Integer id) throws ParseException {
 
         List<ChapterDTO> chapterDTOList=new ArrayList<ChapterDTO>();
-        List<Chapter_Batch> chapter_batches=chapter_batchRepository.findChapterIdByBatchId(id);
+        List<ChapterBatch> chapterBatches=chapterBatchRepository.findChapterIdByBatchId(id);
 
-
-
-
-        for(Chapter_Batch chapter_batch:chapter_batches){
+        for(ChapterBatch chapterBatch:chapterBatches){
             ChapterDTO chapterDTO=new ChapterDTO();
-            chapterDTO.setName( chapter_batch.getChapter().getName());
-            LocalDate startDate=LocalDate.parse(chapter_batch.getStart_date());
-            LocalDate endDate=LocalDate.parse(chapter_batch.getEnd_date());
-            if(chapter_batch.getStart_date().equals("") || chapter_batch.getEnd_date().equals("")){
+            chapterDTO.setName( chapterBatch.getChapter().getName());
+            LocalDate startDate=LocalDate.parse(chapterBatch.getStartDate());
+            LocalDate endDate=LocalDate.parse(chapterBatch.getEndDate());
+            if(chapterBatch.getStartDate().equals("") || chapterBatch.getEndDate().equals("")){
                 chapterDTO.setStatus("Not added");
 
             }

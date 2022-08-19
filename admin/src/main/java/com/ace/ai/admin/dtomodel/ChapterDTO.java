@@ -1,7 +1,6 @@
 package com.ace.ai.admin.dtomodel;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class ChapterDTO {
     private String name; //chapter table
@@ -28,8 +27,6 @@ public class ChapterDTO {
     public LocalDate getStart_date() {
         return start_date;
     }
-
-
 
     public LocalDate getEnd_date() {
         return end_date;
