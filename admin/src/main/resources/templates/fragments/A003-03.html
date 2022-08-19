@@ -42,6 +42,7 @@
                         <table id="datatable">
                             <thead>
                             <tr>
+                                <th>No.</th>
                                 <th>Name</th>
                                 <th>Status</th>
                                 <th>Start Date</th>
@@ -50,28 +51,36 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>Servlet Part 1</td>
-                                <td>Not Added</td>
-                                <td>
-                                    <input
+                            <!--/*@thymesVar id="chapter" type="ChapterDTOList"*/-->
+                            <form th:action="@{/AddDate}" method="post" th:object="${chapterDTOList}">
+                            <tr th:each="chapterDTO,iterationStatus: ${chapterDTOList}">
+                                <td th:text="${iterationStatus.count}"></td>
+                                <td id="chpName_1" th:text="${chapterDTO.name}"></td>
+                                <td id="chpStatus_1" th:text="${chapterDTO.status}"></td>
+
+
+                                <td id="chpstartDate_${iterationStatus.count}" >
+
+                                    <input  id="start-date_1"
                                             type="date"
                                             class="form-control"
                                             name="start-date"
-                                            value=""
+                                            th:value="${chapterDTO.start_date}"
                                     />
                                 </td>
-                                <td>
-                                    <input
+                                <td id="chpendDate_1" >
+                                    <input   id="end-date_1 "
                                             type="date"
                                             class="form-control"
                                             name="end-date"
-                                            value=""
+                                            th:value="${chapterDTO.end_date}"
                                     />
+
                                 </td>
                                 <td>
                                     <a
                                             href=""
+                                            id="img-click_${iterationStatus.count}"
                                             class="btn btn-outline-primary btn-chapter-edit btn-floating"
                                             data-mdb-ripple-color="dark"
                                     >
@@ -81,39 +90,8 @@
                                     <!-- <p>Custom Assignment add button htae pay pr</p> -->
                                 </td>
                             </tr>
-                            </tbody>
-                            <tbody>
-                            <tr>
-                                <td>Servlet Part 2</td>
-                                <td>In Progess</td>
-                                <td>
-                                    <input
-                                            type="date"
-                                            class="form-control"
-                                            name="start-date"
-                                            value=""
-                                    />
-                                </td>
-                                <td>
-                                    <input
-                                            type="date"
-                                            class="form-control"
-                                            name="end-date"
-                                            value=""
-                                    />
-                                </td>
-                                <td>
-                                    <a
-                                            href="./A003-03.html"
-                                            class="btn btn-outline-primary btn-floating btn-chapter-edit"
-                                            data-mdb-ripple-color="dark"
-                                    >
-                                        <i class="fa-regular fa-pen-to-square"></i>
-                                    </a>
 
-                                    <!-- <p>Custom Assignment add button htae pay pr</p> -->
-                                </td>
-                            </tr>
+                            </form>
                             </tbody>
                         </table>
                     </div>

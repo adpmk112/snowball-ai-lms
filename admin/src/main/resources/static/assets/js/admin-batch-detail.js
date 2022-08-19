@@ -52,6 +52,7 @@ $(document).on("click", ".btn.btn-chapter-edit", function(e){
   let _end_date = $(this).closest("tr").find('input[name="end-date"]');
   let edit_btn = $(this).find(".fa-pen-to-square");
   if (edit_btn.length > 0) {
+
       edit_btn
         .removeClass("fa-pen-to-square")
         .addClass("fa-solid fa-check");
@@ -61,6 +62,22 @@ $(document).on("click", ".btn.btn-chapter-edit", function(e){
       _end_date.css("border", "1px solid red");
     }
   else{
+      // var id=$(this).attr("id").split("_")[1];
+      // var chpName=$("#chpName_"+id)[0].innerHTML;
+      //
+      // $.ajax({
+      //     url : "../SendData",
+      //     type : "GET",
+      //     contentType: "application/json; charset=utf-8",
+      //     dataType: "json",
+      //     data : {chpName:chpName},
+      //     success : function(responce) {
+      //         alert("ok")
+      //     }
+      // });
+      // if(chpName !=""){
+      //     return false;
+      // }
       $(this)
     .find(".fa-solid.fa-check")
     .removeClass("fa-solid fa-check")
