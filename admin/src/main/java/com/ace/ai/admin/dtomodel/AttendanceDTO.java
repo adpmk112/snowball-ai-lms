@@ -1,8 +1,10 @@
 package com.ace.ai.admin.dtomodel;
 
+import lombok.Data;
+
+@Data
 public class AttendanceDTO {
-    private String batch_id;
     private String date;
-    private String student_name;
-    private String status;
+    private String studentName;
+    private String attendStatus;
 }
