@@ -1,7 +1,10 @@
 package com.ace.ai.admin.service;
 
+import com.ace.ai.admin.datamodel.Batch;
+import com.ace.ai.admin.datamodel.Chapter;
 import com.ace.ai.admin.datamodel.ChapterBatch;
 import com.ace.ai.admin.dtomodel.ChapterDTO;
+import com.ace.ai.admin.repository.BatchRepository;
 import com.ace.ai.admin.repository.ChapterBatchRepository;
 import com.ace.ai.admin.repository.ChapterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,8 @@ public class ChapterViewService {
     ChapterBatchRepository chapterBatchRepository;
     @Autowired
     ChapterRepository chapterRepository;
+    @Autowired
+    BatchRepository batchRepository;
 
     public List<ChapterDTO> findAllChapterInChapterBatchByBatchId(Integer id) throws ParseException {
 
@@ -55,5 +60,17 @@ public class ChapterViewService {
         }
 
          return chapterDTOList;
+    }
+
+    public boolean saveDatesForChapter(String chpName,String startDate,String endDate,int batchId){
+        Chapter chapter=chapterRepository.findByName(chpName);
+        Batch batch=batchRepository.findBatchById(batchId);
+
+        ChapterBatch chapter_batch=chapterBatchRepository.findChapterBatchByBatchIdAndChapterId(batch.getId(),chapter.getId());
+        chapter_batch.setStartDate(startDate);
+        chapter_batch.setEndDate(endDate);
+        chapterBatchRepository.save(chapter_batch);
+
+        return true;
     }
 }

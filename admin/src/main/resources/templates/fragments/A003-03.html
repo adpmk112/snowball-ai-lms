@@ -3,537 +3,540 @@
 
 <body>
 <main role="main">
-<div th:fragment="admin-batch-see-more">
-    <div class="semi-circle"></div>
-    <div class="banner">
-        <div class="circle">
-            <i class="fa-solid fa-people-group"></i>
+    <div th:fragment="admin-batch-see-more">
+        <div class="semi-circle"></div>
+        <div class="banner">
+            <div class="circle">
+                <i class="fa-solid fa-people-group"></i>
+            </div>
+            <div>
+                <h1>Batches</h1>
+                <h3>Total: 4</h3>
+            </div>
         </div>
-        <div>
-            <h1>Batches</h1>
-            <h3>Total: 4</h3>
-        </div>
-    </div>
-    <div class="custom-div margin-top-8">
-        <div id="courselist" class="width-100">
-            <div id="batchdetail">
-                <div class="bread-crumb d-flex justify-content-between width-90">
-                    <div class="bread container-fluid">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a class="text-decoration-none" href="A003.html">
-                                        Batch List
-                                    </a>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <a class="text-decoration-none" href="A003-03.html">
-                                        Batch Details
-                                    </a>
-                                </li>
-                            </ol>
-                        </nav>
+        <div class="custom-div margin-top-8">
+            <div id="courselist" class="width-100">
+                <div id="batchdetail">
+                    <div class="bread-crumb d-flex justify-content-between width-90">
+                        <div class="bread container-fluid">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a class="text-decoration-none" href="A003.html">
+                                            Batch List
+                                        </a>
+                                    </li>
+                                    <li class="breadcrumb-item">
+                                        <a class="text-decoration-none" href="A003-03.html">
+                                            Batch Details
+                                        </a>
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
                     </div>
-                </div>
-                <div class="mytabs">
-                    <input type="radio" id="tabunit" name="mytabs" checked="checked" />
-                    <label for="tabunit" id="lab">Chapter</label>
-                    <div class="tab">
-                        <table id="datatable">
-                            <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>Name</th>
-                                <th>Status</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <!--/*@thymesVar id="chapter" type="ChapterDTOList"*/-->
-                            <form th:action="@{/AddDate}" method="post" th:object="${chapterDTOList}">
-                            <tr th:each="chapterDTO,iterationStatus: ${chapterDTOList}">
-                                <td th:text="${iterationStatus.count}"></td>
-                                <td id="chpName_1" th:text="${chapterDTO.name}"></td>
-                                <td id="chpStatus_1" th:text="${chapterDTO.status}"></td>
+                    <div class="mytabs">
+                        <input type="radio" id="tabunit" name="mytabs" checked="checked" />
+                        <label for="tabunit" id="lab">Chapter</label>
+                        <div class="tab">
+                            <table id="datatable">
+                                <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Name</th>
+                                    <th>Status</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!--/*@thymesVar id="chapter" type="ChapterDTOList"*/-->
+                                <form th:action="@{/AddDate}" method="post" th:object="${chapterDTOList}">
+                                    <tr th:each="chapterDTO,iterationStatus: ${chapterDTOList}">
+                                        <input th:id="'batchId_'+${iterationStatus.count}" type="hidden" th:value="${batch_id}"/>
+                                        <td th:text="${iterationStatus.count}"></td>
+                                        <td th:id="'chpName_'+${iterationStatus.count}" th:text="${chapterDTO.name}"></td>
+                                        <td th:id="'chpStatus_'+${iterationStatus.count}" th:text="${chapterDTO.status}"></td>
 
+                                        <td th:id="'chpstartDate_'+${iterationStatus.count}" >
 
-                                <td id="chpstartDate_${iterationStatus.count}" >
+                                            <input  th:id="'startDate_'+${iterationStatus.count}"
+                                                    type="date"
+                                                    class="form-control"
+                                                    name="start-date"
+                                                    th:value="${chapterDTO.start_date}"
+                                                    disabled/>
+                                        </td>
+                                        <td th:id="'chpendDate_'+${iterationStatus.count}" >
 
-                                    <input  id="start-date_1"
-                                            type="date"
-                                            class="form-control"
-                                            name="start-date"
-                                            th:value="${chapterDTO.start_date}"
-                                    />
-                                </td>
-                                <td id="chpendDate_1" >
-                                    <input   id="end-date_1 "
-                                            type="date"
-                                            class="form-control"
-                                            name="end-date"
-                                            th:value="${chapterDTO.end_date}"
-                                    />
+                                            <input   th:id="'endDate_'+${iterationStatus.count}"
+                                                     type="date"
+                                                     class="form-control"
+                                                     name="end-date"
+                                                     th:value="${chapterDTO.end_date}"
+                                                     disabled />
 
-                                </td>
-                                <td>
-                                    <a
-                                            href=""
-                                            id="img-click_${iterationStatus.count}"
-                                            class="btn btn-outline-primary btn-chapter-edit btn-floating"
-                                            data-mdb-ripple-color="dark"
-                                    >
-                                        <i class="fa-regular fa-pen-to-square"></i>
-                                    </a>
+                                        </td>
+                                        <td>
+                                            <a
+                                                    href=""
+                                                    th:id="'img-click_'+${iterationStatus.count}"
+                                                    class="btn btn-outline-primary btn-chapter-edit btn-floating"
+                                                    data-mdb-ripple-color="dark"
+                                            >
+                                                <i class="fa-regular fa-pen-to-square"></i>
+                                            </a>
 
-                                    <!-- <p>Custom Assignment add button htae pay pr</p> -->
-                                </td>
-                            </tr>
+                                            <!-- <p>Custom Assignment add button htae pay pr</p> -->
+                                        </td>
+                                    </tr>
 
-                            </form>
-                            </tbody>
-                        </table>
-                    </div>
+                                </form>
+                                </tbody>
+                            </table>
+                        </div>
 
-                    <input type="radio" id="tabstudent" name="mytabs" />
-                    <label for="tabstudent" id="lab">Student</label>
-                    <div class="tab">
-                        <div class="add-list">
-                            <label>Add Student List</label>
-                            <a
-                                    href="/templates/A003-04.html"
-                                    class="btn btn-outline-success btn-floating"
-                                    data-mdb-ripple-color="dark"
-                            >
+                        <input type="radio" id="tabstudent" name="mytabs" />
+                        <label for="tabstudent" id="lab">Student</label>
+                        <div class="tab">
+                            <div class="add-list">
+                                <label>Add Student List</label>
+                                <a
+                                        href="/templates/A003-04.html"
+                                        class="btn btn-outline-success btn-floating"
+                                        data-mdb-ripple-color="dark"
+                                >
+                                    <i class="fa-solid fa-circle-plus"></i>
+                                </a>
+                            </div>
+                            <table id="datatable1">
+                                <thead>
+                                <tr>
+                                    <th>Student Id</th>
+                                    <th>Student Name</th>
+                                    <th>Password</th>
+                                    <th>Attendance %</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>STUid</td>
+                                    <td>Aung Aung</td>
+                                    <td>123</td>
+                                    <td>70%</td>
+                                    <td>
+                                        <a
+                                                href="/templates/A003-05.html"
+                                                class="btn btn-outline-primary btn-floating student-edit"
+                                                data-mdb-ripple-color="dark"
+                                        >
+                                            <i class="fa-regular fa-pen-to-square"></i>
+                                        </a>
+                                        <a
+                                                href=""
+                                                class="btn btn-outline-danger btn-floating remove-student"
+                                                data-mdb-ripple-color="dark"
+                                        >
+                                            <i class="fa-solid fa-circle-minus"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <input type="radio" id="tabteacher" name="mytabs" />
+                        <label for="tabteacher" id="lab">Teacher</label>
+                        <div class="tab">
+                            <div class="add-list">
+                                <label>Add Teacher</label>
+                                <a
+                                        href=""
+                                        class="btn btn-outline-success btn-floating"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#teacher-add"
+                                        data-mdb-ripple-color="dark"
+                                >
+                                    <i class="fa-solid fa-circle-plus"></i>
+                                </a>
+                            </div>
+                            <table id="datatable2">
+                                <thead>
+                                <tr>
+                                    <th>Teacher Photo</th>
+                                    <th>Name</th>
+
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Photo</td>
+                                    <td>Tr Su</td>
+
+                                    <td>
+                                        <a
+                                                href=""
+                                                class="btn btn-outline-danger btn-floating remove-teacher"
+                                                data-mdb-ripple-color="dark"
+                                        >
+                                            <i class="fa-solid fa-circle-minus"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <input type="radio" id="tabexam" name="mytabs" />
+                        <label for="tabexam" id="lab">Exam-Schedule</label>
+                        <div class="tab">
+                            <div class="add-list">
+                                <!-- <label>Add Exam List</label>
+                              <a href="exam-add-page.html" class="btn btn-outline-success btn-floating" data-mdb-ripple-color="dark">
                                 <i class="fa-solid fa-circle-plus"></i>
-                            </a>
+                              </a> -->
+                            </div>
+                            <table id="datatable4">
+                                <thead>
+                                <tr>
+                                    <th>Exam Name</th>
+                                    <th>Start-Date</th>
+                                    <th>End-Date</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Exam 1</td>
+                                    <td>
+                                        <input
+                                                type="date"
+                                                class="form-control"
+                                                name="start-date"
+                                                id="start-date"
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                                type="date"
+                                                class="form-control"
+                                                name="end-date"
+                                                id="end-date"
+                                        />
+                                    </td>
+                                    <td>Pending</td>
+                                    <td>
+                                        <a
+                                                href=""
+                                                class="btn btn-outline-primary btn-floating btn-exam-schedule-edit"
+                                                data-mdb-ripple-color="dark"
+                                        >
+                                            <i class="fa-regular fa-pen-to-square"></i>
+                                        </a>
+                                        <a
+                                                href=""
+                                                class="btn remove-exam btn-outline-danger b btn-floating"
+                                                data-mdb-ripple-color="dark"
+                                        >
+                                            <i class="fa-solid fa-circle-minus"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <table id="datatable1">
-                            <thead>
-                            <tr>
-                                <th>Student Id</th>
-                                <th>Student Name</th>
-                                <th>Password</th>
-                                <th>Attendance %</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>STUid</td>
-                                <td>Aung Aung</td>
-                                <td>123</td>
-                                <td>70%</td>
-                                <td>
-                                    <a
-                                            href="/templates/A003-05.html"
-                                            class="btn btn-outline-primary btn-floating student-edit"
-                                            data-mdb-ripple-color="dark"
-                                    >
-                                        <i class="fa-regular fa-pen-to-square"></i>
-                                    </a>
-                                    <a
-                                            href=""
-                                            class="btn btn-outline-danger btn-floating remove-student"
-                                            data-mdb-ripple-color="dark"
-                                    >
-                                        <i class="fa-solid fa-circle-minus"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                        <input type="radio" id="tabattendance" name="mytabs" />
+                        <label for="tabattendance" id="lab">Attendance</label>
+                        <div class="tab">
 
-                    <input type="radio" id="tabteacher" name="mytabs" />
-                    <label for="tabteacher" id="lab">Teacher</label>
-                    <div class="tab">
-                        <div class="add-list">
-                            <label>Add Teacher</label>
-                            <a
-                                    href=""
-                                    class="btn btn-outline-success btn-floating"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#teacher-add"
-                                    data-mdb-ripple-color="dark"
-                            >
-                                <i class="fa-solid fa-circle-plus"></i>
-                            </a>
+                            <!-- Start Attendance Table-->
+                            <table id="datatable5">
+                                <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Mg Mg</th>
+                                    <th>Ag Hla</th>
+                                    <th>Min Oo</th>
+                                    <th>Win Maw</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <input
+                                                type="date"
+                                                class="form-control"
+                                                name="attend-date"
+                                                id="attend-date"
+                                                value="12-01-2022"
+                                        />
+                                    </td>
+                                    <td class="stu-attendance">
+                                        <input
+                                                type="hidden"
+                                                id="student-id"
+                                                value="student-id"
+                                                name="student-id"
+                                        />
+                                        <select
+                                                class="form-control attend-type"
+                                                name="attend-type"
+
+                                                id="attend-type"
+                                        >
+                                            <option selected value="present">present</option>
+                                            <option value="absent">absent</option>
+                                            <option value="leave">leave</option>
+                                        </select>
+                                    </td>
+                                    <td class="stu-attendance">
+                                        <input
+                                                type="hidden"
+                                                id="student-id"
+                                                value="student-id"
+                                                name="student-id"
+                                        />
+                                        <select
+                                                class="form-control attend-type"
+                                                name="attend-type"
+
+                                                id="attend-type"
+                                        >
+                                            <option selected value="present">present</option>
+                                            <option value="absent">absent</option>
+                                            <option value="leave">leave</option>
+                                        </select>
+                                    </td>
+                                    <td class="stu-attendance">
+                                        <input
+                                                type="hidden"
+                                                id="student-id"
+                                                value="student-id"
+                                                name="student-id"
+                                        />
+                                        <select
+                                                class="form-control attend-type"
+                                                name="attend-type"
+                                                id="attend-type"
+                                        >
+                                            <option selected value="present">present</option>
+                                            <option value="absent">absent</option>
+                                            <option value="leave">leave</option>
+                                        </select>
+                                    </td>
+                                    <td class="stu-attendance">
+                                        <input
+                                                type="hidden"
+                                                id="student-id"
+                                                value="student-id"
+                                                name="student-id"
+                                        />
+                                        <select
+                                                class="form-control attend-type"
+                                                name="attend-type"
+
+                                                id="attend-type"
+                                        >
+                                            <option selected value="present">present</option>
+                                            <option value="absent">absent</option>
+                                            <option value="leave">leave</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <a
+                                                href=""
+                                                class="btn btn-attendance-edit btn-outline-primary btn-floating"
+                                                data-mdb-ripple-color="dark"
+                                        >
+                                            <i class="fa-regular fa-pen-to-square"></i>
+                                        </a>
+                                        <a
+                                                href=""
+                                                class="btn btn-outline-danger remove-attendance btn-floating"
+                                                data-mdb-ripple-color="dark"
+                                        >
+                                            <i class="fa-solid fa-circle-minus"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <!-- End attendance table-->
                         </div>
-                        <table id="datatable2">
-                            <thead>
-                            <tr>
-                                <th>Teacher Photo</th>
-                                <th>Name</th>
-
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>Photo</td>
-                                <td>Tr Su</td>
-
-                                <td>
-                                    <a
-                                            href=""
-                                            class="btn btn-outline-danger btn-floating remove-teacher"
-                                            data-mdb-ripple-color="dark"
-                                    >
-                                        <i class="fa-solid fa-circle-minus"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <input type="radio" id="tabexam" name="mytabs" />
-                    <label for="tabexam" id="lab">Exam-Schedule</label>
-                    <div class="tab">
-                        <div class="add-list">
-                            <!-- <label>Add Exam List</label>
-                          <a href="exam-add-page.html" class="btn btn-outline-success btn-floating" data-mdb-ripple-color="dark">
-                            <i class="fa-solid fa-circle-plus"></i>
-                          </a> -->
+                        <input type="radio" id="tabclassroom" name="mytabs" />
+                        <label for="tabclassroom" id="lab">Classroom</label>
+                        <div class="tab">
+                            <div class="add-list">
+                                <label>Add Class</label>
+                                <a
+                                        href="/templates/A003-06.html"
+                                        class="btn btn-outline-success btn-floating"
+                                        data-mdb-ripple-color="dark"
+                                >
+                                    <i class="fa-solid fa-circle-plus"></i>
+                                </a>
+                            </div>
+                            <table id="datatable6">
+                                <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Teacher</th>
+                                    <th>Classroom Link</th>
+                                    <th>Status</th>
+                                    <th>Record Video</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>12-01-2022</td>
+                                    <td>9:00</td>
+                                    <td>U Hla</td>
+                                    <td>www.zoom.com</td>
+                                    <td>Done</td>
+                                    <td>record.mp4</td>
+                                    <td>
+                                        <a
+                                                href="/templates/A003-07.html"
+                                                class="btn btn-outline-primary btn-floating"
+                                                data-mdb-ripple-color="dark"
+                                        >
+                                            <i class="fa-regular fa-pen-to-square"></i>
+                                        </a>
+                                        <a
+                                                href=""
+                                                class="btn btn-outline-danger remove-classroom btn-floating"
+                                                data-mdb-ripple-color="dark">
+                                            <i class="fa-solid fa-circle-minus"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                                <tbody>
+                                <tr>
+                                    <td>12-01-2022</td>
+                                    <td>14:00</td>
+                                    <td>U Hla</td>
+                                    <td>www.zoom.com</td>
+                                    <td>In Progess</td>
+                                    <td>record.mp4</td>
+                                    <td>
+                                        <a
+                                                href="/templates/A003-07.html"
+                                                class="btn btn-outline-primary btn-floating"
+                                                data-mdb-ripple-color="dark"
+                                                data-toggle="modal" data-target=".bd-example-modal-sm"
+                                        >
+                                            <i class="fa-regular fa-pen-to-square"></i>
+                                        </a>
+                                        <a
+                                                href=""
+                                                class="btn btn-outline-danger remove-classroom btn-floating"
+                                                data-mdb-ripple-color="dark"
+                                                data-toggle="modal" data-target=".bd-example-modal-sm"
+                                        >
+                                            <i class="fa-solid fa-circle-minus"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <table id="datatable4">
-                            <thead>
-                            <tr>
-                                <th>Exam Name</th>
-                                <th>Start-Date</th>
-                                <th>End-Date</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>Exam 1</td>
-                                <td>
-                                    <input
-                                            type="date"
-                                            class="form-control"
-                                            name="start-date"
-                                            id="start-date"
-                                    />
-                                </td>
-                                <td>
-                                    <input
-                                            type="date"
-                                            class="form-control"
-                                            name="end-date"
-                                            id="end-date"
-                                    />
-                                </td>
-                                <td>Pending</td>
-                                <td>
-                                    <a
-                                            href=""
-                                            class="btn btn-outline-primary btn-floating btn-exam-schedule-edit"
-                                            data-mdb-ripple-color="dark"
-                                    >
-                                        <i class="fa-regular fa-pen-to-square"></i>
-                                    </a>
-                                    <a
-                                            href=""
-                                            class="btn remove-exam btn-outline-danger b btn-floating"
-                                            data-mdb-ripple-color="dark"
-                                    >
-                                        <i class="fa-solid fa-circle-minus"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+
+                        <div class="plus-icon"></div>
                     </div>
-                    <input type="radio" id="tabattendance" name="mytabs" />
-                    <label for="tabattendance" id="lab">Attendance</label>
-                    <div class="tab">
-
-                        <!-- Start Attendance Table-->
-                        <table id="datatable5">
-                            <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Mg Mg</th>
-                                <th>Ag Hla</th>
-                                <th>Min Oo</th>
-                                <th>Win Maw</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <input
-                                            type="date"
-                                            class="form-control"
-                                            name="attend-date"
-                                            id="attend-date"
-                                            value="12-01-2022"
-                                    />
-                                </td>
-                                <td class="stu-attendance">
-                                    <input
-                                            type="hidden"
-                                            id="student-id"
-                                            value="student-id"
-                                            name="student-id"
-                                    />
-                                    <select
-                                            class="form-control attend-type"
-                                            name="attend-type"
-
-                                            id="attend-type"
-                                    >
-                                        <option selected value="present">present</option>
-                                        <option value="absent">absent</option>
-                                        <option value="leave">leave</option>
-                                    </select>
-                                </td>
-                                <td class="stu-attendance">
-                                    <input
-                                            type="hidden"
-                                            id="student-id"
-                                            value="student-id"
-                                            name="student-id"
-                                    />
-                                    <select
-                                            class="form-control attend-type"
-                                            name="attend-type"
-
-                                            id="attend-type"
-                                    >
-                                        <option selected value="present">present</option>
-                                        <option value="absent">absent</option>
-                                        <option value="leave">leave</option>
-                                    </select>
-                                </td>
-                                <td class="stu-attendance">
-                                    <input
-                                            type="hidden"
-                                            id="student-id"
-                                            value="student-id"
-                                            name="student-id"
-                                    />
-                                    <select
-                                            class="form-control attend-type"
-                                            name="attend-type"
-                                            id="attend-type"
-                                    >
-                                        <option selected value="present">present</option>
-                                        <option value="absent">absent</option>
-                                        <option value="leave">leave</option>
-                                    </select>
-                                </td>
-                                <td class="stu-attendance">
-                                    <input
-                                            type="hidden"
-                                            id="student-id"
-                                            value="student-id"
-                                            name="student-id"
-                                    />
-                                    <select
-                                            class="form-control attend-type"
-                                            name="attend-type"
-
-                                            id="attend-type"
-                                    >
-                                        <option selected value="present">present</option>
-                                        <option value="absent">absent</option>
-                                        <option value="leave">leave</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <a
-                                            href=""
-                                            class="btn btn-attendance-edit btn-outline-primary btn-floating"
-                                            data-mdb-ripple-color="dark"
-                                    >
-                                        <i class="fa-regular fa-pen-to-square"></i>
-                                    </a>
-                                    <a
-                                            href=""
-                                            class="btn btn-outline-danger remove-attendance btn-floating"
-                                            data-mdb-ripple-color="dark"
-                                    >
-                                        <i class="fa-solid fa-circle-minus"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <!-- End attendance table-->
-                    </div>
-                    <input type="radio" id="tabclassroom" name="mytabs" />
-                    <label for="tabclassroom" id="lab">Classroom</label>
-                    <div class="tab">
-                        <div class="add-list">
-                            <label>Add Class</label>
-                            <a
-                                    href="/templates/A003-06.html"
-                                    class="btn btn-outline-success btn-floating"
-                                    data-mdb-ripple-color="dark"
-                            >
-                                <i class="fa-solid fa-circle-plus"></i>
-                            </a>
-                        </div>
-                        <table id="datatable6">
-                            <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Teacher</th>
-                                <th>Classroom Link</th>
-                                <th>Status</th>
-                                <th>Record Video</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>12-01-2022</td>
-                                <td>9:00</td>
-                                <td>U Hla</td>
-                                <td>www.zoom.com</td>
-                                <td>Done</td>
-                                <td>record.mp4</td>
-                                <td>
-                                    <a
-                                            href="/templates/A003-07.html"
-                                            class="btn btn-outline-primary btn-floating"
-                                            data-mdb-ripple-color="dark"
-                                    >
-                                        <i class="fa-regular fa-pen-to-square"></i>
-                                    </a>
-                                    <a
-                                            href=""
-                                            class="btn btn-outline-danger remove-classroom btn-floating"
-                                            data-mdb-ripple-color="dark">
-                                        <i class="fa-solid fa-circle-minus"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            </tbody>
-                            <tbody>
-                            <tr>
-                                <td>12-01-2022</td>
-                                <td>14:00</td>
-                                <td>U Hla</td>
-                                <td>www.zoom.com</td>
-                                <td>In Progess</td>
-                                <td>record.mp4</td>
-                                <td>
-                                    <a
-                                            href="/templates/A003-07.html"
-                                            class="btn btn-outline-primary btn-floating"
-                                            data-mdb-ripple-color="dark"
-                                    >
-                                        <i class="fa-regular fa-pen-to-square"></i>
-                                    </a>
-                                    <a
-                                            href=""
-                                            class="btn btn-outline-danger remove-classroom btn-floating"
-                                            data-mdb-ripple-color="dark"
-                                    >
-                                        <i class="fa-solid fa-circle-minus"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="plus-icon"></div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- End Main-->
+        <!-- End Main-->
 
-    <!-- Modal for teacher add-->
-    <div
-            class="modal fade"
-            id="teacher-add"
-            aria-hidden="true"
-            aria-labelledby="Teachareaddmodal"
-            tabindex="-1"
-    >
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalToggleLabel2">
-                        Add Teacher
-                    </h5>
-                    <button
-                            type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                    ></button>
-                </div>
-                <div class="modal-body">
-                    <form action="">
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Select Teacher</option>
-                            <option value="1">Teacher 1</option>
-                            <option value="2">Teacher 2</option>
-                            <option value="3">Teacher 3</option>
-                            <option value="1">Teacher 1</option>
-                            <option value="2">Teacher 2</option>
-                            <option value="3">Teacher 3</option>
-                        </select>
-                        <div class="modal-footer">
-                            <button class="btn btn-secondary">Cancel</button>
-                            <button class="btn btn-primary">Add</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!--Modal for Date Add in attendance-->
-    <div
-            class="modal fade"
-            id="attendance-date-add"
-            aria-hidden="true"
-            aria-labelledby="Teachareaddmodal"
-            tabindex="-1"
-    >
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalToggleLabel2">Add Date</h5>
-                    <button
-                            type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                    ></button>
-                </div>
-                <div class="modal-body">
-                    <form action="">
-                        <input
-                                type="date"
-                                class="form-control text-center mb-3 mx-auto"
-                                id="attendance-date"
-                                style="width: 80%; border: 1px solid;"
-                        />
-
-                        <div class="modal-footer">
-                            <button class="btn btn-secondary">Cancel</button>
-                            <button class="btn btn-primary">Add</button>
-                        </div>
-                    </form>
+        <!-- Modal for teacher add-->
+        <div
+                class="modal fade"
+                id="teacher-add"
+                aria-hidden="true"
+                aria-labelledby="Teachareaddmodal"
+                tabindex="-1"
+        >
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalToggleLabel2">
+                            Add Teacher
+                        </h5>
+                        <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                        ></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Select Teacher</option>
+                                <option value="1">Teacher 1</option>
+                                <option value="2">Teacher 2</option>
+                                <option value="3">Teacher 3</option>
+                                <option value="1">Teacher 1</option>
+                                <option value="2">Teacher 2</option>
+                                <option value="3">Teacher 3</option>
+                            </select>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary">Cancel</button>
+                                <button class="btn btn-primary">Add</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-</div>
+        <!--Modal for Date Add in attendance-->
+        <div
+                class="modal fade"
+                id="attendance-date-add"
+                aria-hidden="true"
+                aria-labelledby="Teachareaddmodal"
+                tabindex="-1"
+        >
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalToggleLabel2">Add Date</h5>
+                        <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                        ></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="">
+                            <input
+                                    type="date"
+                                    class="form-control text-center mb-3 mx-auto"
+                                    id="attendance-date"
+                                    style="width: 80%; border: 1px solid;"
+                            />
+
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary">Cancel</button>
+                                <button class="btn btn-primary">Add</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </main>
 </body>
 </html>
