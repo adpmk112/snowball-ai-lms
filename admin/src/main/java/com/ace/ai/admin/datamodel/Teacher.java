@@ -1,5 +1,6 @@
 package com.ace.ai.admin.datamodel;
 
+import java.beans.Transient;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,4 +24,10 @@ public class Teacher {
 
     @OneToMany(mappedBy = "teacher")
     private List<TeacherBatch> teacherBatches = new ArrayList<>();
+
+    @Transient
+    public String getImagePath(){
+        if(photo == null || code == null)return null;
+        return "/assets/img/" + code + "/" +photo;
+    }
 }
