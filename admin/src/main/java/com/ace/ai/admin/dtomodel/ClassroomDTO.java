@@ -1,10 +1,18 @@
 package com.ace.ai.admin.dtomodel;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
+import lombok.Data;
+
+@Data
 public class ClassroomDTO {
-    private String date;
-    private String time;
-    private String teacher_name;
-    private String classroom_link;
+    private LocalDate date;
+    private String link;
+    private LocalTime time;
+    private LocalDateTime dateTime;
+    private String teacherName;
     private String status;
-    private String recorded_video;
+    private String recordedVideo;
 }

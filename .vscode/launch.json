@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch AdminApplication",
+            "request": "launch",
+            "mainClass": "com.ace.ai.admin.AdminApplication",
+            "projectName": "admin"
+        },
+        {
+            "type": "java",
+            "name": "Launch StudentApplication",
+            "request": "launch",
+            "mainClass": "com.ace.ai.student.StudentApplication",
+            "projectName": "student"
+        }
+    ]
+}

@@ -2,106 +2,105 @@
 <html lang="en" th:replace="~{layouts/main :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org" xmlns:batch>
 <body>
 <main role="main">
-<div th:fragment="admin-batch">
-    <div class="semi-circle"></div>
-    <div class="banner">
-        <div class="circle">
-            <i class="fa-solid fa-people-group"></i>
+    <div th:fragment="admin-batch">
+        <div class="semi-circle"></div>
+        <div class="banner">
+            <div class="circle">
+                <i class="fa-solid fa-people-group"></i>
+            </div>
+            <div>
+                <h1>Batches</h1>
+                <h3>Total: 4</h3>
+            </div>
         </div>
-        <div>
-            <h1>Batches</h1>
-            <h3>Total: 4</h3>
-        </div>
-    </div>
-    <div class="custom-div margin-top-8">
-        <div id="courselist" class="width-100">
-            <div class="container">
-                <div class="bread-crumb d-flex justify-content-between width-90">
-                    <div class="bread container-fluid">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a class="text-decoration-none" href="A003.html">
-                                        Batch List
-                                    </a>
-                                </li>
-                            </ol>
-                        </nav>
-                    </div>
-                    <div></div>
-                </div>
-                <div class="mytabs">
-                    <input type="radio" id="tabunit" name="mytabs" checked="checked" />
-                    <label for="tabunit" id="lab">Batch List</label>
-                    <div class="tab">
-                        <div class="add-list">
-                            <label>Add Batch</label>
-                            <a
-                                    href="A003-01.html"
-                                    class="btn btn-outline-success btn-floating"
-                                    data-mdb-ripple-color="dark"
-                            >
-                                <i class="fa-solid fa-circle-plus"></i>
-                            </a>
+        <div class="custom-div margin-top-8">
+            <div id="courselist" class="width-100">
+                <div class="container">
+                    <div class="bread-crumb d-flex justify-content-between width-90">
+                        <div class="bread container-fluid">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a class="text-decoration-none" href="A003.html">
+                                            Batch List
+                                        </a>
+                                    </li>
+                                </ol>
+                            </nav>
                         </div>
-                        <table id="datatable">
-                            <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th>Status</th>
-                                <th>Details</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <!--/*@thymesVar id="batchtList" type="batchList"*/-->
-                            <form th:action="@{/AddDate}" method="post" th:object="${batchList}" >
-                                <tr th:each="batch,iterationStatus: ${batchList}">
-                                    <td th:text="${iterationStatus.count}"></td>
-                                    <td th:text="${batch.id}"></td>
-                                    <td th:text="${batch.name}"></td>
-                                    <td th:if="${batch.deleteStatus}">Closed</td>
-                                    <td th:unless="${batch.deleteStatus}">Open</td>
-                                    <td>
-                                        <a      th:href="@{/A003-03(id=${batch.id})}"
-                                                href="A003-03.html"
-                                                class="more-info btn btn-floating"
-                                                data-mdb-ripple-color="dark"
-                                        >
-                                            See More
-                                        </a>
-                                    </td>
-
-                                    <td>
-                                        <a
-                                                href="A003-02.html"
-                                                class="btn btn-outline-primary btn-floating"
-                                                data-mdb-ripple-color="dark"
-                                        >
-                                            <i class="fa-regular fa-pen-to-square"></i>
-                                        </a>
-                                        <a
-                                                href=""
-                                                class="btn batch-close btn-outline-danger btn-floating"
-                                                data-mdb-ripple-color="dark"
-                                        >
-                                            <i class="fa-solid fa-lock"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            </form>
-                            </tbody>
-
-                        </table>
+                        <div></div>
                     </div>
-                    <div class="plus-icon"></div>
+                    <div class="mytabs">
+                        <input type="radio" id="tabunit" name="mytabs" checked="checked" />
+                        <label for="tabunit" id="lab">Batch List</label>
+                        <div class="tab">
+                            <div class="add-list">
+                                <label>Add Batch</label>
+                                <a
+                                        th:href="@{/A003-01}"
+                                        class="btn btn-outline-success btn-floating"
+                                        data-mdb-ripple-color="dark"
+                                >
+                                    <i class="fa-solid fa-circle-plus"></i>
+                                </a>
+                            </div>
+                            <table id="datatable">
+                                <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Status</th>
+                                    <th>Details</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!--/*@thymesVar id="batchtList" type="batchList"*/-->
+                                <form th:action="@{/AddDate}" method="post" th:object="${batchList}" >
+                                    <tr th:each="batch,iterationStatus: ${batchList}">
+                                        <td th:text="${iterationStatus.count}"></td>
+                                        <td th:text="${batch.id}"></td>
+                                        <td th:text="${batch.name}"></td>
+                                        <td th:if="${batch.deleteStatus}">Closed</td>
+                                        <td th:unless="${batch.deleteStatus}">Open</td>
+                                        <td>
+                                            <a      th:href="@{/A003-03(id=${batch.id})}"
+                                                    class="more-info btn btn-floating"
+                                                    data-mdb-ripple-color="dark"
+                                            >
+                                                See More
+                                            </a>
+                                        </td>
+
+                                        <td>
+                                            <a
+                                                    href="A003-02.html"
+                                                    class="btn btn-outline-primary btn-floating"
+                                                    data-mdb-ripple-color="dark"
+                                            >
+                                                <i class="fa-regular fa-pen-to-square"></i>
+                                            </a>
+                                            <a
+                                                    href=""
+                                                    class="btn batch-close btn-outline-danger btn-floating"
+                                                    data-mdb-ripple-color="dark"
+                                            >
+                                                <i class="fa-solid fa-lock"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </form>
+                                </tbody>
+
+                            </table>
+                        </div>
+                        <div class="plus-icon"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </main>
 </body>
 </html>
