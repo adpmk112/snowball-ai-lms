@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layouts/main :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org" xmlns:teacher>
+ 
+
+  <body>
+    <main role="main">
+    <div th:fragment="teacher-add">
+    <div class="semi-circle"></div>
+    <div class="banner">
+      <div class="circle"><i class="fa-solid fa-person-chalkboard"></i></div>
+      <div>
+        <h1>Teachers</h1>
+        <h3>Total: 3</h3>
+      </div>
+    </div>
+    <div class="custom-div margin-top-8">
+      <div id="courselist" class="width-100">
+        <div class="container bg-light">
+
+          <form action="/A004-01" method="post"  th:object="${teacherDto}" enctype="multipart/form-data" class="m-4 p-3" style="max-width: 500px;">
+           
+            <h3 class="text-secondary">Add Teacher</h3>
+            <div class="form-group mt-2 row">
+              <label for="inputPassword" class="col-sm-2 col-form-label">
+                Code
+              </label>
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputPassword"
+                  placeholder="Name"  th:field="*{code}" 
+                  
+                />
+              </div>
+            </div>
+            <div class="form-group mt-2 row">
+              <label for="inputPassword" class="col-sm-2 col-form-label">
+                Name
+              </label>
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputPassword"
+                  placeholder="Name" th:field="*{name}" 
+                 
+                />
+              </div>
+            </div>
+            <div class="form-group mt-2 row">
+              <label for="inputPassword" class="col-sm-2 col-form-label">
+                Password
+              </label>
+              <div class="col-sm-10">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="inputPassword"
+                  placeholder="Password" th:field="*{password}" 
+                  
+                />
+              </div>
+            </div>
+            <div class="form-group mt-2 row">
+              <label for="inputPassword" class="col-sm-2 col-form-label">
+                Photo
+              </label>
+              <div class="col-sm-10">
+                <input type="file"  id="file" class="form-control file-choose" th:field="*{photo}"  
+                                placeholder="Choose Image"  style="width: 300px;"/>
+              </div>
+            </div>
+            <div class="form-group mt-2 row">
+              <div class="col-sm-2 col-form-label"></div>
+              <div class="col-sm-10 text-end">
+                <input type="reset" class="btn btn-secondary" value="Reset" />
+                <input type="submit" class="btn btn-primary" value="Add" />
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    </div>
+   </main>
+  </body>
+</html>
