@@ -13,10 +13,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class QuestionDTO {
+    private int id;
     private String text;
     private List<String> answer_list;
     private String correct_answer;
-    private int point;
-
+    private String point;
 
 }

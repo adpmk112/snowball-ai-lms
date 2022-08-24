@@ -13,5 +13,5 @@ public interface ExamFormRepository extends JpaRepository<ExamForm, Integer>{
     @Query(value = "select max(id) from exam_form", nativeQuery = true)
     public int findCurrentId();
 
-    public List<ExamForm> findAllByCourseId(Integer courseId);
+    public List<ExamForm> findByCourse_id(Integer courseId);
 }

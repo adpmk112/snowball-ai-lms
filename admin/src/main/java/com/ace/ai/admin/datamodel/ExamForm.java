@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -31,7 +32,7 @@ public class ExamForm implements Serializable {
     @JoinColumn(name = "course_id")
     private Course course;
 
-    @OneToMany(mappedBy = "examForm")
+    @OneToMany(mappedBy = "examForm", cascade = CascadeType.REMOVE)
     private List<Question> questions = new ArrayList<>();
 
     @OneToMany(mappedBy = "examForm")
@@ -39,4 +40,14 @@ public class ExamForm implements Serializable {
 
     @OneToMany(mappedBy = "examForm")
     private List<StudentExamMark> studentExamMarks = new ArrayList<>();
+    
+    public ExamForm(int id, String name, String type, String duration, int maxMark, Boolean deleteStatus, Course course){
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.duration = duration;
+        this.maxMark = maxMark;
+        this.deleteStatus = deleteStatus;
+        this.course = course;
+    }
 }
