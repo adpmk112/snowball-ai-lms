@@ -1,5 +1,6 @@
 package com.ace.ai.admin.dtomodel;
 
+import java.lang.reflect.Array;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -11,13 +12,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ExamDTO {
-    private String course_id;
-    private String name;
-    private String type;
-    private String duration;
-    private List<QuestionDTO> questions;
-    private int total_point;
+public class QuestionDTO {
+    private String text;
+    private List<String> answer_list;
+    private String correct_answer;
+    private int point;
 
 
 }
