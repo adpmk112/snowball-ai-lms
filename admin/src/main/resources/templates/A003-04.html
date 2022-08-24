@@ -1,24 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Course List</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-      crossorigin="anonymous"
-    />
+    <div th:replace="fragments :: head"></div>
+    <title>Add Student</title>
 
-    <link rel="stylesheet" href="../assets/css/courselist.css" />
-    <link rel="stylesheet" href="../assets/css/styles.css" />
-    <link rel="stylesheet" href="../assets/css/header.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css"
-    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
@@ -30,126 +15,16 @@
   </head>
 
   <body style="background-color: rgb(235, 235, 235);">
-    <div id="header"></div>
-    <div class="semi-circle"></div>
-    <div class="banner">
-      <div class="circle">
-        <i class="fa-solid fa-people-group"></i>
-      </div>
-      <div>
-        <h1>Batches</h1>
-        <h3>Total: 4</h3>
-      </div>
-    </div>
-    <div class="custom-div margin-top-8">
-      <div id="add-form" class="width-100">
-        <div class="container mt-2">
-          <div class="title">
-            <div class="main-title d-flex flex-row justify-content-center">
-              <h4>Batch Name</h4>
-            </div>
-            <div class="sub-title d-flex justify-content-between mb-2">
-              <h4>Course Name</h4>
-              <h4>Teacher Name</h4>
-            </div>
-          </div>
-          <div class="table-responsive">
-            <form action="" id="student-form">
-              <table class="table table-striped table-hover" id="student-table">
-                <tr>
-                  <!-- <th class="align-middle">#</th> -->
-                  <th class="align-middle">Id</th>
-                  <th class="align-middle">Password</th>
-                  <th class="align-middle">Name</th>
-                  <th>
-                    <span id="total-student">Total: 1</span>
-                    <button type="submit" class="btn text-primary">
-                      <i class="fa-solid fa-file me-1"></i>
-                      Save
-                    </button>
-                  </th>
-                </tr>
+  <header th:replace="fragments :: header"></header>
+  <main role="main">
+    <div th:replace="fragments/A003-04 :: student-add"></div>
+  </main>
+  <footer th:replace="fragments :: footer"></footer>
+  <div th:replace="fragments :: scripts"></div>
 
-                <tr class="form-row">
-                  <div class="row">
-                    <!-- <td  class="align-middle">1.</td> -->
-                    <td>
-                      <input
-                        type="text"
-                        class="form-control"
-                        name="id"
-                        placeholder="Id"
-                        required
-                        autofocus
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        class="form-control"
-                        name="password"
-                        placeholder="Password"
-                        required
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        class="form-control"
-                        name="name"
-                        placeholder="Name"
-                        required
-                      />
-                    </td>
 
-                    <td class="btn-td">
-                      <button
-                        type="button"
-                        class="btn btn-outline-success add-row"
-                      >
-                        <i class="fa-solid fa-plus"></i>
-                      </button>
-                      <button
-                        type="button"
-                        class="btn btn-outline-danger remove-row"
-                      >
-                        <i class="fa-solid fa-minus"></i>
-                      </button>
-                    </td>
-                  </div>
-                </tr>
-              </table>
-            </form>
-          </div>
-          <!-- End table responsive -->
-        </div>
-        <!--End Studen add Section-->
-      </div>
-    </div>
 
-    <div id="footer"></div>
 
-    <script src="../assets/jquery/jquery.min.js"></script>
-    <script
-      src="https://kit.fontawesome.com/83e4876698.js"
-      crossorigin="anonymous"
-    ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
-    <script
-      src="https://kit.fontawesome.com/83e4876698.js"
-      crossorigin="anonymous"
-    ></script>
-    <script src="../assets/js/admin-student-add.js"></script>
-    <script>
-      $(function () {
-        $('#header').load('A006.html')
-      })
-    </script>
-    <script>
-      $(function () {
-        $('#footer').load('F001.html')
-      })
-    </script>
     <script>
       var minRow = 1
 
@@ -159,9 +34,9 @@
         var _row =
           '<tr class=" form-row">' +
           '<div class="row ">' +
-          '<td><input type="text" class="form-control" name="id" placeholder="Id" required autofocus></td>' +
-          '<td><input type="text" class="form-control" name="password" placeholder="Password" required></td>' +
-          '<td><input type="text" class="form-control" name="name" placeholder="Name" required></td>' +
+          '<td class="tdInput"><input type="text" class="form-control" name="id" placeholder="Id" required autofocus></td>' +
+          '<td class="tdInput"><input type="text" class="form-control" name="password" placeholder="Password" required></td>' +
+          '<td class="tdInput"><input type="text" class="form-control" name="name" placeholder="Name" required></td>' +
           '<td class="btn-td">' +
           '<button type="button" class="btn btn-outline-success add-row" ><i class="fa-solid fa-plus "></i></button>' +
           '<button type="button" class="btn btn-outline-danger remove-row ms-1"><i class="fa-solid fa-minus "></i></button>' +
@@ -185,25 +60,30 @@
 
       //ajax request to insert all form data
       $('#student-form').submit(function (e) {
+
         e.preventDefault()
         var students = []
 
         $('.form-row').each(function () {
-          var student = {}
-          $($(this).find('input')).each(function () {
-            student[$(this).attr('name')] = $(this).val()
+          let student = {};
+          $($(this).find('.tdInput')).each(function () {
+            var value=$($(this).find("input")).val();
+            student[$($(this).find("input")).attr('name')] = value;
           })
           students.push(student)
         })
-        console.log(students)
-
-        // $.ajax({
-
-        //     data: $(this).serialize(),
-        //     success: function(response){
-        //         console.log(response);
-        //     }
-        // });
+        console.log(students);
+        $.ajax({
+          type : "POST",
+          url : "saveStudent",
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+          data: JSON.stringify(students),
+          success: function(){
+            //alert("Ok gread");
+          }
+        });
+        $("#student-form").trigger("reset");
       })
     </script>
   </body>

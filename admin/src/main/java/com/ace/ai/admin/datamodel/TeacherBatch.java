@@ -13,7 +13,7 @@ public class TeacherBatch {
     
     @Id
     private int id;
-    private String deleteStatus;
+    private boolean deleteStatus;
 
     @ManyToOne
     @JoinColumn(name = "teacher_id")
@@ -22,4 +22,12 @@ public class TeacherBatch {
     @ManyToOne
     @JoinColumn(name = "batch_id")
     private Batch batch;
+    public  TeacherBatch(){
+
+    }
+    public TeacherBatch(boolean deleteStatus, Teacher teacher, Batch batch) {
+        this.deleteStatus = deleteStatus;
+        this.teacher = teacher;
+        this.batch = batch;
+    }
 }
