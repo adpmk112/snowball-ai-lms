@@ -30,33 +30,63 @@
 
     <!-- Batch Lock -->
     <script>
+      $(document).on('click', 'a.batch-close', function() {
+        window.batchId=$(this).attr('id');
+      });
       $(document).ready(function () {
-        $('a.batch-close').confirm({
+        $('a.batch-close.btn-outline-danger').confirm({
           closeIcon: true,
           theme: 'Material',
-          //icon: 'fa-solid fa-warning',
-
           title: 'Batch Close!',
           content: 'Are you sure to close?',
           animation: 'Scale',
           buttons: {
             No: function () {},
-            Yes: function () {},
-          },
-        });
+            Yes: function () {
+                console.log(batchId);
+                $.ajax({
+                  type: "GET",
+                  url: "../BatchClose",
+                  contentType: "application/json; charset=utf-8",
+                  dataType: "json",
+                  data: {batchId: batchId},
+                  success: function () {
+                    location.reload(true);
+                  },
+                  error: function () {}
 
-        $('a.batch-reopen').confirm({
+                })
+
+
+            }
+        }
+      });
+        $('a.batch-close.btn-outline-dark').confirm({
           closeIcon: true,
           theme: 'Material',
-          //icon: 'fa-solid fa-warning',
-
           title: 'Reopen Batch!',
           content: 'Are you sure?',
           animation: 'Scale',
           buttons: {
             No: function () {},
-            Yes: function () {},
-          },
+            Yes: function () {
+              console.log(batchId);
+              $.ajax({
+                type: "GET",
+                url: "../BatchReopen",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: {batchId: batchId},
+                success: function () {
+                  location.reload(true);
+                },
+                error: function () {}
+
+              })
+
+
+            }
+          }
         });
       })
     </script>
