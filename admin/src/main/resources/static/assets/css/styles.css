@@ -402,3 +402,9 @@ transform: translateY(-7px);
 .form-input-box{
   width:300px;
 }
+#teacherimage {
+  width: 65px;
+  height: 65px;
+  object-fit: cover;
+  border-radius: 50%;
+}
