@@ -45,7 +45,7 @@ $(document).on("click", ".btn.btn-attendance-edit", function(e){
     }
 })
 
-//For Chapter
+//For Chapter date schedule
 $(document).on("click", ".btn.btn-chapter-edit", function(e){
     e.preventDefault();
     let _start_date = $(this).closest("tr").find('input[name="start-date"]');
@@ -96,81 +96,26 @@ $(document).on("click", ".btn.btn-chapter-edit", function(e){
 
                 },
                 error: function () {
-                    $('.btn-chapter-edit').confirm({
-                        closeIcon: true,
-                        theme: 'Material',
-                        //icon: 'fa-solid fa-warning',
-
-                        title: 'Invalid Data!',
-                        content: 'Date is invalid!',
-                        animation: 'Scale',
-                        buttons: {
-
-                            Yes: function () {},
-                        },
-                    });
+                    alert("Error!")
                 }
 
             });
 
         }
         if(d1.getTime()>d2.getTime()){
-            $('.btn-chapter-edit').confirm({
-                closeIcon: true,
-                theme: 'Material',
-                //icon: 'fa-solid fa-warning',
-
-                title: 'Invalid Data!',
-                content: 'Date is invalid!',
-                animation: 'Scale',
-                buttons: {
-
-                    OK: function () {
-                        edit_btn
-                            .removeClass("fa-pen-to-square")
-                            .addClass("fa-solid fa-check");
-                        _start_date.removeAttr("disabled");
-                        _end_date.removeAttr("disabled");
-                        _start_date.css("border", "1px solid red");
-                        _end_date.css("border", "1px solid red");
-                    },
-                },
-            });
+           alert("Start date can't be bigger!")
+            edit_btn
+                .removeClass("fa-pen-to-square")
+                .addClass("fa-solid fa-check");
+            _start_date.removeAttr("disabled");
+            _end_date.removeAttr("disabled");
+            _start_date.css("border", "1px solid red");
+            _end_date.css("border", "1px solid red");
 
         }
-        // $.ajax({
-        //     url : "../SendData",
-        //     type : "Post",
-        //     contentType: "application/json; charset=utf-8",
-        //     dataType: "json",
-        //     data : {chpName:chpName,startDate:startDate,endDate:endDate},
-        //     success : function(responce) {
-        //         alert("ok")
-        //     }
-        // });
 
-        //Attendancce array
-        // let attendance = [];
-        // let _tr = $(".fa-pen-to-square").closest("tr");
-        // let attend_date = _tr.find("#attend-date").val();
-
-        // let _td = _tr.find(".stu-attendance");
-        // //console.log(_td.length);
-        //     _td.each(function(){
-        //         let student = {}
-        //         if ($(this).find("#student-id").length > 0 ) {
-        //             student["attendance_date"] = _date.val();
-        //             student["student_id"] = $(this).find("#student-id").val();
-        //         }
-        //         if($(this).find("#attend-type").length > 0){
-        //             student["attend_type"] = $(this).find("#attend-type").val();
-        //         }
-        //         attendance.push(student);
-        //     })
-        //     console.log(attendance);
     }
 })
-
 // For exam-schedule edit
     $(document).on("click", ".btn.btn-exam-schedule-edit", function(e){
       e.preventDefault();    
@@ -231,5 +176,9 @@ $(document).on("click", ".btn.btn-chapter-edit", function(e){
     
         }
         })
+
+
+//Check name for batch
+
 
 

@@ -19,6 +19,31 @@
       src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"
     ></script>
 
+  <script>
+    function checkName() {
+      let batchName=$("#name").val();
+      $.ajax({
+        type: "GET",
+        url: "../CheckBatchName",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data : {batchName: batchName},
+        success: function () {
+          let span = document.getElementById('same-name');
+          span.removeAttribute('hidden');
+          let span1=document.getElementById('diff-name');
+          span1.setAttribute('hidden','hidden');
+        },
+        error: function () {
+          let span = document.getElementById('same-name');
+          span.setAttribute('hidden','hidden');
+          let span1=document.getElementById('diff-name');
+          span1.removeAttribute('hidden');
 
+        }
+
+      })
+    }
+  </script>
   </body>
 </html>

@@ -37,7 +37,7 @@
                             <div class="add-list">
                                 <label>Add Batch</label>
                                 <a
-                                        th:href="@{/A003-01}"
+                                        th:href="@{/goToAddBatch}"
                                         class="btn btn-outline-success btn-floating"
                                         data-mdb-ripple-color="dark"
                                 >
@@ -60,12 +60,12 @@
                                 <form th:action="@{/AddDate}" method="post" th:object="${batchList}" >
                                     <tr th:each="batch,iterationStatus: ${batchList}">
                                         <td th:text="${iterationStatus.count}"></td>
-                                        <td th:text="${batch.id}"></td>
+                                        <td th:id="${batch.id}" th:text="${batch.id}"></td>
                                         <td th:text="${batch.name}"></td>
-                                        <td th:if="${batch.deleteStatus}">Closed</td>
-                                        <td th:unless="${batch.deleteStatus}">Open</td>
+                                        <td th:id="${batch.id}" th:if="${batch.deleteStatus}">Closed</td>
+                                        <td th:id="${batch.id}" th:unless="${batch.deleteStatus}">Open</td>
                                         <td>
-                                            <a      th:href="@{/A003-03(id=${batch.id})}"
+                                            <a      th:href="@{/batchSeeMore(id=${batch.id})}"
                                                     class="more-info btn btn-floating"
                                                     data-mdb-ripple-color="dark"
                                             >
@@ -82,8 +82,9 @@
                                                 <i class="fa-regular fa-pen-to-square"></i>
                                             </a>
                                             <a
-                                                    href=""
-                                                    class="btn batch-close btn-outline-danger btn-floating"
+                                                   href=""
+                                                    th:id="${batch.id}"
+                                                    class="btn batch-close btn-floating" th:classappend="${batch.deleteStatus} ? 'btn-outline-dark' : 'btn-outline-danger'"
                                                     data-mdb-ripple-color="dark"
                                             >
                                                 <i class="fa-solid fa-lock"></i>

@@ -3,6 +3,7 @@ package com.ace.ai.admin.datamodel;
 import javax.persistence.*;
 
 import lombok.Data;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Entity
 @Data
+@ToString
 public class Course implements Serializable  {
     @Id
     private int id;
