@@ -189,7 +189,7 @@
     <!-- This is data form server -->
     <script th:inline = "javascript">      
               
-        var exam = [[${exam}]];
+        var exam = [[{exam}]];
         console.log(exam);
         
         let exam_content = $("#exam-content ol");
