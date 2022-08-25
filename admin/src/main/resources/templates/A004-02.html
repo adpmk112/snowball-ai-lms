@@ -28,16 +28,27 @@
   <div class="custom-div margin-top-8">
     <div id="courselist" class="width-100">
       <div class="container bg-light">
-        <form action="/A004-02" th:object="${bean}" enctype="multipart/form-data" class="m-4 p-3"
+        <form action="/admin/updateTeacherPost" th:object="${teacherDto}" method="post" enctype="multipart/form-data" class="m-4 p-3"
           style="max-width: 500px;">
+          <h6 style="color: blue;" th:text="${msg}"></h6>
           <h3 class="text-secondary">Edit Teacher's Data</h3>
-          <input type="hidden" value="${photo}" name="photo">
+          <input type="hidden" th:field="*{id}"/>
+          <div class="form-group mt-2 row">
+            <label for="inputPassword" class="col-sm-2 col-form-label">
+              Photo
+            </label>
+            <div class="col-sm-10">
+              <img th:src="@{${photo}}" alt="" id="teacherimage">
+               <input type="file" class="form-control"  placeholder="Choose Image" id="file"
+                th:field="*{photo}" />
+            </div>
+          </div>
           <div class="form-group mt-2 row">
             <label for="inputPassword" class="col-sm-2 col-form-label">
               Code
             </label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="inputPassword" placeholder="Teacher Id" th:field="*{code}" />
+              <input type="text" class="form-control" id="inputPassword" placeholder="Teacher Id" th:field="*{code}" readonly="readonly" />
             </div>
           </div>
           <div class="form-group mt-2 row">
@@ -55,15 +66,6 @@
             <div class="col-sm-10">
               <input type="password" class="form-control" id="inputPassword" placeholder="Password"
                 th:field="*{password}" />
-            </div>
-          </div>
-          <div class="form-group mt-2 row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">
-              Photo
-            </label>
-            <div class="col-sm-10">
-              <input type="file" class="form-control" id="inputPassword" placeholder="Choose Image" id="file"
-                th:field="*{photo}" />
             </div>
           </div>
           <div class="form-group mt-2 row">
@@ -101,6 +103,23 @@
       //   $('#courselist').load('admin-teacherlist.html')
       // })
   </script>
+  <script>
+    $(document).ready(function (){      
+     $('#file').change(function(){
+       showImageThumbnail(this);
+     });
+   })
+   function showImageThumbnail(fileInput){
+     file = fileInput.files[0];
+     reader = new FileReader();
+     reader.onload = function(e){
+       $('#teacherimage').attr('src',e.target.result);
+       image = e.target.result;
+     };
+     reader.readAsDataURL(file);
+     $('#teacherimage').attr('src',image);
+    }
+ </script>
 </body>
 
 </html>

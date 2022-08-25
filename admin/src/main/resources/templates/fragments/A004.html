@@ -42,7 +42,7 @@
                 <div class="add-list">
                   <label>Add Teacher</label>
                   <a
-                    th:href="@{/setupAddTeacher}"
+                    th:href="@{/admin/addTeacher}"
                     class="btn btn-outline-success btn-floating"
                     data-mdb-ripple-color="dark"
                   >
@@ -52,31 +52,31 @@
                 <table id="datatable">
                   <thead>
                     <tr>
+                      <th>Photo</th>
                       <th>Teacher ID</th>
                       <th>Name</th>
-                      <th>Photo</th>
                       <th>Password</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr th:each="teacher : ${teacherList}">
+                      <td><img th:src="@{${teacher.ImagePath}}" alt="" id="teacherimage"></td>
                       <td th:text="${teacher.code}"></td>
                       <td th:text="${teacher.name}"></td>
-                      <td><img th:src="@{${teacher.ImagePath}}" alt="" id="teacherimage"></td>
                       <td th:text="${teacher.password}"></td>
                       <td>
                         <a
-                          th:href="@{/setupUpdateTeacher(code=${teacher.code})}"
+                          th:href="@{/admin/updateTeacher(id=${teacher.id})}"
                           class="btn btn-outline-primary btn-floating"
                           data-mdb-ripple-color="dark"
                         >
                           <i class="fa-regular fa-pen-to-square"></i>
                         </a>
-                        <a
-                          href="*"
+                        <a 
+                          th:id="${teacher.id}"
                           class="btn btn-outline-danger remove-teacher btn-floating"
-                          data-mdb-ripple-color="dark"
+                          data-mdb-ripple-color="dark"                          
                         >
                           <i class="fa-solid fa-circle-minus"></i>
                         </a>
