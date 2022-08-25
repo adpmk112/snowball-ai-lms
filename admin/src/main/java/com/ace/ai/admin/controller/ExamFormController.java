@@ -78,4 +78,15 @@ public class ExamFormController {
         return "A002-06";
     }
 
+    // Show All Exam List
+    @GetMapping("/admin-exam-list")
+    public String showAllExam(Model model){
+        int courseId = 1;
+        List<ExamForm> exams = examFormService.findByDeleteStatusAndCourseId(false, courseId);
+        model.addAttribute("radioButton", "exam");
+        model.addAttribute("examList", exams);
+        model.addAttribute("courseId", courseId);
+        return "A002-01";
+    }
+
 }
