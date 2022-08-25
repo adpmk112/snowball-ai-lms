@@ -25,6 +25,10 @@
     <!-- For student delete confirm-->
     <script>
       $(document).ready(function () {
+        function addTeacherToBatch(){
+            let teacherId=$(this).closest('option').val();
+            alert("teacherId"+ teacherId);
+        }
         $('a.remove-student').confirm({
           closeIcon: true,
           theme: 'Material',

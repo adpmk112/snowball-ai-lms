@@ -10,4 +10,5 @@ import com.ace.ai.admin.datamodel.Course;
 @Repository
 public interface CourseRepository extends JpaRepository<Course,Integer> {
     List<Course> findByDeleteStatus(Boolean deleteStatus);
+    Course findCourseById(Integer id); 
 }

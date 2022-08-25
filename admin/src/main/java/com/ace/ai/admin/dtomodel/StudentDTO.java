@@ -1,6 +1,9 @@
 package com.ace.ai.admin.dtomodel;
 
 
+import lombok.Data;
+
+@Data
 public class StudentDTO {
     private int id;
     private String name;
@@ -8,4 +11,5 @@ public class StudentDTO {
     private String password;
     private String photo;
     private String attendance;
+
 }
