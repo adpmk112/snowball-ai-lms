@@ -20,6 +20,9 @@
     <script src="../assets/js/data.js"></script>
     <!-- Teacher Remove -->
     <script>
+      $(document).on("click",'a.remove-teacher',function(){
+        window.teacherId=$(this).attr('id');
+      })
       $(document).ready(function () {
         $('a.remove-teacher').confirm({
           closeIcon: true,
@@ -30,7 +33,9 @@
           content: 'Are you sure?',
           animation: 'Scale',
           buttons: {
-            Yes: function () {},
+            Yes: function () {              
+              window.location = `/admin/deleteTeacher/`+teacherId;
+            },
             No: function () {},
           },
         })

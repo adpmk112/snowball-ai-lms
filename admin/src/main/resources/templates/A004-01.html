@@ -13,4 +13,21 @@
    <footer th:replace="fragments :: footer"></footer>
    <div th:replace="fragments :: scripts"></div>
   </body>
+  <script>
+     $(document).ready(function (){      
+      $('#file').change(function(){
+        showImageThumbnail(this);
+      });
+    })
+    function showImageThumbnail(fileInput){
+      file = fileInput.files[0];
+      reader = new FileReader();
+      reader.onload = function(e){
+        $('#thumbnail').attr('src',e.target.result);
+        image = e.target.result;
+      };
+      reader.readAsDataURL(file);
+      $('#thumbnail').attr('src',image);
+     }
+  </script>
 </html>
