@@ -6,7 +6,16 @@ public class ChapterDTO {
     private String name; //chapter table
     private String status;//calculation
     private LocalDate start_date; // chapter batch table
-    private LocalDate end_date; // chapter batch table
+    private LocalDate end_date;// chapter batch table
+    private String teacher_code;
+
+    public String getTeacher_code() {
+        return teacher_code;
+    }
+
+    public void setTeacher_code(String teacher_code) {
+        this.teacher_code = teacher_code;
+    }
 
     public String getName() {
         return name;

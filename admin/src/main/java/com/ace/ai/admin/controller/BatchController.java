@@ -32,6 +32,7 @@ public class BatchController {
     @Autowired
     BatchService batchService;
 
+
     @GetMapping({"/goToBatch"})
     public String gotoBatch(Model model){
         List<Batch> batchList= batchService.findAll();
@@ -48,11 +49,11 @@ public class BatchController {
 
     @GetMapping({"/batchSeeMore"})
     public ModelAndView batchSeeMore(@RequestParam("id") Integer id,Model model) throws ParseException {
-        model.addAttribute("TeacherDTO",new TeacherDTO());
+        model.addAttribute("chapterDTOList",chapterViewService.findAllChapterInChapterBatchByBatchId(id));
         model.addAttribute("teacherList",batchService.findALlTeacherByBatchId(id));
-       model.addAttribute("teacherList1",batchService.findALlTeacherForAllBatchExcept(id));
+        model.addAttribute("teacherList1",batchService.findALlTeacherForAllBatchExcept(id));
         model.addAttribute("batch_id", id);
-        return new ModelAndView("A003-03","chapterDTOList",chapterViewService.findAllChapterInChapterBatchByBatchId(id));
+        return new ModelAndView("A003-03","TeacherDTO",new TeacherDTO());
     }
 
     @GetMapping(path="/SendData")
@@ -67,7 +68,7 @@ public class BatchController {
 
         List<Course> courseList=batchService.findAllCourse();
         List<Teacher> teacherList=  batchService.findALlTeacherByDeleteStatus(false);
-        model.addAttribute("teacherList",teacherList);
+        model.addAttribute("teacherListMap",teacherList);
         model.addAttribute("courseList",courseList);
         return new ModelAndView("A003-01","batchDTO",new BatchDTO());
     }
@@ -136,8 +137,10 @@ public class BatchController {
         return "A003-03";
     }
 
-    @PostMapping("/addTeacherToBatch")
-    public String addTeacherToBatch(){
-        return "A003-03";
+      @PostMapping("/addTeacherToExistingBatch")
+
+      public String addTeacherToBatch(@RequestParam String code,@RequestParam Integer batchId){
+          batchService.addTeacherByCodeAndBatchId(code,batchId);
+          return String.format("redirect:/batchSeeMore?id=%d",batchId);
     }
 }

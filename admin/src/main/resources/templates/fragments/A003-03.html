@@ -27,7 +27,8 @@
                                         </a>
                                     </li>
                                     <li class="breadcrumb-item">
-                                        <a class="text-decoration-none" href="A003-03.html">
+                                        <a class="
+                                        -none" href="A003-03.html">
                                             Batch Details
                                         </a>
                                     </li>
@@ -69,8 +70,6 @@
                                                     disabled/>
                                         </td>
                                         <td th:id="'chpendDate_'+${iterationStatus.count}" >
-                                        <td th:id="'chpendDate_'+${iterationStatus.count}" >
-
                                             <input   th:id="'endDate_'+${iterationStatus.count}"
                                                      type="date"
                                                      class="form-control"
@@ -481,13 +480,19 @@
                         ></button>
                     </div>
                     <div class="modal-body">
-                        <form  method="post" >
-                            <select  class="form-select" aria-label="Default select example">
-                                <option th:each="teacher,iterationStatus: ${teacherList1}" th:id="${iterationStatus.count}" th:value="${teacher.code}" th:text="${teacher.name}"></option>
+                        <form id="teacher-batch" th:action="@{/addTeacherToExistingBatch}" method="post" >
+                            <input type="hidden" th:id="batchId" name="batchId" th:value="${batch_id}">
+                            <p th:if="${#lists.isEmpty(teacherList1)}">No Teacher To add</p>
+                            <div th:unless="${#lists.isEmpty(teacherList1)}" >
+                            <select  class="form-select" aria-label="Default select example" name="code">
+                                <option  th:each="teacher: ${teacherList1}"  th:value="${teacher.code}" th:text="${teacher.name}">No Teacher To Add
+                                </option>
                             </select>
+                            </div>
                             <div class="modal-footer">
-                                <button class="btn btn-secondary">Cancel</button>
-                                <button type="button" class="btn btn-primary" onclick="addTeacherToBatch()">Add</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button  th:disabled="${#lists.isEmpty(teacherList1)}"     type="submit" class="btn btn-primary" >
+                                       Add </button>
                             </div>
                         </form>
                     </div>
@@ -534,6 +539,9 @@
         </div>
 
     </div>
+
 </main>
+
+
 </body>
 </html>
