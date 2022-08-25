@@ -1,5 +1,7 @@
 package com.ace.ai.admin.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,4 +25,14 @@ public class AnswerService {
     public Answer findById(int id){        
             return answerRepository.getById(id);           
     }
+    public List<Answer> findAll(){
+        return answerRepository.findAll();
+    }
+    public int findCurrentId(){
+        return answerRepository.findCurrentId();
+    }
+    public List<Answer> findByQuestion_id(int question_id){
+        return answerRepository.findByQuestionId(question_id);
+    }
+
 }

@@ -45,7 +45,7 @@
                         class="form-control"
                         name="course-id"
                         placeholder="courseId with hidden input"
-                        value="course_id"
+                        value="1"
                       />
                     </span>
                     <span>
@@ -59,16 +59,16 @@
                     </span>
                   </div>
 
-                  <div class="col-6">
-                    <a href="" class="btn btn-danger">Cancel</a>
+                  <div class="col-6 text-end">
+                    <a href="" class="btn btn-outline-danger">Cancel</a>
                     <button
                       type="submit"
-                      class="float-end btn btn-outline-primary"
+                      class="btn btn-success"
                       style="font-size: 1em"
                       id="add_exam"
                     >
-                      <i class="fa-solid fa-folder-plus me-1"></i>
-                      <span style="font-size: 15px"> Update Exam </span>
+                      <!-- <i class="fa-solid fa-folder-plus me-1"></i> -->
+                      <span style="font-size: 15px"> Update</span>
                     </button>
                   </div>
                 </div>
@@ -96,7 +96,7 @@
                         name="answer-type"
                         value="Multiple Choice"
                         id="answer-radio"
-                        checked
+                        
                       />
                       <label class="form-check-label" for="answer-radio">
                         Multiple Choice
@@ -187,60 +187,21 @@
 
 
     <!-- This is data form server -->
-    <script>        
-
-        var exam = {
-            course_id : "course_id",
-            duration : {
-                hour : "11",
-                minute: "22"
-            },
-            name : "AA",
-            type : "Multiple Choice",
-            questions: [
-                {
-                    text: "This is my question",
-                    point : "12",
-                    answers : ["answer 1", "answer 2", "answer 3"],
-                    correct_answer : "answer 2"
-                },
-                {
-                    text: "This is second question",
-                    point : "10",
-                    answers : ["answer 1", "answer 2", "three"],
-                    correct_answer : "answer 2"
-                }
-            ]
-        }
-        
-        // var exam = {
-        //     course_id : "course_id",
-        //     duration : {
-        //         hour : "11",
-        //         minute: "22"
-        //     },
-        //     name : "AA",
-        //     type : "File Upload",
-        //     questions: [
-        //         {
-        //             text : "This is first question",
-        //             point : "20",
-        //         },
-        //         {
-        //             text : "This is second question",
-        //             point : "20",
-        //         }
-        //     ],
-        // }
+    <script th:inline = "javascript">      
+              
+        var exam = [[{exam}]];
+        console.log(exam);
         
         let exam_content = $("#exam-content ol");
+        let exam_id = exam["id"];
         let exam_type = exam["type"];
         let exam_name = exam["name"];
-        let exam_duration = exam["duration"];
-        let exam_hour = exam_duration["hour"];
-        let exam_minute = exam_duration["minute"];
+        let exam_duration = exam["duration"].split(":");
+        let exam_hour = exam_duration[0];
+        let exam_minute = exam_duration[1];
 
         //Set Data to inputs
+        $('#exam-header input[name="exam-id"]').val(exam_id);
         $('#exam-header input[name="name"]').val(exam_name);
         $('#exam-header input[name="hour"]').val(exam_hour);
         $('#exam-header input[name="minute"]').val(exam_minute);
@@ -248,13 +209,14 @@
 
         if (exam_type == 'Multiple Choice'){
             //Disable other radio button
+            $('#exam-header input[value="Multiple Choice"]').attr("checked",true);
             $('#exam-header input[value="File Upload"]').attr("disabled",true);
             //Set Contents  For Multiple Choice 
             $(exam["questions"]).each(function(index, item){
               
                 let text = item["text"];
                 let point = item["point"];
-                let answers = item["answers"];
+                let answers = item["answer_list"];
                 let correct_answer = item["correct_answer"];
                 let questions_index = index;
     
@@ -267,7 +229,7 @@
                                         <input type="hidden" id="question-id"  value="`+questions_index+`">
                                             <div class="row">
                                                 <div class="col-8 mr-auto">
-                                                    <textarea maxlength="500" name="mc-question" class="col-10 form-control question border-none"  rows="1" placeholder="Your question..."  id="question">`+text+`</textarea>
+                                                    <textarea maxlength="500" name="mc-question" class="col-10 form-control question border-none"  rows="1" placeholder="Your question..."  id="question" required>`+text+`</textarea>
                                                 </div>                                                    
                                                 <div class="col-2">
                                                     <input type="number" name="point" class="form-control me-2 " style="width: 60px; height: 30px" min="1" value="`+point+`"><label class="text-secondary">Points</label>
@@ -289,7 +251,7 @@
                     let check = (item == correct_answer)?"checked":"";
                     let more_option = `<div class="row mt-1 option-added">
                                         <div class="col-8">
-                                            <input type="radio" name="correct-ans`+questions_index+`" class="me-2" `+check+`><label><input type="text" id="option-input" maxlength="100" name="option" class="form-control" placeholder="Option 1" value="`+item+`"></label>
+                                            <input type="radio" name="correct-ans`+questions_index+`" class="me-2" `+check+` required><label><input type="text" id="option-input" maxlength="100" name="option" class="form-control" placeholder="Option 1" value="`+item+`" required></label>
                                         </div>
                                         <div class="col-4">
                                             <button type="button" class="btn option-plus rounded-circle  text-secondary" style="box-shadow: none;" ><i class="fa-solid fa-plus"></i></button>
@@ -320,6 +282,7 @@
                         rows="1"
                         placeholder="Your question..."
                         maxlength="500"
+                        required
                         >`+text+`</textarea>
                     </div>
                     <div class="col-2">
@@ -365,27 +328,49 @@
     <script>
       $(document).ready(function () {
         let total_point = 0;
-        var radio_question_id = exam["questions"].length;
+        var radio_question_id = exam["questions"].length;        
+     
+        function disabled_exam_other(){
+          $("#exam-other").hide();
+          $('#exam-other input').attr("disabled", true);
+          $('#exam-other textarea').attr("disabled", true);
+        }
+        function enable_exam_other(){
+          $("#exam-other").show();
+          $('#exam-other input').removeAttr("disabled");
+          $('#exam-other textarea').removeAttr("disabled");
+        }
+        function disabled_radio_exam(){
+          $(".m-choice").hide();
+          $('.m-choice input').attr("disabled", true);
+          $('.m-choice textarea').attr("disabled", true);
+        }
+        function enable_radio_exam(){
+          $(".m-choice").show();
+          $('.m-choice input').removeAttr("disabled");
+          $('.m-choice textarea').removeAttr("disabled");
+        }
+
 
         //For radio button checked
         if($('#exam-header input[value="Multiple Choice"]').attr("checked")){
-            $("#exam-other").hide();
-            $(".m-choice").show();
+            disabled_exam_other();
+            enable_radio_exam();
         }
         else{
-            $(".m-choice").hide();
-            $("#exam-other").show();
+            disabled_radio_exam();
+            enable_exam_other();
         }
 
         $("#answer-radio").on("click", function () {
-          $("#exam-other").hide();
-          $(".m-choice").show();
+            disabled_exam_other();
+            enable_radio_exam();
         });
 
         //For other button checked
         $("#answer-other").on("click", function () {
-          $(".m-choice").hide();
-          $("#exam-other").show();
+            disabled_radio_exam();
+            enable_exam_other();
         });
 
         //add Option
@@ -399,7 +384,7 @@
                       <div class="col-8">
                         <input type="radio" name="correct-ans` +
             question_id +
-            `" class="me-2"><label><input type="text" id="option-input" maxlength="100" name="option" class="form-control" placeholder="Option 1" ></label>
+            `" class="me-2" required><label><input type="text" id="option-input" maxlength="100" name="option" class="form-control" placeholder="Option 1" required></label>
                       </div>
                       <div class="col-4">
                         <button type="button" class="btn option-plus rounded-circle  text-secondary" style="box-shadow: none;" ><i class="fa-solid fa-plus"></i></button>
@@ -419,7 +404,7 @@
             `">
                                   <div class="row">
                                         <div class="col-8 mr-auto">
-                                            <textarea maxlength="500" name="mc-question" class="col-10 form-control question border-none"  rows="1" placeholder="Your question..." ></textarea>
+                                            <textarea maxlength="500" name="mc-question" class="col-10 form-control question border-none"  rows="1" placeholder="Your question..." required></textarea>
                                         </div>                                                    
                                         <div class="col-2">
                                             <input type="number" name="point" class="form-control me-2 " style="width: 60px; height: 30px" min="1" value="1"><label class="text-secondary">Points</label>
@@ -433,13 +418,25 @@
                                         <div class="col-8">
                                             <input type="radio" name="correct-ans` +
             radio_question_id +
-            `" checked class="me-2"><label><input type="text" id="option-input" name="option" class="form-control" placeholder="Option 1" maxlength="100" ></label>
+            `" class="me-2" checked required><label><input type="text" id="option-input" name="option" class="form-control" placeholder="Option 1" maxlength="100" required></label>
                                         </div>
                                         <div class="col-4">                             
                                             <button type="button" style="box-shadow: none;" class="btn rounded-circle option-plus text-secondary" ><i class="fa-solid fa-plus"></i></button>
                                             <button type="button" class="btn option-delete rounded-circle  text-danger" style="box-shadow: none;" ><i class="fa-solid fa-delete-left"></i></button>
                                         </div>
                                     </div>
+                                    <div class="row mt-1 option-added" >
+                                        <div class="col-8">
+                                            <input type="radio" name="correct-ans` +
+            radio_question_id +
+            `"  class="me-2" required><label><input type="text" id="option-input" name="option" class="form-control" placeholder="Option 1" maxlength="100" required></label>
+                                        </div>
+                                        <div class="col-4">                             
+                                            <button type="button" style="box-shadow: none;" class="btn rounded-circle option-plus text-secondary" ><i class="fa-solid fa-plus"></i></button>
+                                            <button type="button" class="btn option-delete rounded-circle  text-danger" style="box-shadow: none;" ><i class="fa-solid fa-delete-left"></i></button>
+                                        </div>
+                                    </div>
+
                                 </li>`;
 
           $(this).closest(".m-choice").after(_radio_question);
@@ -452,14 +449,13 @@
           let count = question_row.parent().find(".m-choice").length;
           if (count > 1) {
             question_row.remove();
-            question_count_radio--;
           }
         });
         //Remove Option
         $(document).on("click", ".btn.option-delete", function () {
           var div_row = $(this).closest(".row");
           let count = $(this).closest(".m-choice").find(".option-added").length;
-          if (count > 1) div_row.remove();
+          if (count > 2) div_row.remove();
         });
       }); //This is end of docuemnt.ready
     </script>
@@ -479,6 +475,7 @@
                         rows="1"
                         placeholder="Your question..."
                         maxlength="500"
+                        required
                         ></textarea>
                     </div>
                     <div class="col-2">
@@ -536,8 +533,9 @@
         let questions = [];
 
         if (type === "Multiple Choice") {
-          let multiple_choice_questions = $("#exam-content").find(".m-choice");
+          let multiple_choice_questions = $("#multiple-choice-questions").find(".m-choice");
           //Loop Multiple choice questions
+          console.log("question-length is "+multiple_choice_questions.length);
           $(multiple_choice_questions).each(function () {
             let question = {}; //One Question
             let point = $(this).find('input[name="point"]').val();
@@ -573,6 +571,7 @@
           });
         }
 
+        exam["id"] = exam_id;
         exam["course_id"] = course_id;
         exam["name"] = name;
         exam["duration"] = duration;
@@ -581,16 +580,17 @@
         exam["questions"] = questions;
 
         console.log(exam);
+        console.log(exam_id);
 
         $.ajax({
             type : "POST",
-            url : "updateExam",
+            url : "http://localhost:8080/exam-update/"+exam_id ,
             headers : {
                 "Content-Type" : "application/json"
             },
             data: JSON.stringify(exam),
             success : function(){
-                alert("Exam save successfully");
+                alert("Exam update successfully");
             }
           })
       });
