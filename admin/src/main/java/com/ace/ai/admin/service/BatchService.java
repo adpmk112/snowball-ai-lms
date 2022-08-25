@@ -39,21 +39,26 @@ public class BatchService {
         return teacherRepository.findAllByDeleteStatus(false);
     }
     public List<Teacher> findALlTeacherForAllBatchExcept(Integer batchId){
-       List<TeacherBatch> teacherBatches= teacherBatchRepository.findByBatchId(batchId);
-       List<Teacher> teacherList=new ArrayList<>();
-       List<Teacher> allTeacherList=teacherRepository.findAllByDeleteStatus(false);
-       for(TeacherBatch tb:teacherBatches){
-           if(!tb.getTeacher().isDeleteStatus()){
-               teacherList.add(tb.getTeacher());
-           }
-       }
-       for(Teacher t:teacherList){
-           for(Teacher t1:allTeacherList){
-               if(t1.getId()==t.getId())
-                   allTeacherList.remove(t1);
-           }
-       }
-       return allTeacherList;
+        List<Teacher> allTeacherList=teacherRepository.findAllByDeleteStatus(false);
+        List<TeacherBatch> teacherBatches= teacherBatchRepository.findByBatchId(batchId);
+        List<Teacher> exceptTeacher=teacherRepository.findAllByDeleteStatus(false);
+
+
+                   for(Teacher t: allTeacherList) {
+                       for (TeacherBatch tb : teacherBatches){
+                           if(t.getName().equals(tb.getTeacher().getName())){
+                                   exceptTeacher.remove(t);
+
+                           }
+
+                       }
+
+                   }
+
+
+
+
+       return exceptTeacher;
     }
 
     public List<Teacher> findALlTeacherByBatchId(Integer batchId){
@@ -63,6 +68,7 @@ public class BatchService {
         for(TeacherBatch tb:teacherBatches){
             if(!tb.getTeacher().isDeleteStatus()){
                 teacherList.add(tb.getTeacher());
+
             }
         }
 
@@ -94,5 +100,14 @@ public class BatchService {
 
     public Integer getTotalBatches(){
         return batchRepository.getTotalBatches();
+    }
+
+    public void addTeacherByCodeAndBatchId(String code,Integer batchId){
+
+        Teacher newTeacher=teacherRepository.findByCode(code);
+        System.out.println(newTeacher.getName());
+        Batch batch=batchRepository.findBatchById(batchId);
+        TeacherBatch teacherBatch=new TeacherBatch(false,newTeacher,batch);
+        teacherBatchRepository.save(teacherBatch);
     }
 }

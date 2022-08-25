@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TeacherDTO {
-    private String id;
+    private int id;
     private String code;
     private String name;
     private String password;
