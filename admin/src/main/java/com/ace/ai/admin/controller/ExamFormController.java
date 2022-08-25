@@ -1,12 +1,16 @@
 package com.ace.ai.admin.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ace.ai.admin.datamodel.Answer;
 import com.ace.ai.admin.datamodel.Course;
@@ -18,6 +22,7 @@ import com.ace.ai.admin.service.AnswerService;
 import com.ace.ai.admin.service.ExamFormService;
 import com.ace.ai.admin.service.QuestionService;
 
+import java.io.Console;
 import java.util.*;
 
 @Controller
@@ -32,20 +37,33 @@ public class ExamFormController {
     @Autowired
     AnswerService answerService;
 
-    @GetMapping(value = "/exam")
+    @GetMapping(value = "/admin-exam")
     public String getMethodName() {
         return "A002-05";
     }
 
+    //Check Exam Exists According to Coruse 
+    @GetMapping("/checkExamName")
+    @ResponseBody
+    public ResponseEntity isExamExist(@RequestParam("examName") String examName, @RequestParam("courseId") int courseId ){
+        ExamForm exam = examFormService.findByNameAndCourseId(examName, courseId);
+        System.out.println("Exam is "+exam);
+        if(exam != null){
+            return ResponseEntity.ok(HttpStatus.OK);
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     // Save Exam form
-    @PostMapping(value = "/exam")
+    @PostMapping(value = "/admin-exam")
     public String saveExam(@RequestBody ExamDTO examDTO) {
         examFormService.saveExam(examDTO);
-        return "redirect:/exam";
+        return "redirect:/admin-exam";
     }
 
     // Show Update Form
-    @GetMapping("/exam-update/{id}")
+    @GetMapping("/admin-exam-update/{id}")
     public String getExamToUpdate(@PathVariable("id") int id, Model model) {
         ExamForm examForm = examFormService.findById(id);
         ExamDTO exam = examFormService.getExamDTOFromExamForm(examForm);
@@ -54,7 +72,7 @@ public class ExamFormController {
     }
 
     // Update Exam
-    @PostMapping("/exam-update/{id}")
+    @PostMapping("/admin-exam-update/{id}")
     public String updateExam(@PathVariable("id") int id, @RequestBody ExamDTO examDTO) {
         examFormService.updateExam(examDTO);
         return "A002-06";
