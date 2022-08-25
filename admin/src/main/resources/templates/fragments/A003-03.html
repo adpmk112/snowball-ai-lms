@@ -174,7 +174,7 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="teacher: ${teacherList}" >
-                                     <td th:text="${teacher.photo}"></td>
+                                     <td><img th:src="@{${teacher.ImagePath}}" alt="teacher photo" id="teacherimage"></td>
                                     <td th:text="${teacher.name}"></td>
                                     <td th:text="${teacher.code}"></td>
                                     <td th:text="${teacher.password}"></td>
