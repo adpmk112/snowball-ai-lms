@@ -68,8 +68,18 @@ public class BatchController {
 
         List<Course> courseList=batchService.findAllCourse();
         List<Teacher> teacherList=  batchService.findALlTeacherByDeleteStatus(false);
-        model.addAttribute("teacherListMap",teacherList);
+        model.addAttribute("teacherList",teacherList);
         model.addAttribute("courseList",courseList);
+        return new ModelAndView("A003-01","batchDTO",new BatchDTO());
+    }
+    @GetMapping({"/goToAddBatchSuccess"})
+    public ModelAndView gotoAddBatchSuccess(Model model){
+
+        List<Course> courseList=batchService.findAllCourse();
+        List<Teacher> teacherList=  batchService.findALlTeacherByDeleteStatus(false);
+        model.addAttribute("teacherList",teacherList);
+        model.addAttribute("courseList",courseList);
+        model.addAttribute("msg","Add Teacher Success");
         return new ModelAndView("A003-01","batchDTO",new BatchDTO());
     }
     @GetMapping({"/CheckBatchName"})
@@ -99,7 +109,7 @@ public class BatchController {
         batchService.saveBatch(batch);
         batch=batchService.findLastBatch();
         batchService.saveTeacherBatch(batchDTO.getTeacherId(), batch.getId());
-        return "redirect:/batchSeeMore";
+        return "redirect:/goToAddBatchSuccess";
     }
 
     @GetMapping({"/BatchClose"})
@@ -125,12 +135,12 @@ public class BatchController {
 
     @GetMapping({"/addStudent"})
     public String addStudent(){
-
         return "A003-04";
     }
 
     @PostMapping("/saveStudent")
     public String saveStudent(@RequestBody ArrayList<StudentDTO> studentList ){
+
         for(StudentDTO student: studentList){
             System.out.println("code s" +student.getId()+ " name " + student.getName() + "password" + student.getPassword());
         }
