@@ -3,18 +3,15 @@ package com.ace.ai.admin.controller;
 import com.ace.ai.admin.datamodel.Batch;
 import com.ace.ai.admin.datamodel.Course;
 import com.ace.ai.admin.datamodel.Teacher;
-import com.ace.ai.admin.datamodel.TeacherBatch;
 import com.ace.ai.admin.dtomodel.BatchDTO;
-import com.ace.ai.admin.dtomodel.ChapterDTO;
-import com.ace.ai.admin.dtomodel.ExamScheduleDTO;
 import com.ace.ai.admin.dtomodel.StudentDTO;
 import com.ace.ai.admin.dtomodel.TeacherDTO;
+import com.ace.ai.admin.service.AttendanceService;
 import com.ace.ai.admin.service.BatchService;
 import com.ace.ai.admin.service.ChapterViewService;
 import com.ace.ai.admin.service.ExamScheduleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -36,7 +33,8 @@ public class BatchController {
     BatchService batchService;
     @Autowired
     ExamScheduleService examScheduleService;
-
+    @Autowired
+    AttendanceService attendanceService;
 
     @GetMapping({"/goToBatch"})
     public String gotoBatch(Model model){
@@ -59,7 +57,7 @@ public class BatchController {
         model.addAttribute("teacherList1",batchService.findALlTeacherForAllBatchExcept(id));
         model.addAttribute("batch_id", id);
         model.addAttribute("examScheduleList", examScheduleService.showExamScheduleTable(id));
-        
+        model.addAttribute("attendanceList",  attendanceService.showAttendanceTable(id));
         return new ModelAndView("A003-03","TeacherDTO",new TeacherDTO());
     }
 
