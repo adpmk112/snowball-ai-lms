@@ -24,40 +24,40 @@ public class AttendanceService {
     @Autowired
     ClassRoomRepository classRoomRepository;
 
-    public List<AttendanceDTO> showAttendanceTable(Integer batchId){
-        
-        List<AttendanceDTO>attendanceDTOList = new ArrayList<>();
-        List<Attendance> attendanceList = new ArrayList<>();
-    
-        List<Classroom>classroomList = classRoomRepository.findIdByBatchId(batchId);
+    public List<AttendanceDTO> showAttendanceTable(Integer batchId) {
 
-        for(Classroom classroom:classroomList){
+        List<AttendanceDTO> attendanceDTOList = new ArrayList<>();
+        List<Attendance> attendanceList = new ArrayList<>();
+
+        List<Classroom> classroomList = classRoomRepository.findIdByBatchId(batchId);
+
+        for (Classroom classroom : classroomList) {
 
             attendanceList = attendanceRepository.findAllByClassroomId(classroom.getId());
 
-            for(Attendance attendance:attendanceList){
+            for (Attendance attendance : attendanceList) {
 
                 AttendanceDTO attendanceDTO = new AttendanceDTO();
 
                 attendanceDTO.setDate(classroom.getDate());
 
-                log.info(""+classroom.getId());
+                log.info("" + classroom.getId());
                 log.info(classroom.getDate());
-                
+
                 attendanceDTO.setStudentName(attendance.getStudent().getName());
                 log.info(attendanceDTO.getStudentName());
-    
+
                 attendanceDTO.setAttendStatus(attendance.getAttend());
                 log.info(attendanceDTO.getAttendStatus());
-    
+
                 attendanceDTOList.add(attendanceDTO);
-            } 
+            }
 
         }
 
-        log.info(attendanceDTOList.get(2).getDate()+" "
-        +attendanceDTOList.get(2).getStudentName()+ " "
-        +attendanceDTOList.get(2).getAttendStatus());
+        log.info(attendanceDTOList.get(2).getDate() + " "
+                + attendanceDTOList.get(2).getStudentName() + " "
+                + attendanceDTOList.get(2).getAttendStatus());
 
         return attendanceDTOList;
     }
