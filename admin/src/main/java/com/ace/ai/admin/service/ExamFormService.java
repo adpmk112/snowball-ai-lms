@@ -127,6 +127,10 @@ public class ExamFormService {
     public List<ExamForm> findByCourseId(int course_id) {
         return examFormRepo.findByCourse_id(course_id);
     }
+
+    public ExamForm findByNameAndCourseId(String name, int id){
+        return examFormRepo.findByNameAndCourse_Id(name, id);
+    }
   
     public ExamDTO getExamDTOFromExamForm(ExamForm exam) {
         int id = exam.getId();

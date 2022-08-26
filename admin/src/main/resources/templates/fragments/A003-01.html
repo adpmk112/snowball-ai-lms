@@ -39,20 +39,28 @@
                             &lt; Back
                         </a>
                     </div>
-                    <div>
-                        <form class="form-horizontal part1" th:id="'batchList'" th:action="@{/addBatch}" method="post"
-                              th:object="${batchDTO}">
+                    <div class="">
+
+                        <form class=" ms-2 pb-4 part1" th:id="'batchList'" th:action="@{/addBatch}" method="post"
+                              th:object="${batchDTO}" style="max-width: 600px;">
                             <div class="row">
                                 <label class="col text-start mb-2 mt-3">
                                     <h2>Create Batch</h2>
                                 </label>
                             </div>
-                            <
+                            <div class="row " >
+                                <div class="col">
+                                    <div class=" alert alert-success form-control" style="">Save Success</div>
+                                </div>
+
+
+                            </div>
+
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="name">Name:</label>
                                 <div class="col-sm-10">
                                     <input
-                                            style="width: 300px;"
+
                                             type="text"
                                             class="form-control"
                                             id="name"
@@ -73,7 +81,6 @@
                                             name="course"
                                             class="form-control"
                                             id="course"
-                                            style="width: 300px;"
 
                                     >
 
@@ -90,7 +97,6 @@
                                             name="cars"
                                             class="form-control"
                                             id="teacher"
-                                            style="width: 300px;"
                                             multiple="multiple"
                                     >
                                         <option th:each="teacher: ${teacherList}" th:value="${teacher.id}" th:text="${teacher.name}"></option>
@@ -102,10 +108,11 @@
                                 <div class="col-sm-2 mr-auto col-form-label"></div>
                                 <div class="col-sm-10">
                                     <button type="reset" class="btn btn-secondary">Reset</button>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-primary" >Submit</button>
                                 </div>
                             </div>
                         </form>
+
                     </div>
                 </div>
             </div>

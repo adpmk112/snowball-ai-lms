@@ -7,7 +7,6 @@
   <body>
     <main role="main">
       <div th:fragment="exam-add">
-        <div id="header"></div>
         <div class="semi-circle"></div>
         <div class="banner">
           <div class="circle">
@@ -67,7 +66,9 @@
                           name="name"
                           required
                           placeholder="Exam Name"
+                          oninput="checkName();"
                         />
+                        <span id="exam_name_error" class="text-danger ms-1" style="font-size: 15px;"></span>
                       </div>
                       <div class="col-4">
                         <div class="form-check form-check-inline">
@@ -134,126 +135,41 @@
                 <div class="exam-content p-4 rounded" id="exam-content">
                   <!--Mutliple Choice-->
                   <ol class="list-group">
-                    <li
-                      class="m-choice card-body shadow rounded p-4"
-                      id="m-choice"
-                    >
-                      <input type="hidden" id="question-id" value="0" />
-                      <div class="row">
-                        <div class="col-8 mr-auto">
-                          <textarea
-                            name="mc-question"
-                            class="col-10 form-control question border-none"
-                            id="question"
-                            rows="1"
-                            maxlength="500"
-                            placeholder="Your question..."
-                            required
-                          ></textarea>
-                        </div>
-                        <div class="col-2">
-                          <input
-                            type="number"
-                            name="point"
-                            class="point form-control me-2"
-                            style="width: 60px; height: 30px"
-                            id="point"
-                            min="1"
-                            value="1"
-                          /><label class="text-secondary">Points</label>
-                        </div>
-                        <div class="col-2">
-                          <button
-                            type="button"
-                            class="btn rounded-circle question-add text-primary"
-                            style="box-shadow: none"
-                          >
-                            <i class="fa-solid fa-plus"></i>
-                          </button>
-                          <button
-                            type="button"
-                            class="question-remove btn rounded-circle text-danger"
-                            style="box-shadow: none"
-                          >
-                            <i class="fa-solid fa-trash-can"></i>
-                          </button>
-                        </div>
+                    <li class="m-choice card-body shadow rounded mt-2 p-4" id="m-choice">
+                      <input type="hidden" id="question-id"  value="0">
+                    <div class="row">
+                          <div class="col-8 mr-auto">
+                              <textarea maxlength="500" name="mc-question" class="col-10 form-control question border-none"  rows="1" placeholder="Your question..." required></textarea>
+                          </div>                                                    
+                          <div class="col-2">
+                              <input type="number" name="point" class="form-control me-2 " style="width: 60px; height: 30px" min="1" value="1"><label class="text-secondary">Points</label>
+                          </div> 
+                          <div class="col-2  ">
+                              <button type="button" class=" question-add btn rounded-circle  text-primary" style="box-shadow: none;"><i class="fa-solid fa-plus"></i></button>
+                              <button type="button" class=" question-remove btn rounded-circle  text-danger" style="box-shadow: none;"><i class="fa-solid fa-trash-can"></i></button>
+                          </div>                                  
+                      </div>                                
+                      <div class="row mt-1 option-added" >
+                          <div class="col-8">
+                              <input type="radio" name="correct-ans0" checked class="me-2" required><label><input type="text" id="option-input" name="option" class="form-control" placeholder="Option" maxlength="100" required oninput="checkAnswerName(this);"></label>
+                              <span id="answer-error" class="text-danger answer-error"></span>
+                          </div>
+                          <div class="col-4">                             
+                              <button type="button" style="box-shadow: none;" class="btn rounded-circle option-plus text-secondary" ><i class="fa-solid fa-plus"></i></button>
+                              <button type="button" class="btn option-delete rounded-circle  text-danger" style="box-shadow: none;" ><i class="fa-solid fa-delete-left"></i></button>
+                          </div>
                       </div>
-
-                      <div class="row mt-1 option-added" id="mc-option">
-                        <div class="col-8">
-                          <input
-                            type="radio"
-                            name="correct-ans0"
-                            checked
-                            class="me-2"
-                            required
-                          />
-                          <label
-                            ><input
-                              type="text"
-                              id="option-input"
-                              name="option"
-                              maxlength="100"
-                              class="form-control"
-                              placeholder="Option"
-                              required
-                          /></label>
-                        </div>
-                        <div class="col-4">
-                          <button
-                            type="button"
-                            style="box-shadow: none"
-                            class="btn rounded-circle option-plus text-secondary"
-                          >
-                            <i class="fa-solid fa-plus"></i>
-                          </button>
-                          <button
-                            type="button"
-                            class="btn option-delete rounded-circle text-danger"
-                            style="box-shadow: none"
-                          >
-                            <i class="fa-solid fa-delete-left"></i>
-                          </button>
-                        </div>
+                      <div class="row mt-1 option-added" >
+                          <div class="col-8">
+                              <input type="radio" name="correct-ans0"  class="me-2" required><label><input type="text" id="option-input" name="option" class="form-control" placeholder="Option" maxlength="100" required oninput="checkAnswerName(this);"/></label>
+                              <span id="answer-error" class="text-danger answer-error"></span>
+                          </div>
+                          <div class="col-4">                             
+                              <button type="button" style="box-shadow: none;" class="btn rounded-circle option-plus text-secondary" ><i class="fa-solid fa-plus"></i></button>
+                              <button type="button" class="btn option-delete rounded-circle  text-danger" style="box-shadow: none;" ><i class="fa-solid fa-delete-left"></i></button>
+                          </div>
                       </div>
-                      <div class="row mt-1 option-added" id="mc-option">
-                        <div class="col-8">
-                          <input
-                            type="radio"
-                            name="correct-ans0"
-                            class="me-2"
-                            required
-                          />
-                          <label
-                            ><input
-                              type="text"
-                              id="option-input"
-                              name="option"
-                              maxlength="100"
-                              class="form-control"
-                              placeholder="Option"
-                              required
-                          /></label>
-                        </div>
-                        <div class="col-4">
-                          <button
-                            type="button"
-                            style="box-shadow: none"
-                            class="btn rounded-circle option-plus text-secondary"
-                          >
-                            <i class="fa-solid fa-plus"></i>
-                          </button>
-                          <button
-                            type="button"
-                            class="btn option-delete rounded-circle text-danger"
-                            style="box-shadow: none"
-                          >
-                            <i class="fa-solid fa-delete-left"></i>
-                          </button>
-                        </div>
-                      </div>
-                    </li>
+                  </li>
                   </ol>
                   <!-- End Multiple choice question-->
 
