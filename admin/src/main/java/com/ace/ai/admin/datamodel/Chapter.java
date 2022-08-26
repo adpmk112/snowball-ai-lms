@@ -12,9 +12,11 @@ import java.util.List;
 @Data
 public class Chapter implements Serializable {
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
     private String name;
-    private boolean deleteStatus;
+    @Column(columnDefinition = "tinyint(1) default 0")
+    private int deleteStatus = 0;
 
     @ManyToOne
     @JoinColumn(name = "course_id")

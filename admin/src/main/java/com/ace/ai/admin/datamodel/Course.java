@@ -14,9 +14,11 @@ import java.util.List;
 @ToString
 public class Course implements Serializable  {
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
     private String name;
     private String createdDate;
+    @Column(columnDefinition = "tinyint(1) default 0")
     private boolean deleteStatus;
 
     @OneToMany(mappedBy = "course")
