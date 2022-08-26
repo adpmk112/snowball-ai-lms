@@ -166,8 +166,7 @@
       } 
       </script>
       
-    <script>
-     
+    <script>     
 
       //add and remove multiple choice 
       $(document).ready(function () {
@@ -456,13 +455,14 @@
 
         $.ajax({
           type: "POST",
-          url: "/admin-exam-update/" + exam_id,
+          url: "exam-update/" + exam_id,
           headers: {
             "Content-Type": "application/json",
           },
           data: JSON.stringify(exam),
           success: function () {
             alert("Exam update successfully");
+            window.location.replace("/admin/course/courseDetail?radio=\"exam\"&courseId="+course_id);            
           },
         });
       });

@@ -326,13 +326,14 @@
 
         $.ajax({
           type: "POST",
-          url: "admin-exam",
+          url: "/admin/course/exam-save",
           headers: {
             "Content-Type": "application/json",
           },
           data: JSON.stringify(exam),
           success: function () {
             alert("Exam save successfully");
+            window.location.replace("courseDetail?radio=\"exam\"&courseId="+course_id);
           },
         });
       });

@@ -10,18 +10,15 @@
         <div class="semi-circle"></div>
         <div class="banner">
           <div class="circle">
-            <i class="fa-regular fna-folder-open"></i>
+            <i class="fa-solid fa-file-circle-question"></i>
           </div>
           <div>
-            <h1>Course</h1>
+            <h1 th:text="${courseName}"></h1>
             <h3>Add Exam</h3>
           </div>
         </div>
         <div class="custom-div margin-top-8">
-          <div class="container">
-            <!-- <div class="course-title text-center">
-                    <h3>Course Name</h3>
-                </div> -->
+          <div class="container">      
             <div class="exam-form rounded">
               <form action="#" method="post" id="exam">
                 <div class="exam-header p-3" id="exam-header">
@@ -30,7 +27,7 @@
                       <div class="col-6 text-secondary">
                         <span>
                           <input
-                            type="text"
+                            type="hidden"
                             class="form-control"
                             name="course-id"
                             placeholder="courseId with hidden input"
@@ -40,7 +37,7 @@
                       </div>
 
                       <div class="col-6 text-end">
-                        <a href="" class="btn btn-outline-danger">Cancel</a>
+                        <a th:href="@{exam-cancel/(courseId=${courseId})}" class="btn btn-outline-danger">Cancel</a>
                         <button
                           type="submit"
                           class="btn btn-success"

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -16,16 +17,17 @@ import com.ace.ai.admin.datamodel.Answer;
 import com.ace.ai.admin.datamodel.Course;
 import com.ace.ai.admin.datamodel.ExamForm;
 import com.ace.ai.admin.datamodel.Question;
+import com.ace.ai.admin.dtomodel.AdminChapterDTO;
 import com.ace.ai.admin.dtomodel.ExamDTO;
 import com.ace.ai.admin.dtomodel.QuestionDTO;
-import com.ace.ai.admin.service.AnswerService;
+import com.ace.ai.admin.service.*;
 import com.ace.ai.admin.service.ExamFormService;
 import com.ace.ai.admin.service.QuestionService;
 
-import java.io.Console;
 import java.util.*;
 
 @Controller
+@RequestMapping(value = "/admin/course")
 public class ExamFormController {
 
     @Autowired
@@ -37,59 +39,90 @@ public class ExamFormController {
     @Autowired
     AnswerService answerService;
 
-    @GetMapping(value = "/admin-exam")
-    public String getMethodName(@RequestParam("courseId") int courseId, Model model) {
-        model.addAttribute("courseId", courseId);
-        return "A002-05";
-    }
+    @Autowired
+    CourseService courseService;
 
-    //Check Exam Exists According to Coruse 
+    // Check Exam Exists According to Coruse
     @GetMapping("/checkExamName")
     @ResponseBody
-    public ResponseEntity isExamExist(@RequestParam("examName") String examName, @RequestParam("courseId") int courseId ){
+    public ResponseEntity isExamExist(@RequestParam("examName") String examName,
+            @RequestParam("courseId") int courseId) {
         ExamForm exam = examFormService.findByNameAndCourseId(examName, courseId);
-        System.out.println("Exam is "+exam);
-        if(exam != null){
+        System.out.println("Exam is " + exam);
+        if (exam != null) {
             return ResponseEntity.ok(HttpStatus.OK);
-        }else{
+        } else {
             return ResponseEntity.notFound().build();
         }
     }
 
-      // Show All Exam List
-      @GetMapping("/admin-exam-list")
-      public String showAllExam(Model model){
-          int courseId = 2;
-          List<ExamForm> exams = examFormService.findByDeleteStatusAndCourseId(false, courseId);
-          model.addAttribute("radioButton", "exam");
-          model.addAttribute("examList", exams);
-          model.addAttribute("courseId", courseId);
-          return "A002-01 copy";
-      }
+    // Show All Exam List
+    // @GetMapping("/exam-list")
+    // public String showAllExam(Model model, @RequestParam("courseId") int courseId) {       
+    //     List<ExamForm> exams = examFormService.findByDeleteStatusAndCourseId(false, courseId);
+    //     model.addAttribute("radioButton", "exam");
+    //     model.addAttribute("examList", exams);
+    //     model.addAttribute("courseId", courseId);
+    //     // Add Chapters
+    //     List<AdminChapterDTO> chapterList = courseService.getCourseDetail(courseId);
+    //     for (AdminChapterDTO adminChapterDTO : chapterList) {
+    //         adminChapterDTO.setTotalFile(courseService.getChapterFileCount(adminChapterDTO.getId()));
+    //     }
+    //     String courseCount = "Total : " + courseService.getAllCourse().size();
+    //     model.addAttribute("courseCount", courseCount);
+    //     model.addAttribute("chapterList", chapterList);
+    //     return "A002-01";
+    // }
+
+    // Cancel Exam
+    @GetMapping("/exam-cancel")
+    public String cancelExam(@RequestParam("courseId") int courseId) {
+        return "redirect:/admin/course/courseDetail?radio=\"exam\"&courseId=" + courseId;
+    }
+
+    // Show Exam Form
+    @GetMapping(value = "/exam-save")
+    public String getMethodName(@RequestParam("courseId") int courseId, Model model) {
+        Course course = courseService.getById(courseId);
+        model.addAttribute("courseId", courseId);
+        model.addAttribute("courseName",course.getName());
+        return "A002-05";
+    }
 
     // Save Exam form
-    @PostMapping(value = "/admin-exam")
-    public String saveExam(@RequestBody ExamDTO examDTO ) {
+    @PostMapping(value = "/exam-save")
+    public void saveExam(@RequestBody ExamDTO examDTO) {
         examFormService.saveExam(examDTO);
-        return "redirect:/admin-exam";
+        int courseId = Integer.valueOf(examDTO.getCourse_id());
+        //return "redirect:/admin/course/courseDetail?radio=\"exam\"&courseId=" + courseId;
     }
 
     // Show Update Form
-    @GetMapping("/admin-exam-update/{id}")
-    public String getExamToUpdate(@PathVariable("id") int id, Model model) {
+    @GetMapping("/exam-update")
+    public String getExamToUpdate(@RequestParam("id") int id, Model model, @RequestParam("courseId") int courseId) {
         ExamForm examForm = examFormService.findById(id);
         ExamDTO exam = examFormService.getExamDTOFromExamForm(examForm);
         model.addAttribute("exam", exam);
+        model.addAttribute("courseId", courseId);
         return "A002-06";
     }
 
     // Update Exam
-    @PostMapping("/admin-exam-update/{id}")
-    public String updateExam(@PathVariable("id") int id, @RequestBody ExamDTO examDTO) {
+    @PostMapping("/exam-update/{id}")
+    public void updateExam(@PathVariable("id") int id, @RequestBody ExamDTO examDTO) {
         examFormService.updateExam(examDTO);
-        return "A002-06";
+        int courseId = Integer.valueOf(examDTO.getCourse_id());
+        //return "redirect:/admin/course/courseDetail?radio=\"exam\"&courseId=" + courseId;
     }
 
-  
+    //Delete Exam
+    @GetMapping("/exam-delete")
+    public String deleteExam(@RequestParam("id")int id,@RequestParam("courseId") int courseId) {
+        ExamForm exam = examFormService.findById(id);
+        exam.setDeleteStatus(true);
+        examFormService.saveByJPa(exam);
+        return "redirect:/admin/course/courseDetail?radio=\"exam\"&courseId=" + courseId;
+    }
+    
 
 }

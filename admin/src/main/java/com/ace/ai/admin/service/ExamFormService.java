@@ -112,6 +112,10 @@ public class ExamFormService {
         saveExam(examDTO);
     }
 
+    public void saveByJPa(ExamForm exam){
+        examFormRepo.save(exam);
+    }
+
     public ExamForm findById(int id) {
         return examFormRepo.getById(id);
     }

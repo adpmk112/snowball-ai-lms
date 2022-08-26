@@ -10,11 +10,11 @@
         <div class="semi-circle"></div>
         <div class="banner">
           <div class="circle">
-            <i class="fa-regular fa-folder-open"></i>
+            <i class="fa-solid fa-file-circle-question"></i>
           </div>
           <div>
             <h1>Exam</h1>
-            <h3>Course</h3>
+            <h3>Exam Edit</h3>
           </div>
         </div>
         <div class="custom-div margin-top-8">
@@ -30,26 +30,26 @@
                       <div class="col-6 text-secondary">
                         <span>
                           <input
-                            type="text"
+                            type="hidden"
                             class="form-control"
                             name="course-id"
                             placeholder="courseId with hidden input"
-                            value="1"
+                            th:value="${courseId}"
                           />
                         </span>
                         <span>
                           <input
-                            type="text"
+                            type="hidden"
                             class="form-control"
                             name="exam-id"
                             placeholder="courseId with hidden input"
-                            value="exam_id"
+                            value=""
                           />
                         </span>
                       </div>
 
                       <div class="col-6 text-end">
-                        <a href="" class="btn btn-outline-danger">Cancel</a>
+                        <a th:href="@{exam-cancel/(courseId=${courseId})}" class="btn btn-outline-danger">Cancel</a>
                         <button
                           type="submit"
                           class="btn btn-success"
