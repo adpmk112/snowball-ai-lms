@@ -38,7 +38,8 @@ public class ExamFormController {
     AnswerService answerService;
 
     @GetMapping(value = "/admin-exam")
-    public String getMethodName() {
+    public String getMethodName(@RequestParam("courseId") int courseId, Model model) {
+        model.addAttribute("courseId", courseId);
         return "A002-05";
     }
 
@@ -55,9 +56,20 @@ public class ExamFormController {
         }
     }
 
+      // Show All Exam List
+      @GetMapping("/admin-exam-list")
+      public String showAllExam(Model model){
+          int courseId = 2;
+          List<ExamForm> exams = examFormService.findByDeleteStatusAndCourseId(false, courseId);
+          model.addAttribute("radioButton", "exam");
+          model.addAttribute("examList", exams);
+          model.addAttribute("courseId", courseId);
+          return "A002-01 copy";
+      }
+
     // Save Exam form
     @PostMapping(value = "/admin-exam")
-    public String saveExam(@RequestBody ExamDTO examDTO) {
+    public String saveExam(@RequestBody ExamDTO examDTO ) {
         examFormService.saveExam(examDTO);
         return "redirect:/admin-exam";
     }
@@ -78,15 +90,6 @@ public class ExamFormController {
         return "A002-06";
     }
 
-    // Show All Exam List
-    @GetMapping("/admin-exam-list")
-    public String showAllExam(Model model){
-        int courseId = 1;
-        List<ExamForm> exams = examFormService.findByDeleteStatusAndCourseId(false, courseId);
-        model.addAttribute("radioButton", "exam");
-        model.addAttribute("examList", exams);
-        model.addAttribute("courseId", courseId);
-        return "A002-01";
-    }
+  
 
 }
