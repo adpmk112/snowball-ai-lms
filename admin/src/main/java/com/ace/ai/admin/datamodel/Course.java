@@ -17,7 +17,7 @@ public class Course implements Serializable  {
     private int id;
     private String name;
     private String createdDate;
-    private Boolean deleteStatus;
+    private boolean deleteStatus;
 
     @OneToMany(mappedBy = "course")
     private List<Chapter> chapters = new ArrayList<>();
