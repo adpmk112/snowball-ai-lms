@@ -212,25 +212,26 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>Exam 1</td>
+                                <form th:action="@{/editDate}" method="post" th:object="${examScheduleList}">
+                                <tr th:each="examSchedule: ${examScheduleList}">
+                                    <td th:text="${examSchedule.examName}"></td>
                                     <td>
                                         <input
                                                 type="date"
                                                 class="form-control"
                                                 name="start-date"
-                                                id="start-date"
-                                        />
+                                                th:value = "${examSchedule.startDate}"
+                                        disabled/>
                                     </td>
                                     <td>
                                         <input
                                                 type="date"
                                                 class="form-control"
                                                 name="end-date"
-                                                id="end-date"
-                                        />
+                                                th:value = "${examSchedule.endDate}"
+                                        disabled/>
                                     </td>
-                                    <td>Pending</td>
+                                    <td th:text = "${examSchedule.status}"></td>
                                     <td>
                                         <a
                                                 href=""
@@ -260,11 +261,8 @@
                                 <thead>
                                 <tr>
                                     <th>Date</th>
-                                    <th>Mg Mg</th>
-                                    <th>Ag Hla</th>
-                                    <th>Min Oo</th>
-                                    <th>Win Maw</th>
-                                    <th>Action</th>
+                                    <th th:each = "attendance: ${attendanceList}"
+                                     th:text = "${attendance.studentName}"></th>
                                 </tr>
                                 </thead>
                                 <tbody>
