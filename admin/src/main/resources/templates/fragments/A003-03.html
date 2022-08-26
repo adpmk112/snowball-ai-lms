@@ -212,8 +212,8 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>Exam 1</td>
+                                <tr th:each="examSchedule: ${examScheduleList}">
+                                    <td th:text="${examSchedule.examName}"></td>
                                     <td>
                                         <input
                                                 type="date"
