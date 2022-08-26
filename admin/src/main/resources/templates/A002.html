@@ -27,7 +27,7 @@
     </div>
     <div>
       <h1>Courses</h1>
-      <h3>Total: 4</h3>
+      <h3 th:text="${courseCount}"></h3>
     </div>
   </div>
 
@@ -63,7 +63,6 @@
             <table id="datatable">
               <thead>
                 <tr>
-                  <th>Id</th>
                   <th>Name</th>
                   <th>Created Date</th>
                   <th>Details</th>
@@ -71,41 +70,21 @@
                 </tr>
               </thead>
               <tbody>
-                <tr id="course-row">
-                  <td>01</td>
-                  <td>Java</td>
-                  <td>10/02/2022</td>
+                <tr id="course-row" th:each="course : ${courseList}">
+                  <td th:text="${course.name}"></td>
+                  <td  th:text="${course.createdDate}">10/02/2022</td>
                   <td>
-                    <a href="./A002-01.html" class="more-info btn btn-floating" data-mdb-ripple-color="dark">
+                    <a th:href="@{/admin/course/chapter(courseId=${course.id})}" class="more-info btn btn-floating" data-mdb-ripple-color="dark">
                       See More
                     </a>
                   </td>
                   <td>
-                    <a href="#" class="btn btn-outline-primary btn-floating" data-bs-toggle="modal"
+                    <a th:href="@{/admin/course/edit(courseId=${course.id})}" class="btn btn-outline-primary btn-floating" data-bs-toggle="modal"
                       data-bs-target="#course-edit" data-mdb-ripple-color="dark">
                       <i class="fa-regular fa-pen-to-square"></i>
                     </a>
-                    <a href="" class="btn btn-outline-danger btn-floating delete-course" id="delete-course"
+                    <a th:href="@{/admin/course/delete(courseId=${course.id})}" class="btn btn-outline-danger btn-floating delete-course" id="delete-course"
                       data-mdb-ripple-color="dark">
-                      <i class="fa-solid fa-circle-minus"></i>
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>01</td>
-                  <td>C#</td>
-                  <td>12/8/2022</td>
-                  <td>
-                    <a href="./A002-01.html" class="more-info btn btn-floating" data-mdb-ripple-color="dark">
-                      See More
-                    </a>
-                  </td>
-                  <td>
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#course-edit"
-                      class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
-                      <i class="fa-regular fa-pen-to-square"></i>
-                    </a>
-                    <a href="" class="btn delete-course btn-outline-danger btn-floating" data-mdb-ripple-color="dark">
                       <i class="fa-solid fa-circle-minus"></i>
                     </a>
                   </td>
