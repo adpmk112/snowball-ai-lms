@@ -186,6 +186,8 @@ public class CourseController {
         String courseCount = "Total : " + courseService.getAllCourse().size();
         model.addAttribute("courseCount", courseCount);
         model.addAttribute("chapterList", chapterList);
+        System.out.println("exam length => "+ exams.size());
+        System.out.println("course length => "+ chapterList.size());
         return "A002-01";
     }
 

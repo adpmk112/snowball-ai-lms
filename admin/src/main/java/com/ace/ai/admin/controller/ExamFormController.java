@@ -45,34 +45,15 @@ public class ExamFormController {
     // Check Exam Exists According to Coruse
     @GetMapping("/checkExamName")
     @ResponseBody
-    public ResponseEntity isExamExist(@RequestParam("examName") String examName,
-            @RequestParam("courseId") int courseId) {
-        ExamForm exam = examFormService.findByNameAndCourseId(examName, courseId);
-        System.out.println("Exam is " + exam);
-        if (exam != null) {
+    public ResponseEntity isExamExist(@RequestParam("examName") String examName, @RequestParam("courseId") int courseId) {
+        int exam_count = examFormService.findByNameAndCourseId(examName, courseId);
+        System.out.println("Exam is " + exam_count);
+        if (exam_count > 0) {
             return ResponseEntity.ok(HttpStatus.OK);
         } else {
             return ResponseEntity.notFound().build();
         }
-    }
-
-    // Show All Exam List
-    // @GetMapping("/exam-list")
-    // public String showAllExam(Model model, @RequestParam("courseId") int courseId) {       
-    //     List<ExamForm> exams = examFormService.findByDeleteStatusAndCourseId(false, courseId);
-    //     model.addAttribute("radioButton", "exam");
-    //     model.addAttribute("examList", exams);
-    //     model.addAttribute("courseId", courseId);
-    //     // Add Chapters
-    //     List<AdminChapterDTO> chapterList = courseService.getCourseDetail(courseId);
-    //     for (AdminChapterDTO adminChapterDTO : chapterList) {
-    //         adminChapterDTO.setTotalFile(courseService.getChapterFileCount(adminChapterDTO.getId()));
-    //     }
-    //     String courseCount = "Total : " + courseService.getAllCourse().size();
-    //     model.addAttribute("courseCount", courseCount);
-    //     model.addAttribute("chapterList", chapterList);
-    //     return "A002-01";
-    // }
+    }    
 
     // Cancel Exam
     @GetMapping("/exam-cancel")
@@ -91,10 +72,11 @@ public class ExamFormController {
 
     // Save Exam form
     @PostMapping(value = "/exam-save")
-    public void saveExam(@RequestBody ExamDTO examDTO) {
+    public String saveExam(@RequestBody ExamDTO examDTO) {
         examFormService.saveExam(examDTO);
         int courseId = Integer.valueOf(examDTO.getCourse_id());
         //return "redirect:/admin/course/courseDetail?radio=\"exam\"&courseId=" + courseId;
+        return "";
     }
 
     // Show Update Form
@@ -109,10 +91,11 @@ public class ExamFormController {
 
     // Update Exam
     @PostMapping("/exam-update/{id}")
-    public void updateExam(@PathVariable("id") int id, @RequestBody ExamDTO examDTO) {
+    public String updateExam(@PathVariable("id") int id, @RequestBody ExamDTO examDTO) {
         examFormService.updateExam(examDTO);
         int courseId = Integer.valueOf(examDTO.getCourse_id());
         //return "redirect:/admin/course/courseDetail?radio=\"exam\"&courseId=" + courseId;
+        return "";
     }
 
     //Delete Exam

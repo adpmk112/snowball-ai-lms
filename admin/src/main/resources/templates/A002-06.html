@@ -36,7 +36,8 @@
       if (exam_type == "Multiple Choice") {
         //Disable other radio button
         $('#exam-header input[value="Multiple Choice"]').attr("checked", true);
-        $('#exam-header input[value="File Upload"]').attr("disabled", true);
+        $('#exam-header input[value="File Upload"]').hide();
+        $('#exam-header label[for="answer-other"]').hide();
         //Set Contents  For Multiple Choice
         $(exam["questions"]).each(function (index, item) {
           let text = item["text"];
@@ -106,7 +107,8 @@
       } else {
         //check radio and disable another
         $('#exam-header input[value="File Upload"]').attr("checked", true);
-        $('#exam-header input[value="Multiple Choice"]').attr("disabled", true);
+        $('#exam-header input[value="Multiple Choice"]').hide();
+        $('#exam-header label[for="answer-radio"]').hide();
 
         $(exam["questions"]).each(function (index, item) {
           let point = item["point"];
@@ -368,6 +370,24 @@
             $("#add_exam").removeAttr("disabled");
           }
       }
+
+      function checkName() {
+        let examName = $('input[name="name"]').val();
+        let course_id = $('input[name="course-id"]').val();
+        $.ajax({
+          type: "GET",
+          url: "/admin/course/checkExamName",
+          data: { examName: examName, courseId: course_id },
+          success: function () {
+            $("#exam_name_error").text("Exam name already exists.");
+            $('#add_exam').attr("disabled",true);
+          },
+          error: function () {
+            $("#exam_name_error").text("");
+            $("#add_exam").removeAttr("disabled");
+          }
+        });        
+      }
       
       //Check Answer Name 
       function checkAnswerName(e){
@@ -389,8 +409,7 @@
       }
 
       //For Exam submit
-      $("#exam").submit(function (e) {
-        e.preventDefault();
+      function updateExam() {        
         let exam = {};
         let exam_id = $('input[name="exam-id"]').val();
         let course_id = $('input[name="course-id"]').val();
@@ -465,7 +484,28 @@
             window.location.replace("/admin/course/courseDetail?radio=\"exam\"&courseId="+course_id);            
           },
         });
-      });
+      };
+   
+    
+      //<!-- Confirm for exam delete -->
+      // $(document).on("click",'a.delete-exam',function(){
+      //   window.examId=$(this).attr('id');
+      // })     
+        $("#add_exam").confirm({
+          closeIcon: true,
+          theme: "Material",
+          //icon: 'fa-solid fa-warning',
+          title: "Update Exam",
+          content: "Are you sure to update?",
+          animation: "Scale",
+          buttons: {           
+            No: function () {},
+            Yes: function () {
+              updateExam();
+            },
+          },
+        })
+    
     </script>
   </body>
 </html>
