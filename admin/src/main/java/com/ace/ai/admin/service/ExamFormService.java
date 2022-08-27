@@ -132,7 +132,7 @@ public class ExamFormService {
         return examFormRepo.findByCourse_id(course_id);
     }
 
-    public ExamForm findByNameAndCourseId(String name, int id){
+    public int findByNameAndCourseId(String name, int id){
         return examFormRepo.findByNameAndCourse_Id(name, id);
     }
 
