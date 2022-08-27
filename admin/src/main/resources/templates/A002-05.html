@@ -205,20 +205,23 @@
 
     <!-- Check Exam Name -->
     <script>
+      //Check Exam Name
       function checkName() {
         let examName = $('input[name="name"]').val();
         let course_id = $('input[name="course-id"]').val();
         $.ajax({
           type: "GET",
-          url: "/checkExamName",
+          url: "/admin/course/checkExamName",
           data: { examName: examName, courseId: course_id },
           success: function () {
-            $("#exam_name_error").text("Name already exists.");
+            $("#exam_name_error").text("Exam name already exists.");
+            $('#add_exam').attr("disabled",true);
           },
           error: function () {
-            $("#exam_name_error").text("aa");
-          },
-        });
+            $("#exam_name_error").text("");
+            $("#add_exam").removeAttr("disabled");
+          }
+        });        
       }
 
       //Check Question Name
