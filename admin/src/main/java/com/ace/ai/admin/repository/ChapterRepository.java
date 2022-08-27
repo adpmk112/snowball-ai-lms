@@ -10,5 +10,5 @@ import com.ace.ai.admin.datamodel.Chapter;
 @Repository
 public interface ChapterRepository  extends JpaRepository<Chapter, Integer> {
     Chapter findByName(String chpName);
-    List<Chapter> findByCourseId(int courseId);
+    List<Chapter> findByCourseIdAndDeleteStatus(int courseId,int deleteStatus);
 }

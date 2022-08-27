@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.ace.ai.admin.datamodel.ChapterFile;
 
 public interface ChapterFileRepository extends JpaRepository<ChapterFile,Integer> {
-    List<ChapterFile> findByChapterIdAndDeleteStatus(int chapterId,boolean deleteStatus);
+    List<ChapterFile> findByChapterIdAndDeleteStatus(int chapterId,int deleteStatus);
+    ChapterFile findById(int chapterFileId);
     
 }

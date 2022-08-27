@@ -25,7 +25,7 @@
       </div>
       <div>
         <h1>Courses</h1>
-        <h3>Total: 4</h3>
+        <h3 th:text="${courseCount}"></h3>
       </div>
     </div>
     <div class="custom-div margin-top-8">
@@ -76,16 +76,23 @@
                 </thead>
                 <tbody>
                   <tr th:each="chapterFile : ${chapterFileList}">
-                    <td th:text="${chapterFile.name}">what is servlet</td>
-                    <td th:text="${chapterFile.fileType">mp4</td>
-
+                    <td th:text="${chapterFile.name}"></td>
+                    <td th:text="${chapterFile.fileType}"></td>
                     <td>
-                      <a th:href="@{/admin/course/chapter/chapterFile/edit(chapterFileId=${chapterFile.id})}" class="btn btn-outline-primary btn-floating" data-bs-toggle="modal"
-                        data-bs-target="#edit-file" data-mdb-ripple-color="dark">
+                      <div class="embed-responsive embed-responsive-16by9">
+                        <video class="video-fluid z-depth-1" autoplay controls>
+                          <source th:src="@{${chapterFile.filePath}}" type="video/mp4"/>
+                        </video>
+                      </div>
+                     
+                    <td>
+                      <a th:href="@{/admin/course/chapter/chapterFile/edit(chapterFileId=${chapterFile.id})}"
+                        class="btn btn-outline-primary btn-floating" data-bs-toggle="modal" data-bs-target="#edit-file"
+                        data-mdb-ripple-color="dark">
                         <i class="fa-regular fa-pen-to-square"></i>
                       </a>
-                      <a th:href="@{/admin/course/chapter/chapterFile/delete(chapterFileId=${chapterFile.id})}" class="btn delete-chapter-file btn-outline-danger btn-floating"
-                        data-mdb-ripple-color="dark">
+                      <a th:href="@{/admin/course/chapter/chapterFile/delete(chapterFileId=${chapterFile.id})}"
+                        class="btn delete-chapter-file btn-outline-danger btn-floating" data-mdb-ripple-color="dark">
                         <i class="fa-solid fa-circle-minus"></i>
                       </a>
                     </td>
@@ -109,6 +116,7 @@
                 </tbody>
               </table>
             </div>
+            <img src="407435e254b0f7d4a46e66934723fe63.jpg" alt="teacher photo" id="teacherimage">
             <div class="plus-icon"></div>
           </div>
         </div>

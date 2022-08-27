@@ -10,6 +10,7 @@ import java.util.List;
 @Data
 public class Batch implements Serializable {
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
     private String name;
     private boolean deleteStatus;
