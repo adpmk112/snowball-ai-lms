@@ -1,13 +1,8 @@
 package com.ace.ai.admin.service;
 
-import com.ace.ai.admin.datamodel.Batch;
-import com.ace.ai.admin.datamodel.Course;
-import com.ace.ai.admin.datamodel.Teacher;
-import com.ace.ai.admin.datamodel.TeacherBatch;
-import com.ace.ai.admin.repository.BatchRepository;
-import com.ace.ai.admin.repository.CourseRepository;
-import com.ace.ai.admin.repository.TeacherBatchRepository;
-import com.ace.ai.admin.repository.TeacherRepository;
+import com.ace.ai.admin.datamodel.*;
+import com.ace.ai.admin.dtomodel.StudentDTO;
+import com.ace.ai.admin.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +19,9 @@ public class BatchService {
     CourseRepository courseRepository;
     @Autowired
     TeacherBatchRepository teacherBatchRepository;
+
+    @Autowired
+    StudentRepository studentRepository;
 
     public Course findCourseById(Integer id){
         return courseRepository.findCourseById(id);
@@ -42,22 +40,14 @@ public class BatchService {
         List<Teacher> allTeacherList=teacherRepository.findAllByDeleteStatus(false);
         List<TeacherBatch> teacherBatches= teacherBatchRepository.findByBatchId(batchId);
         List<Teacher> exceptTeacher=teacherRepository.findAllByDeleteStatus(false);
-
-
                    for(Teacher t: allTeacherList) {
                        for (TeacherBatch tb : teacherBatches){
                            if(t.getName().equals(tb.getTeacher().getName())){
                                    exceptTeacher.remove(t);
 
                            }
-
                        }
-
                    }
-
-
-
-
        return exceptTeacher;
     }
 
@@ -68,11 +58,8 @@ public class BatchService {
         for(TeacherBatch tb:teacherBatches){
             if(!tb.getTeacher().isDeleteStatus()){
                 teacherList.add(tb.getTeacher());
-
             }
         }
-
-
         return teacherList;
     }
 
@@ -110,4 +97,35 @@ public class BatchService {
         TeacherBatch teacherBatch=new TeacherBatch(false,newTeacher,batch);
         teacherBatchRepository.save(teacherBatch);
     }
+
+    public void saveStudent(ArrayList<StudentDTO> studentList){
+        Integer batchId= studentList.get(0).getBatchId();
+        String code=studentList.get(0).getId();
+        System.out.println("Code is: "+code);
+        Batch batch=batchRepository.findBatchById(batchId);
+
+        System.out.println(batchId);
+        for(StudentDTO student: studentList){
+            Student student1=new Student();
+            student1.setCode(student.getId());
+            student1.setPassword(student.getPassword());
+            student1.setName(student.getName());
+
+            student1.setBatch(batch);
+            studentRepository.save(student1);
+        }
+
+    }
+//    public List<Student> findAllStudentByBatchId(Integer id){
+////        Batch batch=batchRepository.findBatchById(id);
+////         //List<Student> students1=studentRepository.findByDeleteStatus(false);
+////       List<Student> students=new ArrayList<>();
+////           for(Student s:studentList){
+////              if(id == s.getBatch().getId())
+////                  students.add(s);
+////
+////           }
+////           return  students;
+//
+//    }
 }
