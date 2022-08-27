@@ -8,7 +8,8 @@ import lombok.ToString;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
+import javax.persistence.Column;
+import javax.persistence.Column;
 @Entity
 @Data
 @ToString
@@ -18,6 +19,7 @@ public class Course implements Serializable  {
     private int id;
     private String name;
     private String createdDate;
+   
     @Column(columnDefinition = "tinyint(1) default 0")
     private boolean deleteStatus;
 

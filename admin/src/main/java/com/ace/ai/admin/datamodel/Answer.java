@@ -16,6 +16,7 @@ public class Answer {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
     private String answer;
+    @Column(columnDefinition = "tinyint(1) default 0")
     private boolean deleteStatus;
 
     @ManyToOne()

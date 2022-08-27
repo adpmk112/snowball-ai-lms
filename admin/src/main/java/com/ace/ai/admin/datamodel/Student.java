@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
+import javax.persistence.Column;
 import lombok.Data;
 
 @Entity
@@ -25,6 +25,7 @@ public class Student implements Serializable{
     private String photo;
     private String code;
     private String password;
+    @Column(columnDefinition = "tinyint(1) default 0")
     private boolean deleteStatus;
 
     @ManyToOne

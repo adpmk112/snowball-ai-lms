@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
+import javax.persistence.Column;
 import lombok.Data;
 
 @Entity
@@ -21,7 +21,8 @@ public class StudentExamMark implements Serializable{
     private String studentMark;
     private String uploadedFile;
     private Boolean notification;
-    private Boolean deleteStatus;
+    @Column(columnDefinition = "tinyint(1) default 0")
+    private boolean deleteStatus;
 
     @ManyToOne
     @JoinColumn(name = "student_id")

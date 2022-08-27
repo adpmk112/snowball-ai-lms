@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
+import javax.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,7 +29,8 @@ public class ExamForm implements Serializable {
     private String type;
     private String duration;
     private int maxMark;
-    private Boolean deleteStatus;
+    @Column(columnDefinition = "tinyint(1) default 0")
+    private boolean deleteStatus;
 
     @ManyToOne
     @JoinColumn(name = "course_id")
