@@ -61,17 +61,20 @@
       //ajax request to insert all form data
       $('#student-form').submit(function (e) {
 
+    let batchId= $('#student-form').find('#batchId').val();
         e.preventDefault()
-        var students = []
+        let students = []
 
         $('.form-row').each(function () {
           let student = {};
           $($(this).find('.tdInput')).each(function () {
-            var value=$($(this).find("input")).val();
+            let value=$($(this).find("input")).val();
             student[$($(this).find("input")).attr('name')] = value;
           })
           students.push(student)
+          console.log(student);
         })
+        console.log(batchId);
         console.log(students);
         $.ajax({
           type : "POST",
