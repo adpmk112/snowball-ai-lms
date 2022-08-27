@@ -8,7 +8,7 @@ public class ChapterFileDTO {
     private int id;
     private String name;
     private String fileType;
-    private Boolean deleteStatus;
+    private int deleteStatus;
    
 
    

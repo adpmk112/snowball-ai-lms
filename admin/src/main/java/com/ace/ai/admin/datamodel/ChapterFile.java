@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,7 +24,8 @@ public class ChapterFile implements Serializable  {
     private String name;
     private String fileType;
     private String filePath;
-    private Boolean deleteStatus;
+    @Column(columnDefinition = "tinyint(1) default 0")
+    private int deleteStatus = 0;
 
     @ManyToOne
     @JoinColumn(name = "chapter_id")

@@ -44,16 +44,16 @@ public class CourseService {
     }
 
     public List<AdminChapterDTO> getChapterList(int courseId){
-        List<Chapter> chapterList = chapterRepository.findByCourse_id(courseId);
+        List<Chapter> chapterList = chapterRepository.findByCourseId(courseId);
         List<AdminChapterDTO> adminChapterDTOList = new ArrayList<>();
         for(Chapter chapter : chapterList){
            
             AdminChapterDTO adminChapterDTO = new AdminChapterDTO();
-            adminChapterDTO.setTotalFile(chapterFileRepository.findByChapterId(chapter.getId()).size());
+            adminChapterDTO.setTotalFile(chapterFileRepository.findByChapterIdAndDeleteStatus(chapter.getId(),true).size());
             // adminChapterDTO.setcourseId(courseId);
             adminChapterDTO.setId(chapter.getId());
             adminChapterDTO.setName(chapter.getName());
-            adminChapterDTO.setDeleteStatus(chapter.isDeleteStatus());
+            adminChapterDTO.setDeleteStatus(chapter.getDeleteStatus());
             adminChapterDTOList.add(adminChapterDTO);
         }
         return adminChapterDTOList;
@@ -86,7 +86,7 @@ public class CourseService {
 
     public List<AdminChapterDTO> getCourseDetail(int courseId){
        List<AdminChapterDTO> chapterListDTO = new ArrayList<>();
-       List<Chapter> chapterList = chapterRepository.findByCourse_id(courseId);
+       List<Chapter> chapterList = chapterRepository.findByCourseId(courseId);
        for(Chapter chapter : chapterList){
         AdminChapterDTO chapterDTO = new AdminChapterDTO();
             chapterDTO.setId(chapter.getId());
@@ -99,7 +99,7 @@ public class CourseService {
 
     public List<ChapterFileDTO> getChpaterFile(int chapterId){
         List<ChapterFileDTO> chapterFileListDTO  = new ArrayList<>();
-        List<ChapterFile> chapterFileList = chapterFileRepository.findByChapterId(chapterId);
+        List<ChapterFile> chapterFileList = chapterFileRepository.findByChapterIdAndDeleteStatus(chapterId,false);
         for(ChapterFile chapterFile : chapterFileList ){
             ChapterFileDTO chapterFileDTO = new ChapterFileDTO();
             chapterFileDTO.setId(chapterFile.getId());
@@ -132,7 +132,7 @@ public class CourseService {
     }
 
     public int getChapterFileCount(int chapterId){
-        return chapterFileRepository.findByChapterId(chapterId).size();
+        return chapterFileRepository.findByChapterIdAndDeleteStatus(chapterId,true).size();
     }
 
     public Course getById(int id){

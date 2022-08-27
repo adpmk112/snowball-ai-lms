@@ -9,5 +9,5 @@ public class AdminChapterDTO {
     private int id;
     private String name;
     private int totalFile;
-    private boolean deleteStatus;
+    private int deleteStatus;
 }
