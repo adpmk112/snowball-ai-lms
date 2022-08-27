@@ -1,5 +1,6 @@
 package com.ace.ai.admin.datamodel;
 
+import java.beans.Transient;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,6 @@ public class ChapterFile implements Serializable  {
     private int id;
     private String name;
     private String fileType;
-    private String filePath;
     @Column(columnDefinition = "tinyint(1) default 0")
     private int deleteStatus = 0;
 
@@ -33,4 +33,11 @@ public class ChapterFile implements Serializable  {
 
     @OneToMany(mappedBy = "comment")
     private List<Reply>replies = new ArrayList<>();
+
+    @Transient
+    public String getFilePath(){
+        if(name == null || chapter.getName() == null)return null;
+        return "../assets/chapterFiles/" + chapter.getName() + "/" +name;
+        //assets\chapterFiles\Japan\Dota 2_06-02-2022_22-31-32-304.mp4
+    }
 }

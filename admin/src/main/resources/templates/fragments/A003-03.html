@@ -103,7 +103,7 @@
                             <div class="add-list">
                                 <label>Add Student List</label>
                                 <a
-                                        th:href="@{/addStudent}"
+                                        th:href="@{/addStudent{batch_id}(batch_id=${batch_id})}"
                                         class="btn btn-outline-success btn-floating"
                                         data-mdb-ripple-color="dark"
                                 >
@@ -470,9 +470,8 @@
                             </select>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                <button  th:disabled="${#lists.isEmpty(teacherList1)}"     type="submit" class="btn btn-primary" >
-                                       Add </button>
+<!--                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>-->
+                                <button  th:disabled="${#lists.isEmpty(teacherList1)}"   type="submit" class="btn btn-primary" >Add</button>
                             </div>
                         </form>
                     </div>

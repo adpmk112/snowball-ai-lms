@@ -2,6 +2,7 @@ package com.ace.ai.admin.controller;
 
 import com.ace.ai.admin.datamodel.Batch;
 import com.ace.ai.admin.datamodel.Course;
+import com.ace.ai.admin.datamodel.Student;
 import com.ace.ai.admin.datamodel.Teacher;
 import com.ace.ai.admin.dtomodel.BatchDTO;
 import com.ace.ai.admin.dtomodel.StudentDTO;
@@ -11,6 +12,7 @@ import com.ace.ai.admin.service.BatchService;
 import com.ace.ai.admin.service.ChapterViewService;
 import com.ace.ai.admin.service.ExamScheduleService;
 
+import com.sun.security.jgss.InquireSecContextPermission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,6 +61,7 @@ public class BatchController {
         model.addAttribute("examScheduleList", examScheduleService.showExamScheduleTable(id));
         model.addAttribute("attendanceList",  attendanceService.showAttendanceTable(id));
         model.addAttribute("classroomDateList", attendanceService.getClassroomDate(id));
+        //model.addAttribute("studentList",batchService.findAllStudentByBatchId(id));
         return new ModelAndView("A003-03","TeacherDTO",new TeacherDTO());
     }
 
@@ -139,23 +142,21 @@ public class BatchController {
     }
 
 
-    @GetMapping({"/addStudent"})
-    public String addStudent(){
+    @GetMapping({"/addStudent{batch_id}"})
+    public String addStudent(@PathVariable("batch_id")Integer batchId,Model model){
+       model.addAttribute("batchId",batchId);
+
         return "A003-04";
     }
 
     @PostMapping("/saveStudent")
-    public String saveStudent(@RequestBody ArrayList<StudentDTO> studentList ){
-
-        for(StudentDTO student: studentList){
-            System.out.println("code s" +student.getId()+ " name " + student.getName() + "password" + student.getPassword());
-        }
-        return "A003-03";
+    @ResponseBody
+    public void saveStudent(@RequestBody ArrayList<StudentDTO> studentList){
+        batchService.saveStudent(studentList);
     }
 
-      @PostMapping("/addTeacherToExistingBatch")
-
-      public String addTeacherToBatch(@RequestParam String code,@RequestParam Integer batchId){
+    @PostMapping("/addTeacherToExistingBatch")
+    public String addTeacherToBatch(@RequestParam String code,@RequestParam Integer batchId){
           batchService.addTeacherByCodeAndBatchId(code,batchId);
           return String.format("redirect:/batchSeeMore?id=%d",batchId);
     }
