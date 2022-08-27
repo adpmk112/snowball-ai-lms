@@ -376,13 +376,13 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>12-01-2022</td>
-                                    <td>9:00</td>
-                                    <td>U Hla</td>
-                                    <td>www.zoom.com</td>
-                                    <td>Done</td>
-                                    <td>record.mp4</td>
+                                <tr th:each = "classroom : ${classroomList}" >
+                                    <td th:text = "${classroom.date}"></td>
+                                    <td th:text = "${classroom.time}"></td>
+                                    <td th:text = "${classroom.teacherName}"></td>
+                                    <td th:text = "${classroom.link}"></td>
+                                    <td th:text = "${classroom.status}"></td>
+                                    <td th:text = "${classroom.recordedVideo}"></td>
                                     <td>
                                         <a
                                                 href="/templates/A003-07.html"
@@ -395,34 +395,6 @@
                                                 href=""
                                                 class="btn btn-outline-danger remove-classroom btn-floating"
                                                 data-mdb-ripple-color="dark">
-                                            <i class="fa-solid fa-circle-minus"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                </tbody>
-                                <tbody>
-                                <tr>
-                                    <td>12-01-2022</td>
-                                    <td>14:00</td>
-                                    <td>U Hla</td>
-                                    <td>www.zoom.com</td>
-                                    <td>In Progess</td>
-                                    <td>record.mp4</td>
-                                    <td>
-                                        <a
-                                                href="/templates/A003-07.html"
-                                                class="btn btn-outline-primary btn-floating"
-                                                data-mdb-ripple-color="dark"
-                                                data-toggle="modal" data-target=".bd-example-modal-sm"
-                                        >
-                                            <i class="fa-regular fa-pen-to-square"></i>
-                                        </a>
-                                        <a
-                                                href=""
-                                                class="btn btn-outline-danger remove-classroom btn-floating"
-                                                data-mdb-ripple-color="dark"
-                                                data-toggle="modal" data-target=".bd-example-modal-sm"
-                                        >
                                             <i class="fa-solid fa-circle-minus"></i>
                                         </a>
                                     </td>
