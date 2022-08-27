@@ -135,6 +135,8 @@ public class CourseService {
         return chapterFileRepository.findByChapterIdAndDeleteStatus(chapterId,true).size();
     }
 
-
+    public Course getById(int id){
+        return courseRepository.getById(id);
+    }
 
 }

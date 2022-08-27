@@ -10,18 +10,15 @@
         <div class="semi-circle"></div>
         <div class="banner">
           <div class="circle">
-            <i class="fa-regular fna-folder-open"></i>
+            <i class="fa-solid fa-file-circle-question"></i>
           </div>
           <div>
-            <h1>Course</h1>
+            <h1 th:text="${courseName}"></h1>
             <h3>Add Exam</h3>
           </div>
         </div>
         <div class="custom-div margin-top-8">
-          <div class="container">
-            <!-- <div class="course-title text-center">
-                    <h3>Course Name</h3>
-                </div> -->
+          <div class="container">      
             <div class="exam-form rounded">
               <form action="#" method="post" id="exam">
                 <div class="exam-header p-3" id="exam-header">
@@ -30,17 +27,17 @@
                       <div class="col-6 text-secondary">
                         <span>
                           <input
-                            type="text"
+                            type="hidden"
                             class="form-control"
                             name="course-id"
                             placeholder="courseId with hidden input"
-                            value="1"
+                            th:value="${courseId}"
                           />
                         </span>
                       </div>
 
                       <div class="col-6 text-end">
-                        <a href="" class="btn btn-outline-danger">Cancel</a>
+                        <a th:href="@{exam-cancel/(courseId=${courseId})}" class="btn btn-outline-danger">Cancel</a>
                         <button
                           type="submit"
                           class="btn btn-success"
@@ -139,7 +136,8 @@
                       <input type="hidden" id="question-id"  value="0">
                     <div class="row">
                           <div class="col-8 mr-auto">
-                              <textarea maxlength="500" name="mc-question" class="col-10 form-control question border-none"  rows="1" placeholder="Your question..." required></textarea>
+                              <textarea maxlength="500" name="mc-question" class="col-10 form-control question border-none"  rows="1" placeholder="Your question..." required oninput="checkQuestionName(this);"></textarea>
+                              <span class="question-error-span text-danger" style="font-size: 14px;"></span>
                           </div>                                                    
                           <div class="col-2">
                               <input type="number" name="point" class="form-control me-2 " style="width: 60px; height: 30px" min="1" value="1"><label class="text-secondary">Points</label>
@@ -152,7 +150,7 @@
                       <div class="row mt-1 option-added" >
                           <div class="col-8">
                               <input type="radio" name="correct-ans0" checked class="me-2" required><label><input type="text" id="option-input" name="option" class="form-control" placeholder="Option" maxlength="100" required oninput="checkAnswerName(this);"></label>
-                              <span id="answer-error" class="text-danger answer-error"></span>
+                              <span id="answer-error" class="ms-2 text-danger answer-error" style="font-size: 14px;"></span>
                           </div>
                           <div class="col-4">                             
                               <button type="button" style="box-shadow: none;" class="btn rounded-circle option-plus text-secondary" ><i class="fa-solid fa-plus"></i></button>
@@ -162,7 +160,7 @@
                       <div class="row mt-1 option-added" >
                           <div class="col-8">
                               <input type="radio" name="correct-ans0"  class="me-2" required><label><input type="text" id="option-input" name="option" class="form-control" placeholder="Option" maxlength="100" required oninput="checkAnswerName(this);"/></label>
-                              <span id="answer-error" class="text-danger answer-error"></span>
+                              <span id="answer-error" class="ms-2 text-danger answer-error" style="font-size: 14px;"></span>
                           </div>
                           <div class="col-4">                             
                               <button type="button" style="box-shadow: none;" class="btn rounded-circle option-plus text-secondary" ><i class="fa-solid fa-plus"></i></button>
@@ -187,7 +185,9 @@
                               placeholder="Your question..."
                               maxlength="500"
                               required
+                              oninput="checkQuestionName(this);"
                             ></textarea>
+                            <span class="question-error-span text-danger" style="font-size: 14px;"></span>
                           </div>
                           <div class="col-2">
                             <input
