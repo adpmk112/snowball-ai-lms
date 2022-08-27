@@ -5,7 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
-
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import lombok.Data;
 
 @Entity
@@ -18,6 +23,7 @@ public class Teacher {
     private String photo;
     private String code;
     private String password;
+    @Column(columnDefinition = "tinyint(1) default 0")
     private boolean deleteStatus;
 
     @OneToMany(mappedBy = "teacher")
