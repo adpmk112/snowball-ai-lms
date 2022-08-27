@@ -1,5 +1,6 @@
 package com.ace.ai.admin.datamodel;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +17,7 @@ public class TeacherBatch {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
+    @Column(columnDefinition = "tinyint(1) default 0")
     private boolean deleteStatus;
 
     @ManyToOne
