@@ -16,4 +16,6 @@ public interface ExamFormRepository extends JpaRepository<ExamForm, Integer>{
     public List<ExamForm> findByCourse_id(Integer courseId);
 
     public ExamForm findByNameAndCourse_Id(String name, int id);
+
+    public List<ExamForm> findByDeleteStatusAndCourse_Id(Boolean status, int course_id);
 }

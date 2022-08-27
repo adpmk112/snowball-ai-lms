@@ -135,4 +135,8 @@ public class CourseService {
         return chapterFileRepository.findByChapterId(chapterId).size();
     }
 
+    public Course getById(int id){
+        return courseRepository.getById(id);
+    }
+
 }
