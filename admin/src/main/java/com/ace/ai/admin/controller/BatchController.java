@@ -58,6 +58,7 @@ public class BatchController {
         model.addAttribute("batch_id", id);
         model.addAttribute("examScheduleList", examScheduleService.showExamScheduleTable(id));
         model.addAttribute("attendanceList",  attendanceService.showAttendanceTable(id));
+        model.addAttribute("classroomDateList", attendanceService.getClassroomDate(id));
         return new ModelAndView("A003-03","TeacherDTO",new TeacherDTO());
     }
 

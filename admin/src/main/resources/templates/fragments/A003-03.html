@@ -249,6 +249,7 @@
                                         </a>
                                     </td>
                                 </tr>
+                                </form>
                                 </tbody>
                             </table>
                         </div>
@@ -256,24 +257,23 @@
                         <label for="tabattendance" id="lab">Attendance</label>
                         <div class="tab">
 
-                            <!-- Start Attendance Table-->
-                            <table id="datatable5">
+                              <!-- Start Attendance Table-->
+                              <table id="datatable5">
                                 <thead>
                                 <tr>
                                     <th>Date</th>
                                     <th th:each = "attendance: ${attendanceList}"
-                                     th:text = "${attendance.studentName}"></th>
+                                    th:text = "${attendance.studentName}"></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
+                                <tr th:each = "classroom: ${classroomDateList}">
                                     <td>
                                         <input
                                                 type="date"
                                                 class="form-control"
                                                 name="attend-date"
-                                                id="attend-date"
-                                                value="12-01-2022"
+                                                th:value = "${classroom.date}"
                                         />
                                     </td>
                                     <td class="stu-attendance">
@@ -322,24 +322,6 @@
                                         <select
                                                 class="form-control attend-type"
                                                 name="attend-type"
-                                                id="attend-type"
-                                        >
-                                            <option selected value="present">present</option>
-                                            <option value="absent">absent</option>
-                                            <option value="leave">leave</option>
-                                        </select>
-                                    </td>
-                                    <td class="stu-attendance">
-                                        <input
-                                                type="hidden"
-                                                id="student-id"
-                                                value="student-id"
-                                                name="student-id"
-                                        />
-                                        <select
-                                                class="form-control attend-type"
-                                                name="attend-type"
-
                                                 id="attend-type"
                                         >
                                             <option selected value="present">present</option>
