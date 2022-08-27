@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 public class Answer {
     
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
     private String answer;
     private boolean deleteStatus;

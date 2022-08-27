@@ -28,6 +28,7 @@ import com.ace.ai.admin.datamodel.ChapterFile;
 import com.ace.ai.admin.datamodel.Course;
 import com.ace.ai.admin.datamodel.ExamForm;
 import com.ace.ai.admin.dtomodel.AdminChapterDTO;
+import com.ace.ai.admin.dtomodel.ChapterFileDTO;
 import com.ace.ai.admin.dtomodel.FileUploadDTO;
 import com.ace.ai.admin.repository.CourseRepository;
 import com.ace.ai.admin.service.CourseService;
@@ -159,13 +160,20 @@ public class CourseController {
 
     @GetMapping("/chapter/chapterFile")
     public ModelAndView getChapterDetail(@RequestParam("chapterId") int id, ModelMap model) {
+        List<Course> allCourse = courseService.getAllCourse();
+        String courseCount = "Total : " + allCourse.size();
+        model.addAttribute("courseCount", courseCount);
+       List<ChapterFileDTO> chapterFileList = courseService.getChpaterFile(id);
+        for(ChapterFileDTO chapterFileDTO : chapterFileList){
+            System.out.println( chapterFileDTO.getFilePath());
+        }
 
         return new ModelAndView("A002-03", "chapterFileList", courseService.getChpaterFile(id));
     }
 
     // All Course And Exams need to add request param "courseId" and "radio"
     @GetMapping("/courseDetail")
-    public String getCourseDetail(@RequestParam("courseId") int courseId, Model model, @RequestParam("radio") String radio) {
+    public String getCourseDetail(@RequestParam("courseId") int courseId, ModelMap model, @RequestParam("radio") String radio) {
         List<ExamForm> exams = examFormService.findByDeleteStatusAndCourseId(false, courseId);
         model.addAttribute("radioButton", "exam");
         model.addAttribute("examList", exams);
@@ -184,5 +192,11 @@ public class CourseController {
     @PostMapping("/add")
     public String addCourse() {
         return "";
+    }
+
+    @GetMapping("/chapter/chapterFile/delete")
+    public String deleteChapterFile(@RequestParam("chapterFileId")int id,ModelMap model){
+        courseService.deleteChapterFile(id);
+        return "A002-03";
     }
 }

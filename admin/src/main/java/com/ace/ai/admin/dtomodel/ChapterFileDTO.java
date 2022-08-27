@@ -9,7 +9,7 @@ public class ChapterFileDTO {
     private String name;
     private String fileType;
     private int deleteStatus;
-   
+   private String filePath;
 
    
 }
