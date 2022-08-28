@@ -25,7 +25,9 @@ public class Classroom implements Serializable{
     private String date;
     private String link;
     private String recordVideo;
-    private String time;
+    private String startTime;
+    private String duration;
+    private String teacherName;
     @Column(columnDefinition = "tinyint(1) default 0")
     private boolean deleteStatus;
 
@@ -35,4 +37,5 @@ public class Classroom implements Serializable{
 
     @OneToMany(mappedBy = "classroom")
     private List<Attendance> attendances = new ArrayList<>();
+    
 }

@@ -42,10 +42,11 @@ public class ClassRoomService {
             classroomDTO.setLink(classroom.getLink());
             classroomDTO.setRecordedVideo(classroom.getRecordVideo());
             classroomDTO.setStatus("");
-            classroomDTO.setTeacherName(""); //need to discuss for erd
-            log.info(classroom.getTime());
+            classroomDTO.setTeacherName(classroom.getTeacherName());
+            classroomDTO.setDuration(Long.parseLong(classroom.getDuration())); 
+            log.info(classroom.getStartTime());
 
-            classroomDTO.setTime(LocalTime.parse(classroom.getTime(),tf));
+            classroomDTO.setTime(LocalTime.parse(classroom.getStartTime(),tf));
 
             classroomDTO.setDateTime(LocalDateTime.parse
             (classroomDTO.getDate()+" "+classroomDTO.getTime(),dtf));
@@ -55,7 +56,7 @@ public class ClassRoomService {
             }
 
             else if(LocalDateTime.now().isAfter
-            (classroomDTO.getDateTime().plus(4, ChronoUnit.HOURS))){
+            (classroomDTO.getDateTime().plus(classroomDTO.getDuration(), ChronoUnit.HOURS))){
                 classroomDTO.setStatus("Done");
             }
 

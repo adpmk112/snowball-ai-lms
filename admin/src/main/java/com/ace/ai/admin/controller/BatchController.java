@@ -10,6 +10,7 @@ import com.ace.ai.admin.dtomodel.TeacherDTO;
 import com.ace.ai.admin.service.AttendanceService;
 import com.ace.ai.admin.service.BatchService;
 import com.ace.ai.admin.service.ChapterViewService;
+import com.ace.ai.admin.service.ClassRoomService;
 import com.ace.ai.admin.service.ExamScheduleService;
 
 import com.sun.security.jgss.InquireSecContextPermission;
@@ -38,6 +39,8 @@ public class BatchController {
     ExamScheduleService examScheduleService;
     @Autowired
     AttendanceService attendanceService;
+    @Autowired
+    ClassRoomService classRoomService;
 
     @GetMapping({"/goToBatch"})
     public String gotoBatch(Model model){
@@ -61,7 +64,9 @@ public class BatchController {
         model.addAttribute("batch_id", id);
         model.addAttribute("examScheduleList", examScheduleService.showExamScheduleTable(id));
         model.addAttribute("attendanceList",  attendanceService.showAttendanceTable(id));
-        model.addAttribute("studentDTOList",batchService.findALlStudentByBatchId(id));
+        model.addAttribute("classroomDateList", attendanceService.getClassroomDate(id));
+        model.addAttribute("classroomList", classRoomService.showClassroomTable(id));
+        //model.addAttribute("studentList",batchService.findAllStudentByBatchId(id));
         return new ModelAndView("A003-03","TeacherDTO",new TeacherDTO());
     }
 
