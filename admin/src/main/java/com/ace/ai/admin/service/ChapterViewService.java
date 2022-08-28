@@ -41,15 +41,16 @@ public class ChapterViewService {
             else{
                 chapterDTO.setStart_date(startDate);
                 chapterDTO.setEnd_date(endDate);
-                if (endDate.isEqual(LocalDate.now())){
+                if (endDate.isEqual(LocalDate.now())|| endDate.isAfter(LocalDate.now())){
                     chapterDTO.setStatus("In progress");
 
                 }
                 else if(endDate.isBefore(LocalDate.now())){
-                    chapterDTO.setStatus("Not Started");
+                    System.out.println(endDate.isBefore(LocalDate.now()));
+                    chapterDTO.setStatus("Done");
                 }
                 else{
-                    chapterDTO.setStatus("Done");
+                    chapterDTO.setStatus("Not Started");
                    
                 }
 
