@@ -14,6 +14,7 @@ import com.ace.ai.admin.service.ClassRoomService;
 import com.ace.ai.admin.service.ExamScheduleService;
 
 import com.sun.security.jgss.InquireSecContextPermission;
+import net.bytebuddy.matcher.StringMatcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -156,6 +157,7 @@ public class BatchController {
     @PostMapping("/saveStudent")
     @ResponseBody
     public void saveStudent(@RequestBody ArrayList<StudentDTO> studentList){
+
         batchService.saveStudent(studentList);
     }
 
@@ -163,5 +165,23 @@ public class BatchController {
     public String addTeacherToBatch(@RequestParam String code,@RequestParam Integer batchId){
           batchService.addTeacherByCodeAndBatchId(code,batchId);
           return String.format("redirect:/batchSeeMore?id=%d",batchId);
+    }
+
+    @GetMapping("/editStudent{studentdata}")
+    public ModelAndView editStudent(@PathVariable("studentdata")String studentdata,Model model){
+        System.out.println("Path variable is "+studentdata);
+        String[] data= studentdata.split("-");
+         String code=data[0];
+         String id=data[1];
+         model.addAttribute("edit","edit");
+        StudentDTO studentDTO=batchService.findStudentByBatchIdAndStudentId(Integer.valueOf(id),code);
+        System.out.println("Batch id in studenDTO is:"+studentDTO.getBatchId());
+      return new ModelAndView("A003-08","studentDTO",studentDTO);
+    }
+
+    @PostMapping("/updateStudent")
+    public String updateStudent(@ModelAttribute("studentDTO")StudentDTO studentDTO){
+         batchService.updateStudent(studentDTO);
+        return String.format("redirect:/batchSeeMore?id=%d",studentDTO.getBatchId());
     }
 }

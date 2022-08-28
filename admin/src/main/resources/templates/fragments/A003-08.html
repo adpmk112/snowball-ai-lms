@@ -2,7 +2,7 @@
 <html lang="en" th:replace="~{layouts/main :: layout(~{::main})}"  xmlns:th="http://www.thymeleaf.org">
 <body>
 <main role="main">
-<div th:fragment="student-add">
+<div th:fragment="student-update">
     <div class="semi-circle"></div>
     <div class="banner">
         <div class="circle">
@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <form  id="student-form" method="post" >
+                    <form th:action="@{/updateStudent}"  method="POST" th:object="${studentDTO}">
 
                         <table class="table table-striped table-hover" id="student-table">
                             <tr>
@@ -38,7 +38,7 @@
                                     <span id="total-student">Total: 1</span>
                                     <button  type="submit" value="Save" class="btn text-primary">
                                         <i class="fa-solid fa-file me-1"></i>
-                                        Save
+                                       Update
                                     </button>
 
                                 </th>
@@ -55,7 +55,7 @@
                                         <input
                                                 type="text"
                                                 class="form-control"
-                                                name="id"
+                                                name="code"
                                                 placeholder="Id"
                                                 th:value="${studentDTO.code}"
                                                 required
@@ -97,10 +97,14 @@
                                             <i class="fa-solid fa-minus"></i>
                                         </button>
                                     </td>
-
-                                    <td style="visibility: hidden" class="tdInput">
-                                        <input  name="batchId" id="batchId" type="hidden" th:value="${batchId}"/>
-                                    </td>
+                                        <input
+                                                type="hidden"
+                                                class="form-control"
+                                                name="batchId"
+                                                placeholder="Name"
+                                                th:value="${studentDTO.batchId}"
+                                                required
+                                        />
                                 </div>
                             </tr>
                         </table>

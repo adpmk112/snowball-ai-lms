@@ -68,15 +68,16 @@ $(document).on("click", ".btn.btn-chapter-edit", function(e){
         var startDate=$("#startDate_"+id)[0].value;
         var endDate=$("#endDate_"+id)[0].value;
         var batchId=$("#batchId_"+id)[0].value;
+        window.state=$("#chpStatus_"+id)[0].innerHTML;
+        window.currentDate = new Date();
+
+          window.d1 = new Date(startDate);
+         window.d2 = new Date(endDate);
 
 
-        var d1 = new Date(startDate);
-        var d2 = new Date(endDate);
+        window.lessThan= d1.getTime()<d2.getTime();
+       window.equal= d1.getTime() === d2.getTime();
 
-
-        var lessThan= d1.getTime()<d2.getTime();
-        var equal= d1.getTime() === d2.getTime();
-          console.log(d1.getTime()+" " + d2.getTime())
         if(equal || lessThan){
             $(this)
                 .find(".fa-solid.fa-check")
@@ -93,7 +94,15 @@ $(document).on("click", ".btn.btn-chapter-edit", function(e){
                 dataType: "json",
                 data : {chpName:chpName,startDate:startDate,endDate:endDate,batchId:batchId},
                 success: function (responce) {
-
+                       if((lessThan && d1.getTime()<currentDate.getTime()) || (equal && d2.getTime()=== currentDate.getTime())){
+                           $("#chpStatus_"+id)[0].innerHTML="In progress";
+                       }
+                       else if((equal && d1.getTime()>currentDate.getTime()) || (lessThan && d1.getTime()>currentDate.getTime()) ){
+                           $("#chpStatus_"+id)[0].innerHTML="Not Started";
+                       }
+                       else{
+                           $("#chpStatus_"+id)[0].innerHTML="Done";
+                       }
                 },
                 error: function () {
                     alert("Error!")
