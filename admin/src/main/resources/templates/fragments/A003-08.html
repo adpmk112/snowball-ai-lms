@@ -51,13 +51,19 @@
 
 
                                     <td  class="tdInput">
-
+                                        <input
+                                                type="hidden"
+                                                th:value="${studentDTO.id}"
+                                                th:field="*{id}"
+                                                required
+                                        />
                                         <input
                                                 type="text"
                                                 class="form-control"
                                                 name="code"
                                                 placeholder="Id"
                                                 th:value="${studentDTO.code}"
+                                                th:field="*{code}"
                                                 required
                                                 autofocus
                                         />
@@ -69,6 +75,7 @@
                                                 name="password"
                                                 placeholder="Password"
                                                 th:value="${studentDTO.password}"
+                                                th:field="*{password}"
                                                 required
                                         />
                                     </td>
@@ -79,18 +86,19 @@
                                                 name="name"
                                                 placeholder="Name"
                                                 th:value="${studentDTO.name}"
+                                                th:field="*{name}"
                                                 required
                                         />
                                     </td>
 
                                     <td class="btn-td">
-                                        <button
+                                        <button disabled
                                                 type="button"
                                                 class="btn btn-outline-success add-row"
                                         >
                                             <i class="fa-solid fa-plus"></i>
                                         </button>
-                                        <button
+                                        <button disabled
                                                 type="button"
                                                 class="btn btn-outline-danger remove-row"
                                         >
