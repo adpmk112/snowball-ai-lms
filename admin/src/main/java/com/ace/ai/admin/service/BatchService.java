@@ -101,12 +101,14 @@ public class BatchService {
     }
 
     public void saveStudent(ArrayList<StudentDTO> studentList){
+        System.out.println(studentList.get(0).toString());
         Integer batchId= studentList.get(0).getBatchId();
         Batch batch=batchRepository.findBatchById(batchId);
 
         System.out.println(batchId);
         for(StudentDTO student: studentList){
             Student student1=new Student();
+
             student1.setCode(student.getCode());
             student1.setPassword(student.getPassword());
             student1.setName(student.getName());
