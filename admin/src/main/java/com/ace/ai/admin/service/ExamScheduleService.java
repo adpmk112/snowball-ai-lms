@@ -33,28 +33,28 @@ public class ExamScheduleService {
         List<ExamScheduleDTO>examScheduleDTOList = new ArrayList<>();
         List<BatchExamForm>batchExamFormList = batchExamFormRepository.findByBatch_Id(batchId);
 
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'hh:mm");
 
         for(BatchExamForm batchExamForm:batchExamFormList){
 
             ExamScheduleDTO examScheduleDTO = new ExamScheduleDTO();
             examScheduleDTO.setId(batchExamForm.getId());
             examScheduleDTO.setExamName(batchExamForm.getExamForm().getName());
-            examScheduleDTO.setStartDate(LocalDateTime.parse(batchExamForm.getStartDate(), dtf));
-            examScheduleDTO.setEndDate(LocalDateTime.parse(batchExamForm.getEndDate(),dtf));
+            examScheduleDTO.setStartDate(batchExamForm.getStartDate());
+            examScheduleDTO.setEndDate(batchExamForm.getEndDate());
 
-            if(examScheduleDTO.getStartDate().isAfter(LocalDateTime.now())){
-                examScheduleDTO.setStatus("Upcoming");
-            }
+            // if((LocalDateTime.parse( examScheduleDTO.getStartDate(), dtf)).isAfter(LocalDateTime.now())){
+            //     examScheduleDTO.setStatus("Upcoming");
+            // }
 
-            else if (examScheduleDTO.getStartDate().isBefore(LocalDateTime.now())
-            && LocalDateTime.now().isBefore(examScheduleDTO.getEndDate())){
-                examScheduleDTO.setStatus("In Progress");
-            }
+            // else if (examScheduleDTO.getStartDate().isBefore(LocalDateTime.now())
+            // && LocalDateTime.now().isBefore(examScheduleDTO.getEndDate())){
+            //     examScheduleDTO.setStatus("In Progress");
+            // }
 
-            else if (LocalDateTime.now().isAfter(examScheduleDTO.getEndDate())){
-                examScheduleDTO.setStatus("Done");
-            }
+            // else if (LocalDateTime.now().isAfter(examScheduleDTO.getEndDate())){
+            //     examScheduleDTO.setStatus("Done");
+            // }
         
             examScheduleDTOList.add(examScheduleDTO);
         }
