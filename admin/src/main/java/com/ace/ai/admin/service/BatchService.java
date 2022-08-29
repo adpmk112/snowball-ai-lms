@@ -102,8 +102,6 @@ public class BatchService {
 
     public void saveStudent(ArrayList<StudentDTO> studentList){
         Integer batchId= studentList.get(0).getBatchId();
-        String code=studentList.get(0).getCode();
-        System.out.println("Code is: "+code);
         Batch batch=batchRepository.findBatchById(batchId);
 
         System.out.println(batchId);
@@ -173,15 +171,19 @@ public class BatchService {
     }
 
     public StudentDTO updateStudent(StudentDTO studentDTO){
-                      Batch batch= batchRepository.findBatchById(studentDTO.getBatchId());
-       Student student= studentRepository.findByBatchAndCode(batch,studentDTO.getCode());
-       student.setPassword(studentDTO.getPassword());
-       student.setName(studentDTO.getName());
-       student.setCode(studentDTO.getCode());
-       studentRepository.save(student);
-       studentDTO.setPhoto(student.getPhoto());
-       studentDTO.setId(student.getId());
-       return  studentDTO;
+        Batch batch= batchRepository.findBatchById(studentDTO.getBatchId());
+        Student student= studentRepository.findByBatchAndId(batch,studentDTO.getId());
+        student.setId(studentDTO.getId());
+        System.out.println("id is "+studentDTO.getId());
+        student.setPassword(studentDTO.getPassword());
+        student.setName(studentDTO.getName());
+        student.setCode(studentDTO.getCode());
+        studentRepository.save(student);
+        if(student.getPhoto()!=null) {
+            studentDTO.setPhoto(student.getPhoto());
+        }
+        studentDTO.setId(student.getId());
+        return  studentDTO;
     }
 
     public List<String> findStudentIdsByBatchId(Integer batchId){

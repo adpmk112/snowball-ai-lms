@@ -145,7 +145,6 @@ public class BatchController {
     public ResponseEntity batchClose(Model model, @RequestParam("batchId") Integer batchId) {
         Batch batch = batchService.findBatchById(batchId);
         batch.setDeleteStatus(true);
-        System.out.println(batch.getName());
         batchService.saveBatch(batch);
         return ResponseEntity.ok(HttpStatus.OK);
     }
@@ -155,7 +154,6 @@ public class BatchController {
     public ResponseEntity batchReopen(Model model, @RequestParam("batchId") Integer batchId) {
         Batch batch = batchService.findBatchById(batchId);
         batch.setDeleteStatus(false);
-        System.out.println(batch.getName());
         batchService.saveBatch(batch);
         return ResponseEntity.ok(HttpStatus.OK);
     }
@@ -176,11 +174,6 @@ public class BatchController {
         batchService.saveStudent(studentList);
     }
 
-    // @PostMapping("/addTeacherToExistingBatch")
-    // public String addTeacherToBatch(@RequestParam String code, @RequestParam Integer batchId) {
-    //     batchService.addTeacherByCodeAndBatchId(code, batchId);
-    //     return String.format("redirect:/batchSeeMore?id=%d", batchId);
-    // }
 
     @GetMapping("/editStudent{studentdata}")
     public ModelAndView editStudent(@PathVariable("studentdata") String studentdata, Model model) {
@@ -188,9 +181,9 @@ public class BatchController {
         String[] data = studentdata.split("-");
         String code = data[0];
         String id = data[1];
+        System.out.println(code +" "+ id);
         model.addAttribute("edit", "edit");
         StudentDTO studentDTO = batchService.findStudentByBatchIdAndStudentId(Integer.valueOf(id), code);
-        System.out.println("Batch id in studenDTO is:" + studentDTO.getBatchId());
         return new ModelAndView("A003-08", "studentDTO", studentDTO);
     }
 
