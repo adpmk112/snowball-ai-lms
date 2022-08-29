@@ -49,6 +49,7 @@ public class CourseController {
 
         FileUploadDTO fileUploadDTO = new FileUploadDTO();
         fileUploadDTO.setCourseId(id);
+        model.addAttribute("courseId", id);
         return new ModelAndView("A002-02", "fileUploadDTO", fileUploadDTO);
     }
 
@@ -101,7 +102,8 @@ public class CourseController {
                 courseService.saveFile(chapterFile);
             }
 
-            String uploadDir = "./assets/chapterFiles/" + chapterId;
+            String uploadDir = "assets/chapterFiles/" + chapterId;
+            
             Path uploadPath = Paths.get(uploadDir);
 
             if (!Files.exists(uploadPath)) {
