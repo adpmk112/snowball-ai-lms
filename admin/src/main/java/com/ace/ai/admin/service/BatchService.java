@@ -165,6 +165,13 @@ public class BatchService {
         return studentDTO;
     }
 
+    public void UpdateStudentByBatchIdAndCode(Integer batchId,String code){
+        Batch batch=batchRepository.findBatchById(batchId);
+        Student student= studentRepository.findByDeleteStatusAndBatchAndCode(false,batch,code);
+        student.setDeleteStatus(true);
+        studentRepository.save(student);
+    }
+
     public StudentDTO updateStudent(StudentDTO studentDTO){
                       Batch batch= batchRepository.findBatchById(studentDTO.getBatchId());
        Student student= studentRepository.findByBatchAndCode(batch,studentDTO.getCode());
@@ -175,5 +182,15 @@ public class BatchService {
        studentDTO.setPhoto(student.getPhoto());
        studentDTO.setId(student.getId());
        return  studentDTO;
+    }
+
+    public List<String> findStudentIdsByBatchId(Integer batchId){
+        List<String> studentCodesList=new ArrayList<>();
+        Batch batch= batchRepository.findBatchById(batchId);
+        List<Student> studentList =studentRepository.findByBatch(batch);
+        for(Student s:studentList){
+           studentCodesList.add(s.getCode());
+        }
+        return studentCodesList;
     }
 }

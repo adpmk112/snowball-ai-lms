@@ -51,16 +51,20 @@
 
 
                                     <td  class="tdInput">
-
+                                        <input type="hidden" id="id" th:value="${batchId}"></input>
                                         <input
                                                 type="text"
                                                 class="form-control"
-                                                name="id"
+                                                id="enterId"
                                                 placeholder="Id"
-                                                th:value="${studentDTO.code}"
+                                                value=""
                                                 required
                                                 autofocus
+                                                onkeyup="checkId();"
+
                                         />
+                                        <span id="same-name" hidden="hidden" style="color:red;">Id already taken!</span>
+                                        <span id="diff-name" hidden="hidden" style="color:green;">Id Available!</span>
                                     </td>
                                     <td class="tdInput">
                                         <input
@@ -68,7 +72,7 @@
                                                 class="form-control"
                                                 name="password"
                                                 placeholder="Password"
-                                                th:value="${studentDTO.password}"
+                                               value=""
                                                 required
                                         />
                                     </td>
@@ -78,7 +82,7 @@
                                                 class="form-control"
                                                 name="name"
                                                 placeholder="Name"
-                                                th:value="${studentDTO.name}"
+                                                value=""
                                                 required
                                         />
                                     </td>

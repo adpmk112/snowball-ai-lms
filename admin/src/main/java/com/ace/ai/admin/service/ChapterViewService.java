@@ -8,6 +8,7 @@ import com.ace.ai.admin.repository.BatchRepository;
 import com.ace.ai.admin.repository.ChapterBatchRepository;
 import com.ace.ai.admin.repository.ChapterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -34,14 +35,17 @@ public class ChapterViewService {
             chapterDTO.setName( chapterBatch.getChapter().getName());
             LocalDate startDate=LocalDate.parse(chapterBatch.getStartDate());
             LocalDate endDate=LocalDate.parse(chapterBatch.getEndDate());
+            Date currentDate=new Date();
+            System.out.println(currentDate.getTime());
             if(chapterBatch.getStartDate().equals("") || chapterBatch.getEndDate().equals("")){
                 chapterDTO.setStatus("Not added");
 
             }
             else{
+
                 chapterDTO.setStart_date(startDate);
                 chapterDTO.setEnd_date(endDate);
-                if (endDate.isEqual(LocalDate.now())|| endDate.isAfter(LocalDate.now())){
+                if(startDate.isBefore(LocalDate.now()) || startDate.isEqual(LocalDate.now())){
                     chapterDTO.setStatus("In progress");
 
                 }

@@ -97,6 +97,9 @@ $(document).on("click", ".btn.btn-chapter-edit", function(e){
                        if((lessThan && d1.getTime()<currentDate.getTime()) || (equal && d2.getTime()=== currentDate.getTime())){
                            $("#chpStatus_"+id)[0].innerHTML="In progress";
                        }
+                       else if(d1===null || d2===null){
+                           $("#chpStatus_"+id)[0].innerHTML="Not Added";
+                       }
                        else if((equal && d1.getTime()>currentDate.getTime()) || (lessThan && d1.getTime()>currentDate.getTime()) ){
                            $("#chpStatus_"+id)[0].innerHTML="Not Started";
                        }
