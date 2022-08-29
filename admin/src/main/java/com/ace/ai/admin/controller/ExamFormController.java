@@ -75,8 +75,8 @@ public class ExamFormController {
     public String saveExam(@RequestBody ExamDTO examDTO) {
         examFormService.saveExam(examDTO);
         int courseId = Integer.valueOf(examDTO.getCourse_id());
-        //return "redirect:/admin/course/courseDetail?radio=\"exam\"&courseId=" + courseId;
-        return "";
+        return "redirect:/admin/course/courseDetail?radio=\"exam\"&courseId=" + courseId;
+        
     }
 
     // Show Update Form
@@ -94,8 +94,8 @@ public class ExamFormController {
     public String updateExam(@PathVariable("id") int id, @RequestBody ExamDTO examDTO) {
         examFormService.updateExam(examDTO);
         int courseId = Integer.valueOf(examDTO.getCourse_id());
-        //return "redirect:/admin/course/courseDetail?radio=\"exam\"&courseId=" + courseId;
-        return "";
+        return "redirect:/admin/course/courseDetail?radio=\"exam\"&courseId=" + courseId;
+        
     }
 
     //Delete Exam

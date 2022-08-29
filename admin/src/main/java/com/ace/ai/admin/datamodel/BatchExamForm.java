@@ -6,11 +6,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+<<<<<<< HEAD
+import lombok.NoArgsConstructor;
+=======
 import javax.persistence.Column;
+>>>>>>> 35bdc21ed9b2eb9d8f3352537c7b8c4a6d5e77e4
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class BatchExamForm {
     
     @Id
@@ -28,4 +36,21 @@ public class BatchExamForm {
     @ManyToOne
     @JoinColumn(name="exam_form_id")
     private ExamForm examForm;
+
+    public  BatchExamForm(String startDate, String endDate, boolean status, Batch batch, ExamForm examForm){
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.deleteStatus = status;
+        this.batch = batch;
+        this.examForm = examForm;
+    }
+    public  BatchExamForm(Batch batch, ExamForm examForm){       
+        this.batch = batch;
+        this.examForm = examForm;
+    }
+    public BatchExamForm(int id, String startDate, String endDate){
+        this.id= id;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
 }

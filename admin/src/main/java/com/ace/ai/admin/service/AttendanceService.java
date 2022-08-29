@@ -56,11 +56,17 @@ public class AttendanceService {
 
         }
 
+<<<<<<< HEAD
+        // log.info(attendanceDTOList.get(2).getDate() + " "
+        //         + attendanceDTOList.get(2).getStudentName() + " "
+        //         + attendanceDTOList.get(2).getAttendStatus());
+=======
         
        /*  log.info(attendanceDTOList.get(2).getDate() + " "
                 + attendanceDTOList.get(2).getStudentName() + " "
                 + attendanceDTOList.get(2).getAttendStatus());
         */
+>>>>>>> 35bdc21ed9b2eb9d8f3352537c7b8c4a6d5e77e4
 
         return attendanceDTOList;
     }
