@@ -12,4 +12,5 @@ public interface ClassRoomRepository extends JpaRepository<Classroom,Integer> {
     
     public List<Classroom> findAllByBatchId(Integer batchId);
     public List<Classroom> findIdByBatchId(Integer batchId);
+    public List<Classroom> findDateByBatchId(Integer batchId);
 }

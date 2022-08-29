@@ -103,7 +103,7 @@
                             <div class="add-list">
                                 <label>Add Student List</label>
                                 <a
-                                        th:href="@{/addStudent}"
+                                        th:href="@{/addStudent{batch_id}(batch_id=${batch_id})}"
                                         class="btn btn-outline-success btn-floating"
                                         data-mdb-ripple-color="dark"
                                 >
@@ -121,27 +121,27 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>STUid</td>
-                                    <td>Aung Aung</td>
-                                    <td>123</td>
-                                    <td>70%</td>
+                                <tr th:each="studentDTO,status: ${studentDTOList}" >
+                                    <td  th:text="${studentDTO.code}"></td>
+                                    <td th:text="${studentDTO.name}"></td>
+                                    <td th:text="${studentDTO.password}"></td>
+                                    <td th:text="${studentDTO.attendance}"></td>
                                     <td>
-                                        <a
-                                                href="/templates/A003-05.html"
+                                        <a th:href="@{/editStudent{studentdata}(studentdata=${studentDTO.code}+'-'+${studentDTO.batchId})}"
                                                 class="btn btn-outline-primary btn-floating student-edit"
-                                                data-mdb-ripple-color="dark"
-                                        >
-                                            <i class="fa-regular fa-pen-to-square"></i>
+                                                data-mdb-ripple-color="dark">
+                                            <i  class="fa-regular fa-pen-to-square"></i>
                                         </a>
-                                        <a
-                                                href=""
+                                        <a th:id="${batch_id}+'_'+${studentDTO.code}"
                                                 class="btn btn-outline-danger btn-floating remove-student"
                                                 data-mdb-ripple-color="dark"
                                         >
+
                                             <i class="fa-solid fa-circle-minus"></i>
                                         </a>
                                     </td>
+
+
                                 </tr>
                                 </tbody>
                             </table>
@@ -201,6 +201,7 @@
                                 <i class="fa-solid fa-circle-plus"></i>
                               </a> -->
                             </div>
+<<<<<<< HEAD
                             <div  class="table-responsive ">
                                 <table id="datatable4" class="hover">
                                     <thead>
@@ -258,29 +259,81 @@
                                 </table>
                             </div>
                             
+=======
+                            <table id="datatable4">
+                                <thead>
+                                <tr>
+                                    <th>Exam Name</th>
+                                    <th>Start-Date</th>
+                                    <th>End-Date</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <form th:action="@{/editDate}" method="post" th:object="${examScheduleList}">
+                                <tr th:each="examSchedule: ${examScheduleList}">
+                                    <td th:text="${examSchedule.examName}"></td>
+                                    <td>
+                                        <input
+                                                type="date"
+                                                class="form-control"
+                                                name="start-date"
+                                                th:value = "${examSchedule.startDate}"
+                                        disabled/>
+                                    </td>
+                                    <td>
+                                        <input
+                                                type="date"
+                                                class="form-control"
+                                                name="end-date"
+                                                th:value = "${examSchedule.endDate}"
+                                        disabled/>
+                                    </td>
+                                    <td th:text = "${examSchedule.status}"></td>
+                                    <td>
+                                        <a
+                                                href=""
+                                                class="btn btn-outline-primary btn-floating btn-exam-schedule-edit"
+                                                data-mdb-ripple-color="dark"
+                                        >
+                                            <i class="fa-regular fa-pen-to-square"></i>
+                                        </a>
+                                        <a
+                                                href=""
+                                                class="btn remove-exam btn-outline-danger b btn-floating"
+                                                data-mdb-ripple-color="dark"
+                                        >
+                                            <i class="fa-solid fa-circle-minus"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </form>
+                                </tbody>
+                            </table>
+>>>>>>> 35bdc21ed9b2eb9d8f3352537c7b8c4a6d5e77e4
                         </div>
                         <input type="radio" id="tabattendance" name="mytabs" />
                         <label for="tabattendance" id="lab">Attendance</label>
                         <div class="tab">
 
-                            <!-- Start Attendance Table-->
-                            <table id="datatable5">
+                              <!-- Start Attendance Table-->
+                              <table id="datatable5">
                                 <thead>
                                 <tr>
                                     <th>Date</th>
                                     <th th:each = "attendance: ${attendanceList}"
-                                     th:text = "${attendance.studentName}"></th>
+                                    th:text = "${attendance.studentName}"></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
+                                <tr th:each = "classroom: ${classroomDateList}">
                                     <td>
                                         <input
                                                 type="date"
                                                 class="form-control"
                                                 name="attend-date"
-                                                id="attend-date"
-                                                value="12-01-2022"
+                                                th:value = "${classroom.date}"
                                         />
                                     </td>
                                     <td class="stu-attendance">
@@ -329,24 +382,6 @@
                                         <select
                                                 class="form-control attend-type"
                                                 name="attend-type"
-                                                id="attend-type"
-                                        >
-                                            <option selected value="present">present</option>
-                                            <option value="absent">absent</option>
-                                            <option value="leave">leave</option>
-                                        </select>
-                                    </td>
-                                    <td class="stu-attendance">
-                                        <input
-                                                type="hidden"
-                                                id="student-id"
-                                                value="student-id"
-                                                name="student-id"
-                                        />
-                                        <select
-                                                class="form-control attend-type"
-                                                name="attend-type"
-
                                                 id="attend-type"
                                         >
                                             <option selected value="present">present</option>
@@ -381,7 +416,7 @@
                             <div class="add-list">
                                 <label>Add Class</label>
                                 <a
-                                        href="/templates/A003-06.html"
+                                        th:href="@{/addClassroom}"
                                         class="btn btn-outline-success btn-floating"
                                         data-mdb-ripple-color="dark"
                                 >
@@ -401,16 +436,16 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>12-01-2022</td>
-                                    <td>9:00</td>
-                                    <td>U Hla</td>
-                                    <td>www.zoom.com</td>
-                                    <td>Done</td>
-                                    <td>record.mp4</td>
+                                <tr th:each = "classroom : ${classroomList}" >
+                                    <td th:text = "${classroom.date}"></td>
+                                    <td th:text = "${classroom.time}"></td>
+                                    <td th:text = "${classroom.teacherName}"></td>
+                                    <td th:text = "${classroom.link}"></td>
+                                    <td th:text = "${classroom.status}"></td>
+                                    <td th:text = "${classroom.recordedVideo}"></td>
                                     <td>
                                         <a
-                                                href="/templates/A003-07.html"
+                                                th:href="@{/editClassroom}"
                                                 class="btn btn-outline-primary btn-floating"
                                                 data-mdb-ripple-color="dark"
                                         >
@@ -420,34 +455,6 @@
                                                 href=""
                                                 class="btn btn-outline-danger remove-classroom btn-floating"
                                                 data-mdb-ripple-color="dark">
-                                            <i class="fa-solid fa-circle-minus"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                </tbody>
-                                <tbody>
-                                <tr>
-                                    <td>12-01-2022</td>
-                                    <td>14:00</td>
-                                    <td>U Hla</td>
-                                    <td>www.zoom.com</td>
-                                    <td>In Progess</td>
-                                    <td>record.mp4</td>
-                                    <td>
-                                        <a
-                                                href="/templates/A003-07.html"
-                                                class="btn btn-outline-primary btn-floating"
-                                                data-mdb-ripple-color="dark"
-                                                data-toggle="modal" data-target=".bd-example-modal-sm"
-                                        >
-                                            <i class="fa-regular fa-pen-to-square"></i>
-                                        </a>
-                                        <a
-                                                href=""
-                                                class="btn btn-outline-danger remove-classroom btn-floating"
-                                                data-mdb-ripple-color="dark"
-                                                data-toggle="modal" data-target=".bd-example-modal-sm"
-                                        >
                                             <i class="fa-solid fa-circle-minus"></i>
                                         </a>
                                     </td>
@@ -495,9 +502,8 @@
                             </select>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                <button  th:disabled="${#lists.isEmpty(teacherList1)}"     type="submit" class="btn btn-primary" >
-                                       Add </button>
+<!--                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>-->
+                                <button  th:disabled="${#lists.isEmpty(teacherList1)}"   type="submit" class="btn btn-primary" >Add</button>
                             </div>
                         </form>
                     </div>

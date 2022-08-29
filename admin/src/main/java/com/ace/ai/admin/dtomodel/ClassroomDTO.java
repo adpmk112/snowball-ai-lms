@@ -11,6 +11,7 @@ public class ClassroomDTO {
     private LocalDate date;
     private String link;
     private LocalTime time;
+    private Long duration;
     private LocalDateTime dateTime;
     private String teacherName;
     private String status;

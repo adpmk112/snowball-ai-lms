@@ -9,7 +9,11 @@ import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+<<<<<<< HEAD
 import lombok.NoArgsConstructor;
+=======
+import javax.persistence.Column;
+>>>>>>> 35bdc21ed9b2eb9d8f3352537c7b8c4a6d5e77e4
 
 @Entity
 @Data
@@ -22,7 +26,8 @@ public class BatchExamForm {
     private int id; 
     private String startDate;
     private String endDate;
-    private Boolean deleteStatus;
+    @Column(columnDefinition = "tinyint(1) default 0")
+    private boolean deleteStatus;
 
     @ManyToOne
     @JoinColumn(name="batch_id")

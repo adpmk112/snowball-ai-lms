@@ -2,7 +2,7 @@
 <html lang="en" th:replace="~{layouts/main :: layout(~{::main})}"  xmlns:th="http://www.thymeleaf.org">
 <body>
 <main role="main">
-<div th:fragment="student-add">
+<div th:fragment="student-update">
     <div class="semi-circle"></div>
     <div class="banner">
         <div class="circle">
@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <form  id="student-form" method="post" >
+                    <form th:action="@{/updateStudent}"  method="POST" th:object="${studentDTO}">
 
                         <table class="table table-striped table-hover" id="student-table">
                             <tr>
@@ -38,7 +38,7 @@
                                     <span id="total-student">Total: 1</span>
                                     <button  type="submit" value="Save" class="btn text-primary">
                                         <i class="fa-solid fa-file me-1"></i>
-                                        Save
+                                       Update
                                     </button>
 
                                 </th>
@@ -51,20 +51,16 @@
 
 
                                     <td  class="tdInput">
-                                        <input type="hidden" id="id" th:value="${batchId}"></input>
+
                                         <input
                                                 type="text"
                                                 class="form-control"
-                                                id="enterId"
+                                                name="code"
                                                 placeholder="Id"
-                                                value=""
+                                                th:value="${studentDTO.code}"
                                                 required
                                                 autofocus
-                                                onkeyup="checkId();"
-
                                         />
-                                        <span id="same-name" hidden="hidden" style="color:red;">Id already taken!</span>
-                                        <span id="diff-name" hidden="hidden" style="color:green;">Id Available!</span>
                                     </td>
                                     <td class="tdInput">
                                         <input
@@ -72,7 +68,7 @@
                                                 class="form-control"
                                                 name="password"
                                                 placeholder="Password"
-                                               value=""
+                                                th:value="${studentDTO.password}"
                                                 required
                                         />
                                     </td>
@@ -82,7 +78,7 @@
                                                 class="form-control"
                                                 name="name"
                                                 placeholder="Name"
-                                                value=""
+                                                th:value="${studentDTO.name}"
                                                 required
                                         />
                                     </td>
@@ -101,10 +97,14 @@
                                             <i class="fa-solid fa-minus"></i>
                                         </button>
                                     </td>
-
-                                    <td style="visibility: hidden" class="tdInput">
-                                        <input  name="batchId" id="batchId" type="hidden" th:value="${batchId}"/>
-                                    </td>
+                                        <input
+                                                type="hidden"
+                                                class="form-control"
+                                                name="batchId"
+                                                placeholder="Name"
+                                                th:value="${studentDTO.batchId}"
+                                                required
+                                        />
                                 </div>
                             </tr>
                         </table>

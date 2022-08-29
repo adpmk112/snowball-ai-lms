@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
+import javax.persistence.Column;
 import lombok.Data;
 
 @Entity
@@ -23,7 +23,8 @@ public class CustomChapter {
     private String name;
     private String startDate;
     private String endDate;
-    private Boolean deleteStatus;
+    @Column(columnDefinition = "tinyint(1) default 0")
+    private boolean deleteStatus;
 
     @ManyToOne
     @JoinColumn(name = "batch_id")

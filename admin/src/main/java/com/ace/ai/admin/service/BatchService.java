@@ -1,13 +1,9 @@
 package com.ace.ai.admin.service;
 
-import com.ace.ai.admin.datamodel.Batch;
-import com.ace.ai.admin.datamodel.Course;
-import com.ace.ai.admin.datamodel.Teacher;
-import com.ace.ai.admin.datamodel.TeacherBatch;
-import com.ace.ai.admin.repository.BatchRepository;
-import com.ace.ai.admin.repository.CourseRepository;
-import com.ace.ai.admin.repository.TeacherBatchRepository;
-import com.ace.ai.admin.repository.TeacherRepository;
+import com.ace.ai.admin.datamodel.*;
+import com.ace.ai.admin.dtomodel.StudentAttendanceDTO;
+import com.ace.ai.admin.dtomodel.StudentDTO;
+import com.ace.ai.admin.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +20,10 @@ public class BatchService {
     CourseRepository courseRepository;
     @Autowired
     TeacherBatchRepository teacherBatchRepository;
+    @Autowired
+    StudentRepository studentRepository;
+    @Autowired
+    AdminDashboardService adminDashboardService;
 
     public Course findCourseById(Integer id){
         return courseRepository.findCourseById(id);
@@ -42,22 +42,14 @@ public class BatchService {
         List<Teacher> allTeacherList=teacherRepository.findAllByDeleteStatus(false);
         List<TeacherBatch> teacherBatches= teacherBatchRepository.findByBatchId(batchId);
         List<Teacher> exceptTeacher=teacherRepository.findAllByDeleteStatus(false);
-
-
                    for(Teacher t: allTeacherList) {
                        for (TeacherBatch tb : teacherBatches){
                            if(t.getName().equals(tb.getTeacher().getName())){
                                    exceptTeacher.remove(t);
 
                            }
-
                        }
-
                    }
-
-
-
-
        return exceptTeacher;
     }
 
@@ -68,11 +60,8 @@ public class BatchService {
         for(TeacherBatch tb:teacherBatches){
             if(!tb.getTeacher().isDeleteStatus()){
                 teacherList.add(tb.getTeacher());
-
             }
         }
-
-
         return teacherList;
     }
 
@@ -109,5 +98,99 @@ public class BatchService {
         Batch batch=batchRepository.findBatchById(batchId);
         TeacherBatch teacherBatch=new TeacherBatch(false,newTeacher,batch);
         teacherBatchRepository.save(teacherBatch);
+    }
+
+    public void saveStudent(ArrayList<StudentDTO> studentList){
+        Integer batchId= studentList.get(0).getBatchId();
+        String code=studentList.get(0).getCode();
+        System.out.println("Code is: "+code);
+        Batch batch=batchRepository.findBatchById(batchId);
+
+        System.out.println(batchId);
+        for(StudentDTO student: studentList){
+            Student student1=new Student();
+            student1.setCode(student.getCode());
+            student1.setPassword(student.getPassword());
+            student1.setName(student.getName());
+
+            student1.setBatch(batch);
+            studentRepository.save(student1);
+        }
+
+    }
+    public List<StudentDTO> findALlStudentByBatchId(Integer batchId){
+        List<Student> students=studentRepository.findByDeleteStatus(false);
+        List<StudentAttendanceDTO> studentDTOList1=adminDashboardService.getStuAttendanceByBatch(batchId);
+        Batch batch=batchRepository.findBatchById(batchId);
+        List<StudentDTO> studentDTOList=new ArrayList<>();
+        for(Student s:students){
+           if(s.getBatch().getId()==batch.getId()) {
+               StudentDTO studentDTO=new StudentDTO();
+               studentDTO.setCode(s.getCode());
+               studentDTO.setBatchId(s.getBatch().getId());
+               studentDTO.setName(s.getName());
+               studentDTO.setPhoto(s.getPhoto());
+               studentDTO.setPassword(s.getPassword());
+               studentDTOList.add(studentDTO);
+            }
+        }
+
+        for(StudentAttendanceDTO studentAttendanceDTO:studentDTOList1){
+            for(StudentDTO s:studentDTOList){
+                if(studentAttendanceDTO.getStuId()==s.getId()){
+                    s.setAttendance(studentAttendanceDTO.getAttendance());
+                }
+            }
+
+        }
+        return studentDTOList;
+    }
+
+    public StudentDTO findStudentByBatchIdAndStudentId(Integer batchId,String code){
+        List<Student> studentList= studentRepository.findByDeleteStatusAndBatchId(false,batchId);
+        StudentDTO studentDTO=new StudentDTO();
+        for(Student s: studentList){
+            if(s.getCode().equals(code))
+            {
+
+               studentDTO.setPassword(s.getPassword());
+               studentDTO.setName(s.getName());
+               studentDTO.setCode(s.getCode());
+               studentDTO.setBatchId(s.getBatch().getId());
+               studentDTO.setPhoto(s.getPhoto());
+               studentDTO.setId(s.getId());
+
+            }
+        }
+        return studentDTO;
+    }
+
+    public void UpdateStudentByBatchIdAndCode(Integer batchId,String code){
+        Batch batch=batchRepository.findBatchById(batchId);
+        Student student= studentRepository.findByDeleteStatusAndBatchAndCode(false,batch,code);
+        student.setDeleteStatus(true);
+        studentRepository.save(student);
+    }
+
+    public StudentDTO updateStudent(StudentDTO studentDTO){
+                      Batch batch= batchRepository.findBatchById(studentDTO.getBatchId());
+       Student student= studentRepository.findByBatchAndCode(batch,studentDTO.getCode());
+       student.setPassword(studentDTO.getPassword());
+       student.setName(studentDTO.getName());
+       student.setCode(studentDTO.getCode());
+       studentRepository.save(student);
+       studentDTO.setPhoto(student.getPhoto());
+       studentDTO.setId(student.getId());
+       return  studentDTO;
+    }
+
+    public List<String> findStudentIdsByBatchId(Integer batchId){
+        List<String> studentCodesList=new ArrayList<>();
+        Batch batch= batchRepository.findBatchById(batchId);
+        List<Student> studentList =studentRepository.findByBatch(batch);
+        for(Student s:studentList){
+           studentCodesList.add(s.getCode());
+        }
+        return studentCodesList;
     }
 }
