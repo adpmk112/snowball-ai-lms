@@ -55,7 +55,6 @@ public class AttendanceService {
             }
 
         }
-
         
        /*  log.info(attendanceDTOList.get(2).getDate() + " "
                 + attendanceDTOList.get(2).getStudentName() + " "

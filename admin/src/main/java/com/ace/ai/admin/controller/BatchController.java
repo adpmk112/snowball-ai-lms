@@ -1,7 +1,9 @@
 package com.ace.ai.admin.controller;
 
 import com.ace.ai.admin.datamodel.Batch;
+import com.ace.ai.admin.datamodel.BatchExamForm;
 import com.ace.ai.admin.datamodel.Course;
+import com.ace.ai.admin.datamodel.ExamForm;
 import com.ace.ai.admin.datamodel.Teacher;
 import com.ace.ai.admin.dtomodel.BatchDTO;
 import com.ace.ai.admin.dtomodel.StudentDTO;
@@ -9,6 +11,7 @@ import com.ace.ai.admin.dtomodel.TeacherDTO;
 import com.ace.ai.admin.service.AttendanceService;
 import com.ace.ai.admin.service.BatchService;
 import com.ace.ai.admin.service.ChapterViewService;
+import com.ace.ai.admin.service.ExamFormService;
 import com.ace.ai.admin.service.ClassRoomService;
 import com.ace.ai.admin.service.ExamScheduleService;
 
@@ -36,6 +39,8 @@ public class BatchController {
     ExamScheduleService examScheduleService;
     @Autowired
     AttendanceService attendanceService;
+    @Autowired
+    ExamFormService examFormService;
     @Autowired
     ClassRoomService classRoomService;
 
@@ -85,6 +90,7 @@ public class BatchController {
         return new ModelAndView("A003-01", "batchDTO", new BatchDTO());
     }
 
+
     @GetMapping({"/goToAddBatchSuccess"})
     public ModelAndView gotoAddBatchSuccess(Model model) {
 
@@ -122,10 +128,16 @@ public class BatchController {
         batchService.saveBatch(batch);
         batch = batchService.findLastBatch();
         batchService.saveTeacherBatch(batchDTO.getTeacherId(), batch.getId());
+        // save batchExamFormTable
+        List<ExamForm> examFormList = examFormService.findByCourseId(course.getId());
+        for (ExamForm examForm : examFormList) {
+            BatchExamForm bef = new BatchExamForm("", "", false, batch, examForm);
+            examScheduleService.saveBathExamFrom(bef);
+        }
         return "redirect:/goToAddBatchSuccess";
     }
 
-    @GetMapping({"/BatchClose"})
+    @GetMapping({ "/BatchClose" })
     @ResponseBody
     public ResponseEntity batchClose(Model model, @RequestParam("batchId") Integer batchId) {
         Batch batch = batchService.findBatchById(batchId);
@@ -135,7 +147,7 @@ public class BatchController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @GetMapping({"/BatchReopen"})
+    @GetMapping({ "/BatchReopen" })
     @ResponseBody
     public ResponseEntity batchReopen(Model model, @RequestParam("batchId") Integer batchId) {
         Batch batch = batchService.findBatchById(batchId);
@@ -152,7 +164,13 @@ public class BatchController {
         return "A003-04";
     }
 
-    @PostMapping("/saveStudent")
+    // @PostMapping("/saveStudent")
+    // public String saveStudent(@RequestBody ArrayList<StudentDTO> studentList) {
+
+    //     for (StudentDTO student : studentList) {
+    //         System.out.println(
+    //                 "code s" + student.getId() + " name " + student.getName() + "password" + student.getPassword());
+
     @ResponseBody
     public void saveStudent(@RequestBody ArrayList<StudentDTO> studentList) {
 
@@ -196,11 +214,19 @@ public class BatchController {
                     return ResponseEntity.ok(HttpStatus.OK);
                 }
             }
-
         }
         return ResponseEntity.notFound().build();
     }
 
+    @GetMapping("/addExamSchedule")
+    @ResponseBody
+    public ResponseEntity addDateExamSchedule(@RequestParam("id") int id, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate){
+        BatchExamForm bef = examScheduleService.findById(id);        
+        bef.setStartDate(startDate);
+        bef.setEndDate(endDate);
+        examScheduleService.saveBathExamFrom(bef); //Update dates 
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
 
     @GetMapping({"/RemoveStudent"})
     @ResponseBody

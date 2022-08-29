@@ -82,9 +82,10 @@ input[type="date"],
     background: transparent;
 }
 
-select[name="attend-type"]{
-    width: 80px; border: none; outline: none;
+input[type="datetime-local"]:disabled{    
+    outline: none; 
+    max-width: auto;
     cursor: pointer;
-    margin: 0px;
+    background: transparent;
 }
 

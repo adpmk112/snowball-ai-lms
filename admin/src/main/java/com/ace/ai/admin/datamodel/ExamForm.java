@@ -29,6 +29,7 @@ public class ExamForm implements Serializable {
     private String type;
     private String duration;
     private int maxMark;
+
     @Column(columnDefinition = "tinyint(1) default 0")
     private boolean deleteStatus;
 
