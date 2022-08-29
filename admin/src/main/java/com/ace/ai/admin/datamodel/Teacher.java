@@ -16,14 +16,9 @@ import lombok.Data;
 @Entity
 @Data
 public class Teacher {
-<<<<<<< HEAD
 
     @Id    
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-=======
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
->>>>>>> 35bdc21ed9b2eb9d8f3352537c7b8c4a6d5e77e4
     private int id;
     private String name;
     private String photo;

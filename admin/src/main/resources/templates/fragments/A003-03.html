@@ -201,7 +201,6 @@
                                 <i class="fa-solid fa-circle-plus"></i>
                               </a> -->
                             </div>
-<<<<<<< HEAD
                             <div  class="table-responsive ">
                                 <table id="datatable4" class="hover">
                                     <thead>
@@ -259,59 +258,7 @@
                                 </table>
                             </div>
                             
-=======
-                            <table id="datatable4">
-                                <thead>
-                                <tr>
-                                    <th>Exam Name</th>
-                                    <th>Start-Date</th>
-                                    <th>End-Date</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <form th:action="@{/editDate}" method="post" th:object="${examScheduleList}">
-                                <tr th:each="examSchedule: ${examScheduleList}">
-                                    <td th:text="${examSchedule.examName}"></td>
-                                    <td>
-                                        <input
-                                                type="date"
-                                                class="form-control"
-                                                name="start-date"
-                                                th:value = "${examSchedule.startDate}"
-                                        disabled/>
-                                    </td>
-                                    <td>
-                                        <input
-                                                type="date"
-                                                class="form-control"
-                                                name="end-date"
-                                                th:value = "${examSchedule.endDate}"
-                                        disabled/>
-                                    </td>
-                                    <td th:text = "${examSchedule.status}"></td>
-                                    <td>
-                                        <a
-                                                href=""
-                                                class="btn btn-outline-primary btn-floating btn-exam-schedule-edit"
-                                                data-mdb-ripple-color="dark"
-                                        >
-                                            <i class="fa-regular fa-pen-to-square"></i>
-                                        </a>
-                                        <a
-                                                href=""
-                                                class="btn remove-exam btn-outline-danger b btn-floating"
-                                                data-mdb-ripple-color="dark"
-                                        >
-                                            <i class="fa-solid fa-circle-minus"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                </form>
-                                </tbody>
-                            </table>
->>>>>>> 35bdc21ed9b2eb9d8f3352537c7b8c4a6d5e77e4
+                            
                         </div>
                         <input type="radio" id="tabattendance" name="mytabs" />
                         <label for="tabattendance" id="lab">Attendance</label>
