@@ -26,7 +26,7 @@ public class ExamForm implements Serializable {
     private String type;
     private String duration;
     private int maxMark;
-    private Boolean deleteStatus;
+    private boolean deleteStatus;
 
     @ManyToOne
     @JoinColumn(name = "course_id")

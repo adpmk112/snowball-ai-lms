@@ -1,7 +1,9 @@
 package com.ace.ai.admin.controller;
 
 import com.ace.ai.admin.datamodel.Batch;
+import com.ace.ai.admin.datamodel.BatchExamForm;
 import com.ace.ai.admin.datamodel.Course;
+import com.ace.ai.admin.datamodel.ExamForm;
 import com.ace.ai.admin.datamodel.Teacher;
 import com.ace.ai.admin.dtomodel.BatchDTO;
 import com.ace.ai.admin.dtomodel.StudentDTO;
@@ -9,6 +11,7 @@ import com.ace.ai.admin.dtomodel.TeacherDTO;
 import com.ace.ai.admin.service.AttendanceService;
 import com.ace.ai.admin.service.BatchService;
 import com.ace.ai.admin.service.ChapterViewService;
+import com.ace.ai.admin.service.ExamFormService;
 import com.ace.ai.admin.service.ExamScheduleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,127 +38,148 @@ public class BatchController {
     ExamScheduleService examScheduleService;
     @Autowired
     AttendanceService attendanceService;
+    @Autowired
+    ExamFormService examFormService;
 
-    @GetMapping({"/goToBatch"})
-    public String gotoBatch(Model model){
-        List<Batch> batchList= batchService.findAll();
-        model.addAttribute("batchList",batchList);
+    @GetMapping({ "/goToBatch" })
+    public String gotoBatch(Model model) {
+        List<Batch> batchList = batchService.findAll();
+        model.addAttribute("batchList", batchList);
         return "A003";
     }
-    @GetMapping({"/BatchDetail1"})
+
+    @GetMapping({ "/BatchDetail1" })
     @ResponseBody
-    public String gotoBatchFromBatchLock(Model model){
-        List<Batch> batchList= batchService.findAll();
-        model.addAttribute("batchList",batchList);
+    public String gotoBatchFromBatchLock(Model model) {
+        List<Batch> batchList = batchService.findAll();
+        model.addAttribute("batchList", batchList);
         return "A003";
     }
 
-    @GetMapping({"/batchSeeMore"})
-    public ModelAndView batchSeeMore(@RequestParam("id") Integer id,Model model) throws ParseException {
-        model.addAttribute("chapterDTOList",chapterViewService.findAllChapterInChapterBatchByBatchId(id));
-        model.addAttribute("teacherList",batchService.findALlTeacherByBatchId(id));
-        model.addAttribute("teacherList1",batchService.findALlTeacherForAllBatchExcept(id));
+    @GetMapping({ "/batchSeeMore" })
+    public ModelAndView batchSeeMore(@RequestParam("id") Integer id, Model model) throws ParseException {
+        model.addAttribute("chapterDTOList", chapterViewService.findAllChapterInChapterBatchByBatchId(id));
+        model.addAttribute("teacherList", batchService.findALlTeacherByBatchId(id));
+        model.addAttribute("teacherList1", batchService.findALlTeacherForAllBatchExcept(id));
         model.addAttribute("batch_id", id);
         model.addAttribute("examScheduleList", examScheduleService.showExamScheduleTable(id));
-        model.addAttribute("attendanceList",  attendanceService.showAttendanceTable(id));
-        return new ModelAndView("A003-03","TeacherDTO",new TeacherDTO());
+        model.addAttribute("attendanceList", attendanceService.showAttendanceTable(id));
+        return new ModelAndView("A003-03", "TeacherDTO", new TeacherDTO());
     }
 
-    @GetMapping(path="/SendData")
+    @GetMapping(path = "/SendData")
     @ResponseBody
-    public ResponseEntity SendData(@RequestParam("chpName") String chpName, @RequestParam("startDate")String startDate, @RequestParam("endDate")String endDate, @RequestParam("batchId")Integer batchId){
-        chapterViewService.saveDatesForChapter(chpName,startDate,endDate,batchId);
+    public ResponseEntity SendData(@RequestParam("chpName") String chpName, @RequestParam("startDate") String startDate,
+            @RequestParam("endDate") String endDate, @RequestParam("batchId") Integer batchId) {
+        chapterViewService.saveDatesForChapter(chpName, startDate, endDate, batchId);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @GetMapping({"/goToAddBatch"})
-    public ModelAndView gotoAddBatch(Model model){
+    @GetMapping({ "/goToAddBatch" })
+    public ModelAndView gotoAddBatch(Model model) {
 
-        List<Course> courseList=batchService.findAllCourse();
-        List<Teacher> teacherList=  batchService.findALlTeacherByDeleteStatus(false);
-        model.addAttribute("teacherList",teacherList);
-        model.addAttribute("courseList",courseList);
-        return new ModelAndView("A003-01","batchDTO",new BatchDTO());
+        List<Course> courseList = batchService.findAllCourse();
+        List<Teacher> teacherList = batchService.findALlTeacherByDeleteStatus(false);
+        model.addAttribute("teacherList", teacherList);
+        model.addAttribute("courseList", courseList);
+        return new ModelAndView("A003-01", "batchDTO", new BatchDTO());
     }
-    @GetMapping({"/goToAddBatchSuccess"})
-    public ModelAndView gotoAddBatchSuccess(Model model){
 
-        List<Course> courseList=batchService.findAllCourse();
-        List<Teacher> teacherList=  batchService.findALlTeacherByDeleteStatus(false);
-        model.addAttribute("teacherList",teacherList);
-        model.addAttribute("courseList",courseList);
-        model.addAttribute("msg","Add Teacher Success");
-        return new ModelAndView("A003-01","batchDTO",new BatchDTO());
+    @GetMapping({ "/goToAddBatchSuccess" })
+    public ModelAndView gotoAddBatchSuccess(Model model) {
+
+        List<Course> courseList = batchService.findAllCourse();
+        List<Teacher> teacherList = batchService.findALlTeacherByDeleteStatus(false);
+        model.addAttribute("teacherList", teacherList);
+        model.addAttribute("courseList", courseList);
+        model.addAttribute("msg", "Add Teacher Success");
+        return new ModelAndView("A003-01", "batchDTO", new BatchDTO());
     }
-    @GetMapping({"/CheckBatchName"})
+
+    @GetMapping({ "/CheckBatchName" })
     @ResponseBody
-    public ResponseEntity checkBatchName(@RequestParam("batchName") String batchName){
-        Batch batch=batchService.findBatchByName(batchName);
-        if(batch!=null){
+    public ResponseEntity checkBatchName(@RequestParam("batchName") String batchName) {
+        Batch batch = batchService.findBatchByName(batchName);
+        if (batch != null) {
             return ResponseEntity.ok(HttpStatus.OK);
-        }
-        else{
+        } else {
 
             return ResponseEntity.notFound().build();
         }
     }
-    @PostMapping({"/addBatch"})
-    public String saveBatch(@ModelAttribute("batchDTO") BatchDTO batchDTO)
-    {
-        Batch batch=new Batch();
+
+    @PostMapping({ "/addBatch" })
+    public String saveBatch(@ModelAttribute("batchDTO") BatchDTO batchDTO) {
+        Batch batch = new Batch();
         batch.setDeleteStatus(false);
-        LocalDate localDate=LocalDate.now();
+        LocalDate localDate = LocalDate.now();
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String localDateString = localDate.format(dateTimeFormatter);
         batch.setCreatedDate(localDateString);
         batch.setName(batchDTO.getName());
-        Course course=batchService.findCourseById(batchDTO.getCourseId());
+        Course course = batchService.findCourseById(batchDTO.getCourseId());
         batch.setCourse(course);
         batchService.saveBatch(batch);
-        batch=batchService.findLastBatch();
+        batch = batchService.findLastBatch();
         batchService.saveTeacherBatch(batchDTO.getTeacherId(), batch.getId());
+        // save batchExamFormTable
+        List<ExamForm> examFormList = examFormService.findByCourseId(course.getId());
+        for (ExamForm examForm : examFormList) {
+            BatchExamForm bef = new BatchExamForm("", "", false, batch, examForm);
+            examScheduleService.saveBathExamFrom(bef);
+        }
         return "redirect:/goToAddBatchSuccess";
     }
 
-    @GetMapping({"/BatchClose"})
+    @GetMapping({ "/BatchClose" })
     @ResponseBody
-    public ResponseEntity batchClose(Model model,@RequestParam("batchId")Integer batchId){
-        Batch batch=batchService.findBatchById(batchId);
+    public ResponseEntity batchClose(Model model, @RequestParam("batchId") Integer batchId) {
+        Batch batch = batchService.findBatchById(batchId);
         batch.setDeleteStatus(true);
         System.out.println(batch.getName());
         batchService.saveBatch(batch);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @GetMapping({"/BatchReopen"})
+    @GetMapping({ "/BatchReopen" })
     @ResponseBody
-    public ResponseEntity batchReopen(Model model,@RequestParam("batchId")Integer batchId){
-        Batch batch=batchService.findBatchById(batchId);
+    public ResponseEntity batchReopen(Model model, @RequestParam("batchId") Integer batchId) {
+        Batch batch = batchService.findBatchById(batchId);
         batch.setDeleteStatus(false);
         System.out.println(batch.getName());
         batchService.saveBatch(batch);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-
-    @GetMapping({"/addStudent"})
-    public String addStudent(){
+    @GetMapping({ "/addStudent" })
+    public String addStudent() {
         return "A003-04";
     }
 
     @PostMapping("/saveStudent")
-    public String saveStudent(@RequestBody ArrayList<StudentDTO> studentList ){
+    public String saveStudent(@RequestBody ArrayList<StudentDTO> studentList) {
 
-        for(StudentDTO student: studentList){
-            System.out.println("code s" +student.getId()+ " name " + student.getName() + "password" + student.getPassword());
+        for (StudentDTO student : studentList) {
+            System.out.println(
+                    "code s" + student.getId() + " name " + student.getName() + "password" + student.getPassword());
         }
         return "A003-03";
     }
 
-      @PostMapping("/addTeacherToExistingBatch")
-
-      public String addTeacherToBatch(@RequestParam String code,@RequestParam Integer batchId){
-          batchService.addTeacherByCodeAndBatchId(code,batchId);
-          return String.format("redirect:/batchSeeMore?id=%d",batchId);
+    @PostMapping("/addTeacherToExistingBatch")
+    public String addTeacherToBatch(@RequestParam String code, @RequestParam Integer batchId) {
+        batchService.addTeacherByCodeAndBatchId(code, batchId);
+        return String.format("redirect:/batchSeeMore?id=%d", batchId);
     }
+
+    @GetMapping("/addExamSchedule")
+    @ResponseBody
+    public ResponseEntity addDateExamSchedule(@RequestParam("id") int id, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate){
+        BatchExamForm bef = examScheduleService.findById(id);        
+        bef.setStartDate(startDate);
+        bef.setEndDate(endDate);
+        examScheduleService.saveBathExamFrom(bef); //Update dates 
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
+
 }

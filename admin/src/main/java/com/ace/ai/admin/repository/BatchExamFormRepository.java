@@ -9,5 +9,5 @@ import com.ace.ai.admin.datamodel.BatchExamForm;
 
 @Repository
 public interface BatchExamFormRepository extends JpaRepository<BatchExamForm,Integer>{
-    public List<BatchExamForm> findAllByBatchId(Integer batchId);
+    public List<BatchExamForm> findByBatch_Id(Integer batchId);
 }
