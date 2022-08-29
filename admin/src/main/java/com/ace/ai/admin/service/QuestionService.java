@@ -45,12 +45,7 @@ public class QuestionService {
 
     public void deleteByExamId(int exam_id){
         //Delete data
-        List<Question> questions = questionRepository.findByExamFormId(exam_id);
-        for(Question question: questions){            
-            for(Answer ans: question.getAnswers()){
-                answerRepository.deleteById(ans.getId());
-            }            
-        } 
+        List<Question> questions = questionRepository.findByExamFormId(exam_id);       
         for(Question question: questions){
             questionRepository.delete(question);
         }       

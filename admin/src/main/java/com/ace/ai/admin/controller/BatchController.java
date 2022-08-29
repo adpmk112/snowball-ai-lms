@@ -132,7 +132,7 @@ public class BatchController {
         batch = batchService.findLastBatch();
         batchService.saveTeacherBatch(batchDTO.getTeacherId(), batch.getId());
         // save batchExamFormTable
-        List<ExamForm> examFormList = examFormService.findByCourseId(course.getId());
+        List<ExamForm> examFormList = examFormService.findByDeleteStatusAndCourseId(false,course.getId());
         for (ExamForm examForm : examFormList) {
             BatchExamForm bef = new BatchExamForm("", "", false, batch, examForm);
             examScheduleService.saveBathExamFrom(bef);

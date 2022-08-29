@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,16 +36,15 @@ public class Question {
     @JoinColumn(name="exam_form_id")
     private ExamForm examForm;
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Answer>answers = new ArrayList<>();
 
-public Question(int id, 
+public Question(
         String name, 
         String trueAnswer, 
         Boolean deleteStatus, 
         ExamForm examForm,
         int point ){
-            this.id = id;
             this.name = name;
             this.trueAnswer = trueAnswer;
             this.deleteStatus = deleteStatus;

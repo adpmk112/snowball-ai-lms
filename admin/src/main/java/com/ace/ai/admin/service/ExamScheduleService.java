@@ -31,7 +31,7 @@ public class ExamScheduleService {
     public List<ExamScheduleDTO> showExamScheduleTable(Integer batchId) throws ParseException{
 
         List<ExamScheduleDTO>examScheduleDTOList = new ArrayList<>();
-        List<BatchExamForm>batchExamFormList = batchExamFormRepository.findByBatch_Id(batchId);
+        List<BatchExamForm>batchExamFormList = batchExamFormRepository.findByBatch_IdAndExamForm_DeleteStatus(batchId, false);
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'hh:mm");
 

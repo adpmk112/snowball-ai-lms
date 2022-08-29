@@ -58,7 +58,7 @@ public class ExamFormController {
     // Cancel Exam
     @GetMapping("/exam-cancel")
     public String cancelExam(@RequestParam("courseId") int courseId) {
-        return "redirect:/admin/course/courseDetail?radio=\"exam\"&courseId=" + courseId;
+        return "redirect:/admin/course/courseDetail?radio=exam&courseId=" + courseId;
     }
 
     // Show Exam Form
@@ -84,8 +84,10 @@ public class ExamFormController {
     public String getExamToUpdate(@RequestParam("id") int id, Model model, @RequestParam("courseId") int courseId) {
         ExamForm examForm = examFormService.findById(id);
         ExamDTO exam = examFormService.getExamDTOFromExamForm(examForm);
+        Course course = courseService.getById(courseId);
         model.addAttribute("exam", exam);
         model.addAttribute("courseId", courseId);
+        model.addAttribute("courseName",course.getName());
         return "A002-06";
     }
 
@@ -104,7 +106,7 @@ public class ExamFormController {
         ExamForm exam = examFormService.findById(id);
         exam.setDeleteStatus(true);
         examFormService.saveByJPa(exam);
-        return "redirect:/admin/course/courseDetail?radio=\"exam\"&courseId=" + courseId;
+        return "redirect:/admin/course/courseDetail?radio=exam&courseId=" + courseId;
     }
     
 

@@ -29,6 +29,8 @@ public class ExamFormService {
 
     public void saveExam(ExamDTO examDTO) {
         try {
+            System.out.println("exam id is "+ examDTO.getId());
+            String exam_id = examDTO.getId();
             String name = examDTO.getName();
             String course_id = examDTO.getCourse_id();
             String type = examDTO.getType();
@@ -38,30 +40,34 @@ public class ExamFormService {
 
             // save exam form
             Course course = new Course();
-            course.setId(Integer.valueOf(course_id));
+            course.setId(Integer.valueOf(course_id));          
+            ExamForm examForm = new ExamForm();
+            if(exam_id == null){
+                examForm.setName(name);
+                examForm.setType(type);
+                examForm.setDuration(duration);
+                examForm.setMaxMark(Integer.valueOf(maxMark));
+                examForm.setDeleteStatus(false);
+                examForm.setCourse(course);                 
+                     
+            }else{// This is fo update
+             
+                examForm.setId(Integer.valueOf(exam_id));                         
+                examForm.setName(name);
+                examForm.setType(type);
+                examForm.setDuration(duration);
+                examForm.setMaxMark(Integer.valueOf(maxMark));
+                examForm.setDeleteStatus(false);
+                examForm.setCourse(course);   
+                        
+                }
+                    examFormRepo.save(examForm);
 
-            int exam_id = 1;
-            if (this.findAll().size() > 0) {
-                exam_id = this.findCurrentId() + 1;
-            }
-            ExamForm examForm = new ExamForm(
-                    exam_id,
-                    name,
-                    type,
-                    duration,
-                    Integer.valueOf(maxMark),
-                    false,
-                    course);
-            examFormRepo.save(examForm);
 
             // save Question For Multiple Choice
             if (type.equals("Multiple Choice")) {
-                for (QuestionDTO questionDTO : questionDTOs) {
-                    int question_id = 1;
-                    if (questionService.findAll().size() > 0) {
-                        question_id = questionService.findCurrentId() + 1;
-                    }
-                    Question question = new Question(question_id,
+                for (QuestionDTO questionDTO : questionDTOs) {                    
+                    Question question = new Question(
                             questionDTO.getText(),
                             questionDTO.getCorrect_answer(),
                             false,
@@ -70,24 +76,16 @@ public class ExamFormService {
                     questionService.saveQuestion(question);
                     // save Answers
                     for (String ans : questionDTO.getAnswer_list()) {
-                        System.out.println(ans);
-                        int answer_id = 1;
-                        if (answerService.findAll().size() > 0) {
-                            answer_id = answerService.findCurrentId() + 1;
-                        }
-                        Answer answer = new Answer(answer_id, ans, false, question);
+                        System.out.println(ans);                        
+                        Answer answer = new Answer( ans, false, question);
                         answerService.saveAnswer(answer);
                     }
 
                 }
             } else { // Exam form for file upload
                 for (QuestionDTO questionDTO : questionDTOs) {
-
-                    int question_id = 1;
-                    if (questionService.findAll().size() > 0) {
-                        question_id = questionService.findCurrentId() + 1;
-                    }
-                    Question question = new Question(question_id,
+                   
+                    Question question = new Question(
                             questionDTO.getText(),
                             questionDTO.getCorrect_answer(),
                             false,
@@ -107,8 +105,7 @@ public class ExamFormService {
         int id = Integer.valueOf(examDTO.getId());
         //delete all data
         questionService.deleteByExamId(Integer.valueOf(examDTO.getId()));
-        examFormRepo.deleteById(id);
-        //Insert Data Again
+        //update ExamFrom        
         saveExam(examDTO);
     }
 
