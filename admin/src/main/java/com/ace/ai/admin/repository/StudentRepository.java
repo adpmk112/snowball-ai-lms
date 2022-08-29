@@ -11,7 +11,7 @@ import com.ace.ai.admin.datamodel.Student;
 public interface StudentRepository extends JpaRepository<Student,Integer> {
     List<Student> findByDeleteStatus(boolean deleteStatus);
     List<Student> findByDeleteStatusAndBatchId(boolean deleteStatus,int id);
-    Student findByBatchAndCode(Batch batch,String code);
+    Student findByBatchAndId(Batch batch,Integer id);
     List<Student> findByBatch(Batch batch);
     Student findByDeleteStatusAndBatchAndCode(boolean deleteStatus,Batch batch,String code);
 
