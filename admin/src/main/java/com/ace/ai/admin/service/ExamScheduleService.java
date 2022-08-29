@@ -19,7 +19,6 @@ import com.ace.ai.admin.repository.ExamFormRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Service
 public class ExamScheduleService {
     
@@ -34,16 +33,29 @@ public class ExamScheduleService {
         List<ExamScheduleDTO>examScheduleDTOList = new ArrayList<>();
         List<BatchExamForm>batchExamFormList = batchExamFormRepository.findByBatch_Id(batchId);
 
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
         for(BatchExamForm batchExamForm:batchExamFormList){
 
             ExamScheduleDTO examScheduleDTO = new ExamScheduleDTO();
             examScheduleDTO.setId(batchExamForm.getId());
             examScheduleDTO.setExamName(batchExamForm.getExamForm().getName());
-            examScheduleDTO.setStartDate(batchExamForm.getStartDate());
-            examScheduleDTO.setEndDate(batchExamForm.getEndDate());
-            
-                       
+            examScheduleDTO.setStartDate(LocalDateTime.parse(batchExamForm.getStartDate(), dtf));
+            examScheduleDTO.setEndDate(LocalDateTime.parse(batchExamForm.getEndDate(),dtf));
 
+            if(examScheduleDTO.getStartDate().isAfter(LocalDateTime.now())){
+                examScheduleDTO.setStatus("Upcoming");
+            }
+
+            else if (examScheduleDTO.getStartDate().isBefore(LocalDateTime.now())
+            && LocalDateTime.now().isBefore(examScheduleDTO.getEndDate())){
+                examScheduleDTO.setStatus("In Progress");
+            }
+
+            else if (LocalDateTime.now().isAfter(examScheduleDTO.getEndDate())){
+                examScheduleDTO.setStatus("Done");
+            }
+        
             examScheduleDTOList.add(examScheduleDTO);
         }
 

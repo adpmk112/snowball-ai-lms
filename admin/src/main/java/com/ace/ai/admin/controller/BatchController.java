@@ -44,12 +44,14 @@ public class BatchController {
     @Autowired
     ClassRoomService classRoomService;
 
+
     @GetMapping({"/goToBatch"})
     public String gotoBatch(Model model) {
         List<Batch> batchList = batchService.findAll();
         model.addAttribute("batchList", batchList);
         return "A003";
     }
+
 
     @GetMapping({"/BatchDetail1"})
     @ResponseBody
@@ -114,6 +116,7 @@ public class BatchController {
         }
     }
 
+
     @PostMapping({"/addBatch"})
     public String saveBatch(@ModelAttribute("batchDTO") BatchDTO batchDTO) {
         Batch batch = new Batch();
@@ -142,7 +145,6 @@ public class BatchController {
     public ResponseEntity batchClose(Model model, @RequestParam("batchId") Integer batchId) {
         Batch batch = batchService.findBatchById(batchId);
         batch.setDeleteStatus(true);
-        System.out.println(batch.getName());
         batchService.saveBatch(batch);
         return ResponseEntity.ok(HttpStatus.OK);
     }
@@ -152,10 +154,10 @@ public class BatchController {
     public ResponseEntity batchReopen(Model model, @RequestParam("batchId") Integer batchId) {
         Batch batch = batchService.findBatchById(batchId);
         batch.setDeleteStatus(false);
-        System.out.println(batch.getName());
         batchService.saveBatch(batch);
         return ResponseEntity.ok(HttpStatus.OK);
     }
+
 
 
     @GetMapping({"/addStudent{batch_id}"})
@@ -164,24 +166,15 @@ public class BatchController {
         return "A003-04";
     }
 
-    // @PostMapping("/saveStudent")
-    // public String saveStudent(@RequestBody ArrayList<StudentDTO> studentList) {
 
-    //     for (StudentDTO student : studentList) {
-    //         System.out.println(
-    //                 "code s" + student.getId() + " name " + student.getName() + "password" + student.getPassword());
 
+
+    @PostMapping("saveStudent")
     @ResponseBody
     public void saveStudent(@RequestBody ArrayList<StudentDTO> studentList) {
-
         batchService.saveStudent(studentList);
     }
 
-    @PostMapping("/addTeacherToExistingBatch")
-    public String addTeacherToBatch(@RequestParam String code, @RequestParam Integer batchId) {
-        batchService.addTeacherByCodeAndBatchId(code, batchId);
-        return String.format("redirect:/batchSeeMore?id=%d", batchId);
-    }
 
     @GetMapping("/editStudent{studentdata}")
     public ModelAndView editStudent(@PathVariable("studentdata") String studentdata, Model model) {
@@ -189,9 +182,9 @@ public class BatchController {
         String[] data = studentdata.split("-");
         String code = data[0];
         String id = data[1];
+        System.out.println(code +" "+ id);
         model.addAttribute("edit", "edit");
         StudentDTO studentDTO = batchService.findStudentByBatchIdAndStudentId(Integer.valueOf(id), code);
-        System.out.println("Batch id in studenDTO is:" + studentDTO.getBatchId());
         return new ModelAndView("A003-08", "studentDTO", studentDTO);
     }
 
@@ -218,6 +211,13 @@ public class BatchController {
         return ResponseEntity.notFound().build();
     }
 
+
+    @PostMapping("/addTeacherToExistingBatch")
+    public String addTeacherToBatch(@RequestParam String code, @RequestParam Integer batchId) {
+        batchService.addTeacherByCodeAndBatchId(code, batchId);
+        return String.format("redirect:/batchSeeMore?id=%d", batchId);
+    }
+
     @GetMapping("/addExamSchedule")
     @ResponseBody
     public ResponseEntity addDateExamSchedule(@RequestParam("id") int id, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate){
@@ -228,11 +228,21 @@ public class BatchController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @GetMapping({"/RemoveStudent"})
+    @GetMapping({"/RemoveStudent"}) 
     @ResponseBody
     public ResponseEntity removeStudent(Model model, @RequestParam("batchId") Integer batchId,@RequestParam("code")String code) {
           batchService.UpdateStudentByBatchIdAndCode(batchId,code);
+
+            return ResponseEntity.ok(HttpStatus.OK);
+       
+    }
+    @GetMapping({"/RemoveTeacher"})
+    @ResponseBody
+    public ResponseEntity removeTeacher(Model model, @RequestParam("batchId") Integer batchId,@RequestParam("code")String code) {
+        batchService.UpdateStudentByBatchIdAndCode(batchId,code);
+
         return ResponseEntity.ok(HttpStatus.OK);
+
     }
 
 }

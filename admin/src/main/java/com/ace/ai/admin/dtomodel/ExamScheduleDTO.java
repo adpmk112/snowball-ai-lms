@@ -1,6 +1,6 @@
 package com.ace.ai.admin.dtomodel;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import lombok.Data;
 public class ExamScheduleDTO {
     private int id;
     private String examName;
-    private String startDate;
-    private String endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
     private String status;
 }

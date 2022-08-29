@@ -31,6 +31,7 @@ public class ExamForm implements Serializable {
     private int maxMark;
 
     @Column(columnDefinition = "tinyint(1) default 0")
+
     private boolean deleteStatus;
 
     @ManyToOne

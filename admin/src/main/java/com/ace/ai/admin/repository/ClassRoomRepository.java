@@ -10,7 +10,7 @@ import com.ace.ai.admin.datamodel.Classroom;
 @Repository
 public interface ClassRoomRepository extends JpaRepository<Classroom,Integer> {
     
-    public List<Classroom> findAllByBatchId(Integer batchId);
-    public List<Classroom> findIdByBatchId(Integer batchId);
-    public List<Classroom> findDateByBatchId(Integer batchId);
+    public List<Classroom> findAllByBatchIdAndDeleteStatus(Integer batchId,boolean deleteStatus);
+    public List<Classroom> findIdByBatchIdAndDeleteStatus(Integer batchId,boolean deleteStatus);
+    public List<Classroom> findDateByBatchIdAndDeleteStatus(Integer batchId,boolean deleteStatus);
 }
