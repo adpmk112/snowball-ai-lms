@@ -69,10 +69,10 @@ public class CourseController {
             Chapter toSetChapterId = new Chapter();
             toSetChapterId.setId(chapterId);
 
-            for (MultipartFile vedio : fileUploadDTO.getVideo()) {
+            for (MultipartFile video : fileUploadDTO.getVideo()) {
                 ChapterFile chapterFile = new ChapterFile();
-                String fileType = "vedio";
-                String fileName = vedio.getOriginalFilename();
+                String fileType = "video";
+                String fileName = video.getOriginalFilename();
 
                 chapterFile.setName(fileName);
                 chapterFile.setFileType(fileType);
@@ -102,22 +102,21 @@ public class CourseController {
                 courseService.saveFile(chapterFile);
             }
 
-            String uploadDir = "assets/chapterFiles/" + chapterId;
-            
+            String uploadDir = "./assets/img/chapterFiles/" + chapterId;
             Path uploadPath = Paths.get(uploadDir);
 
             if (!Files.exists(uploadPath)) {
                 Files.createDirectories(uploadPath);
             }
 
-            for (MultipartFile vedio : fileUploadDTO.getVideo()) {
-                if (!vedio.isEmpty()) {
-                    try (InputStream inputStream = vedio.getInputStream()) {
-                        Path filePath = uploadPath.resolve(vedio.getOriginalFilename());
+            for (MultipartFile video : fileUploadDTO.getVideo()) {
+                if (!video.isEmpty()) {
+                    try (InputStream inputStream = video.getInputStream()) {
+                        Path filePath = uploadPath.resolve(video.getOriginalFilename());
                         System.out.println(filePath.toFile().getAbsolutePath());
                         Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
                     } catch (IOException e) {
-                        throw new IOException("Could not save upload file: " + vedio.getOriginalFilename());
+                        throw new IOException("Could not save upload file: " + video.getOriginalFilename());
                     }
                 }
             }
@@ -170,7 +169,7 @@ public class CourseController {
             System.out.println( chapterFileDTO.getFilePath());
         }
         model.addAttribute("chapterId", id);
-
+        
         return new ModelAndView("A002-03", "chapterFileList", chapterFileList);
     }
 
