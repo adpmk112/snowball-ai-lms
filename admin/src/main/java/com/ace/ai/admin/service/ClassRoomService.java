@@ -27,7 +27,7 @@ public class ClassRoomService {
     public List<ClassroomDTO> showClassroomTable(Integer batchId){
 
         List<ClassroomDTO> classroomDTOList = new ArrayList<>();
-        List<Classroom> classroomList = classRoomRepository.findAllByBatchId(batchId);
+        List<Classroom> classroomList = classRoomRepository.findAllByBatchIdAndDeleteStatus(batchId,false);
 
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter tf = DateTimeFormatter.ofPattern("HH:mm");
