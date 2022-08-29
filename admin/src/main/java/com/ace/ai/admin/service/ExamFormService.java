@@ -112,6 +112,10 @@ public class ExamFormService {
         saveExam(examDTO);
     }
 
+    public void saveByJPa(ExamForm exam){
+        examFormRepo.save(exam);
+    }
+
     public ExamForm findById(int id) {
         return examFormRepo.getById(id);
     }
@@ -128,8 +132,12 @@ public class ExamFormService {
         return examFormRepo.findByCourse_id(course_id);
     }
 
-    public ExamForm findByNameAndCourseId(String name, int id){
+    public int findByNameAndCourseId(String name, int id){
         return examFormRepo.findByNameAndCourse_Id(name, id);
+    }
+
+    public List<ExamForm> findByDeleteStatusAndCourseId(Boolean status, int course_id){
+        return examFormRepo.findByDeleteStatusAndCourse_Id(status, course_id);
     }
   
     public ExamDTO getExamDTOFromExamForm(ExamForm exam) {

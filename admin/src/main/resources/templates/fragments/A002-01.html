@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layouts/main :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+  <main>
+    <div th:fragment="course-list">
+      <div class="semi-circle"></div>
+      <div class="banner">
+        <div class="circle">
+          <i class="fa-regular fa-folder-open"></i>
+        </div>
+        <div>
+          <h1>Courses</h1>
+          <h3 th:text="${courseCount}"></h3>
+        </div>
+      </div>
+      <div class="custom-div margin-top-8">
+        <div id="course-detail" class="width-100">
+          <div class="bread-crumb d-flex justify-content-between width-90">
+            <div class="bread container-fluid">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item">
+                    <a class="text-decoration-none" href="A002.html">
+                      Course List
+                    </a>
+                  </li>
+                  <li class="breadcrumb-item">
+                    <a class="text-decoration-none" href="A003-03.html">
+                      Course Details
+                    </a>
+                  </li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+
+          <div class="mytabs position-relative">
+
+            <input type="radio" id="tabchapter" name="mytabs" checked />
+            <label for="tabchapter" id="lab">Java</label>
+
+            <div class="tab">
+              <div class="add-list">
+                <label>Add Chapter</label>
+                <a th:href="@{/admin/course/chapter/add(courseId=${courseId})}"
+                  class="btn btn-outline-success btn-floating" data-mdb-ripple-color="dark">
+                  <i class="fa-solid fa-circle-plus"></i>
+                </a>
+              </div>
+              <table class="table-responsive hover" id="datatable">
+                <thead>
+                  <tr>
+                    <th>Chapter Name</th>
+                    <th>Total File</th>
+                    <th>Details</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="chapter : ${chapterList}">
+                    <td th:text="${chapter.name}"></td>
+                    <td th:text="${chapter.totalFile}"></td>
+                    <td>
+                      <a th:href="@{/admin/course/chapter/chapterFile(chapterId=${chapter.id})}"
+                        class="more-info btn btn-floating" data-mdb-ripple-color="dark">
+                        See More
+                      </a>
+                    </td>
+                    <td>
+                      <a th:href="@{/admin/course/chapter/edit(chapterId=${chapter.id})}"
+                        class="more-info btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                      </a>
+                      <a th:href="@{/admin/course/chapter/delete(chapterId=${chapter.id})}"
+                        class="btn delete-chapter btn-outline-danger btn-floating" data-mdb-ripple-color="dark">
+                        <i class="fa-solid fa-circle-minus"></i>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <input type="radio" id="tabunit" name="mytabs" th:checked="${radioButton.equals('exam') ? 'checked' : null}" />
+            <label for="tabunit" id="lab">exam List</label>
+            <div class="tab">
+              <div class="add-list">
+                <label>Add Exam</label>
+                <input type="hidden" id="course-id-unique" th:value="${courseId}"></input>
+                <a th:href="@{/admin/course/exam-save(courseId=${courseId})}"
+                  class="btn btn-outline-success btn-floating" data-mdb-ripple-color="dark">
+                  <i class="fa-solid fa-circle-plus"></i>
+                </a>
+              </div>
+
+              <table class="table-responsive hover" id="datatable2">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>name</th>
+                    <th>max-marks</th>
+                    <th>Countdown</th>
+                    <th>Type</th>
+                    <th>Action</th>
+                    <!-- <th>Details</th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="exam, status : ${examList}">
+                    <td th:text="${status.count}"></td>
+                    <td th:text="${exam.name}"></td>
+                    <td th:text="${exam.maxMark}"></td>
+                    <td th:text="${exam.duration}"></td>
+                    <td th:text="${exam.type}"></td>
+
+                    <td>
+                      <!-- Use req param  -->
+                      <a th:href="@{/admin/course/exam-update(id=${exam.id},courseId=${courseId})}"
+                        class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                      </a>
+                      <a href="" th:id="${exam.id}" class="btn btn-outline-danger btn-floating delete-exam"
+                        data-mdb-ripple-color="dark">
+                        <i class="fa-solid fa-circle-minus"></i>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>

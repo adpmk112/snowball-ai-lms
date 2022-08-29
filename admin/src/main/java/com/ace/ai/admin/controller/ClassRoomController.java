@@ -11,9 +11,13 @@ public class ClassRoomController {
     @Autowired
     ClassRoomService classRoomService;
 
-    @GetMapping("/classroom")
-    public String classroomView(){
-        classRoomService.showClassroomTable(1);
-        return "A001";
+    @GetMapping("/addClassroom")
+    public String classroomAdd(){
+        return "A003-06";
+    }
+
+    @GetMapping("/editClassroom")
+    public String classroomEdit(){
+        return "A003-07";
     }
 }

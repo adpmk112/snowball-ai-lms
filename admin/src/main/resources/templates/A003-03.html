@@ -25,33 +25,39 @@
     <!-- For student delete confirm-->
     <script>
       $(document).ready(function () {
-          // $('#teacher-batch').on("submit",function (e) {
-          //     e.preventDefault()
-          //
-          //     let teacherCode = $('#teacher-add').find('option').val();
-          //     $.post(
-          //         "/addTeacherToExistingBatch",
-          //         {teacherCode: teacherCode},
-          //         ()=> {
-          //
-          //         }
-          //     );
-          // })
+          $(document).on('click', 'a.remove-student', function() {
+              window.batchId=$(this).attr('id').split("_")[0];
+              window.code=$(this).attr('id').split("_")[1];
 
-        $('a.remove-student').confirm({
-          closeIcon: true,
-          theme: 'Material',
-          //icon: 'fa-solid fa-warning',
+          });
+          $('a.remove-student').confirm({
+              closeIcon: true,
+              theme: 'Material',
+              //icon: 'fa-solid fa-warning',
 
-          title: 'Remove Student',
-          content: 'Are you sure to remove this student?',
-          animation: 'Scale',
-          buttons: {
-            Yes: function () {},
-            No: function () {},
-          },
-        });
-        <!-- For exam-schedule delete confirm -->
+              title: 'Remove Student',
+              content: 'Are you sure to remove this student?',
+              animation: 'Scale',
+              buttons: {
+                  Yes: function () {
+                      $.ajax({
+                          type: "GET",
+                          url: "../RemoveStudent",
+                          contentType: "application/json; charset=utf-8",
+                          dataType: "json",
+                          data: {batchId: batchId,code:code},
+                          success: function () {
+                              window.location = '/batchSeeMore?id=' + batchId;
+                          },
+                          error: function () {}
+
+                      })
+
+                  },
+                  No: function () {},
+              },
+          });
+        //<!-- For exam-schedule delete confirm -->
         $('a.remove-teacher').confirm({
           closeIcon: true,
           theme: 'Material',
@@ -61,7 +67,20 @@
           content: 'Are you sure to remove?',
           animation: 'Scale',
           buttons: {
-            Yes: function () {},
+            Yes: function () {
+                $.ajax({
+                    type: "GET",
+                    url: "../RemoveTeacher",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: {batchId: batchId,code:code},
+                    success: function () {
+                        window.location = '/batchSeeMore?id=' + batchId;
+                    },
+                    error: function () {}
+
+                })
+            },
             No: function () {},
           },
         });
@@ -79,7 +98,7 @@
             No: function () {},
           },
         });
-        <!-- For Remove Attencance confirm -->
+        //<!-- For Remove Attencance confirm -->
         $('a.remove-attendance').confirm({
           closeIcon: true,
           theme: 'Material',
@@ -93,7 +112,7 @@
             No: function () {},
           },
         });
-        <!--For Classroom Delete confirm -->
+        //<!--For Classroom Delete confirm -->
         $('a.remove-classroom').confirm({
           closeIcon: true,
           theme: 'Material',

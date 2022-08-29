@@ -8,6 +8,8 @@ import com.ace.ai.admin.repository.ClassRoomRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,9 +26,10 @@ public class AttendanceService {
     @Autowired
     ClassRoomRepository classRoomRepository;
 
-    public List<AttendanceDTO> showAttendanceTable(Integer batchId) {
+    public List<AttendanceDTO> showAttendanceTable(Integer batchId){
+        
+        List<AttendanceDTO>attendanceDTOList = new ArrayList<>();
 
-        List<AttendanceDTO> attendanceDTOList = new ArrayList<>();
         List<Attendance> attendanceList = new ArrayList<>();
 
         List<Classroom> classroomList = classRoomRepository.findIdByBatchId(batchId);
@@ -38,8 +41,6 @@ public class AttendanceService {
             for (Attendance attendance : attendanceList) {
 
                 AttendanceDTO attendanceDTO = new AttendanceDTO();
-
-                attendanceDTO.setDate(classroom.getDate());
 
                 log.info("" + classroom.getId());
                 log.info(classroom.getDate());
@@ -55,10 +56,40 @@ public class AttendanceService {
 
         }
 
-        log.info(attendanceDTOList.get(2).getDate() + " "
+        // log.info(attendanceDTOList.get(2).getDate() + " "
+        //         + attendanceDTOList.get(2).getStudentName() + " "
+        //         + attendanceDTOList.get(2).getAttendStatus());
+
+
+        
+       /*  log.info(attendanceDTOList.get(2).getDate() + " "
                 + attendanceDTOList.get(2).getStudentName() + " "
                 + attendanceDTOList.get(2).getAttendStatus());
+        */
+
+
+
 
         return attendanceDTOList;
     }
+
+    public List<AttendanceDTO> getClassroomDate(Integer batchId){
+
+        List<Classroom> classroomDateList = classRoomRepository.findDateByBatchId(batchId);
+
+        List<AttendanceDTO>attendanceDTOListForDate = new ArrayList<>();
+
+        for(Classroom classroom : classroomDateList){
+
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            AttendanceDTO attendanceDTO = new AttendanceDTO();
+
+            attendanceDTO.setDate(LocalDate.parse(classroom.getDate(),df));
+
+            attendanceDTOListForDate.add(attendanceDTO);
+        }
+
+        return attendanceDTOListForDate;
+    }
+
 }

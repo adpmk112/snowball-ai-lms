@@ -57,6 +57,7 @@ public class AdminDashboardService{
             int totalDays = attendanceRepository.findByStudentId(student.getId()).size();
             int attendDays = attendanceRepository.findByAttendAndStudentId("present", student.getId()).size();
             System.out.println(attendDays);
+
             int attendPercentage;
             if(totalDays ==0){
                 attendPercentage =0;
@@ -64,6 +65,7 @@ public class AdminDashboardService{
             else{
             attendPercentage = (attendDays*100)/totalDays;
             }
+
             adminDashboardDTO.setBatchId(batchId);
             adminDashboardDTO.setStuId(student.getId());
             adminDashboardDTO.setStuName(student.getName());
@@ -71,8 +73,9 @@ public class AdminDashboardService{
             //add one attandance to attandance list with student name
             studentAttendanceDTOList.add(adminDashboardDTO);
            }
-       return studentAttendanceDTOList;
+           return studentAttendanceDTOList;
+           }
+       
     }
  
- }
 

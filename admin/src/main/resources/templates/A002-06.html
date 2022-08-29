@@ -36,7 +36,8 @@
       if (exam_type == "Multiple Choice") {
         //Disable other radio button
         $('#exam-header input[value="Multiple Choice"]').attr("checked", true);
-        $('#exam-header input[value="File Upload"]').attr("disabled", true);
+        $('#exam-header input[value="File Upload"]').hide();
+        $('#exam-header label[for="answer-other"]').hide();
         //Set Contents  For Multiple Choice
         $(exam["questions"]).each(function (index, item) {
           let text = item["text"];
@@ -59,9 +60,9 @@
             `">
                                             <div class="row">
                                                 <div class="col-8 mr-auto">
-                                                    <textarea maxlength="500" name="mc-question" class="col-10 form-control question border-none"  rows="1" placeholder="Your question..."  id="question" required>` +
+                                                    <textarea maxlength="500" name="mc-question" class="col-10 form-control question border-none"  rows="1" placeholder="Your question..."  id="question" required  oninput="checkQuestionName(this);" >` +
             text +
-            `</textarea>
+            `</textarea><span class="question-error-span text-danger" style="font-size: 14px;"></span>
                                                 </div>
                                                 <div class="col-2">
                                                     <input type="number" name="point" class="form-control me-2 " style="width: 60px; height: 30px" min="1" value="` +
@@ -93,7 +94,7 @@
               ` required><label><input type="text" id="option-input" maxlength="100" name="option" class="form-control" placeholder="Option" value="` +
               item +
               `" required oninput="checkAnswerName(this);"></label>
-              <span id="answer-error" class="text-danger answer-error"></span>
+              <span id="answer-error" class="ms-2 text-danger answer-error" style="font-size: 14px;"></span>
                                         </div>
                                         <div class="col-4">
                                             <button type="button" class="btn option-plus rounded-circle  text-secondary" style="box-shadow: none;" ><i class="fa-solid fa-plus"></i></button>
@@ -106,7 +107,8 @@
       } else {
         //check radio and disable another
         $('#exam-header input[value="File Upload"]').attr("checked", true);
-        $('#exam-header input[value="Multiple Choice"]').attr("disabled", true);
+        $('#exam-header input[value="Multiple Choice"]').hide();
+        $('#exam-header label[for="answer-radio"]').hide();
 
         $(exam["questions"]).each(function (index, item) {
           let point = item["point"];
@@ -123,9 +125,11 @@
                         placeholder="Your question..."
                         maxlength="500"
                         required
+                        oninput="checkQuestionName(this);"
                         >` +
             text +
             `</textarea>
+            <span class="question-error-span text-danger" style="font-size: 14px;"></span>
                     </div>
                     <div class="col-2">
                         <input
@@ -164,26 +168,7 @@
       } 
       </script>
       
-    <script>
-      //Check Answer Name 
-      function checkAnswerName(e){
-        let current_option = e.closest('.option-added');
-        let options = $(current_option).siblings('.option-added');
-        $(options).each(function(){
-          if($(e).val() == $(this).find('input[name="option"]').val()){
-            $(current_option).find(".answer-error").text("Answers shouldn't be same.");           
-            return false;
-          }else  {
-            $(current_option).find(".answer-error").text(""); 
-          }
-        })  
-        if($(".answer-error").text() !== ""){
-          $('#add_exam').attr("disabled",true);
-        }else{
-          $("#add_exam").removeAttr("disabled");
-        }
-           
-      }
+    <script>     
 
       //add and remove multiple choice 
       $(document).ready(function () {
@@ -233,7 +218,7 @@
                         <input type="radio" name="correct-ans` +
             question_id +
             `" class="me-2" required><label><input type="text" id="option-input" maxlength="100" name="option" class="form-control" placeholder="Option" required oninput="checkAnswerName(this);"></label>
-            <span id="answer-error" class="text-danger answer-error"></span>
+            <span id="answer-error" class="ms-2 text-danger answer-error" style="font-size: 14px;"></span>
                       </div>
                       <div class="col-4">
                         <button type="button" class="btn option-plus rounded-circle  text-secondary" style="box-shadow: none;" ><i class="fa-solid fa-plus"></i></button>
@@ -253,7 +238,8 @@
             `">
                                   <div class="row">
                                         <div class="col-8 mr-auto">
-                                            <textarea maxlength="500" name="mc-question" class="col-10 form-control question border-none"  rows="1" placeholder="Your question..." required></textarea>
+                                            <textarea maxlength="500" name="mc-question" class="col-10 form-control question border-none"  rows="1" placeholder="Your question..." required  oninput="checkQuestionName(this);"></textarea>
+                                            <span class="question-error-span text-danger" style="font-size: 14px;"></span>
                                         </div>                                                    
                                         <div class="col-2">
                                             <input type="number" name="point" class="form-control me-2 " style="width: 60px; height: 30px" min="1" value="1"><label class="text-secondary">Points</label>
@@ -268,7 +254,7 @@
                                             <input type="radio" name="correct-ans` +
             radio_question_id +
             `" class="me-2" checked required><label><input type="text" id="option-input" name="option" class="form-control" placeholder="Option" maxlength="100" required oninput="checkAnswerName(this);"></label>
-            <span id="answer-error" class="text-danger answer-error"></span>
+            <span id="answer-error" class="ms-2 text-danger answer-error" style="font-size: 14px;"></span>
                                         </div>
                                         <div class="col-4">                             
                                             <button type="button" style="box-shadow: none;" class="btn rounded-circle option-plus text-secondary" ><i class="fa-solid fa-plus"></i></button>
@@ -280,7 +266,7 @@
                                             <input type="radio" name="correct-ans` +
             radio_question_id +
             `"  class="me-2" required><label><input type="text" id="option-input" name="option" class="form-control" placeholder="Option" maxlength="100" required></label>
-            <span id="answer-error" class="text-danger answer-error"></span>                            
+            <span id="answer-error" class="ms-2 text-danger answer-error" style="font-size: 14px;"></span>                            
             </div>
                                         <div class="col-4">                             
                                             <button type="button" style="box-shadow: none;" class="btn rounded-circle option-plus text-secondary" ><i class="fa-solid fa-plus"></i></button>
@@ -324,7 +310,9 @@
                         placeholder="Your question..."
                         maxlength="500"
                         required
+                        oninput="checkQuestionName(this);"
                         ></textarea>
+                        <span class="question-error-span text-danger" style="font-size: 14px;"></span>
                     </div>
                     <div class="col-2">
                         <input
@@ -362,10 +350,66 @@
       $(document).on("click", ".other-question-delete", function () {
         let count = $(this).closest("li").parent().find(".row").length;
         if (count > 1) $(this.closest("li").remove());
-      });   
+      }); 
+      
+       //Check Question Name
+       function checkQuestionName(e){
+        let current_question = e.closest(".m-choice, li.card-body"); 
+        let questions = $(current_question).siblings('.m-choice, li.card-body');
+        $(questions).each(function(){
+          if($(e).val() == $(this).find('textarea').val()){
+            $(current_question).find(".question-error-span").text("Questions shouldn't be same.");
+            return false;
+          }else{
+            $(current_question).find(".question-error-span").text("");
+          }
+        })
+        if ($(".question-error-span").text() !== "") {
+            $("#add_exam").attr("disabled", true);
+          } else {
+            $("#add_exam").removeAttr("disabled");
+          }
+      }
+
+      function checkName() {
+        let examName = $('input[name="name"]').val();
+        let course_id = $('input[name="course-id"]').val();
+        $.ajax({
+          type: "GET",
+          url: "/admin/course/checkExamName",
+          data: { examName: examName, courseId: course_id },
+          success: function () {
+            $("#exam_name_error").text("Exam name already exists.");
+            $('#add_exam').attr("disabled",true);
+          },
+          error: function () {
+            $("#exam_name_error").text("");
+            $("#add_exam").removeAttr("disabled");
+          }
+        });        
+      }
+      
+      //Check Answer Name 
+      function checkAnswerName(e){
+        let current_option = e.closest('.option-added');
+        let options = $(current_option).siblings('.option-added');
+        $(options).each(function(){
+          if($(e).val() == $(this).find('input[name="option"]').val()){
+            $(current_option).find(".answer-error").text("Answers shouldn't be same.");           
+            return false;
+          }else  {
+            $(current_option).find(".answer-error").text(""); 
+          }
+        })  
+        if($(".answer-error").text() !== ""){
+          $('#add_exam').attr("disabled",true);
+        }else{
+          $("#add_exam").removeAttr("disabled");
+        }           
+      }
+
       //For Exam submit
-      $("#exam").submit(function (e) {
-        e.preventDefault();
+      function updateExam() {        
         let exam = {};
         let exam_id = $('input[name="exam-id"]').val();
         let course_id = $('input[name="course-id"]').val();
@@ -430,16 +474,38 @@
 
         $.ajax({
           type: "POST",
-          url: "/admin-exam-update/" + exam_id,
+          url: "exam-update/" + exam_id,
           headers: {
             "Content-Type": "application/json",
           },
           data: JSON.stringify(exam),
           success: function () {
             alert("Exam update successfully");
+            window.location.replace("/admin/course/courseDetail?radio=\"exam\"&courseId="+course_id);            
           },
         });
-      });
+      };
+   
+    
+      //<!-- Confirm for exam delete -->
+      // $(document).on("click",'a.delete-exam',function(){
+      //   window.examId=$(this).attr('id');
+      // })     
+        $("#add_exam").confirm({
+          closeIcon: true,
+          theme: "Material",
+          //icon: 'fa-solid fa-warning',
+          title: "Update Exam",
+          content: "Are you sure to update?",
+          animation: "Scale",
+          buttons: {           
+            No: function () {},
+            Yes: function () {
+              updateExam();
+            },
+          },
+        })
+    
     </script>
   </body>
 </html>
