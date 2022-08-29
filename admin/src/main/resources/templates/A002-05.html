@@ -1,69 +1,71 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <div th:replace="fragments :: head"></div>
-    <title>Add Exam</title>
-  </head>
-  <body>
-    <header th:replace="fragments :: header"></header>
-    <main role="main">
-      <div th:replace="fragments/A002-05 :: exam-add"></div>
-    </main>
-    <footer th:replace="fragments :: footer"></footer>
-    <div th:replace="fragments :: scripts"></div>
-    <script>
-      $(document).ready(function () {
-        let total_point = 0;
-        var question_count_radio = 1;
-        var radio_question_id = 1;
 
-        function disabled_exam_other() {
-          $("#exam-other").hide();
-          $("#exam-other input").attr("disabled", true);
-          $("#exam-other textarea").attr("disabled", true);
-        }
-        function enable_exam_other() {
-          $("#exam-other").show();
-          $("#exam-other input").removeAttr("disabled");
-          $("#exam-other textarea").removeAttr("disabled");
-        }
-        function disabled_radio_exam() {
-          $(".m-choice").hide();
-          $(".m-choice input").attr("disabled", true);
-          $(".m-choice textarea").attr("disabled", true);
-        }
-        function enable_radio_exam() {
-          $(".m-choice").show();
-          $(".m-choice input").removeAttr("disabled");
-          $(".m-choice textarea").removeAttr("disabled");
-        }
+<head>
+  <div th:replace="fragments :: head"></div>
+  <title>Add Exam</title>
+</head>
 
-        //For radio button checked
+<body>
+  <header th:replace="fragments :: header"></header>
+  <main role="main">
+    <div th:replace="fragments/A002-05 :: exam-add"></div>
+  </main>
+  <footer th:replace="fragments :: footer"></footer>
+  <div th:replace="fragments :: scripts"></div>
+  <script>
+    $(document).ready(function () {
+      let total_point = 0;
+      var question_count_radio = 1;
+      var radio_question_id = 1;
+
+      function disabled_exam_other() {
+        $("#exam-other").hide();
+        $("#exam-other input").attr("disabled", true);
+        $("#exam-other textarea").attr("disabled", true);
+      }
+      function enable_exam_other() {
+        $("#exam-other").show();
+        $("#exam-other input").removeAttr("disabled");
+        $("#exam-other textarea").removeAttr("disabled");
+      }
+      function disabled_radio_exam() {
+        $(".m-choice").hide();
+        $(".m-choice input").attr("disabled", true);
+        $(".m-choice textarea").attr("disabled", true);
+      }
+      function enable_radio_exam() {
+        $(".m-choice").show();
+        $(".m-choice input").removeAttr("disabled");
+        $(".m-choice textarea").removeAttr("disabled");
+      }
+
+      //For radio button checked
+      disabled_exam_other();
+      enable_radio_exam();
+      $("#answer-radio").on("click", function () {
         disabled_exam_other();
         enable_radio_exam();
-        $("#answer-radio").on("click", function () {
-          disabled_exam_other();
-          enable_radio_exam();
-        });
+      });
 
-        //For other button checked
-        $("#answer-other").on("click", function () {
-          disabled_radio_exam();
-          enable_exam_other();
-        });
+      //For other button checked
+      $("#answer-other").on("click", function () {
+        disabled_radio_exam();
+        enable_exam_other();
+      });
 
-        //add Option
-        $(document).on("click", ".option-plus", function () {
-          var question_id = $(this)
-            .closest(".m-choice")
-            .find("#question-id")
-            .val();
-          var div_row =
-            `<div class="row mt-1 option-added">
+      //add Option
+      $(document).on("click", ".option-plus", function () {
+        var question_id = $(this)
+          .closest(".m-choice")
+          .find("#question-id")
+          .val();
+        var div_row =
+          `<div class="row mt-1 option-added">
                       <div class="col-8">
                         <input type="radio" name="correct-ans` +
-            question_id +
-            `" class="me-2" required><label><input type="text" id="option-input" maxlength="100" name="option" class="form-control" placeholder="Option " required oninput="checkAnswerName(this);"></label>
+          question_id +
+          `" class="me-2" required><label><input type="text" id="option-input" maxlength="100" name="option" class="form-control" placeholder="Option " required oninput="checkAnswerName(this);"></label>
                         <span id="answer-error" class="ms-2 text-danger answer-error" style="font-size: 14px;"></span>
                       </div>
                       <div class="col-4">
@@ -71,18 +73,18 @@
                         <button type="button" class="btn option-delete rounded-circle  text-danger" style="box-shadow: none;" ><i class="fa-solid fa-delete-left"></i></button>
                     </div>
                     </div>`;
-          let count = $(this).closest(".m-choice").find(".option-added").length;
-          if (count < 5) $(this).closest(".option-added").after(div_row);
-        });
+        let count = $(this).closest(".m-choice").find(".option-added").length;
+        if (count < 5) $(this).closest(".option-added").after(div_row);
+      });
 
-        //Add Mutliple Choice Question
-        $(document).on("click", ".question-add", function () {
-          var question = $('.m-choice textarea[name="mc-question"]').val();
-          var _radio_question =
-            ` <li class="m-choice card-body shadow rounded mt-2 p-4" id="m-choice">
+      //Add Mutliple Choice Question
+      $(document).on("click", ".question-add", function () {
+        var question = $('.m-choice textarea[name="mc-question"]').val();
+        var _radio_question =
+          ` <li class="m-choice card-body shadow rounded mt-2 p-4" id="m-choice">
                                     <input type="hidden" id="question-id"  value="` +
-            radio_question_id +
-            `">
+          radio_question_id +
+          `">
                                   <div class="row">
                                         <div class="col-8 mr-auto">
                                             <textarea maxlength="500" name="mc-question" class="col-10 form-control question border-none"  rows="1" placeholder="Your question..." required oninput="checkQuestionName(this);"></textarea>
@@ -99,8 +101,8 @@
                                     <div class="row mt-1 option-added" >
                                         <div class="col-8">
                                             <input type="radio" name="correct-ans` +
-            radio_question_id +
-            `" checked class="me-2" required><label><input type="text" id="option-input" name="option" class="form-control" placeholder="Option" maxlength="100" required oninput="checkAnswerName(this);"></label>
+          radio_question_id +
+          `" checked class="me-2" required><label><input type="text" id="option-input" name="option" class="form-control" placeholder="Option" maxlength="100" required oninput="checkAnswerName(this);"></label>
                                             <span id="answer-error" class="ms-2 text-danger answer-error" style="font-size: 14px;"></span>
                                             </div>
                                         <div class="col-4">                             
@@ -111,8 +113,8 @@
                                     <div class="row mt-1 option-added" >
                                         <div class="col-8">
                                             <input type="radio" name="correct-ans` +
-            radio_question_id +
-            `"  class="me-2" required><label><input type="text" id="option-input" name="option" class="form-control" placeholder="Option" maxlength="100" required oninput="checkAnswerName(this);"></label>
+          radio_question_id +
+          `"  class="me-2" required><label><input type="text" id="option-input" name="option" class="form-control" placeholder="Option" maxlength="100" required oninput="checkAnswerName(this);"></label>
                                             <span id="answer-error" class="ms-2 text-danger answer-error" style="font-size: 14px;"></span>
                                         </div>
                                         <div class="col-4">                             
@@ -122,33 +124,33 @@
                                     </div>
                                 </li>`;
 
-          $(this).closest("#m-choice").after(_radio_question);
-          question_count_radio++;
-          radio_question_id++;
-        });
+        $(this).closest("#m-choice").after(_radio_question);
+        question_count_radio++;
+        radio_question_id++;
+      });
 
-        //Remove Question
-        $(document).on("click", ".question-remove", function () {
-          var question_row = $(this).closest(".m-choice");
-          let count = question_row.parent().find(".m-choice").length;
-          if (count > 1) {
-            question_row.remove();
-            question_count_radio--;
-          }
-        });
-        //Remove Option
-        $(document).on("click", ".btn.option-delete", function () {
-          var div_row = $(this).closest(".row");
-          let count = $(this).closest(".m-choice").find(".option-added").length;
-          if (count > 2) div_row.remove();
-        });
-      }); //This is end of docuemnt.ready
-    </script>
+      //Remove Question
+      $(document).on("click", ".question-remove", function () {
+        var question_row = $(this).closest(".m-choice");
+        let count = question_row.parent().find(".m-choice").length;
+        if (count > 1) {
+          question_row.remove();
+          question_count_radio--;
+        }
+      });
+      //Remove Option
+      $(document).on("click", ".btn.option-delete", function () {
+        var div_row = $(this).closest(".row");
+        let count = $(this).closest(".m-choice").find(".option-added").length;
+        if (count > 2) div_row.remove();
+      });
+    }); //This is end of docuemnt.ready
+  </script>
 
-    <script>
-      //Add other question
-      $(document).on("click", ".btn-other-question-add ", function () {
-        var _row = `
+  <script>
+    //Add other question
+    $(document).on("click", ".btn-other-question-add ", function () {
+      var _row = `
               <li class="card-body">
                 <div class="row  other-question mt-2">
                     <div class="col-8 mr-auto">
@@ -193,153 +195,154 @@
                     </div>
                 </div> 
               </li>`;
-        $(this).closest("li").after(_row);
+      $(this).closest("li").after(_row);
+    });
+
+    //Other Question delete
+    $(document).on("click", ".other-question-delete", function () {
+      let count = $(this).closest("li").parent().find(".row").length;
+      if (count > 1) $(this.closest("li").remove());
+    });
+  </script>
+
+  <!-- Check Exam Name -->
+  <script>
+    //Check Exam Name
+    function checkName() {
+      let examName = $('input[name="name"]').val();
+      let course_id = $('input[name="course-id"]').val();
+      $.ajax({
+        type: "GET",
+        url: "/admin/course/checkExamName",
+        data: { examName: examName, courseId: course_id },
+        success: function () {
+          $("#exam_name_error").text("Exam name already exists.");
+          $('#add_exam').attr("disabled", true);
+        },
+        error: function () {
+          $("#exam_name_error").text("");
+          $("#add_exam").removeAttr("disabled");
+        }
       });
+    }
 
-      //Other Question delete
-      $(document).on("click", ".other-question-delete", function () {
-        let count = $(this).closest("li").parent().find(".row").length;
-        if (count > 1) $(this.closest("li").remove());
-      });
-    </script>
-
-    <!-- Check Exam Name -->
-    <script>
-      //Check Exam Name
-      function checkName() {
-        let examName = $('input[name="name"]').val();
-        let course_id = $('input[name="course-id"]').val();
-        $.ajax({
-          type: "GET",
-          url: "/admin/course/checkExamName",
-          data: { examName: examName, courseId: course_id },
-          success: function () {
-            $("#exam_name_error").text("Exam name already exists.");
-            $('#add_exam').attr("disabled",true);
-          },
-          error: function () {
-            $("#exam_name_error").text("");
-            $("#add_exam").removeAttr("disabled");
-          }
-        });        
-      }
-
-      //Check Question Name
-      function checkQuestionName(e){
-        let current_question = e.closest(".m-choice, li.card-body"); 
-        let questions = $(current_question).siblings('.m-choice, li.card-body');
-        $(questions).each(function(){
-          if($(e).val() == $(this).find('textarea').val()){
-            $(current_question).find(".question-error-span").text("Questions shouldn't be same.");
-            return false;
-          }else{
-            $(current_question).find(".question-error-span").text("");
-          }
-        })
-        if ($(".question-error-span").text() !== "") {
-            $("#add_exam").attr("disabled", true);
-          } else {
-            $("#add_exam").removeAttr("disabled");
-          }
-      }
-
-      //Check Answer Name
-      function checkAnswerName(e) {
-        let current_option = e.closest(".option-added");
-        let options = $(current_option).siblings(".option-added");
-        $(options).each(function () {          
-          if ($(e).val() == $(this).find('input[name="option"]').val()) {
-            $(current_option)
-              .find(".answer-error")
-              .text("Answers shouldn't be same.");
-            return false;
-          } else {
-            $(current_option).find(".answer-error").text("");
-          }
-          
-        })
-        if ($(".answer-error").text() !== "") {
-            $("#add_exam").attr("disabled", true);
-          } else {
-            $("#add_exam").removeAttr("disabled");
-          }
-      }
-    </script>
-
-    <script>
-      $("#exam").submit(function (e) {
-        e.preventDefault();
-        let exam = {};
-        let course_id = $('input[name="course-id"]').val();
-        let name = $('input[name="name"]').val();
-        let hour = $('input[name="hour"]').val();
-        let minute = $('input[name="minute"]').val();
-        //let duration = {"hour": hour, "minute" : minute}
-        let duration = hour + ":" + minute;
-        let type = $('input[name="answer-type"]:checked').val();
-        let total_point = 0;
-        let questions = [];
-
-        if (type === "Multiple Choice") {
-          let multiple_choice_questions = $("#exam-content").find(".m-choice");
-          //Loop Multiple choice questions
-          $(multiple_choice_questions).each(function () {
-            let question = {}; //One Question
-            let point = $(this).find('input[name="point"]').val();
-            total_point += parseInt(point);
-            let text = $(this).find("textarea").val();
-            let answer_list = [];
-            let answer_loop = $(this).find(".option-added");
-            let correct_answer = $(answer_loop)
-              .find('input[type="radio"]:checked + label input')
-              .val();
-            $(answer_loop).each(function () {
-              let answer = $(this).find('input[name="option"]').val();
-              answer_list.push(answer);
-            }); // End answer loop
-            question["text"] = text;
-            question["point"] = point;
-            question["answer_list"] = answer_list;
-            question["correct_answer"] = correct_answer;
-            questions.push(question);
-          }); //End all multiple choice questions loop
+    //Check Question Name
+    function checkQuestionName(e) {
+      let current_question = e.closest(".m-choice, li.card-body");
+      let questions = $(current_question).siblings('.m-choice, li.card-body');
+      $(questions).each(function () {
+        if ($(e).val() == $(this).find('textarea').val()) {
+          $(current_question).find(".question-error-span").text("Questions shouldn't be same.");
+          return false;
         } else {
-          //For file upload question
-          let fileupload_question_loop =
-            $("#exam-content").find(".other-question");
-          $(fileupload_question_loop).each(function () {
-            let question = {};
-            let point = $(this).find('input[name="point"]').val();
-            let text = $(this).find('textarea[name="other-question"]').val();
-            total_point += parseInt(point);
-            question["text"] = text;
-            question["point"] = point;
-            questions.push(question);
-          });
+          $(current_question).find(".question-error-span").text("");
+        }
+      })
+      if ($(".question-error-span").text() !== "") {
+        $("#add_exam").attr("disabled", true);
+      } else {
+        $("#add_exam").removeAttr("disabled");
+      }
+    }
+
+    //Check Answer Name
+    function checkAnswerName(e) {
+      let current_option = e.closest(".option-added");
+      let options = $(current_option).siblings(".option-added");
+      $(options).each(function () {
+        if ($(e).val() == $(this).find('input[name="option"]').val()) {
+          $(current_option)
+            .find(".answer-error")
+            .text("Answers shouldn't be same.");
+          return false;
+        } else {
+          $(current_option).find(".answer-error").text("");
         }
 
-        exam["course_id"] = course_id;
-        exam["name"] = name;
-        exam["duration"] = duration;
-        exam["type"] = type;
-        exam["total_point"] = total_point;
-        exam["questions"] = questions;
+      })
+      if ($(".answer-error").text() !== "") {
+        $("#add_exam").attr("disabled", true);
+      } else {
+        $("#add_exam").removeAttr("disabled");
+      }
+    }
+  </script>
 
-        console.log(exam);
+  <script>
+    $("#exam").submit(function (e) {
+      e.preventDefault();
+      let exam = {};
+      let course_id = $('input[name="course-id"]').val();
+      let name = $('input[name="name"]').val();
+      let hour = $('input[name="hour"]').val();
+      let minute = $('input[name="minute"]').val();
+      //let duration = {"hour": hour, "minute" : minute}
+      let duration = hour + ":" + minute;
+      let type = $('input[name="answer-type"]:checked').val();
+      let total_point = 0;
+      let questions = [];
 
-        $.ajax({
-          type: "POST",
-          url: "/admin/course/exam-save",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          data: JSON.stringify(exam),
-          success: function () {
-            alert("Exam save successfully");
-            window.location.replace("courseDetail?radio=\"exam\"&courseId="+course_id);
-          },
+      if (type === "Multiple Choice") {
+        let multiple_choice_questions = $("#exam-content").find(".m-choice");
+        //Loop Multiple choice questions
+        $(multiple_choice_questions).each(function () {
+          let question = {}; //One Question
+          let point = $(this).find('input[name="point"]').val();
+          total_point += parseInt(point);
+          let text = $(this).find("textarea").val();
+          let answer_list = [];
+          let answer_loop = $(this).find(".option-added");
+          let correct_answer = $(answer_loop)
+            .find('input[type="radio"]:checked + label input')
+            .val();
+          $(answer_loop).each(function () {
+            let answer = $(this).find('input[name="option"]').val();
+            answer_list.push(answer);
+          }); // End answer loop
+          question["text"] = text;
+          question["point"] = point;
+          question["answer_list"] = answer_list;
+          question["correct_answer"] = correct_answer;
+          questions.push(question);
+        }); //End all multiple choice questions loop
+      } else {
+        //For file upload question
+        let fileupload_question_loop =
+          $("#exam-content").find(".other-question");
+        $(fileupload_question_loop).each(function () {
+          let question = {};
+          let point = $(this).find('input[name="point"]').val();
+          let text = $(this).find('textarea[name="other-question"]').val();
+          total_point += parseInt(point);
+          question["text"] = text;
+          question["point"] = point;
+          questions.push(question);
         });
+      }
+
+      exam["course_id"] = course_id;
+      exam["name"] = name;
+      exam["duration"] = duration;
+      exam["type"] = type;
+      exam["total_point"] = total_point;
+      exam["questions"] = questions;
+
+      console.log(exam);
+
+      $.ajax({
+        type: "POST",
+        url: "/admin/course/exam-save",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: JSON.stringify(exam),
+        success: function () {
+          alert("Exam save successfully");
+          window.location.replace("courseDetail?radio=\"exam\"&courseId=" + course_id);
+        },
       });
-    </script>
-  </body>
+    });
+  </script>
+</body>
+
 </html>

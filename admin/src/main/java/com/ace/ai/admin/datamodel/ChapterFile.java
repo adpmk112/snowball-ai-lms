@@ -36,8 +36,7 @@ public class ChapterFile implements Serializable  {
 
     @Transient
     public String getFilePath(){
-        if(name == null || chapter.getName() == null)return null;
-        return "../assets/chapterFiles/" + chapter.getName() + "/" +name;
-        //assets\chapterFiles\Japan\Dota 2_06-02-2022_22-31-32-304.mp4
+        if(name == null || chapter.getId() == 0)return null;
+        return "/assets/chapterFiles/" + chapter.getId() + "/" +name;
     }
 }
