@@ -9,11 +9,8 @@ import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-<<<<<<< HEAD
 import lombok.NoArgsConstructor;
-=======
 import javax.persistence.Column;
->>>>>>> 35bdc21ed9b2eb9d8f3352537c7b8c4a6d5e77e4
 
 @Entity
 @Data
