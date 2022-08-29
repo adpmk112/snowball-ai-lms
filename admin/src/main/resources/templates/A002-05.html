@@ -329,7 +329,6 @@
 
       console.log(exam);
 
-<<<<<<< HEAD
         $.ajax({
           type: "POST",
           url: "/admin/course/exam-save",
@@ -342,21 +341,8 @@
             window.location.replace("/admin/course/courseDetail?radio=\"exam\"&courseId="+course_id);
           },
         });
-=======
-      $.ajax({
-        type: "POST",
-        url: "/admin/course/exam-save",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        data: JSON.stringify(exam),
-        success: function () {
-          alert("Exam save successfully");
-          window.location.replace("courseDetail?radio=\"exam\"&courseId=" + course_id);
-        },
->>>>>>> 35bdc21ed9b2eb9d8f3352537c7b8c4a6d5e77e4
+
       });
-    });
   </script>
 </body>
 

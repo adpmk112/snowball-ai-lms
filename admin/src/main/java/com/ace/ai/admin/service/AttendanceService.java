@@ -55,11 +55,20 @@ public class AttendanceService {
             }
 
         }
+
+        // log.info(attendanceDTOList.get(2).getDate() + " "
+        //         + attendanceDTOList.get(2).getStudentName() + " "
+        //         + attendanceDTOList.get(2).getAttendStatus());
+
+
         
        /*  log.info(attendanceDTOList.get(2).getDate() + " "
                 + attendanceDTOList.get(2).getStudentName() + " "
                 + attendanceDTOList.get(2).getAttendStatus());
         */
+
+
+
 
         return attendanceDTOList;
     }
