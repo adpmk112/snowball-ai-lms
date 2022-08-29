@@ -59,7 +59,7 @@ public class CourseService {
         return adminChapterDTOList;
     }
 
-    public void saveAllFilesList(ChapterFile file) {
+    public void saveFile(ChapterFile file) {
         // Save all the files into database
     
         
@@ -72,12 +72,7 @@ public class CourseService {
         return chapterRepository.save(chapter);
     }
 
-    public void editChapter(int chapterId,String chapterName){
-        Chapter chapter = new Chapter();
-        chapter.setId(chapterId);
-        chapter.setName(chapterName);
-        chapterRepository.save(chapter);
-    }
+    
 
     public List<Course> getAllCourse(){
         return courseRepository.findAll();
@@ -97,7 +92,7 @@ public class CourseService {
         return chapterListDTO;
     }
 
-    public List<ChapterFileDTO> getChpaterFile(int chapterId){
+    public List<ChapterFileDTO> getChapterFile(int chapterId){
         List<ChapterFileDTO> chapterFileListDTO  = new ArrayList<>();
         List<ChapterFile> chapterFileList = chapterFileRepository.findByChapterIdAndDeleteStatus(chapterId,0);
         for(ChapterFile chapterFile : chapterFileList ){
@@ -113,6 +108,11 @@ public class CourseService {
         return chapterFileListDTO;
     }
 
+    public ChapterFile getOneChapterFile(int chapterId){
+        ChapterFile chapterFile = chapterFileRepository.findById(chapterId);
+        return chapterFile;
+    }
+
     public void saveCourse(String courseName){
         Course course = new Course();
         course.setName(courseName);
@@ -121,11 +121,18 @@ public class CourseService {
     }
 
     public void editCourse(String courseName,int courseId){
-        Course course = new Course();
-        course.setId(courseId);
+        Course course = courseRepository.findById(courseId).get();
         course.setName(courseName);
         courseRepository.save(course);
     }
+
+    public void editChapter(int chapterId,String chapterName){
+        Chapter chapter = chapterRepository.findById(chapterId).get();
+        chapter.setName(chapterName);
+        chapterRepository.save(chapter);
+    }
+
+    // public void edit
 
     public int getChapterId(String chapterName){
         Chapter chapter = chapterRepository.findByName(chapterName);
@@ -168,5 +175,10 @@ public class CourseService {
         Chapter chapter = chapterRepository.findById(chapterId).get();
         chapter.setDeleteStatus(1);
         chapterRepository.save(chapter);
+        List<ChapterFile> chapterFileList= chapterFileRepository.findByChapterIdAndDeleteStatus(chapter.getId(), 0);
+            for(ChapterFile chapterFile : chapterFileList){
+                chapterFile.setDeleteStatus(1);
+                chapterFileRepository.save(chapterFile);
+            }
     }
 }

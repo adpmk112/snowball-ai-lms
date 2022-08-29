@@ -81,17 +81,18 @@
                     <td>
                       <div class="embed-responsive embed-responsive-16by9">
                         <video class="video-fluid z-depth-1" autoplay controls>
-                          <source th:src="@{${chapterFile.filePath}}" type="video/mp4"/>
+                          <source th:src="@{\assets\chapterFiles\PKaR\Dota 2_05-31-2022_3-34-48-297.mp4}" type="video/mp4"/>
                         </video>
                       </div>
-                     
+                     <!-- return "/assets/img/" + code + "/" +photo;
+                      <img th:src="@{/assets/img/1/3197515e62a49e8328ffb29637e1d8f5.jpg}" alt="teacher photo" id="teacherimage">  -->
                     <td>
                       <a th:href="@{/admin/course/chapter/chapterFile/edit(chapterFileId=${chapterFile.id})}"
                         class="btn btn-outline-primary btn-floating" data-bs-toggle="modal" data-bs-target="#edit-file"
                         data-mdb-ripple-color="dark">
                         <i class="fa-regular fa-pen-to-square"></i>
                       </a>
-                      <a th:href="@{/admin/course/chapter/chapterFile/delete(chapterFileId=${chapterFile.id})}"
+                      <a th:href="@{/admin/course/chapter/chapterFile/delete(chapterFileId=${chapterFile.id},chapterId=${})}"
                         class="btn delete-chapter-file btn-outline-danger btn-floating" data-mdb-ripple-color="dark">
                         <i class="fa-solid fa-circle-minus"></i>
                       </a>
