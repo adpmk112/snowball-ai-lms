@@ -29,6 +29,7 @@ import com.ace.ai.admin.datamodel.Course;
 import com.ace.ai.admin.datamodel.ExamForm;
 import com.ace.ai.admin.dtomodel.AdminChapterDTO;
 import com.ace.ai.admin.dtomodel.ChapterFileDTO;
+import com.ace.ai.admin.dtomodel.CourseDTO;
 import com.ace.ai.admin.dtomodel.FileUploadDTO;
 import com.ace.ai.admin.repository.ChapterFileRepository;
 import com.ace.ai.admin.repository.CourseRepository;
@@ -156,7 +157,14 @@ public class CourseController {
         List<Course> allCourse = courseService.getAllCourse();
         String courseCount = "Total : " + allCourse.size();
         model.addAttribute("courseCount", courseCount);
-        return new ModelAndView("A002", "courseList", allCourse);
+        model.addAttribute("courseList",allCourse);
+        return new ModelAndView("A002", "courseDTO", new CourseDTO());
+    }
+
+    @PostMapping("/add")
+    public String addCourse(@ModelAttribute("courseDTO") CourseDTO courseDTO, Model modal) {
+        courseService.saveCourse(courseDTO.getName());
+        return "redirect:/admin/course";
     }
 
     @GetMapping("/chapter/chapterFile")
@@ -169,7 +177,7 @@ public class CourseController {
             System.out.println( chapterFileDTO.getFilePath());
         }
         model.addAttribute("chapterId", id);
-        
+
         return new ModelAndView("A002-03", "chapterFileList", chapterFileList);
     }
 
@@ -193,10 +201,7 @@ public class CourseController {
         return "A002-01";
     }
 
-    @PostMapping("/add")
-    public String addCourse() {
-        return "";
-    }
+    
 
     @GetMapping("/chapter/chapterFile/delete")
     public String deleteChapterFile(@RequestParam("chapterId") int chapterId,@RequestParam("chapterFileId")int chapterFileId,ModelMap model){
