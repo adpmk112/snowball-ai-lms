@@ -67,7 +67,20 @@
           content: 'Are you sure to remove?',
           animation: 'Scale',
           buttons: {
-            Yes: function () {},
+            Yes: function () {
+                $.ajax({
+                    type: "GET",
+                    url: "../RemoveTeacher",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: {batchId: batchId,code:code},
+                    success: function () {
+                        window.location = '/batchSeeMore?id=' + batchId;
+                    },
+                    error: function () {}
+
+                })
+            },
             No: function () {},
           },
         });
