@@ -121,8 +121,8 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="studentDTO: ${studentDTOList}" >
-                                    <td name="" th:text="${studentDTO.code}"></td>
+                                <tr th:each="studentDTO,status: ${studentDTOList}" >
+                                    <td  th:text="${studentDTO.code}"></td>
                                     <td th:text="${studentDTO.name}"></td>
                                     <td th:text="${studentDTO.password}"></td>
                                     <td th:text="${studentDTO.attendance}"></td>
@@ -132,11 +132,11 @@
                                                 data-mdb-ripple-color="dark">
                                             <i  class="fa-regular fa-pen-to-square"></i>
                                         </a>
-                                        <a th:href="@{/removeStudentFromBatch}"
+                                        <a th:id="${batch_id}+'_'+${studentDTO.code}"
                                                 class="btn btn-outline-danger btn-floating remove-student"
                                                 data-mdb-ripple-color="dark"
                                         >
-                                            <input type="hidden" th:id="batchId" name="batchId" th:value="${batch_id}">
+
                                             <i class="fa-solid fa-circle-minus"></i>
                                         </a>
                                     </td>
