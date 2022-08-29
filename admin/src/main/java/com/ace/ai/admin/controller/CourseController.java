@@ -176,7 +176,7 @@ public class CourseController {
     @GetMapping("/courseDetail")
     public String getCourseDetail(@RequestParam("courseId") int courseId, ModelMap model, @RequestParam("radio") String radio) {
         List<ExamForm> exams = examFormService.findByDeleteStatusAndCourseId(false, courseId);
-        model.addAttribute("radioButton", "exam");
+        model.addAttribute("radioButton", radio);
         model.addAttribute("examList", exams);
         model.addAttribute("courseId", courseId);
         // Add Chapters
