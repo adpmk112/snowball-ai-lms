@@ -245,4 +245,14 @@ public class BatchController {
 
     }
 
+    //Remove Exam Schedule
+    @GetMapping("/removeExamSchedule/{id}")
+    public String removeExamSchedule(@PathVariable("id") int id){
+        //update delete status
+        BatchExamForm bef = examScheduleService.findById(id);
+        bef.setDeleteStatus(true);
+        examScheduleService.saveBathExamFrom(bef);
+        int batch_id = bef.getBatch().getId();
+        return "redirect:/batchSeeMore?id="+batch_id;
+    }
 }

@@ -57,7 +57,7 @@
                   No: function () {},
               },
           });
-        //<!-- For exam-schedule delete confirm -->
+        
         $('a.remove-teacher').confirm({
           closeIcon: true,
           theme: 'Material',
@@ -84,7 +84,10 @@
             No: function () {},
           },
         });
-
+        //<!-- For exam-schedule delete confirm -->
+        $('a.remove-exam').on("click",function(){
+          window.exam_schedule_id = $(this).attr("id");          
+        })
         $('a.remove-exam').confirm({
           closeIcon: true,
           theme: 'Material',
@@ -94,7 +97,9 @@
           content: 'Are you sure to remove this exam?',
           animation: 'Scale',
           buttons: {
-            Yes: function () {},
+            Yes: function () {
+              window.location = "/removeExamSchedule/"+exam_schedule_id;
+            },
             No: function () {},
           },
         });
