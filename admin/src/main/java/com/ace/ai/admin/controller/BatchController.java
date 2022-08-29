@@ -168,8 +168,10 @@ public class BatchController {
         return "A003-04";
     }
 
-    @PostMapping("/saveStudent")
+
+
     @ResponseBody
+    @PostMapping("saveStudent")
     public void saveStudent(@RequestBody ArrayList<StudentDTO> studentList) {
         batchService.saveStudent(studentList);
     }
@@ -215,6 +217,7 @@ public class BatchController {
         return ResponseEntity.notFound().build();
     }
 
+
     @PostMapping("/addTeacherToExistingBatch")
     public String addTeacherToBatch(@RequestParam String code, @RequestParam Integer batchId) {
         batchService.addTeacherByCodeAndBatchId(code, batchId);
@@ -235,7 +238,9 @@ public class BatchController {
     @ResponseBody
     public ResponseEntity removeStudent(Model model, @RequestParam("batchId") Integer batchId,@RequestParam("code")String code) {
           batchService.UpdateStudentByBatchIdAndCode(batchId,code);
+
             return ResponseEntity.ok(HttpStatus.OK);
+       
     }
 
 }
