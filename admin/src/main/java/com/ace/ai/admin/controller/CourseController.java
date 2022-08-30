@@ -57,16 +57,18 @@ public class CourseController {
     @PostMapping("/chapter/addpost")
     public String uploadMultipartFile(@ModelAttribute("fileUploadDTO") FileUploadDTO fileUploadDTO, Model modal) {
         try {
-            // Declare empty list for collect the files data
-            // which will come from UI
-            Chapter chapter = new Chapter();
+            System.out.println(fileUploadDTO);
+            
             Course course = new Course();
             course.setId(fileUploadDTO.getCourseId());
+
+            Chapter chapter = new Chapter();
             chapter.setCourse(course);
             chapter.setName(fileUploadDTO.getName());
-            Chapter chapterSaved = courseService.saveChapter(chapter);
 
-            int chapterId = courseService.getChapterId(chapterSaved.getName());
+            courseService.saveChapter(chapter);
+            int chapterId = courseService.getChapterId(fileUploadDTO.getName());
+            System.out.println("chapterid = "+ chapterId);
             Chapter toSetChapterId = new Chapter();
             toSetChapterId.setId(chapterId);
 
@@ -78,6 +80,7 @@ public class CourseController {
                 chapterFile.setName(fileName);
                 chapterFile.setFileType(fileType);
                 chapterFile.setChapter(toSetChapterId);
+                System.out.println(chapterFile);
                 courseService.saveFile(chapterFile);
             }
             for (MultipartFile pdf : fileUploadDTO.getPdf()) {
@@ -88,6 +91,7 @@ public class CourseController {
                 chapterFile.setName(fileName);
                 chapterFile.setFileType(fileType);
                 chapterFile.setChapter(toSetChapterId);
+                System.out.println(chapterFile);
                 courseService.saveFile(chapterFile);
             }
 
@@ -100,6 +104,7 @@ public class CourseController {
                 chapterFile.setName(fileName);
                 chapterFile.setFileType(fileType);
                 chapterFile.setChapter(toSetChapterId);
+                System.out.println(chapterFile);
                 courseService.saveFile(chapterFile);
             }
 
@@ -229,6 +234,11 @@ public class CourseController {
         
     }
     
+    @PostMapping("/editpost")
+    public String editCourse(@ModelAttribute("courseDTO") CourseDTO courseDTO,ModelMap model){
+        courseService.editCourse(courseDTO.getName(), courseDTO.getId());
+        return "redirect:/admin/course";
+    }
     // @GetMapping("/chapter/chapterFile/edit")
     // public ModelAndView getChapterFileToEdit(@RequestParam("chapterFileId")int id,ModelMap model){
     //     courseService.(id);

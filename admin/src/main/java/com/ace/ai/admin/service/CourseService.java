@@ -76,7 +76,7 @@ public class CourseService {
     
 
     public List<Course> getAllCourse(){
-        return courseRepository.findAll();
+        return courseRepository.findByDeleteStatus(false);
         
     }
 
@@ -150,7 +150,7 @@ public class CourseService {
     public void deleteChapterFile(int chapterFileId){
         ChapterFile chapterFile = chapterFileRepository.findById(chapterFileId);
         chapterFile.setDeleteStatus(1);
-        chapterFileRepository.delete(chapterFile);
+        chapterFileRepository.save(chapterFile);
     }
 
     public void deleteCourse(int courseId){
