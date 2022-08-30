@@ -199,10 +199,6 @@ $(document).on("click", ".btn.btn-chapter-edit", function(e){
         }else{
           alert("Start date can't be bigger!")
         }
-
-      
-      
-    
         }
         })
 

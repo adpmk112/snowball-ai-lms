@@ -27,7 +27,7 @@
       $(document).ready(function () {
           $(document).on('click', 'a.remove-student', function() {
               window.batchId=$(this).attr('id').split("_")[0];
-              window.code=$(this).attr('id').split("_")[1];
+              window.studentId=$(this).attr('id').split("_")[1];
 
           });
           $('a.remove-student').confirm({
@@ -45,7 +45,7 @@
                           url: "../RemoveStudent",
                           contentType: "application/json; charset=utf-8",
                           dataType: "json",
-                          data: {batchId: batchId,code:code},
+                          data: {batchId: batchId,studentId:studentId},
                           success: function () {
                               window.location = '/batchSeeMore?id=' + batchId;
                           },
@@ -58,7 +58,11 @@
               },
           });
         //<!-- For exam-schedule delete confirm -->
+         window.teacherId= document.getElementById('teacherId').value;
+                window.batch_id=teacherId.split("_")[1];
+                window.teId=teacherId.split("_")[0];
         $('a.remove-teacher').confirm({
+
           closeIcon: true,
           theme: 'Material',
           //icon: 'fa-solid fa-warning',
@@ -73,9 +77,9 @@
                     url: "../RemoveTeacher",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    data: {batchId: batchId,code:code},
+                    data:{teacherId:teacherId},
                     success: function () {
-                        window.location = '/batchSeeMore?id=' + batchId;
+                        window.location = '/batchSeeMore?id=' + batch_id;
                     },
                     error: function () {}
 
@@ -127,6 +131,27 @@
           },
         });
       })
+
+
+      function addTeacherToBatch(){
+          window.bId= document.getElementById('bId').value;
+         window.tId=document.getElementById('tId').value;
+          $.ajax({
+              type: "GET",
+              url: "../addTeacherToBatch",
+              contentType: "application/json; charset=utf-8",
+              dataType: "json",
+              data:{bId:bId,tId:tId},
+              success: function () {
+                  window.location = '/batchSeeMore?id=' + bId;
+              },
+              error: function () {}
+
+          })
+
+      }
+
+
     </script>
   </body>
 </html>
