@@ -380,7 +380,7 @@
                             <div class="add-list">
                                 <label>Add Class</label>
                                 <a
-                                        th:href="@{/addClassroom}"
+                                        th:href="@{/setupClassroomAdd/{batch_id}(batch_id = ${batch_id})}"
                                         class="btn btn-outline-success btn-floating"
                                         data-mdb-ripple-color="dark"
                                 >

@@ -1,19 +1,27 @@
 package com.ace.ai.admin.service;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ace.ai.admin.datamodel.Classroom;
+import com.ace.ai.admin.datamodel.TeacherBatch;
 import com.ace.ai.admin.dtomodel.ClassroomDTO;
+import com.ace.ai.admin.repository.BatchRepository;
 import com.ace.ai.admin.repository.ClassRoomRepository;
+import com.ace.ai.admin.repository.TeacherBatchRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,6 +31,12 @@ public class ClassRoomService {
     
     @Autowired
     ClassRoomRepository classRoomRepository;
+
+    @Autowired
+    TeacherBatchRepository teacherBatchRepository;
+
+    @Autowired
+    BatchRepository batchRepository;
 
     public List<ClassroomDTO> showClassroomTable(Integer batchId){
 
@@ -37,7 +51,6 @@ public class ClassRoomService {
 
         for(Classroom classroom: classroomList){
             ClassroomDTO classroomDTO = new ClassroomDTO();
-            log.info(classroom.getDate());
             classroomDTO.setDate(LocalDate.parse(classroom.getDate(),df));
             classroomDTO.setLink(classroom.getLink());
             classroomDTO.setRecordedVideo(classroom.getRecordVideo());
@@ -74,4 +87,53 @@ public class ClassRoomService {
          
         return classroomDTOList;
     } 
+
+    public List<ClassroomDTO> fetchTeacherListForClassroom(Integer batchId){
+        List<TeacherBatch> teacherNameList = teacherBatchRepository.findByBatchId(batchId);
+        List<ClassroomDTO> classroomDTOforTeacherList = new ArrayList<>();
+
+        for(TeacherBatch teacherBatch : teacherNameList){
+            ClassroomDTO classroomDTOforTeacher = new ClassroomDTO();
+
+            classroomDTOforTeacher.setTeacherName(teacherBatch.getTeacher().getName());
+            classroomDTOforTeacher.setBatchId(batchId);
+            classroomDTOforTeacherList.add(classroomDTOforTeacher);
+        }
+
+        return classroomDTOforTeacherList;
+    }
+
+    public static String englishTime(String input)
+    throws ParseException
+{
+
+    // Format of the date defined in the input String
+    DateFormat dateFormat
+        = new SimpleDateFormat("hh:mm:ss aa");
+   
+    // Change the pattern into 24 hour format
+    DateFormat format
+        = new SimpleDateFormat("HH:mm:ss");
+    Date time = null;
+    String output = "";
+   
+    // Converting the input String to Date
+    time = dateFormat.parse(input);
+   
+    // Changing the format of date
+    // and storing it in
+    // String
+    output = format.format(time);
+    return output;
+}
+
+    public void createClassroom(ClassroomDTO classroomDTO) throws ParseException{
+        Classroom classroom = new Classroom();
+        classroom.setDate(classroomDTO.getDate().toString());
+        classroom.setLink(classroomDTO.getLink());
+        classroom.setBatch(batchRepository.findBatchById(classroomDTO.getBatchId()));
+        classroom.setStartTime(englishTime(classroomDTO.getStartTime().toString()));
+        classroom.setEndTime(englishTime(classroomDTO.getEndTime().toString()));
+        classRoomRepository.save(classroom);
+    }
 }

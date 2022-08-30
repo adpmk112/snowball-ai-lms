@@ -16,5 +16,6 @@ public class ClassroomDTO {
     private LocalDateTime endDateTime;
     private String teacherName;
     private String status;
+    private Integer batchId;
     private String recordedVideo;
 }

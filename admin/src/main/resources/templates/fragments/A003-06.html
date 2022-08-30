@@ -50,7 +50,7 @@
             </a>
           </div>
 
-          <form class="py-3" style="max-width: 500px;">
+          <form class="py-3" style="max-width: 500px;" method="POST" action="/createClassroom" th:object="${classroomDTO}">
             <div class="row">
               <label class="mb-3 text-center" for="id">
                 <h3 class="text-dark">Add Live Classes</h3>
@@ -59,11 +59,14 @@
             <div class="row mb-3">
               <label class="col-sm-4" for="id">Teacher name:</label>
               <div class="col-sm-8">
-              <select
-                    class="form-control"
-              >
-                <option selected value="teacher-name">Teacher-name</option>
-                <option value="Azz">Azz</option>
+              <select class="form-control" id="teacherNameDropDownList" th:field="*{teacherName}">
+                <option th:value="0">Select Teacher</option>
+                <option th:each="teacher : ${teacherList}" th:value="${teacher.teacherName}"
+                th:text="${teacher.teacherName}"
+                > 
+                <input type="hidden" th:field="*{batchId}" th:value="${teacher.batchId}"></input>
+                </option>
+                
               </select>
             </div>
             </div>
@@ -76,6 +79,7 @@
                   id="name"
                   placeholder="Enter Date"
                   name="date"
+                  th:field="*{date}"
                 />
               </div>
             </div>
@@ -86,6 +90,7 @@
                   type="time"
                   class="form-control"
                   id="datetime"
+                  th:field="*{startTime}"
                 />
               </div>
             </div>
@@ -96,6 +101,7 @@
                   type="time"
                   class="form-control"
                   id="datetime"
+                  th:field="*{endTime}"
                 />
               </div>
             </div>
@@ -110,6 +116,7 @@
                   id="name"
                   placeholder="Enter Link"
                   name="link"
+                  th:field="*{link}"
                 />
               </div>
             </div>
