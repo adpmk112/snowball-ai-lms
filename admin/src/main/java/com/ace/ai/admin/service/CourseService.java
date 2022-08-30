@@ -181,4 +181,8 @@ public class CourseService {
                 chapterFileRepository.save(chapterFile);
             }
     }
+
+    public Chapter getChapterById(int chapterId){
+        return chapterRepository.findById(chapterId).get();
+    }
 }

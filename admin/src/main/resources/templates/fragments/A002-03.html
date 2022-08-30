@@ -22,18 +22,18 @@
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                      <a class="text-decoration-none" href="A002.html">
+                      <a class="text-decoration-none" href="/admin/course">
                         Course List
                       </a>
                     </li>
                     <li class="breadcrumb-item">
-                      <a class="text-decoration-none" href="A002-01.html">
+                      <a class="text-decoration-none" th:href="@{/admin/course/courseDetail(courseId=${courseId},radio='chapter')}">
                         Course Details
                       </a>
                     </li>
                     <li class="breadcrumb-item">
                       <a class="text-decoration-none" href="A002-03.html">
-                        Chapter Details
+                        Chapter File List
                       </a>
                     </li>
                   </ol>
@@ -67,7 +67,7 @@
                       <td th:text="${chapterFile.fileType}"></td>
                       <td th:if="${chapterFile.fileType == 'video'}">
 
-                        <video autoplay controls controlsList="nodownload" width="130" height="75">
+                        <video controls controlsList="nodownload" width="130" height="75">
                           <source th:src="@{${'/assets/img/chapterFiles/'+chapterId+'/'+chapterFile.name}}" />
 
                         </video>

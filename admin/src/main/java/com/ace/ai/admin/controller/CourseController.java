@@ -29,6 +29,7 @@ import com.ace.ai.admin.datamodel.Course;
 import com.ace.ai.admin.datamodel.ExamForm;
 import com.ace.ai.admin.dtomodel.AdminChapterDTO;
 import com.ace.ai.admin.dtomodel.ChapterFileDTO;
+import com.ace.ai.admin.dtomodel.ChapterRenameDTO;
 import com.ace.ai.admin.dtomodel.CourseDTO;
 import com.ace.ai.admin.dtomodel.FileUploadDTO;
 import com.ace.ai.admin.repository.ChapterFileRepository;
@@ -73,6 +74,7 @@ public class CourseController {
             toSetChapterId.setId(chapterId);
 
             for (MultipartFile video : fileUploadDTO.getVideo()) {
+                if (!video.isEmpty()) {
                 ChapterFile chapterFile = new ChapterFile();
                 String fileType = "video";
                 String fileName = video.getOriginalFilename();
@@ -82,8 +84,10 @@ public class CourseController {
                 chapterFile.setChapter(toSetChapterId);
                 System.out.println(chapterFile);
                 courseService.saveFile(chapterFile);
+                }
             }
             for (MultipartFile pdf : fileUploadDTO.getPdf()) {
+                if (!pdf.isEmpty()) {
                 ChapterFile chapterFile = new ChapterFile();
                 String fileType = "pdf";
                 String fileName = pdf.getOriginalFilename();
@@ -93,9 +97,11 @@ public class CourseController {
                 chapterFile.setChapter(toSetChapterId);
                 System.out.println(chapterFile);
                 courseService.saveFile(chapterFile);
+                }
             }
 
             for (MultipartFile assignment : fileUploadDTO.getAssignment()) {
+                if (!assignment.isEmpty()) {
                 ChapterFile chapterFile = new ChapterFile();
 
                 String fileName = assignment.getOriginalFilename();
@@ -106,6 +112,7 @@ public class CourseController {
                 chapterFile.setChapter(toSetChapterId);
                 System.out.println(chapterFile);
                 courseService.saveFile(chapterFile);
+                }
             }
 
             String uploadDir = "./assets/img/chapterFiles/" + chapterId;
@@ -166,6 +173,27 @@ public class CourseController {
         return new ModelAndView("A002", "courseDTO", new CourseDTO());
     }
 
+     // All Course And Exams need to add request param "courseId" and "radio"
+     @GetMapping("/courseDetail")
+     public String getCourseDetail(@RequestParam("courseId") int courseId, ModelMap model, @RequestParam("radio") String radio) {
+         List<ExamForm> exams = examFormService.findByDeleteStatusAndCourseId(false, courseId);
+         model.addAttribute("radioButton", radio);
+         model.addAttribute("examList", exams);
+         model.addAttribute("courseId", courseId);
+         model.addAttribute("courseName", courseService.getById(courseId).getName());
+         // Add Chapters
+         List<AdminChapterDTO> chapterList = courseService.getCourseDetail(courseId);
+         for (AdminChapterDTO adminChapterDTO : chapterList) {
+             adminChapterDTO.setTotalFile(courseService.getChapterFileCount(adminChapterDTO.getId()));
+         }
+         String courseCount = "Total : " + courseService.getAllCourse().size();
+         model.addAttribute("courseCount", courseCount);
+         model.addAttribute("chapterList", chapterList);
+         System.out.println("exam length => "+ exams.size());
+         System.out.println("course length => "+ chapterList.size());
+         return "A002-01";
+     }
+
     @PostMapping("/add")
     public String addCourse(@ModelAttribute("courseDTO") CourseDTO courseDTO, Model modal) {
         courseService.saveCourse(courseDTO.getName());
@@ -178,32 +206,12 @@ public class CourseController {
         String courseCount = "Total : " + allCourse.size();
         model.addAttribute("courseCount", courseCount);
        List<ChapterFileDTO> chapterFileList = courseService.getChapterFile(id);
+       int courseId = courseService.getChapterById(id).getCourse().getId();
+       model.addAttribute("courseId", courseId);
         model.addAttribute("chapterId", id);
         model.addAttribute("chapterFileDTO",new ChapterFileDTO());
         return new ModelAndView("A002-03", "chapterFileList", chapterFileList);
     }
-
-    // All Course And Exams need to add request param "courseId" and "radio"
-    @GetMapping("/courseDetail")
-    public String getCourseDetail(@RequestParam("courseId") int courseId, ModelMap model, @RequestParam("radio") String radio) {
-        List<ExamForm> exams = examFormService.findByDeleteStatusAndCourseId(false, courseId);
-        model.addAttribute("radioButton", radio);
-        model.addAttribute("examList", exams);
-        model.addAttribute("courseId", courseId);
-        // Add Chapters
-        List<AdminChapterDTO> chapterList = courseService.getCourseDetail(courseId);
-        for (AdminChapterDTO adminChapterDTO : chapterList) {
-            adminChapterDTO.setTotalFile(courseService.getChapterFileCount(adminChapterDTO.getId()));
-        }
-        String courseCount = "Total : " + courseService.getAllCourse().size();
-        model.addAttribute("courseCount", courseCount);
-        model.addAttribute("chapterList", chapterList);
-        System.out.println("exam length => "+ exams.size());
-        System.out.println("course length => "+ chapterList.size());
-        return "A002-01";
-    }
-
-    
 
     @GetMapping("/chapter/chapterFile/delete")
     public String deleteChapterFile(@RequestParam("chapterFileId")int chapterFileId,ModelMap model){
@@ -212,15 +220,20 @@ public class CourseController {
         List<Course> allCourse = courseService.getAllCourse();
         String courseCount = "Total : " + allCourse.size();
         model.addAttribute("courseCount", courseCount);
-       List<ChapterFileDTO> chapterFileList = courseService.getChapterFile(chapterId);
+      
         
         return "redirect:/admin/course/chapter/chapterFile?chapterId=" + chapterId;
     }
 
     @GetMapping("/chapter/delete")
     public String deleteChapter(@RequestParam("chapterId")int id,ModelMap model){
+        int courseId = courseService.getChapterById(id).getCourse().getId();
         courseService.deleteChapter(id);
-        return "A002-01";
+        List<Course> allCourse = courseService.getAllCourse();
+        String courseCount = "Total : " + allCourse.size();
+        model.addAttribute("courseCount", courseCount);
+
+        return "redirect:/admin/course/courseDetail?courseId=" + courseId + "&radio=chapter";
     }
     
     @GetMapping("/delete")
@@ -238,6 +251,12 @@ public class CourseController {
     public String editCourse(@ModelAttribute("courseDTO") CourseDTO courseDTO,ModelMap model){
         courseService.editCourse(courseDTO.getName(), courseDTO.getId());
         return "redirect:/admin/course";
+    }
+
+    @PostMapping("/chapter/editpost")
+    public String editChapter(@ModelAttribute("chapterRenameDTO") ChapterRenameDTO chapterRenameDTO,ModelMap model){
+        courseService.editChapter(chapterRenameDTO.getId(), chapterRenameDTO.getName());;
+        return "redirect:/admin/course/courseDetail?courseId=" + chapterRenameDTO.getCourseId() + "&radio=chapter";
     }
     // @GetMapping("/chapter/chapterFile/edit")
     // public ModelAndView getChapterFileToEdit(@RequestParam("chapterFileId")int id,ModelMap model){
