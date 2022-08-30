@@ -12,7 +12,7 @@ public class ChapterFileDTO {
     private  String fileType;
     private MultipartFile file;
     private int deleteStatus;
-    private String filePath;
+    private int chapterId;
 
    
 }

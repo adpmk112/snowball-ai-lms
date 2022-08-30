@@ -42,11 +42,11 @@
     })
   </script> -->
   <script>
-    $(document).on("click",'a.delete-chapterFile',function(){
-      window.chapterId=$(this).attr('id');
+    $(document).on("click",'a.remove-chapterFile',function(){
+      window.chapterFileId=$(this).attr('id');
     })
     $(document).ready(function () {
-      $('a.delete-chapterFile').confirm({
+      $('a.remove-chapterFile').confirm({
         closeIcon: true,
         theme: 'Material',
         //icon: 'fa-solid fa-warning',
@@ -57,7 +57,7 @@
         buttons: {
           Yes: function () {        
             // /admin/course/chapter/chapterFile/delete(chapterFileId=${chapterFile.id},chapterId=${chapterId})      
-            window.location = `/admin/course/chapter/chapterFile/delete`+teacherId;
+            window.location = `/admin/course/chapter/chapterFile/delete?chapterFileId=`+chapterFileId;
           },
           No: function () {},
         },

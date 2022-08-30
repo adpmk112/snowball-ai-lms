@@ -173,11 +173,8 @@ public class CourseController {
         String courseCount = "Total : " + allCourse.size();
         model.addAttribute("courseCount", courseCount);
        List<ChapterFileDTO> chapterFileList = courseService.getChapterFile(id);
-        for(ChapterFileDTO chapterFileDTO : chapterFileList){
-            System.out.println( chapterFileDTO.getFilePath());
-        }
         model.addAttribute("chapterId", id);
-
+        model.addAttribute("chapterFileDTO",new ChapterFileDTO());
         return new ModelAndView("A002-03", "chapterFileList", chapterFileList);
     }
 
@@ -204,15 +201,13 @@ public class CourseController {
     
 
     @GetMapping("/chapter/chapterFile/delete")
-    public String deleteChapterFile(@RequestParam("chapterId") int chapterId,@RequestParam("chapterFileId")int chapterFileId,ModelMap model){
+    public String deleteChapterFile(@RequestParam("chapterFileId")int chapterFileId,ModelMap model){
+        int chapterId = courseService.getOneChapterFile(chapterFileId).getChapter().getId();
         courseService.deleteChapterFile(chapterFileId);
         List<Course> allCourse = courseService.getAllCourse();
         String courseCount = "Total : " + allCourse.size();
         model.addAttribute("courseCount", courseCount);
        List<ChapterFileDTO> chapterFileList = courseService.getChapterFile(chapterId);
-        for(ChapterFileDTO chapterFileDTO : chapterFileList){
-            System.out.println( chapterFileDTO.getFilePath());
-        }
         
         return "redirect:/admin/course/chapter/chapterFile?chapterId=" + chapterId;
     }
@@ -240,23 +235,64 @@ public class CourseController {
     //     return "A002-03";
     // }
 
-    @GetMapping("/chapter/chapterFile/edit")
-    public ModelAndView getEditChapterFile(@RequestParam("chapterFileId") int id,ModelMap model){
-            return new ModelAndView("","chapterFile",courseService.getOneChapterFile(id));
-    }
+    // @GetMapping("/chapter/chapterFile/edit")
+    // public ModelAndView getEditChapterFile(@RequestParam("chapterFileId") int id,ModelMap model){
+    //         return new ModelAndView("","chapterFile",courseService.getOneChapterFile(id));
+    // }
+
+        @PostMapping("/chapter/chapterFile/addpost")
+        public String addChapterFile(@ModelAttribute("chapterFile") ChapterFileDTO chapterFileDTO,ModelMap model) throws IOException{
+            Chapter chapter = new Chapter();
+        chapter.setId(chapterFileDTO.getChapterId());
+            ChapterFile chapterFile = new ChapterFile();
+            chapterFile.setChapter(chapter);
+            chapterFile.setFileType(chapterFileDTO.getFileType());
+            chapterFile.setName(chapterFileDTO.getFile().getOriginalFilename());
+            courseService.saveFile(chapterFile);
+
+            
+            Path uploadPath = Paths.get("./assets/img/chapterFiles/"+chapterFileDTO.getChapterId());
+            if(!Files.exists(uploadPath)){
+                try {
+                  Files.createDirectories(uploadPath);
+                } catch (IOException e) {
+                  
+                  e.printStackTrace();
+                }
+                }
+              try( InputStream inputStream=chapterFileDTO.getFile().getInputStream()){
+                Path filePath=uploadPath.resolve(chapterFileDTO.getFile().getOriginalFilename());
+                System.out.println(filePath.toFile().getAbsolutePath());
+                Files.copy(inputStream, filePath ,StandardCopyOption.REPLACE_EXISTING);
+              }catch (IOException e){
+                  try {
+                    throw new IOException("Could not save upload file: " + chapterFileDTO.getFile().getOriginalFilename());
+                  } catch (IOException e1) {
+                    
+                    e1.printStackTrace();
+                  }
+              } 
+
+              return "redirect:/admin/course/chapter/chapterFile?chapterId=" + chapterFileDTO.getChapterId();
+        }
+
 
     @PostMapping("/chapter/chapterFile/editpost")
     public String editChapterFile(@ModelAttribute("chapterFile") ChapterFileDTO chapterFileDTO,ModelMap model) throws IOException{
-
+        Chapter chapter = new Chapter();
+        chapter.setId(chapterFileDTO.getChapterId());
       ChapterFile chapterFile=new ChapterFile();
+      System.out.println(chapterFileDTO.getId()+"------------------------------------------------------------------------------------------");
+      chapterFile.setFileType(chapterFileDTO.getFileType());
       chapterFile.setId(chapterFileDTO.getId());
       chapterFile.setName(chapterFileDTO.getFile().getOriginalFilename());
+      chapterFile.setChapter(chapter);
       
       
             ChapterFile oldChapterFile = courseService.getOneChapterFile(chapterFileDTO.getId());
-        
+            
 
-            Path path = Paths.get("./assets/chapterFiles/"+oldChapterFile.getId()+"/"+oldChapterFile.getName());
+            Path path = Paths.get("./assets/img/chapterFiles/"+ chapterFileDTO.getChapterId()+"/"+oldChapterFile.getName());
             Files.delete(path);
            
           
@@ -264,7 +300,7 @@ public class CourseController {
 
             ChapterFile saveChapterFile = courseService.getOneChapterFile(chapterFile.getId());
             
-            String uploadDir="./assets/chapterFiles/"+ chapterFile.getId();
+            String uploadDir="./assets/img/chapterFiles/"+ chapterFileDTO.getChapterId();
             Path uploadPath = Paths.get(uploadDir);
             if(!Files.exists(uploadPath)){
             try {
@@ -288,7 +324,7 @@ public class CourseController {
           } 
           
           model.addAttribute("msg","Update Successfully !!!");
-          return "redirect:/admin/course/chapter/chapterFile?chapterId=" + saveChapterFile.getChapter().getId();
+          return "redirect:/admin/course/chapter/chapterFile?chapterId=" + chapterFileDTO.getChapterId();
         
         
       }
