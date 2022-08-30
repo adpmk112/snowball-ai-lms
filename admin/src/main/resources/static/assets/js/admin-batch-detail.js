@@ -70,14 +70,13 @@ $(document).on("click", ".btn.btn-chapter-edit", function(e){
         var batchId=$("#batchId_"+id)[0].value;
         window.state=$("#chpStatus_"+id)[0].innerHTML;
         window.currentDate = new Date();
-
-          window.d1 = new Date(startDate);
-         window.d2 = new Date(endDate);
-
-
-        window.lessThan= d1.getTime()<d2.getTime();
-       window.equal= d1.getTime() === d2.getTime();
-
+        window.today=currentDate.toISOString().slice(0, 10);
+        let d1 = new Date(startDate);
+       window.startDay=d1.toISOString().slice(0, 10);
+        let d2 = new Date(endDate);
+        window.endDay=d2.toISOString().slice(0,10);
+       window.lessThan= d1.getTime()<d2.getTime();
+      window.equal= startDay==endDay;
         if(equal || lessThan){
             $(this)
                 .find(".fa-solid.fa-check")
@@ -94,18 +93,23 @@ $(document).on("click", ".btn.btn-chapter-edit", function(e){
                 dataType: "json",
                 data : {chpName:chpName,startDate:startDate,endDate:endDate,batchId:batchId},
                 success: function (responce) {
-                       if((lessThan && d1.getTime()<currentDate.getTime()) || (equal && d2.getTime()=== currentDate.getTime())){
-                           $("#chpStatus_"+id)[0].innerHTML="In progress";
-                       }
-                       else if(d1===null || d2===null){
-                           $("#chpStatus_"+id)[0].innerHTML="Not Added";
-                       }
-                       else if((equal && d1.getTime()>currentDate.getTime()) || (lessThan && d1.getTime()>currentDate.getTime()) ){
-                           $("#chpStatus_"+id)[0].innerHTML="Not Started";
-                       }
-                       else{
-                           $("#chpStatus_"+id)[0].innerHTML="Done";
-                       }
+                    if(d1===null || d2===null){
+                        $("#chpStatus_"+id)[0].innerHTML="Not Added";
+                    }else{
+                        if((lessThan && d2.getTime()> currentDate.getTime() && startDay == today) || (equal && endDay == today || startDay==today) ||(lessThan && endDay == today || startDay==today)){
+                            $("#chpStatus_"+id)[0].innerHTML="In progress";
+                        }
+
+                        else if( (lessThan && d2.getTime()<currentDate.getTime()) || (equal && d2.getTime()<currentDate.getTime())){
+                            $("#chpStatus_"+id)[0].innerHTML="Done";
+                        }
+                        else {
+                            $("#chpStatus_"+id)[0].innerHTML="Not Started";
+                        }
+
+                    }
+
+
                 },
                 error: function () {
                     alert("Error!")
@@ -195,10 +199,6 @@ $(document).on("click", ".btn.btn-chapter-edit", function(e){
         }else{
           alert("Start date can't be bigger!")
         }
-
-      
-      
-    
         }
         })
 

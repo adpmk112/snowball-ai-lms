@@ -8,4 +8,5 @@ public class StudentAttendanceDTO {
     private String stuName;
     private int attendance;
     private int batchId;
+   
 }

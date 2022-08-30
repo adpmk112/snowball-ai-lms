@@ -72,6 +72,7 @@ public class CourseService {
         return chapterRepository.save(chapter);
     }
 
+
     
 
     public List<Course> getAllCourse(){
@@ -100,7 +101,6 @@ public class CourseService {
             chapterFileDTO.setId(chapterFile.getId());
             chapterFileDTO.setName(chapterFile.getName());
             chapterFileDTO.setFileType(chapterFile.getFileType());
-            chapterFileDTO.setFilePath(chapterFile.getFilePath());
             chapterFileDTO.setDeleteStatus(chapterFile.getDeleteStatus());
             chapterFileListDTO.add(chapterFileDTO);
         }
@@ -108,8 +108,8 @@ public class CourseService {
         return chapterFileListDTO;
     }
 
-    public ChapterFile getOneChapterFile(int chapterId){
-        ChapterFile chapterFile = chapterFileRepository.findById(chapterId);
+    public ChapterFile getOneChapterFile(int chapterFileId){
+        ChapterFile chapterFile = chapterFileRepository.findById(chapterFileId);
         return chapterFile;
     }
 
@@ -150,7 +150,7 @@ public class CourseService {
     public void deleteChapterFile(int chapterFileId){
         ChapterFile chapterFile = chapterFileRepository.findById(chapterFileId);
         chapterFile.setDeleteStatus(1);
-        chapterFileRepository.save(chapterFile);
+        chapterFileRepository.delete(chapterFile);
     }
 
     public void deleteCourse(int courseId){

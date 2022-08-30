@@ -50,6 +50,11 @@ public class BatchService {
                            }
                        }
                    }
+                   for(Teacher teacher:exceptTeacher){
+                       System.out.println(teacher.getName());
+                       System.out.println(teacher.getId());
+                       System.out.println(teacher.getCode());
+                   }
        return exceptTeacher;
     }
 
@@ -91,9 +96,9 @@ public class BatchService {
         return batchRepository.getTotalBatches();
     }
 
-    public void addTeacherByCodeAndBatchId(String code,Integer batchId){
+    public void addTeacherByCodeAndBatchId(Integer id,Integer batchId){
 
-        Teacher newTeacher=teacherRepository.findByCode(code);
+        Teacher newTeacher=teacherRepository.findTeacherById(id);
         System.out.println(newTeacher.getName());
         Batch batch=batchRepository.findBatchById(batchId);
         TeacherBatch teacherBatch=new TeacherBatch(false,newTeacher,batch);
@@ -126,6 +131,7 @@ public class BatchService {
         for(Student s:students){
            if(s.getBatch().getId()==batch.getId()) {
                StudentDTO studentDTO=new StudentDTO();
+               studentDTO.setId(s.getId());
                studentDTO.setCode(s.getCode());
                studentDTO.setBatchId(s.getBatch().getId());
                studentDTO.setName(s.getName());
@@ -165,9 +171,9 @@ public class BatchService {
         return studentDTO;
     }
 
-    public void UpdateStudentByBatchIdAndCode(Integer batchId,String code){
+    public void UpdateStudentByBatchIdAndCode(Integer batchId,Integer id){
         Batch batch=batchRepository.findBatchById(batchId);
-        Student student= studentRepository.findByDeleteStatusAndBatchAndCode(false,batch,code);
+        Student student= studentRepository.findStudentById(id);
         student.setDeleteStatus(true);
         studentRepository.save(student);
     }
@@ -196,5 +202,31 @@ public class BatchService {
            studentCodesList.add(s.getCode());
         }
         return studentCodesList;
+    }
+
+    public void removeTeacherFromBatch(Integer teacherId,Integer batchId){
+          Teacher teacher=teacherRepository.findTeacherById(teacherId);
+          Batch batch=batchRepository.findBatchById(batchId);
+         TeacherBatch teacherBatch=teacherBatchRepository.findTeacherBatchByBatchAndTeacher(batch,teacher);
+         teacherBatchRepository.delete(teacherBatch);
+
+    }
+    public StudentDTO findStudentById(Integer id){
+       Student student=studentRepository.findStudentById(id);
+       StudentDTO studentDTO=new StudentDTO();
+       studentDTO.setId(student.getId());
+       studentDTO.setBatchId(student.getBatch().getId());
+      // studentDTO.setAttendance();
+        studentDTO.setPhoto(student.getPhoto());
+        studentDTO.setCode(student.getCode());
+        studentDTO.setName(student.getName());
+        studentDTO.setPassword(student.getPassword());
+        return studentDTO;
+    }
+
+    public void removeStudentFromBatch(Integer id){
+        Student student=studentRepository.findStudentById(id);
+      student.setDeleteStatus(true);
+      studentRepository.save(student);
     }
 }

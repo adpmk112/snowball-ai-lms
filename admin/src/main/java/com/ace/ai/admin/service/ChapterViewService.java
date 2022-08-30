@@ -7,6 +7,7 @@ import com.ace.ai.admin.dtomodel.ChapterDTO;
 import com.ace.ai.admin.repository.BatchRepository;
 import com.ace.ai.admin.repository.ChapterBatchRepository;
 import com.ace.ai.admin.repository.ChapterRepository;
+import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.stereotype.Service;
@@ -35,9 +36,10 @@ public class ChapterViewService {
             chapterDTO.setName( chapterBatch.getChapter().getName());
             LocalDate startDate=LocalDate.parse(chapterBatch.getStartDate());
             LocalDate endDate=LocalDate.parse(chapterBatch.getEndDate());
-            Date currentDate=new Date();
-            System.out.println(currentDate.getTime());
-            if(chapterBatch.getStartDate().equals("") || chapterBatch.getEndDate().equals("")){
+            LocalDate now=LocalDate.now();
+            boolean lessThan=startDate.isBefore(endDate);
+            boolean equal=startDate.isEqual(endDate);
+            if(chapterBatch.getStartDate().equals(null) || chapterBatch.getEndDate().equals(null)){
                 chapterDTO.setStatus("Not added");
 
             }
@@ -45,12 +47,12 @@ public class ChapterViewService {
 
                 chapterDTO.setStart_date(startDate);
                 chapterDTO.setEnd_date(endDate);
-                if(startDate.isBefore(LocalDate.now()) || startDate.isEqual(LocalDate.now())){
+                if((lessThan && endDate.isAfter(now)  && startDate.isEqual(now) ) ||  ( lessThan && endDate.isEqual(now)  || startDate.isEqual(now))){
                     chapterDTO.setStatus("In progress");
 
                 }
-                else if(endDate.isBefore(LocalDate.now())){
-                    System.out.println(endDate.isBefore(LocalDate.now()));
+                else if((lessThan && endDate.isBefore(now)) || (equal && endDate.isBefore(now))){
+
                     chapterDTO.setStatus("Done");
                 }
                 else{

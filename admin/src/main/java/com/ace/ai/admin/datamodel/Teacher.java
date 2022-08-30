@@ -35,6 +35,6 @@ public class Teacher {
     @Transient
     public String getImagePath(){
         if(photo == null || code == null)return null;
-        return "/assets/img/" + code + "/" +photo;
+        return "admin/src/main/resources/static/assets/img/" + code + "/" +photo;
     }
 }

@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html
-  lang="en"
-  th:replace="~{layouts/main :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org" xmlns:teacher>
-  <body>
-    <main role="main">
-      <div th:fragment="admin-teacher">
+<html lang="en" th:replace="~{layouts/main :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org" xmlns:teacher>
+
+<body>
+  <main role="main">
+    <div th:fragment="admin-teacher">
       <div class="semi-circle"></div>
       <div class="banner">
         <div class="circle"><i class="fa-solid fa-person-chalkboard"></i></div>
@@ -31,21 +30,13 @@
               <div></div>
             </div>
             <div class="mytabs">
-              <input
-                type="radio"
-                id="tabunit"
-                name="mytabs"
-                checked="checked"
-              />
+              <input type="radio" id="tabunit" name="mytabs" checked="checked" />
               <label for="tabunit" id="lab">Teacher List</label>
               <div class="tab">
                 <div class="add-list">
                   <label>Add Teacher</label>
-                  <a
-                    th:href="@{/admin/addTeacher}"
-                    class="btn btn-outline-success btn-floating"
-                    data-mdb-ripple-color="dark"
-                  >
+                  <a th:href="@{/admin/addTeacher}" class="btn btn-outline-success btn-floating"
+                    data-mdb-ripple-color="dark">
                     <i class="fa-solid fa-circle-plus"></i>
                   </a>
                 </div>
@@ -66,18 +57,12 @@
                       <td th:text="${teacher.name}"></td>
                       <td th:text="${teacher.password}"></td>
                       <td>
-                        <a
-                          th:href="@{/admin/updateTeacher(id=${teacher.id})}"
-                          class="btn btn-outline-primary btn-floating"
-                          data-mdb-ripple-color="dark"
-                        >
+                        <a th:href="@{/admin/updateTeacher(id=${teacher.id})}"
+                          class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
                           <i class="fa-regular fa-pen-to-square"></i>
                         </a>
-                        <a 
-                          th:id="${teacher.id}"
-                          class="btn btn-outline-danger remove-teacher btn-floating"
-                          data-mdb-ripple-color="dark"                          
-                        >
+                        <a th:id="${teacher.id}" class="btn btn-outline-danger remove-teacher btn-floating"
+                          data-mdb-ripple-color="dark">
                           <i class="fa-solid fa-circle-minus"></i>
                         </a>
                       </td>
@@ -91,6 +76,7 @@
         </div>
       </div>
     </div>
-    </main>
-  </body>
+  </main>
+</body>
+
 </html>
