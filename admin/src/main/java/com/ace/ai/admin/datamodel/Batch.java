@@ -13,7 +13,7 @@ public class Batch implements Serializable {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
     private String name;
-    @Column(columnDefinition = "tinyint(1) default 0")
+    @Column(columnDefinition = "tinyint(1) default 1")
     private boolean deleteStatus;
     private String createdDate;
 
