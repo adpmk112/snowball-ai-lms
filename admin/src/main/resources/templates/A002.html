@@ -26,50 +26,29 @@
   <script th:src="@{/assets/js/data.js}"></script>
 
 
-  <!-- Custom -->
+  <script>
+    $(document).on("click",'a.delete-course',function(){
+      window.courseId=$(this).attr('id');
+    })
+    $(document).ready(function () {
+      $('a.delete-course').confirm({
+        closeIcon: true,
+        theme: 'Material',
+        //icon: 'fa-solid fa-warning',
 
-  <!-- Confirm Box to Delete-->
-<!--  <script>-->
-<!--    $(document).ready(function () {-->
-<!--      $('a.delete-course').confirm({-->
-<!--        closeIcon: true,-->
-<!--        theme: 'Material',-->
-<!--        icon: 'fa-solid fa-warning',-->
-<!--<<<<<<< HEAD-->
-<!--        title: 'Delete Course',-->
-<!--        content:-->
-<!--          'This will delete the course and all chapters. Are you sure?',-->
-<!--        animation: 'Scale',-->
-<!--        buttons: {-->
-<!--          Yes: function () {-->
-<!--            console.log($(this).parent().closest('#course-row').length)-->
-<!--=======-->
-<!--    &lt;!&ndash; Custom &ndash;&gt;-->
-
-    <!-- Confirm Box to Delete-->
-<!--    <script>-->
-<!--      $(document).ready(function () {-->
-<!--        $('a.delete-course').confirm({-->
-<!--          closeIcon: true,-->
-<!--          theme: 'Material',-->
-<!--          //icon: 'fa-solid fa-warning',-->
-
-<!--          title: 'Delete Course',-->
-<!--          content:-->
-<!--            'This will delete the course and all chapters. Are you sure?',-->
-<!--          animation: 'Scale',-->
-<!--          buttons: {-->
-<!--            Yes: function () {-->
-<!--              console.log($(this).parent().closest('#course-row').length)-->
-<!--            },-->
-<!--            No: function () {},-->
-<!--&gt;>>>>>> refs/remotes/origin/main-->
-<!--          },-->
-<!--          No: function () { },-->
-<!--        },-->
-<!--      })-->
-<!--    })-->
-<!--  </script>-->
+        title: 'Remove Course',
+        content: 'Are you sure?',
+        animation: 'Scale',
+        buttons: {
+          Yes: function () {        
+            // /admin/course/chapter/chapterFile/delete(chapterFileId=${chapterFile.id},chapterId=${chapterId})      
+            window.location = `/admin/course/delete?courseId=`+courseId;
+          },
+          No: function () {},
+        },
+      })
+    })
+  </script>
 </body>
 
 </html>
