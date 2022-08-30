@@ -26,6 +26,7 @@ public interface TeacherRepository extends JpaRepository<Teacher,Integer>{
     
      List<Teacher> findAllByDeleteStatus(boolean b);
       Teacher findTeacherById(Integer id);
+      Teacher findTeacherByCode(String code);
 
 
 }

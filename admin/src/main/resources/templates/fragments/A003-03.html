@@ -175,18 +175,20 @@
                                 <tbody>
                                 <tr th:each="teacher: ${teacherList}" >
                                      <td><img th:src="@{${teacher.ImagePath}}" alt="teacher photo" id="teacherimage"></td>
-                                    <td th:text="${teacher.name}"></td>
+                                    <td th:text="${teacher.name}">
+                                    </td>
                                     <td th:text="${teacher.code}"></td>
                                     <td th:text="${teacher.password}"></td>
                                     <td>
-                                        <a
+                                      
+                                        <a      th:id="${teacher.code}+'_'+${batch_id}"
                                                 href=""
                                                 class="btn btn-outline-danger btn-floating remove-teacher"
                                                 data-mdb-ripple-color="dark"
                                         >
                                             <i class="fa-solid fa-circle-minus"></i>
                                         </a>
-                                        <input type="hidden" th:id="teacherId" th:value="${teacher.id}+'_'+${batch_id}">
+                                       
                                     </td>
                                 </tr>
                                 </tbody>

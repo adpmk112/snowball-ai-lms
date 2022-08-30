@@ -234,10 +234,9 @@ public class BatchController {
     }
     @GetMapping({"/RemoveTeacher"})
     @ResponseBody
-    public ResponseEntity removeTeacher(Model model, @RequestParam String teacherId) {
-        String teachId=teacherId.split("_")[0];
-        String batchId=teacherId.split("_")[1];
-        batchService.removeTeacherFromBatch(Integer.valueOf(teachId),Integer.valueOf(batchId));
+    public ResponseEntity removeTeacher(Model model, @RequestParam String teacherCode ,@RequestParam Integer batch_id) {
+                    
+        batchService.removeTeacherFromBatch(teacherCode,batch_id);
         return ResponseEntity.ok(HttpStatus.OK);
 
     }
