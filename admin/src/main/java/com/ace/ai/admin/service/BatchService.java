@@ -65,8 +65,8 @@ public class BatchService {
         return teacherList;
     }
 
-    public List<Course> findAllCourse(){
-        return courseRepository.findAll();
+    public List<Course> findAllCourseByDeleteStatus(){
+        return courseRepository.findByDeleteStatus(false);
     }
 
     public void saveTeacherBatch(Integer teacherId,Integer batchId){
