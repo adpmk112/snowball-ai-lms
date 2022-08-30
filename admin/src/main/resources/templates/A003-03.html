@@ -57,7 +57,8 @@
                   No: function () {},
               },
           });
-        //<!-- For exam-schedule delete confirm -->
+
+        
          window.teacherId= document.getElementById('teacherId').value;
                 window.batch_id=teacherId.split("_")[1];
                 window.teId=teacherId.split("_")[0];
@@ -88,7 +89,10 @@
             No: function () {},
           },
         });
-
+        //<!-- For exam-schedule delete confirm -->
+        $('a.remove-exam').on("click",function(){
+          window.exam_schedule_id = $(this).attr("id");          
+        })
         $('a.remove-exam').confirm({
           closeIcon: true,
           theme: 'Material',
@@ -98,7 +102,9 @@
           content: 'Are you sure to remove this exam?',
           animation: 'Scale',
           buttons: {
-            Yes: function () {},
+            Yes: function () {
+              window.location = "/removeExamSchedule/"+exam_schedule_id;
+            },
             No: function () {},
           },
         });

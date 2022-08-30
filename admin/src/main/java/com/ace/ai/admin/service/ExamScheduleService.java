@@ -31,28 +31,36 @@ public class ExamScheduleService {
     public List<ExamScheduleDTO> showExamScheduleTable(Integer batchId) throws ParseException{
 
         List<ExamScheduleDTO>examScheduleDTOList = new ArrayList<>();
-        List<BatchExamForm>batchExamFormList = batchExamFormRepository.findByBatch_Id(batchId);
+        List<BatchExamForm>batchExamFormList = batchExamFormRepository.findByDeleteStatusAndBatch_IdAndExamForm_DeleteStatus(false, batchId, false);
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
+        //current time
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String formattedString = now.format(formatter);
+        System.out.println("Now is => "+ formattedString);
+        LocalDateTime formattedNow = LocalDateTime.parse(formattedString, dtf);
+        
         for(BatchExamForm batchExamForm:batchExamFormList){
 
             ExamScheduleDTO examScheduleDTO = new ExamScheduleDTO();
             examScheduleDTO.setId(batchExamForm.getId());
             examScheduleDTO.setExamName(batchExamForm.getExamForm().getName());
-            examScheduleDTO.setStartDate(LocalDateTime.parse(batchExamForm.getStartDate(), dtf));
-            examScheduleDTO.setEndDate(LocalDateTime.parse(batchExamForm.getEndDate(),dtf));
+            examScheduleDTO.setStartDate(batchExamForm.getStartDate());
+            examScheduleDTO.setEndDate(batchExamForm.getEndDate());
 
-            if(examScheduleDTO.getStartDate().isAfter(LocalDateTime.now())){
+            if(!(examScheduleDTO.getStartDate().equals("")) && 
+                (LocalDateTime.parse( examScheduleDTO.getStartDate().replace("T"," "), dtf)).isAfter(formattedNow)){
                 examScheduleDTO.setStatus("Upcoming");
             }
 
-            else if (examScheduleDTO.getStartDate().isBefore(LocalDateTime.now())
-            && LocalDateTime.now().isBefore(examScheduleDTO.getEndDate())){
+            else if (!(examScheduleDTO.getEndDate().equals("")) && 
+                    (LocalDateTime.parse( examScheduleDTO.getEndDate().replace("T"," "), dtf)).isAfter(formattedNow)){
                 examScheduleDTO.setStatus("In Progress");
             }
 
-            else if (LocalDateTime.now().isAfter(examScheduleDTO.getEndDate())){
+            else if (!(examScheduleDTO.getEndDate().equals("")) && 
+                    formattedNow.isAfter(LocalDateTime.parse( examScheduleDTO.getEndDate().replace("T"," "), dtf))){
                 examScheduleDTO.setStatus("Done");
             }
         

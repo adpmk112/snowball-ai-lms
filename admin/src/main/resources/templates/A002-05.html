@@ -238,7 +238,7 @@
           $(current_question).find(".question-error-span").text("");
         }
       })
-      if ($(".question-error-span").text() !== "") {
+      if ($(".question-error-span").text() !== "" || $(".answer-error").text() !== "" ) {
         $("#add_exam").attr("disabled", true);
       } else {
         $("#add_exam").removeAttr("disabled");
@@ -260,7 +260,7 @@
         }
 
       })
-      if ($(".answer-error").text() !== "") {
+      if ($(".answer-error").text() !== "" || $(".question-error-span").text() !== "") {
         $("#add_exam").attr("disabled", true);
       } else {
         $("#add_exam").removeAttr("disabled");
@@ -338,7 +338,7 @@
           data: JSON.stringify(exam),
           success: function () {
             alert("Exam save successfully");
-            window.location.replace("/admin/course/courseDetail?radio=\"exam\"&courseId="+course_id);
+            window.location.replace("/admin/course/courseDetail?radio=exam&courseId="+course_id);
           },
         });
 

@@ -236,8 +236,21 @@
                                                     style="max-width: 200px; padding:6px 15px;"
                                             disabled/>
                                         </td>
-                                        <td th:text = "${examSchedule.status != null ? examSchedule.status : 'No Status'}"></td>
-                                        <td>
+                                        <!-- <td th:text = "${examSchedule.status != null ? examSchedule.status : 'No Status'}"
+                                             th:class="${examSchedule.status == 'Upcoming'? 'text-info':''}"></td>
+                                        <td> -->
+                                        <td th:if = "${examSchedule.status == null}" th:text="'No Status'">
+                                        </td>
+                                        <td th:if = "${examSchedule.status == 'Upcoming'}" th:text="${examSchedule.status}"
+                                            class="text-danger">
+                                        </td>
+                                        <td th:if = "${examSchedule.status == 'In Progress'}" th:text="${examSchedule.status}"
+                                            class="text-success">
+                                        </td>
+                                        <td th:if = "${examSchedule.status == 'Done'}" th:text="${examSchedule.status}"
+                                            class="text-secondary">
+                                        </td>
+                                       <td>
                                             <a
                                                     href=""
                                                     th:id="${examSchedule.id}"
@@ -250,6 +263,7 @@
                                                     href=""
                                                     class="btn remove-exam btn-outline-danger b btn-floating"
                                                     data-mdb-ripple-color="dark"
+                                                    th:id="${examSchedule.id}"
                                             >
                                                 <i class="fa-solid fa-circle-minus"></i>
                                             </a>
@@ -429,7 +443,7 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalToggleLabel2">
+                        <h5 class="modal-title">
                             Add Teacher
                         </h5>
                         <button
@@ -440,8 +454,10 @@
                         ></button>
                     </div>
                     <div class="modal-body">
+
                         <form id="teacher-batch" >
                             <input type="hidden" id="bId" th:value="${batch_id}">
+
                             <p th:if="${#lists.isEmpty(teacherList1)}">No Teacher To add</p>
                             <div th:unless="${#lists.isEmpty(teacherList1)}" >
                             <select  class="form-select" aria-label="Default select example" name="code">
