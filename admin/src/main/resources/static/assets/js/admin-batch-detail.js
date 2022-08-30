@@ -75,7 +75,6 @@ $(document).on("click", ".btn.btn-chapter-edit", function(e){
        window.startDay=d1.toISOString().slice(0, 10);
         let d2 = new Date(endDate);
         window.endDay=d2.toISOString().slice(0,10);
-        window.alert(startDay==today);
        window.lessThan= d1.getTime()<d2.getTime();
       window.equal= startDay==endDay;
         if(equal || lessThan){
@@ -97,7 +96,7 @@ $(document).on("click", ".btn.btn-chapter-edit", function(e){
                     if(d1===null || d2===null){
                         $("#chpStatus_"+id)[0].innerHTML="Not Added";
                     }else{
-                        if((lessThan && d2.getTime()> currentDate.getTime()) || (equal && endDay == today || startDay==today) ||(lessThan && endDay == today || startDay==today)){
+                        if((lessThan && d2.getTime()> currentDate.getTime() && startDay == today) || (equal && endDay == today || startDay==today) ||(lessThan && endDay == today || startDay==today)){
                             $("#chpStatus_"+id)[0].innerHTML="In progress";
                         }
 
