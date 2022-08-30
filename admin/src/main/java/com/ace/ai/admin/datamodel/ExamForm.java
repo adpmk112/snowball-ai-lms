@@ -56,4 +56,12 @@ public class ExamForm implements Serializable {
         this.deleteStatus = deleteStatus;
         this.course = course;
     }
+    public ExamForm( String name, String type, String duration, int maxMark, Boolean deleteStatus, Course course){
+        this.name = name;
+        this.type = type;
+        this.duration = duration;
+        this.maxMark = maxMark;
+        this.deleteStatus = deleteStatus;
+        this.course = course;
+    }
 }

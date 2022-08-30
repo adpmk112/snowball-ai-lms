@@ -127,12 +127,12 @@
                                     <td th:text="${studentDTO.password}"></td>
                                     <td th:text="${studentDTO.attendance}"></td>
                                     <td>
-                                        <a th:href="@{/editStudent{studentdata}(studentdata=${studentDTO.code}+'-'+${studentDTO.batchId})}"
+                                        <a th:href="@{/editStudent{studentdata}(studentdata=${studentDTO.id})}"
                                                 class="btn btn-outline-primary btn-floating student-edit"
                                                 data-mdb-ripple-color="dark">
                                             <i  class="fa-regular fa-pen-to-square"></i>
                                         </a>
-                                        <a th:id="${batch_id}+'_'+${studentDTO.code}"
+                                        <a th:id="${batch_id}+'_'+${studentDTO.id}"
                                                 class="btn btn-outline-danger btn-floating remove-student"
                                                 data-mdb-ripple-color="dark"
                                         >
@@ -175,17 +175,20 @@
                                 <tbody>
                                 <tr th:each="teacher: ${teacherList}" >
                                      <td><img th:src="@{${teacher.ImagePath}}" alt="teacher photo" id="teacherimage"></td>
-                                    <td th:text="${teacher.name}"></td>
+                                    <td th:text="${teacher.name}">
+                                    </td>
                                     <td th:text="${teacher.code}"></td>
                                     <td th:text="${teacher.password}"></td>
                                     <td>
-                                        <a
+                                      
+                                        <a      th:id="${teacher.code}+'_'+${batch_id}"
                                                 href=""
                                                 class="btn btn-outline-danger btn-floating remove-teacher"
                                                 data-mdb-ripple-color="dark"
                                         >
                                             <i class="fa-solid fa-circle-minus"></i>
                                         </a>
+                                       
                                     </td>
                                 </tr>
                                 </tbody>
@@ -235,8 +238,21 @@
                                                     style="max-width: 200px; padding:6px 15px;"
                                             disabled/>
                                         </td>
-                                        <td th:text = "${examSchedule.status != null ? examSchedule.status : 'No Status'}"></td>
-                                        <td>
+                                        <!-- <td th:text = "${examSchedule.status != null ? examSchedule.status : 'No Status'}"
+                                             th:class="${examSchedule.status == 'Upcoming'? 'text-info':''}"></td>
+                                        <td> -->
+                                        <td th:if = "${examSchedule.status == null}" th:text="'No Status'">
+                                        </td>
+                                        <td th:if = "${examSchedule.status == 'Upcoming'}" th:text="${examSchedule.status}"
+                                            class="text-danger">
+                                        </td>
+                                        <td th:if = "${examSchedule.status == 'In Progress'}" th:text="${examSchedule.status}"
+                                            class="text-success">
+                                        </td>
+                                        <td th:if = "${examSchedule.status == 'Done'}" th:text="${examSchedule.status}"
+                                            class="text-secondary">
+                                        </td>
+                                       <td>
                                             <a
                                                     href=""
                                                     th:id="${examSchedule.id}"
@@ -249,6 +265,7 @@
                                                     href=""
                                                     class="btn remove-exam btn-outline-danger b btn-floating"
                                                     data-mdb-ripple-color="dark"
+                                                    th:id="${examSchedule.id}"
                                             >
                                                 <i class="fa-solid fa-circle-minus"></i>
                                             </a>
@@ -428,7 +445,7 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalToggleLabel2">
+                        <h5 class="modal-title">
                             Add Teacher
                         </h5>
                         <button
@@ -439,18 +456,20 @@
                         ></button>
                     </div>
                     <div class="modal-body">
-                        <form id="teacher-batch" th:action="@{/addTeacherToExistingBatch}" method="post" >
-                            <input type="hidden" th:id="batchId" name="batchId" th:value="${batch_id}">
+
+                        <form id="teacher-batch" >
+                            <input type="hidden" id="bId" th:value="${batch_id}">
+
                             <p th:if="${#lists.isEmpty(teacherList1)}">No Teacher To add</p>
                             <div th:unless="${#lists.isEmpty(teacherList1)}" >
                             <select  class="form-select" aria-label="Default select example" name="code">
-                                <option  th:each="teacher: ${teacherList1}"  th:value="${teacher.code}" th:text="${teacher.name}">No Teacher To Add
+                                <option id="tId" th:each="teacher: ${teacherList1}"   th:value="${teacher.id}" th:text="${teacher.name}">No Teacher To Add
                                 </option>
                             </select>
                             </div>
                             <div class="modal-footer">
 <!--                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>-->
-                                <button  th:disabled="${#lists.isEmpty(teacherList1)}"   type="submit" class="btn btn-primary" >Add</button>
+                                <button  th:disabled="${#lists.isEmpty(teacherList1)}" th:onclick="addTeacherToBatch()" class="btn btn-primary" >Add</button>
                             </div>
                         </form>
                     </div>
@@ -499,6 +518,7 @@
     </div>
 
 </main>
+
 
 
 </body>

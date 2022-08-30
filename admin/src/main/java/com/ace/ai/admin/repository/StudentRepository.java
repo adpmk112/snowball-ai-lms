@@ -13,6 +13,7 @@ public interface StudentRepository extends JpaRepository<Student,Integer> {
     List<Student> findByDeleteStatusAndBatchId(boolean deleteStatus,int id);
     Student findByBatchAndId(Batch batch,Integer id);
     List<Student> findByBatch(Batch batch);
-    Student findByDeleteStatusAndBatchAndCode(boolean deleteStatus,Batch batch,String code);
+    Student findByBatchAndCode(Batch batch,String code);
+    Student findStudentById(Integer id);
 
 }

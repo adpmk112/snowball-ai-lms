@@ -1,11 +1,20 @@
 package com.ace.ai.admin.dtomodel;
 
+import java.util.List;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class BatchDTO {
     private String name;
     private int courseId;
     private boolean delete_status;
     private String created_date;
-    private int teacherId;
+    private List<Integer> teacherId;
     private int batchId;
 
     public String getName() {
@@ -40,11 +49,11 @@ public class BatchDTO {
         this.created_date = created_date;
     }
 
-    public int getTeacherId() {
+    public List<Integer> getTeacherId() {
         return teacherId;
     }
 
-    public void setTeacherId(int teacherId) {
+    public void setTeacherId(List<Integer> teacherId) {
         this.teacherId = teacherId;
     }
 

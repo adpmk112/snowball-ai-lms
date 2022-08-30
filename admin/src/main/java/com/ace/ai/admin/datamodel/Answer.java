@@ -23,4 +23,11 @@ public class Answer {
     @JoinColumn(name="question_id")
     private Question question;
 
+    public Answer(String answer, boolean deleteStatus, Question question){
+        this.answer = answer;
+        this.deleteStatus = deleteStatus;
+        this.question = question;
+    
+    }
+
 }

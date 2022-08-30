@@ -85,7 +85,7 @@ public class BatchController {
     @GetMapping({"/goToAddBatch"})
     public ModelAndView gotoAddBatch(Model model) {
 
-        List<Course> courseList = batchService.findAllCourse();
+        List<Course> courseList = batchService.findAllCourseByDeleteStatus();
         List<Teacher> teacherList = batchService.findALlTeacherByDeleteStatus(false);
         model.addAttribute("teacherList", teacherList);
         model.addAttribute("courseList", courseList);
@@ -96,7 +96,7 @@ public class BatchController {
     @GetMapping({"/goToAddBatchSuccess"})
     public ModelAndView gotoAddBatchSuccess(Model model) {
 
-        List<Course> courseList = batchService.findAllCourse();
+        List<Course> courseList = batchService.findAllCourseByDeleteStatus();
         List<Teacher> teacherList = batchService.findALlTeacherByDeleteStatus(false);
         model.addAttribute("teacherList", teacherList);
         model.addAttribute("courseList", courseList);
@@ -130,9 +130,11 @@ public class BatchController {
         batch.setCourse(course);
         batchService.saveBatch(batch);
         batch = batchService.findLastBatch();
-        batchService.saveTeacherBatch(batchDTO.getTeacherId(), batch.getId());
+        for(Integer t_id : batchDTO.getTeacherId()){
+            batchService.saveTeacherBatch(t_id, batch.getId());
+        }
         // save batchExamFormTable
-        List<ExamForm> examFormList = examFormService.findByCourseId(course.getId());
+        List<ExamForm> examFormList = examFormService.findByDeleteStatusAndCourseId(false,course.getId());
         for (ExamForm examForm : examFormList) {
             BatchExamForm bef = new BatchExamForm("", "", false, batch, examForm);
             examScheduleService.saveBathExamFrom(bef);
@@ -174,14 +176,11 @@ public class BatchController {
 
 
     @GetMapping("/editStudent{studentdata}")
-    public ModelAndView editStudent(@PathVariable("studentdata") String studentdata, Model model) {
-        System.out.println("Path variable is " + studentdata);
-        String[] data = studentdata.split("-");
-        String code = data[0];
-        String id = data[1];
-        System.out.println(code +" "+ id);
+    public ModelAndView editStudent(@PathVariable("studentdata") Integer studentId, Model model) {
+        System.out.println("Path variable is " + studentId);
+
         model.addAttribute("edit", "edit");
-        StudentDTO studentDTO = batchService.findStudentByBatchIdAndStudentId(Integer.valueOf(id), code);
+        StudentDTO studentDTO = batchService.findStudentById(studentId);
         return new ModelAndView("A003-08", "studentDTO", studentDTO);
     }
 
@@ -209,10 +208,11 @@ public class BatchController {
     }
 
 
-    @PostMapping("/addTeacherToExistingBatch")
-    public String addTeacherToBatch(@RequestParam String code, @RequestParam Integer batchId) {
-        batchService.addTeacherByCodeAndBatchId(code, batchId);
-        return String.format("redirect:/batchSeeMore?id=%d", batchId);
+    @GetMapping("/addTeacherToBatch")
+    @ResponseBody
+    public ResponseEntity addTeacherToBatch(@RequestParam Integer bId, @RequestParam Integer tId) {
+        batchService.addTeacherByCodeAndBatchId(tId, bId);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @GetMapping("/addExamSchedule")
@@ -227,19 +227,28 @@ public class BatchController {
 
     @GetMapping({"/RemoveStudent"}) 
     @ResponseBody
-    public ResponseEntity removeStudent(Model model, @RequestParam("batchId") Integer batchId,@RequestParam("code")String code) {
-          batchService.UpdateStudentByBatchIdAndCode(batchId,code);
-
+    public ResponseEntity removeStudent(Model model, @RequestParam("batchId") Integer batchId,@RequestParam("studentId")Integer studentId) {
+          batchService.removeStudentFromBatch(studentId);
             return ResponseEntity.ok(HttpStatus.OK);
-       
+
     }
     @GetMapping({"/RemoveTeacher"})
     @ResponseBody
-    public ResponseEntity removeTeacher(Model model, @RequestParam("batchId") Integer batchId,@RequestParam("code")String code) {
-        batchService.UpdateStudentByBatchIdAndCode(batchId,code);
-
+    public ResponseEntity removeTeacher(Model model, @RequestParam String teacherCode ,@RequestParam Integer batch_id) {
+                    
+        batchService.removeTeacherFromBatch(teacherCode,batch_id);
         return ResponseEntity.ok(HttpStatus.OK);
 
     }
 
+    //Remove Exam Schedule
+    @GetMapping("/removeExamSchedule/{id}")
+    public String removeExamSchedule(@PathVariable("id") int id){
+        //update delete status
+        BatchExamForm bef = examScheduleService.findById(id);
+        bef.setDeleteStatus(true);
+        examScheduleService.saveBathExamFrom(bef);
+        int batch_id = bef.getBatch().getId();
+        return "redirect:/batchSeeMore?id="+batch_id;
+    }
 }

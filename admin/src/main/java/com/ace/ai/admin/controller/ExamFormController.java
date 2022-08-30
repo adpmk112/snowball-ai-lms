@@ -84,8 +84,10 @@ public class ExamFormController {
     public String getExamToUpdate(@RequestParam("id") int id, Model model, @RequestParam("courseId") int courseId) {
         ExamForm examForm = examFormService.findById(id);
         ExamDTO exam = examFormService.getExamDTOFromExamForm(examForm);
+        Course course = courseService.getById(courseId);
         model.addAttribute("exam", exam);
         model.addAttribute("courseId", courseId);
+        model.addAttribute("courseName",course.getName());
         return "A002-06";
     }
 
