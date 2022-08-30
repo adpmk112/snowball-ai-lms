@@ -100,7 +100,7 @@ public class BatchController {
         List<Teacher> teacherList = batchService.findALlTeacherByDeleteStatus(false);
         model.addAttribute("teacherList", teacherList);
         model.addAttribute("courseList", courseList);
-        model.addAttribute("msg", "Add Teacher Success");
+        model.addAttribute("msg", "Batch is added successfully.");
         return new ModelAndView("A003-01", "batchDTO", new BatchDTO());
     }
 

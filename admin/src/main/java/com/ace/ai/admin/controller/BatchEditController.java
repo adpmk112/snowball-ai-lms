@@ -17,6 +17,7 @@ import com.ace.ai.admin.service.ChapterViewService;
 import com.ace.ai.admin.service.ExamFormService;
 import com.ace.ai.admin.service.ClassRoomService;
 import com.ace.ai.admin.service.ExamScheduleService;
+import com.ace.ai.admin.service.TeacherBatchService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,6 +38,9 @@ public class BatchEditController {
     
     @Autowired
     BatchService batchService;
+
+    @Autowired
+    TeacherBatchService teacherBatchService;
 
     @GetMapping("/showEditBatch/{id}")
     public String editBatch(@PathVariable("id") int id , Model model){
@@ -63,7 +67,31 @@ public class BatchEditController {
     }
 
     @PostMapping("/updateBatch")
-    public String updateBatch(){
-        return "";
+    public String saveBatch(@ModelAttribute("batchDTO") BatchDTO batchDTO) {
+        int batchId = batchDTO.getBatchId();
+        System.out.println("Batch Name is "+batchDTO.getName());
+        Batch batch = batchService.findBatchById(batchId);
+        System.out.print("batch info"+ batchId+ batchDTO.getName()+ batch.getName());
+        batch.setName(batchDTO.getName());
+        //     LocalDate localDate = LocalDate.now();
+        //     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        //     String localDateString = localDate.format(dateTimeFormatter);
+        // batch.setCreatedDate(localDateString);//This will be updated Date
+             
+        batchService.saveBatch(batch);
+        //Delete All Teacher
+        teacherBatchService.deleteTeacherByBatchId(batchId);
+        for(Integer t_id : batchDTO.getTeacherId()){
+            batchService.saveTeacherBatch(t_id, batch.getId());
+        }
+        return "redirect:/updateBatchSuccess";
     }
+
+    @GetMapping("/updateBatchSuccess")
+    public String updateSuccess(Model model){
+        model.addAttribute("", new BatchDTO());
+        model.addAttribute("msg", "Batch is updated successfully.");
+        return "A003-02";
+    }
+
 }

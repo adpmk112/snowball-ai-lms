@@ -40,21 +40,22 @@
                 </a>
             </div>
             <div>
-                <form class=" ms-2 pb-4 part1" th:id="'batchList'" th:action="@{/addBatch}" method="post"
+                <form class=" ms-2 pb-4 part1" th:id="'batchList'" th:action="@{/updateBatch}" method="post"
                     th:object="${batchDTO}" style="max-width: 600px;">
                     <div class="row">
                         <label class="col text-start mb-2 mt-3">
-                            <h2>Create Batch</h2>
+                            <h2>Edit Batch</h2>
                         </label>
                     </div>
                     <div class="row " >
                         <div class="col">
-                            <div class=" alert alert-success form-control" style="">Batch is updated successfully.</div>
+                            <div th:if="${msg}" th:text="${msg}" class=" alert alert-success form-control" style=""></div>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label" for="name">Name:</label>
                         <div class="col-sm-10">
+                            <input type="hidden" th:field="*{batchId}" th:value="${batchDTO.batchId}">
                             <input
                                     type="text"
                                     class="form-control"
@@ -76,7 +77,7 @@
                                     name="course"
                                     class="form-control"
                                     id="course"
-                                    readonly="readonly"                            >
+                                    disabled                           >
                                     <option th:each="course: ${courseList}" th:value="${course.id}" th:text="${course.name}"></option>
                             </select>
                         </div>
@@ -99,7 +100,7 @@
                         <div class="col-sm-2 mr-auto col-form-label"></div>
                         <div class="col-sm-10">
                             <button type="reset" class="btn btn-secondary">Reset</button>
-                            <button type="submit" class="btn btn-primary" >Submit</button>
+                            <button type="submit" class="btn btn-primary" >Update</button>
                         </div>
                     </div>
                 </form>

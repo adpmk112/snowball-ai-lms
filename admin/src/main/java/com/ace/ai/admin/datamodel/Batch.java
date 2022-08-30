@@ -1,6 +1,9 @@
 package com.ace.ai.admin.datamodel;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -8,6 +11,8 @@ import java.util.List;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Batch implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -58,5 +63,12 @@ public class Batch implements Serializable {
                 ", students=" + students +
                 ", classrooms=" + classrooms +
                 '}';
+    }
+    public Batch(int id, String name, boolean deleteStatus, String createdDate, Course course){
+        this.id = id;
+        this.name = name;
+        this.deleteStatus = deleteStatus;
+        this.createdDate =  createdDate;
+        this.course = course;
     }
 }
