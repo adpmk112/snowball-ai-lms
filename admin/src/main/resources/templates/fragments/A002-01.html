@@ -21,24 +21,28 @@
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item">
-                    <a class="text-decoration-none" href="A002.html">
+                    <a class="text-decoration-none" href="/admin/course">
                       Course List
                     </a>
                   </li>
                   <li class="breadcrumb-item">
-                    <a class="text-decoration-none" href="A003-03.html">
+                    <a class="text-decoration-none" href="">
                       Course Details
                     </a>
                   </li>
                 </ol>
               </nav>
+              <h3 th:text="${courseName}" style="color:#3c80da"></h3>
             </div>
+            
           </div>
 
-          <div class="mytabs position-relative">
+          
 
+          <div class="mytabs position-relative">
+            
             <input type="radio" id="tabchapter" name="mytabs" checked />
-            <label for="tabchapter" id="lab">Java</label>
+            <label for="tabchapter" id="lab" >Chapter List</label>
 
             <div class="tab">
               <div class="add-list">
@@ -68,15 +72,48 @@
                       </a>
                     </td>
                     <td>
-                      <a th:href="@{/admin/course/chapter/edit(chapterId=${chapter.id})}"
-                        class="more-info btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
-                        <i class="fa-regular fa-pen-to-square"></i>
-                      </a>
-                      <a th:href="@{/admin/course/chapter/delete(chapterId=${chapter.id})}"
-                        class="btn delete-chapter btn-outline-danger btn-floating" data-mdb-ripple-color="dark">
-                        <i class="fa-solid fa-circle-minus"></i>
-                      </a>
+                      <a 
+                      class="btn btn-outline-primary btn-floating" data-bs-toggle="modal"
+                      th:attr="href='#edit-model'+${chapter.id}" data-mdb-ripple-color="dark">
+                      <i class="fa-regular fa-pen-to-square"></i>
+                    </a>
+                    <a 
+                    class="btn btn-outline-danger btn-floating delete-chapter" th:id="${chapter.id}"
+                    data-mdb-ripple-color="dark">
+                    <i class="fa-solid fa-circle-minus"></i>
+                  </a>
                     </td>
+                    <!--Edit Chapter Modal Box-->
+                    <div class="modal fade" style="z-index: 9999999 !important; margin-top: 90px;" th:attr="id='edit-model'+${chapter.id}"
+                    tabindex="0" aria-labelledby="chapter-edit-modal" aria-hidden="false">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Rename Chapter</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <form th:action="@{chapter/editpost}" method="post" th:object="${chapterRenameDTO}">
+                            <div class="mb-3">
+                              <input type="hidden" class="form-control" name="id" th:value="${chapter.id}" />
+                              <input type="hidden" class="form-control" name="courseId" th:value="${courseId}" />
+                              <label for="" class="col-form-label">
+                                Chapter Name :
+                              </label>
+                              <input type="text"  class="form-control" name="name" th:value="${chapter.name}" />
+                            </div>
+                            <div class="float-end">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                Close
+                              </button>
+                              <button type="submit" class="btn btn-primary">Rename</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   </tr>
                 </tbody>
               </table>
