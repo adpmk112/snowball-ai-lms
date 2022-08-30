@@ -442,7 +442,7 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalToggleLabel2">
+                        <h5 class="modal-title">
                             Add Teacher
                         </h5>
                         <button
@@ -453,7 +453,7 @@
                         ></button>
                     </div>
                     <div class="modal-body">
-                        <form id="teacher-batch" th:action="@{/addTeacherToExistingBatch}" method="post" >
+                        <form id="teacherBatchForm" th:action="@{/addTeacherToExistingBatch}" method="post" >
                             <input type="hidden" th:id="batchId" name="batchId" th:value="${batch_id}">
                             <p th:if="${#lists.isEmpty(teacherList1)}">No Teacher To add</p>
                             <div th:unless="${#lists.isEmpty(teacherList1)}" >
@@ -463,8 +463,8 @@
                             </select>
                             </div>
                             <div class="modal-footer">
-<!--                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>-->
-                                <button  th:disabled="${#lists.isEmpty(teacherList1)}"   type="submit" class="btn btn-primary" >Add</button>
+                               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button  th:disabled="${#lists.isEmpty(teacherList1)}" form="teacherBatchForm" type="submit" class="btn btn-primary" >Add</button>
                             </div>
                         </form>
                     </div>
