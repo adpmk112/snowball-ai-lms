@@ -166,9 +166,6 @@ public class BatchController {
         return "A003-04";
     }
 
-
-
-
     @PostMapping("saveStudent")
     @ResponseBody
     public void saveStudent(@RequestBody ArrayList<StudentDTO> studentList) {

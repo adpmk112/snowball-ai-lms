@@ -8,11 +8,15 @@ import org.springframework.stereotype.Service;
 
 import com.ace.ai.admin.datamodel.Attendance;
 import com.ace.ai.admin.datamodel.Batch;
+import com.ace.ai.admin.datamodel.Course;
 import com.ace.ai.admin.datamodel.Student;
+import com.ace.ai.admin.datamodel.Teacher;
 import com.ace.ai.admin.dtomodel.StudentAttendanceDTO;
 import com.ace.ai.admin.repository.AttendanceRepository;
 import com.ace.ai.admin.repository.BatchRepository;
+import com.ace.ai.admin.repository.CourseRepository;
 import com.ace.ai.admin.repository.StudentRepository;
+import com.ace.ai.admin.repository.TeacherRepository;
 
 
 
@@ -26,8 +30,20 @@ public class AdminDashboardService{
     AttendanceRepository attendanceRepository;
     @Autowired
     AttendanceService attendanceService;
+    @Autowired
+    CourseRepository courseRepository;
+    @Autowired
+    TeacherRepository teacherRepository;
 
-
+    public List<Course> getCourseList(boolean fale){
+     return courseRepository.findByDeleteStatus(false);
+    }
+    public List<Batch> getBatchList(boolean fale){
+        return batchRepository.findByDeleteStatus(false);
+    }
+    public List<Teacher> getTeacherList(boolean fale){
+        return teacherRepository.findByDeleteStatus(false);
+    }
     public List<StudentAttendanceDTO> getStuAttendanceByBatch(int batchId){
        
             //this is student's all attendance list
@@ -41,10 +57,14 @@ public class AdminDashboardService{
             int totalDays = attendanceRepository.findByStudentId(student.getId()).size();
             int attendDays = attendanceRepository.findByAttendAndStudentId("present", student.getId()).size();
             System.out.println(attendDays);
-            if(totalDays==0){
 
-            }else{
-            int attendPercentage = (attendDays*100)/totalDays;
+            int attendPercentage;
+            if(totalDays ==0){
+                attendPercentage =0;
+            }
+            else{
+            attendPercentage = (attendDays*100)/totalDays;
+            }
 
             adminDashboardDTO.setBatchId(batchId);
             adminDashboardDTO.setStuId(student.getId());
@@ -53,9 +73,9 @@ public class AdminDashboardService{
             //add one attandance to attandance list with student name
             studentAttendanceDTOList.add(adminDashboardDTO);
            }
+           return studentAttendanceDTOList;
            }
-       return studentAttendanceDTOList;
+       
     }
  
- }
 
