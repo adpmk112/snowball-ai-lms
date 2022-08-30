@@ -43,24 +43,27 @@ public class ClassRoomService {
             classroomDTO.setRecordedVideo(classroom.getRecordVideo());
             classroomDTO.setStatus("");
             classroomDTO.setTeacherName(classroom.getTeacherName());
-            classroomDTO.setDuration(Long.parseLong(classroom.getDuration())); 
-            log.info(classroom.getStartTime());
 
-            classroomDTO.setTime(LocalTime.parse(classroom.getStartTime(),tf));
+            classroomDTO.setStartTime(LocalTime.parse(classroom.getStartTime(),tf));
+            classroomDTO.setEndTime(LocalTime.parse(classroom.getEndTime())); 
 
-            classroomDTO.setDateTime(LocalDateTime.parse
-            (classroomDTO.getDate()+" "+classroomDTO.getTime(),dtf));
+            classroomDTO.setStartDateTime(LocalDateTime.parse
+            (classroomDTO.getDate()+" "+classroomDTO.getStartTime(),dtf));
 
-            if(classroomDTO.getDateTime().isAfter(LocalDateTime.now())){
+            classroomDTO.setEndDateTime(LocalDateTime.parse
+            (classroomDTO.getDate()+" "+classroomDTO.getEndTime(),dtf));
+
+            if(classroomDTO.getStartDateTime().isAfter(LocalDateTime.now())){
                 classroomDTO.setStatus("Upcoming");
             }
 
             else if(LocalDateTime.now().isAfter
-            (classroomDTO.getDateTime().plus(classroomDTO.getDuration(), ChronoUnit.HOURS))){
+            (classroomDTO.getEndDateTime())){
                 classroomDTO.setStatus("Done");
             }
 
-            else if(LocalDateTime.now().isAfter(classroomDTO.getDateTime()) ){
+            else if(LocalDateTime.now().isAfter(classroomDTO.getStartDateTime())
+            && LocalDateTime.now().isBefore(classroomDTO.getEndDateTime()) ){
                 classroomDTO.setStatus("In Progress");
             }
 

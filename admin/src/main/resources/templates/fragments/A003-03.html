@@ -391,7 +391,8 @@
                                 <thead>
                                 <tr>
                                     <th>Date</th>
-                                    <th>Time</th>
+                                    <th>Start-Time</th>
+                                    <th>End-Time</th>
                                     <th>Teacher</th>
                                     <th>Classroom Link</th>
                                     <th>Status</th>
@@ -402,7 +403,8 @@
                                 <tbody>
                                 <tr th:each = "classroom : ${classroomList}" >
                                     <td th:text = "${classroom.date}"></td>
-                                    <td th:text = "${classroom.time}"></td>
+                                    <td th:text = "${classroom.startTime}"></td>
+                                    <td th:text = "${classroom.endTime}"></td>
                                     <td th:text = "${classroom.teacherName}"></td>
                                     <td th:text = "${classroom.link}"></td>
                                     <td th:text = "${classroom.status}"></td>

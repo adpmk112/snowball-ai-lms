@@ -26,7 +26,7 @@ public class Classroom implements Serializable{
     private String link;
     private String recordVideo;
     private String startTime;
-    private String duration;
+    private String endTime;
     private String teacherName;
     @Column(columnDefinition = "tinyint(1) default 0")
     private boolean deleteStatus;
