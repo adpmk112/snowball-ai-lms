@@ -32,7 +32,7 @@ public class AttendanceService {
 
         List<Attendance> attendanceList = new ArrayList<>();
 
-        List<Classroom> classroomList = classRoomRepository.findIdByBatchId(batchId);
+        List<Classroom> classroomList = classRoomRepository.findIdByBatchIdAndDeleteStatus(batchId,false);
 
         for (Classroom classroom : classroomList) {
 
@@ -56,26 +56,17 @@ public class AttendanceService {
 
         }
 
-        // log.info(attendanceDTOList.get(2).getDate() + " "
-        //         + attendanceDTOList.get(2).getStudentName() + " "
-        //         + attendanceDTOList.get(2).getAttendStatus());
-
-
-        
        /*  log.info(attendanceDTOList.get(2).getDate() + " "
                 + attendanceDTOList.get(2).getStudentName() + " "
                 + attendanceDTOList.get(2).getAttendStatus());
         */
-
-
-
 
         return attendanceDTOList;
     }
 
     public List<AttendanceDTO> getClassroomDate(Integer batchId){
 
-        List<Classroom> classroomDateList = classRoomRepository.findDateByBatchId(batchId);
+        List<Classroom> classroomDateList = classRoomRepository.findDateByBatchIdAndDeleteStatus(batchId,false);
 
         List<AttendanceDTO>attendanceDTOListForDate = new ArrayList<>();
 
