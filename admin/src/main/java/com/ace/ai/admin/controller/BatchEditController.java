@@ -80,18 +80,22 @@ public class BatchEditController {
              
         batchService.saveBatch(batch);
         //Delete All Teacher
-        teacherBatchService.deleteTeacherByBatchId(batchId);
+        teacherBatchService.deleteByBatchId(batchId);
         for(Integer t_id : batchDTO.getTeacherId()){
             batchService.saveTeacherBatch(t_id, batch.getId());
         }
-        return "redirect:/updateBatchSuccess";
+        return "redirect:/goToBatch";
+        //return "redirect:/updateBatchSuccess/"+batchId;
     }
 
-    @GetMapping("/updateBatchSuccess")
-    public String updateSuccess(Model model){
-        model.addAttribute("", new BatchDTO());
-        model.addAttribute("msg", "Batch is updated successfully.");
-        return "A003-02";
-    }
+    // @GetMapping("/updateBatchSuccess/{batchId}")
+    // public String updateSuccess(Model model, @PathVariable("batchId") int batchId){
+    //     BatchDTO batchDTO = new BatchDTO();
+    //     batchDTO.setBatchId(batchId);
+    //     model.addAttribute("", new BatchDTO());
+
+    //     model.addAttribute("msg", "Batch is updated successfully.");
+    //     return "A003-02";
+    // }
 
 }

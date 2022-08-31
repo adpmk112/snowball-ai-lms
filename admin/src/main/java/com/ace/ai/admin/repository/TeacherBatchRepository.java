@@ -12,6 +12,6 @@ public interface TeacherBatchRepository extends JpaRepository<TeacherBatch, Inte
 
     List<TeacherBatch> findByBatchId(int id);
     TeacherBatch findTeacherBatchByBatchAndTeacher(Batch batch, Teacher teacher);
-
-    public void deleteByBatchId(int id);
+    
+    
 }
