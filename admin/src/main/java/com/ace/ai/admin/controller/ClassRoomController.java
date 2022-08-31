@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ace.ai.admin.dtomodel.ClassroomDTO;
+import com.ace.ai.admin.dtomodel.ReqClassroomDTO;
 import com.ace.ai.admin.service.ClassRoomService;
 
 @Controller
@@ -21,23 +22,25 @@ public class ClassRoomController {
 
     @GetMapping("/setupClassroomAdd/{batch_id}")
     public ModelAndView classroomAdd(Model model, @PathVariable("batch_id")Integer id){
-        ClassroomDTO classroomDTO = new ClassroomDTO();
+        ReqClassroomDTO reqClassroomDTO = new ReqClassroomDTO();
+        reqClassroomDTO.setBatchId(id);
         model.addAttribute("teacherList",classRoomService.fetchTeacherListForClassroom(id));
-        return new ModelAndView("A003-06","classroomDTO",classroomDTO);
+        return new ModelAndView("A003-06","reqClassroomDTO",reqClassroomDTO);
     }
 
     @PostMapping("/createClassroom")
-    public String createClassroom(Error errors,@ModelAttribute("classroomDTO") ClassroomDTO classroomDTO) throws ParseException{
-        ClassroomDTO classroomDTO2 = new ClassroomDTO();
-        classroomDTO2.setDate(classroomDTO.getDate());
-        classroomDTO2.setLink(classroomDTO.getLink());
-        classroomDTO2.setBatchId(classroomDTO.getBatchId());
-        classroomDTO2.setStartTime(classroomDTO.getStartTime());
-        classroomDTO2.setEndTime(classroomDTO.getEndTime());
+    public String createClassroom(Error errors,@ModelAttribute("reqClassroomDTO") ReqClassroomDTO reqClassroomDTO) throws ParseException{
+        ReqClassroomDTO reqClassroomDTO2 = new ReqClassroomDTO();
+        reqClassroomDTO2.setDate(reqClassroomDTO.getDate());
+        reqClassroomDTO2.setTeacherName(reqClassroomDTO.getTeacherName());
+        reqClassroomDTO2.setLink(reqClassroomDTO.getLink());
+        reqClassroomDTO2.setBatchId(reqClassroomDTO.getBatchId());
+        reqClassroomDTO2.setStartTime(reqClassroomDTO.getStartTime());
+        reqClassroomDTO2.setEndTime(reqClassroomDTO.getEndTime());
 
-        classRoomService.createClassroom(classroomDTO2);
+        classRoomService.createClassroom(reqClassroomDTO2);
 
-        return "redirect:/setupClassroomAdd/{batch_id}";
+        return "A003-06";
     }
 
     @GetMapping("/editClassroom")
