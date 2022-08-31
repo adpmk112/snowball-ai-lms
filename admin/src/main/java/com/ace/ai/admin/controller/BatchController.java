@@ -194,17 +194,24 @@ public class BatchController {
     @GetMapping({"/CheckStudentId"})
     @ResponseBody
     public ResponseEntity checkStudentId(@RequestParam("id") Integer id, @RequestParam("enterId") String code) {
-        System.out.println("id is :" + id);
+                    String codeChanged=code.toLowerCase();
         List<String> studentIdList = batchService.findStudentIdsByBatchId(id);
         if (studentIdList != null) {
             for (String s : studentIdList) {
-                System.out.println(s);
-                if (s.equals(code)) {
+                String codeTemp=s.toLowerCase();
+                if (codeTemp.equals(codeChanged)) {
+
                     return ResponseEntity.ok(HttpStatus.OK);
                 }
+                
             }
+            return ResponseEntity.notFound().build();
+        
         }
-        return ResponseEntity.notFound().build();
+        else{
+            return ResponseEntity.notFound().build();
+        }
+       
     }
 
 
