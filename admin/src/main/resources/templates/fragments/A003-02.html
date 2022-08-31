@@ -85,13 +85,13 @@
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label" for="teacher">Teacher:</label>
                         <div class="col-sm-10">
-                            <select th:field="*{teacherId}"
+                            <select th:field="*{teacherList}"
                                     name="cars"
                                     class="form-control"
                                     id="teacher"
                                     multiple="multiple"
                                     >
-                                <option th:each="teacher: ${teacherList}" th:value="${teacher.id}" th:text="${teacher.name}"></option>
+                                <option th:each="teacher: ${teacherListAll}"  th:value="${teacher.id}" th:text="${teacher.name}"></option>
 
                             </select>
                         </div>

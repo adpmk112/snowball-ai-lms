@@ -87,7 +87,7 @@ public class BatchController {
 
         List<Course> courseList = batchService.findAllCourseByDeleteStatus();
         List<Teacher> teacherList = batchService.findALlTeacherByDeleteStatus(false);
-        model.addAttribute("teacherList", teacherList);
+        model.addAttribute("teacherListAll", teacherList);
         model.addAttribute("courseList", courseList);
         return new ModelAndView("A003-01", "batchDTO", new BatchDTO());
     }
@@ -98,7 +98,7 @@ public class BatchController {
 
         List<Course> courseList = batchService.findAllCourseByDeleteStatus();
         List<Teacher> teacherList = batchService.findALlTeacherByDeleteStatus(false);
-        model.addAttribute("teacherList", teacherList);
+        model.addAttribute("teacherListAll", teacherList);
         model.addAttribute("courseList", courseList);
         model.addAttribute("msg", "Batch is added successfully.");
         return new ModelAndView("A003-01", "batchDTO", new BatchDTO());
@@ -130,8 +130,8 @@ public class BatchController {
         batch.setCourse(course);
         batchService.saveBatch(batch);
         batch = batchService.findLastBatch();
-        for(Integer t_id : batchDTO.getTeacherId()){
-            batchService.saveTeacherBatch(t_id, batch.getId());
+        for(Teacher teacher : batchDTO.getTeacherList()){
+            batchService.saveTeacherBatch(teacher.getId(), batch.getId());
         }
         // save batchExamFormTable
         List<ExamForm> examFormList = examFormService.findByDeleteStatusAndCourseId(false,course.getId());

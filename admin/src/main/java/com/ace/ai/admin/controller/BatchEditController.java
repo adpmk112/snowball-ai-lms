@@ -18,6 +18,7 @@ import com.ace.ai.admin.service.ExamFormService;
 import com.ace.ai.admin.service.ClassRoomService;
 import com.ace.ai.admin.service.ExamScheduleService;
 import com.ace.ai.admin.service.TeacherBatchService;
+import com.ace.ai.admin.service.TeacherService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,6 +41,9 @@ public class BatchEditController {
     BatchService batchService;
 
     @Autowired
+    TeacherService teacherService;
+
+    @Autowired
     TeacherBatchService teacherBatchService;
 
     @GetMapping("/showEditBatch/{id}")
@@ -54,13 +58,14 @@ public class BatchEditController {
         batchDTO.setBatchId(batch.getId());
 
         List<TeacherBatch> teachersFromBatch = batch.getTeacherBatches(); //For batchteachers
-        List<Integer> teacherIds =new ArrayList<Integer>();
+        List<Teacher> selectedTeacher =new ArrayList<Teacher>();
         for(TeacherBatch teacherFromBatch: teachersFromBatch){
-            teacherIds.add(teacherFromBatch.getId());
+            Teacher teacher = teacherFromBatch.getTeacher();            
+            selectedTeacher.add(teacher);
         }
-        batchDTO.setTeacherId(teacherIds);
+        batchDTO.setTeacherList(selectedTeacher);
 
-        model.addAttribute("teacherList", teacherList);
+        model.addAttribute("teacherListAll", teacherList);
         model.addAttribute("courseList", courseList);
         model.addAttribute("batchDTO", batchDTO);
         return "A003-02";
@@ -81,8 +86,8 @@ public class BatchEditController {
         batchService.saveBatch(batch);
         //Delete All Teacher
         teacherBatchService.deleteByBatchId(batchId);
-        for(Integer t_id : batchDTO.getTeacherId()){
-            batchService.saveTeacherBatch(t_id, batch.getId());
+        for(Teacher teacher : batchDTO.getTeacherList()){
+            batchService.saveTeacherBatch(teacher.getId(), batch.getId());
         }
         return "redirect:/goToBatch";
         //return "redirect:/updateBatchSuccess/"+batchId;
