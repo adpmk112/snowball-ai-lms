@@ -15,35 +15,35 @@
   </head>
 
   <body style="background-color: rgb(235, 235, 235);">
-  <header th:replace="fragments :: header"></header>
-  <main role="main">
-    <div th:replace="fragments/A003-04 :: student-add"></div>
-  </main>
-  <footer th:replace="fragments :: footer"></footer>
-  <div th:replace="fragments :: scripts"></div>
-
-
-
+    <header th:replace="fragments :: header"></header>
+    <main role="main">
+      <div th:replace="fragments/A003-04 :: student-add"></div>
+    </main>
+    <footer th:replace="fragments :: footer"></footer>
+    <div th:replace="fragments :: scripts"></div>
 
     <script>
-      var minRow = 1
+      window.minRow = 1
 
       //Add
       $(document).on('click', '.add-row', function (e) {
         e.preventDefault()
         var _row =
-          '<tr class=" form-row">' +
+          '<tr class=" form-row student-row" >' +
           '<div class="row ">' +
-          '<td class="tdInput"><input type="text" class="form-control" name="code" placeholder="Id" required autofocus></td>' +
-          '<td class="tdInput"><input type="text" class="form-control" name="password" placeholder="Password" required></td>' +
-          '<td class="tdInput"><input type="text" class="form-control" name="name" placeholder="Name" required></td>' +
+          '<td class="tdInput"><input type="text" class="form-control codes " name="code" placeholder="Id" required autofocus oninput="checkId(this);" style="text-transform: uppercase;">' +
+          '<span id="same-name" class="same-name" hidden="hidden" style="color: red;"></span>' +
+          '<span id="diff-name" class="diff-name" hidden="hidden" style="color: green;"> Id Available! </span>' +
+          '<span class="id-repeat text-danger ms-1"></span></td>' +
+          '<td class="tdInput"><input type="text" class="form-control codes" name="password" placeholder="Password" required></td>' +
+          '<td class="tdInput"><input type="text" class="form-control codes" name="name" placeholder="Name" required  style="text-transform: capitalize;"></td>' +
           '<td class="btn-td">' +
           '<button type="button" class="btn btn-outline-success add-row" ><i class="fa-solid fa-plus "></i></button>' +
           '<button type="button" class="btn btn-outline-danger remove-row ms-1"><i class="fa-solid fa-minus "></i></button>' +
           '</td>' +
           '</div>' +
           '</tr>'
-        $('#student-table').append(_row)
+        $(this).closest('.form-row').after(_row)
         minRow++
         $('#total-student').text('Total : ' + minRow)
       })
@@ -60,59 +60,87 @@
 
       //ajax request to insert all form data
       $('#student-form').submit(function (e) {
+        let batchId = $('#student-form').find('#batchId').val()
 
-    let batchId= $('#student-form').find('#batchId').val();
         e.preventDefault()
         let students = []
 
         $('.form-row').each(function () {
-          let student = {};
+          let student = {}
           $($(this).find('.tdInput')).each(function () {
-            let value=$($(this).find("input")).val();
-            student[$($(this).find("input")).attr('name')] = value;
+            let value = $($(this).find('input')).val()
+            student[$($(this).find('input')).attr('name')] = value
           })
+
           students.push(student)
-          console.log(student);
         })
-        console.log(batchId);
-        console.log(students);
+
         $.ajax({
-          type : "POST",
-          url : "saveStudent",
-          contentType: "application/json; charset=utf-8",
-          dataType: "json",
+          type: 'POST',
+          url: '/admin/batch/saveStudent',
+          contentType: 'application/json; charset=utf-8',
+          dataType: 'json',
           data: JSON.stringify(students),
-          success: function(){
-            //alert("Ok gread");
-          }
-        });
-        $("#student-form").trigger("reset");
+          success: function () {
+            alert('save success')
+          },
+        })
+        $('#student-form').trigger('reset')
       })
 
-      function checkId() {
-        let id=$("#id").val();
-        let enterId=$("#enterId").val();
+      function checkId(e) {
+        let id = $('#student-form').find('#batchId').val()
+        let enterId = $(e).val()
+        if (minRow > 1) {
+          let currentId = e.closest('.codes')
+          let siblingIds = $(currentId).siblings('.codes ,span #same-name')
+
+          let currentrow = e.closest('.student-row')
+          let siblingrows = $(currentrow).siblings('.student-row')
+          console.log(siblingrows.length)
+
+          $(siblingrows).each(function () {
+            if ($(e).val() == $(this).find('input.codes').val()) {
+              console.log('equals')
+              $(currentrow).find('.id-repeat').text(' Ids must not be equal!')
+              return false
+            } else {
+              $(currentrow).find('.id-repeat').text('')
+            }
+          })
+        }
         $.ajax({
-          type: "GET",
-          url: "../CheckStudentId",
-          contentType: "application/json; charset=utf-8",
-          dataType: "json",
-          data : {id: id,enterId:enterId},
+          type: 'GET',
+          url: '/admin/batch/CheckStudentId',
+          contentType: 'application/json; charset=utf-8',
+          dataType: 'json',
+          data: { id: id, enterId: enterId },
           success: function () {
-            let span = document.getElementById('same-name');
-            span.removeAttribute('hidden');
-            let span1=document.getElementById('diff-name');
-            span1.setAttribute('hidden','hidden');
+            let currentrow = e.closest('.student-row')
+            let span = $(currentrow).find('.same-name')
+            let span1 = $(currentrow).find('.diff-name')
+            $(span).removeAttr('hidden')
+            $(span).text('Id is already taken!')
+            $(span1).attr('hidden', 'hidden')
+            document.getElementById('saveStudent').disabled = true
           },
           error: function () {
-            let span = document.getElementById('same-name');
-            span.setAttribute('hidden','hidden');
-            let span1=document.getElementById('diff-name');
-            span1.removeAttribute('hidden');
-
-          }
-
+            let currentrow = e.closest('.student-row')
+            let span = $(currentrow).find('.same-name')
+            let span1 = $(currentrow).find('.diff-name')
+            // span1.removeAttribute('hidden')
+            $(span).attr('hidden', 'hidden')
+            $(span).text('')
+            $(span1).removeAttr('hidden')
+            if ($('.id-repeat').text() == '' && $('.same-name').text() == '')
+              document.getElementById('saveStudent').disabled = false
+          },
         })
+        if ($('.id-repeat').text() != '' || $('.same-name').text() != '') {
+          $('#saveStudent').attr('disabled', 'disabled')
+        } else {
+          $('#saveStudent').removeAttr('disabled')
+        }
       }
     </script>
   </body>

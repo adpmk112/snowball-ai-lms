@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ace.ai.admin.datamodel.Classroom;
 import com.ace.ai.admin.datamodel.TeacherBatch;
 import com.ace.ai.admin.dtomodel.ClassroomDTO;
+import com.ace.ai.admin.dtomodel.ReqClassroomDTO;
 import com.ace.ai.admin.repository.BatchRepository;
 import com.ace.ai.admin.repository.ClassRoomRepository;
 import com.ace.ai.admin.repository.TeacherBatchRepository;
@@ -109,11 +109,11 @@ public class ClassRoomService {
 
     // Format of the date defined in the input String
     DateFormat dateFormat
-        = new SimpleDateFormat("hh:mm:ss aa");
+        = new SimpleDateFormat("hh:mm");
    
     // Change the pattern into 24 hour format
     DateFormat format
-        = new SimpleDateFormat("HH:mm:ss");
+        = new SimpleDateFormat("HH:mm");
     Date time = null;
     String output = "";
    
@@ -127,13 +127,20 @@ public class ClassRoomService {
     return output;
 }
 
-    public void createClassroom(ClassroomDTO classroomDTO) throws ParseException{
+    public void createClassroom(ReqClassroomDTO reqClassroomDTO) throws ParseException{
         Classroom classroom = new Classroom();
-        classroom.setDate(classroomDTO.getDate().toString());
-        classroom.setLink(classroomDTO.getLink());
-        classroom.setBatch(batchRepository.findBatchById(classroomDTO.getBatchId()));
-        classroom.setStartTime(englishTime(classroomDTO.getStartTime().toString()));
-        classroom.setEndTime(englishTime(classroomDTO.getEndTime().toString()));
+
+        // LocalDate classroomDate = classroomDTO.getDate();
+        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        // classroom.setDate(classroomDate.format(formatter));
+        // log.info(classroom.getDate()+"format to string is ok.");
+
+        classroom.setDate(reqClassroomDTO.getDate());
+        classroom.setLink(reqClassroomDTO.getLink());
+        classroom.setBatch(batchRepository.findBatchById(reqClassroomDTO.getBatchId()));
+        classroom.setTeacherName(reqClassroomDTO.getTeacherName());
+        classroom.setStartTime(englishTime(reqClassroomDTO.getStartTime()));
+        classroom.setEndTime(englishTime(reqClassroomDTO.getEndTime()));
         classRoomRepository.save(classroom);
     }
 }

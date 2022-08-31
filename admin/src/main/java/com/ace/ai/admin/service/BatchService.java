@@ -113,15 +113,35 @@ public class BatchService {
         System.out.println(batchId);
         for(StudentDTO student: studentList){
             Student student1=new Student();
-
-            student1.setCode(student.getCode());
+               
+            student1.setCode(student.getCode().toUpperCase());
             student1.setPassword(student.getPassword());
-            student1.setName(student.getName());
+            String outputName=BatchService.capitalize(student.getName());
+            student1.setName(outputName);
 
             student1.setBatch(batch);
             studentRepository.save(student1);
         }
 
+    }
+    //capitalize the name 
+    public static String capitalize(String inputString){
+        char[] charArray=inputString.toCharArray();
+        boolean isSpace=true;
+        for(int i=0;i<charArray.length;i++){
+            if(Character.isLetter(charArray[i])){
+                if(isSpace){
+                    charArray[i]=Character.toUpperCase(charArray[i]);
+                    isSpace=false;
+                }
+                
+            }
+            else{
+                isSpace=true;
+            }
+        }
+        String outputString=String.valueOf(charArray);
+        return outputString;
     }
     public List<StudentDTO> findALlStudentByBatchId(Integer batchId){
         List<Student> students=studentRepository.findByDeleteStatus(false);
@@ -228,5 +248,9 @@ public class BatchService {
         Student student=studentRepository.findStudentById(id);
       student.setDeleteStatus(true);
       studentRepository.save(student);
+    }
+
+    public Batch getById(int id){
+        return batchRepository.getById(id);
     }
 }

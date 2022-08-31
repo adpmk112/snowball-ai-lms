@@ -10,7 +10,7 @@
             </div>
             <div>
                 <h1>Batches</h1>
-                <h3>Total: 4</h3>
+                <!-- <h3>Total: 4</h3> -->
             </div>
         </div>
         <div class="custom-div margin-top-8">
@@ -21,12 +21,12 @@
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a class="text-decoration-none" href="A003.html">
+                                        <a class="text-decoration-none" th:href="@{/admin/batch/}">
                                             Batch List
                                         </a>
                                     </li>
                                     <li class="breadcrumb-item">
-                                        <a class="text-decoration-none" href="">
+                                        <a class="text-decoration-none" th:href="@{/admin/batch/goToAddBatch}">
                                             Batch Add
                                         </a>
                                     </li>
@@ -35,13 +35,13 @@
                         </div>
                     </div>
                     <div class="margin-button">
-                        <a class="text-decoration-none text-muted" href="A003.html">
+                        <!-- <a class="text-decoration-none text-muted" href="A003.html">
                             &lt; Back
-                        </a>
+                        </a> -->
                     </div>
                     <div class="">
 
-                        <form class=" ms-2 pb-4 part1" th:id="'batchList'" th:action="@{/addBatch}" method="post"
+                        <form class=" ms-2 pb-4 part1" th:id="'batchList'" th:action="@{/admin/batch/addBatch}" method="post"
                               th:object="${batchDTO}" style="max-width: 600px;">
                             <div class="row">
                                 <label class="col text-start mb-2 mt-3">
@@ -60,10 +60,11 @@
                                 <label class="col-sm-2 col-form-label" for="name">Name:</label>
                                 <div class="col-sm-10">
                                     <input
-
                                             type="text"
                                             class="form-control"
                                             id="name"
+                                            autofocus
+                                            required
                                             placeholder="Enter Name"
                                             name="name"
                                             oninput="checkName();"

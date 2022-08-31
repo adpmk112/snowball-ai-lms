@@ -50,7 +50,7 @@
             </a>
           </div>
 
-          <form class="py-3" style="max-width: 500px;" method="POST" action="/createClassroom" th:object="${classroomDTO}">
+          <form class="py-3" style="max-width: 500px;" method="POST" action="/createClassroom" th:object="${reqClassroomDTO}">
             <div class="row">
               <label class="mb-3 text-center" for="id">
                 <h3 class="text-dark">Add Live Classes</h3>
@@ -64,8 +64,8 @@
                 <option th:each="teacher : ${teacherList}" th:value="${teacher.teacherName}"
                 th:text="${teacher.teacherName}"
                 > 
-                <input type="hidden" th:field="*{batchId}" th:value="${teacher.batchId}"></input>
-                </option>
+              </option>
+              <input type="hidden" th:field="*{batchId}"></input>
                 
               </select>
             </div>
