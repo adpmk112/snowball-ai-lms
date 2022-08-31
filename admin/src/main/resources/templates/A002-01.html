@@ -21,24 +21,29 @@
     src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"
   ></script>
   <script th:src="@{/assets/js/data.js}"></script>
-  ../.././admin\src\main\resources\static\assets\chapterFiles\6\General - Google Chrome 2022-03-01 20-38-53.mp4
     <!--Confirm for chapter delete-->
     <script>
+      $(document).on("click",'a.delete-chapter',function(){
+        window.chapterId=$(this).attr('id');
+      })
       $(document).ready(function () {
 
-        window.courseId = $("#course-id-unique").val();
+        window.chapterId = $("#course-id-unique").val();
 
 
-        $("a.delete-chapter").confirm({
+        $('a.delete-chapter').confirm({
           closeIcon: true,
-          theme: "Material",
+          theme: 'Material',
           //icon: 'fa-solid fa-warning',
-
-          title: "Delete Chapter",
-          content: "Are you sure to delete this chapter?",
-          animation: "Scale",
+  
+          title: 'Remove Chapter',
+          content: 'Are you sure?',
+          animation: 'Scale',
           buttons: {
-            Yes: function () {},
+            Yes: function () {        
+              // /admin/course/chapter/chapterFile/delete(chapterFileId=${chapterFile.id},chapterId=${chapterId})      
+              window.location = `/admin/course/chapter/delete?chapterId=`+chapterId;
+            },
             No: function () {},
           },
         });

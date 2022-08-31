@@ -204,8 +204,8 @@ public class BatchService {
         return studentCodesList;
     }
 
-    public void removeTeacherFromBatch(Integer teacherId,Integer batchId){
-          Teacher teacher=teacherRepository.findTeacherById(teacherId);
+    public void removeTeacherFromBatch(String teacherCode,Integer batchId){
+          Teacher teacher=teacherRepository.findTeacherByCode(teacherCode);
           Batch batch=batchRepository.findBatchById(batchId);
          TeacherBatch teacherBatch=teacherBatchRepository.findTeacherBatchByBatchAndTeacher(batch,teacher);
          teacherBatchRepository.delete(teacherBatch);

@@ -175,18 +175,20 @@
                                 <tbody>
                                 <tr th:each="teacher: ${teacherList}" >
                                      <td><img th:src="@{${teacher.ImagePath}}" alt="teacher photo" id="teacherimage"></td>
-                                    <td th:text="${teacher.name}"></td>
+                                    <td th:text="${teacher.name}">
+                                    </td>
                                     <td th:text="${teacher.code}"></td>
                                     <td th:text="${teacher.password}"></td>
                                     <td>
-                                        <a
+                                      
+                                        <a      th:id="${teacher.code}+'_'+${batch_id}"
                                                 href=""
                                                 class="btn btn-outline-danger btn-floating remove-teacher"
                                                 data-mdb-ripple-color="dark"
                                         >
                                             <i class="fa-solid fa-circle-minus"></i>
                                         </a>
-                                        <input type="hidden" th:id="teacherId" th:value="${teacher.id}+'_'+${batch_id}">
+                                       
                                     </td>
                                 </tr>
                                 </tbody>
@@ -378,7 +380,7 @@
                             <div class="add-list">
                                 <label>Add Class</label>
                                 <a
-                                        th:href="@{/addClassroom}"
+                                        th:href="@{/setupClassroomAdd/{batch_id}(batch_id = ${batch_id})}"
                                         class="btn btn-outline-success btn-floating"
                                         data-mdb-ripple-color="dark"
                                 >
@@ -389,7 +391,8 @@
                                 <thead>
                                 <tr>
                                     <th>Date</th>
-                                    <th>Time</th>
+                                    <th>Start-Time</th>
+                                    <th>End-Time</th>
                                     <th>Teacher</th>
                                     <th>Classroom Link</th>
                                     <th>Status</th>
@@ -400,7 +403,8 @@
                                 <tbody>
                                 <tr th:each = "classroom : ${classroomList}" >
                                     <td th:text = "${classroom.date}"></td>
-                                    <td th:text = "${classroom.time}"></td>
+                                    <td th:text = "${classroom.startTime}"></td>
+                                    <td th:text = "${classroom.endTime}"></td>
                                     <td th:text = "${classroom.teacherName}"></td>
                                     <td th:text = "${classroom.link}"></td>
                                     <td th:text = "${classroom.status}"></td>

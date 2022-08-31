@@ -64,17 +64,53 @@
                         </a>
                       </td>
                       <td>
-                        <a th:href="@{/admin/course/edit(courseId=${course.id})}"
+                        <a 
                           class="btn btn-outline-primary btn-floating" data-bs-toggle="modal"
-                          data-bs-target="#course-edit" data-mdb-ripple-color="dark">
+                          th:attr="href='#edit-model'+${course.id}" data-mdb-ripple-color="dark">
                           <i class="fa-regular fa-pen-to-square"></i>
                         </a>
-                        <a th:href="@{/admin/course/delete(courseId=${course.id})}"
-                          class="btn btn-outline-danger btn-floating delete-course" id="delete-course"
+                        
+                        <a 
+                          class="btn btn-outline-danger btn-floating delete-course" th:id="${course.id}"
                           data-mdb-ripple-color="dark">
                           <i class="fa-solid fa-circle-minus"></i>
                         </a>
+                        <!-- <a th:id="${chapterFile.id}" class="btn btn-outline-danger remove-chapterFile btn-floating"
+                          data-mdb-ripple-color="dark">
+                          <i class="fa-solid fa-circle-minus"></i>
+                        </a> -->
+                        <!-- th:href="@{/admin/course/delete(courseId=${course.id})}" -->
                       </td>
+                      <!--Edit Course Modal Box-->
+                      <div class="modal fade" style="z-index: 9999999 !important; margin-top: 90px;" th:attr="id='edit-model'+${course.id}"
+                        tabindex="0" aria-labelledby="course-edit-modal" aria-hidden="false">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Rename Course</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <form th:action="@{course/editpost}" method="post" th:object="${courseDTO}">
+                                <div class="mb-3">
+                                  <input type="hidden" class="form-control" name="id" th:value="${course.id}" />
+                                  <label for="" class="col-form-label">
+                                    Course Name :
+                                  </label>
+                                  <input type="text"  class="form-control" name="name" th:value="${course.name}" />
+                                </div>
+                                <div class="float-end">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                    Close
+                                  </button>
+                                  <button type="submit" class="btn btn-primary">Rename</button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </tr>
                   </tbody>
                 </table>
@@ -100,7 +136,7 @@
                   <label class="col-form-label" for="course-name">
                     Course Name :
                   </label>
-                  <input type="text" name="course-name" class="form-control" id="" th:field="*{name}"/>
+                  <input type="text" name="course-name" class="form-control" id="" th:field="*{name}" />
                 </div>
                 <div class="float-end">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -114,34 +150,7 @@
         </div>
       </div>
 
-      <!--Edit Course Modal Box-->
-      <div class="modal fade" style="z-index: 9999999 !important; margin-top: 90px;" id="course-edit" tabindex="0"
-        aria-labelledby="course-edit-modal" aria-hidden="false">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Rename Course</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <form>
-                <div class="mb-3">
-                  <label for="" class="col-form-label">
-                    Course Name :
-                  </label>
-                  <input type="text" name="course-name" class="form-control" id="course-name" />
-                </div>
-                <div class="float-end">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    Close
-                  </button>
-                  <button type="button" class="btn btn-primary">Rename</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
+
     </div>
   </main>
 </body>
