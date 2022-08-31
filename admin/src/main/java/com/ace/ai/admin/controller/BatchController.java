@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@RequestMapping(value = "/admin/batch")
 public class BatchController {
     @Autowired
     ChapterViewService chapterViewService;
