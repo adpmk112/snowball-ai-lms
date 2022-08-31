@@ -22,11 +22,21 @@
             <div class="container mt-2">
               <div class="title">
                 <div class="main-title d-flex flex-row justify-content-center">
-                  <h4>Batch Name</h4>
+                  <h4></h4>
                 </div>
                 <div class="sub-title d-flex justify-content-between mb-2">
-                  <h4>Course Name</h4>
-                  <h4>Teacher Name</h4>
+                  <h4>Add Student</h4>
+                  <h4>
+                    <button
+                      type="submit"
+                      value="Save"
+                      class="btn btn-outline-primary float-end me-4"
+                      id="saveStudent"
+                    >
+                      <i class="fa-solid fa-file me-1"></i>
+                      Save
+                    </button>
+                  </h4>
                 </div>
               </div>
               <div class="table-responsive">
@@ -42,49 +52,50 @@
                       <th class="align-middle">Name</th>
                       <th>
                         <span id="total-student">Total: 1</span>
-                        <button
+                        <!-- <button
                           type="submit"
                           value="Save"
-                          class="btn text-primary"
+                          class="btn btn-primary float-end"
                           id="saveStudent"
                         >
                           <i class="fa-solid fa-file me-1"></i>
                           Save
-                        </button>
+                        </button> -->
                       </th>
                     </tr>
 
-                    <tr class="form-row">
+                    <tr class="form-row student-row p-0">
                       <div class="row">
                         <!-- <td  class="align-middle">1.</td> -->
 
                         <td class="tdInput">
                           <input
                             type="text"
-                            class="form-control"
+                            class="form-control codes enterId"
                             id="enterId"
                             name="code"
                             placeholder="Id"
                             value=""
                             required
                             autofocus
-                            oninput="checkId();"
+                            oninput="checkId(this);"
                             style="text-transform: uppercase;"
                           />
                           <span
                             id="same-name"
+                            class="same-name"
                             hidden="hidden"
                             style="color: red;"
-                          >
-                            Id already taken!
-                          </span>
+                          ></span>
                           <span
                             id="diff-name"
+                            class="diff-name"
                             hidden="hidden"
                             style="color: green;"
                           >
                             Id Available!
                           </span>
+                          <span class="id-repeat text-danger ms-1"></span>
                         </td>
                         <td class="tdInput">
                           <input
