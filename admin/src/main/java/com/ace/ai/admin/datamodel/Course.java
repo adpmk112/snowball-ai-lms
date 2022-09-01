@@ -31,6 +31,16 @@ public class Course implements Serializable  {
 
     @OneToMany(mappedBy = "course")
     private List<ExamForm> examForms = new ArrayList<>();
+    public Course(){
+        
+    }
+    public Course(String name, String createdDate, boolean deleteStatus) {
+        this.name = name;
+        this.createdDate = createdDate;
+        this.deleteStatus = deleteStatus;
+    }
+
+   
 
 
 }

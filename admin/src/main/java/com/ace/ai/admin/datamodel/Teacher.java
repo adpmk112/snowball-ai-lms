@@ -29,6 +29,7 @@ public class Teacher {
     @Column(columnDefinition = "tinyint(1) default 0")
     private boolean deleteStatus;
 
+
     @OneToMany(mappedBy = "teacher")
     private List<TeacherBatch> teacherBatches = new ArrayList<>();
 
@@ -37,4 +38,17 @@ public class Teacher {
         if(photo == null || code == null)return null;
         return "admin/src/main/resources/static/assets/img/" + code + "/" +photo;
     }
+     public Teacher(){
+        
+     }
+    public Teacher(String name, String photo, String code, String password, boolean deleteStatus) {
+        this.name = name;
+        this.photo = photo;
+        this.code = code;
+        this.password = password;
+        this.deleteStatus = deleteStatus;
+    }
+
+
+    
 }
