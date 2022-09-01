@@ -39,12 +39,12 @@
             Yes: function () {
               $.ajax({
                 type: 'GET',
-                url: '../RemoveStudent',
+                url: '/admin/batch/RemoveStudent',
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
                 data: { batchId: batchId, studentId: studentId },
                 success: function () {
-                  window.location = '/batchSeeMore?id=' + batchId
+                  window.location = '/admin/batch/batchSeeMore?id='+batchId+'&radio=student'
                 },
                 error: function () {},
               })
@@ -68,12 +68,12 @@
             Yes: function () {
               $.ajax({
                 type: 'GET',
-                url: '../RemoveTeacher',
+                url: '/admin/batch/RemoveTeacher',
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
                 data: { batch_id: batch_id, teacherCode: teacherCode },
                 success: function () {
-                  window.location = '/batchSeeMore?id=' + batch_id
+                  window.location = '/batchSeeMore?id='+batch_id+'radio=teacher'
                 },
                 error: function () {},
               })
@@ -95,7 +95,7 @@
           animation: 'Scale',
           buttons: {
             Yes: function () {
-              window.location = '/removeExamSchedule/' + exam_schedule_id
+              window.location = '/admin/batch/removeExamSchedule/'+exam_schedule_id
             },
             No: function () {},
           },
@@ -135,12 +135,12 @@
         window.tId = document.getElementById('tId').value
         $.ajax({
           type: 'GET',
-          url: '../addTeacherToBatch',
+          url: '/admin/batch/addTeacherToBatch',
           contentType: 'application/json; charset=utf-8',
           dataType: 'json',
           data: { bId: bId, tId: tId },
           success: function () {
-            window.location = '/batchSeeMore?id=' + bId
+            window.location = '/admin/batch/batchSeeMore?id='+bId+'&radio=teacher'
           },
           error: function () {},
         })

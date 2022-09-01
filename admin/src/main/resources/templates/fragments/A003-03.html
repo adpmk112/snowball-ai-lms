@@ -10,8 +10,8 @@
                 <i class="fa-solid fa-people-group"></i>
             </div>
             <div>
-                <h1>Batches</h1>
-                <h3>Total: 4</h3>
+                <h1 th:if="${batchName}" th:text="${batchName}"></h1>
+                <!-- <h3>Total: 4</h3> -->
             </div>
         </div>
         <div class="custom-div margin-top-8">
@@ -22,13 +22,12 @@
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a class="text-decoration-none" href="A003.html">
+                                        <a class="text-decoration-none" th:href="@{/admin/batch/}">
                                             Batch List
                                         </a>
                                     </li>
                                     <li class="breadcrumb-item">
-                                        <a class="
-                                        -none" href="A003-03.html">
+                                        <a class="text-decoration-none" >
                                             Batch Details
                                         </a>
                                     </li>
@@ -97,13 +96,13 @@
                             </table>
                         </div>
 
-                        <input type="radio" id="tabstudent" name="mytabs" />
+                        <input type="radio" id="tabstudent" name="mytabs" th:checked = "${radio == student}"/>
                         <label for="tabstudent" id="lab">Student</label>
                         <div class="tab">
                             <div class="add-list">
                                 <label>Add Student List</label>
                                 <a
-                                        th:href="@{/addStudent{batch_id}(batch_id=${batch_id})}"
+                                        th:href="@{/admin/batch/addStudent{batch_id}(batch_id=${batch_id})}"
                                         class="btn btn-outline-success btn-floating"
                                         data-mdb-ripple-color="dark"
                                 >
@@ -127,7 +126,7 @@
                                     <td th:text="${studentDTO.password}"></td>
                                     <td th:text="${studentDTO.attendance}"></td>
                                     <td>
-                                        <a th:href="@{/editStudent{studentdata}(studentdata=${studentDTO.id})}"
+                                        <a th:href="@{/admin/batch/editStudent(studentdata=${studentDTO.id}, batchId= ${batch_id})}"
                                                 class="btn btn-outline-primary btn-floating student-edit"
                                                 data-mdb-ripple-color="dark">
                                             <i  class="fa-regular fa-pen-to-square"></i>
@@ -147,7 +146,7 @@
                             </table>
                         </div>
 
-                        <input type="radio" id="tabteacher" name="mytabs" />
+                        <input type="radio" id="tabteacher" name="mytabs" th:checked = "${radio == teacher}"/>
                         <label for="tabteacher" id="lab">Teacher</label>
                         <div class="tab">
                             <div class="add-list">
@@ -195,14 +194,10 @@
                             </table>
                         </div>
 
-                        <input type="radio" id="tabexam" name="mytabs" />
+                        <input type="radio" id="tabexam" name="mytabs" th:checked = "${radio == examSchedule}" />
                         <label for="tabexam" id="lab">Exam-Schedule</label>
                         <div class="tab">
-                            <div class="add-list">
-                                <!-- <label>Add Exam List</label>
-                              <a href="exam-add-page.html" class="btn btn-outline-success btn-floating" data-mdb-ripple-color="dark">
-                                <i class="fa-solid fa-circle-plus"></i>
-                              </a> -->
+                            <div class="add-list">                            
                             </div>
                             <div  class="table-responsive ">
                                 <table id="datatable4" class="hover">

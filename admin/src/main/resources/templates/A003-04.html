@@ -77,11 +77,13 @@
 
         $.ajax({
           type: 'POST',
-          url: 'saveStudent',
+          url: '/admin/batch/saveStudent',
           contentType: 'application/json; charset=utf-8',
           dataType: 'json',
           data: JSON.stringify(students),
-          success: function () {},
+          success: function () {
+            alert('save success')
+          },
         })
         $('#student-form').trigger('reset')
       })
@@ -109,16 +111,14 @@
         }
         $.ajax({
           type: 'GET',
-          url: '../CheckStudentId',
+          url: '/admin/batch/CheckStudentId',
           contentType: 'application/json; charset=utf-8',
           dataType: 'json',
           data: { id: id, enterId: enterId },
           success: function () {
             let currentrow = e.closest('.student-row')
             let span = $(currentrow).find('.same-name')
-            // span.removeAttribute('hidden')
             let span1 = $(currentrow).find('.diff-name')
-            // span1.setAttribute('hidden', 'hidden')
             $(span).removeAttr('hidden')
             $(span).text('Id is already taken!')
             $(span1).attr('hidden', 'hidden')
@@ -127,7 +127,6 @@
           error: function () {
             let currentrow = e.closest('.student-row')
             let span = $(currentrow).find('.same-name')
-            // span.setAttribute('hidden', 'hidden')
             let span1 = $(currentrow).find('.diff-name')
             // span1.removeAttribute('hidden')
             $(span).attr('hidden', 'hidden')
