@@ -1,12 +1,14 @@
 package com.ace.ai.admin.dtomodel;
 
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.List;
 
 import lombok.Data;
 
 @Data
 public class AttendanceDTO {
-    private LocalDate date;
-    private String studentName;
-    private String attendStatus;
+    private String date;
+    private int classId;
+    private List<HashMap<Integer, String>> studentAndAttend;
 }

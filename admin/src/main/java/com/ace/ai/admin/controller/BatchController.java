@@ -75,9 +75,9 @@ public class BatchController {
         model.addAttribute("batch_id", id);
         model.addAttribute("batchName", batchService.getById(id).getName());
         model.addAttribute("examScheduleList", examScheduleService.showExamScheduleTable(id));
-        model.addAttribute("attendanceList", attendanceService.showAttendanceTable(id));
-        model.addAttribute("classroomDateList", attendanceService.getClassroomDate(id));
-        model.addAttribute("classroomList", classRoomService.showClassroomTable(id));
+        //model.addAttribute("attendanceList", attendanceService.showAttendanceTable(id));
+        //model.addAttribute("classroomDateList", attendanceService.getClassroomDate(id));
+       // model.addAttribute("classroomList", classRoomService.showClassroomTable(id));
         model.addAttribute("studentDTOList", batchService.findALlStudentByBatchId(id));
         return new ModelAndView("A003-03", "TeacherDTO", new TeacherDTO());
     }

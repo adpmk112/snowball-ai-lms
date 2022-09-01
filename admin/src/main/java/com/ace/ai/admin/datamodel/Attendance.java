@@ -19,7 +19,6 @@ public class Attendance implements Serializable {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
     private String attend;
-    private String date;
 
     @ManyToOne
     @JoinColumn(name = "classroom_id")
