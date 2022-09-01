@@ -15,6 +15,6 @@ public interface StudentRepository extends JpaRepository<Student,Integer> {
     List<Student> findByBatch(Batch batch);
     Student findByBatchAndCode(Batch batch,String code);
     Student findStudentById(Integer id);
-    List<Student> findAllOrderByIdAsc();
+    List<Student> findByDeleteStatusAndBatchIdOrderByIdAsc(boolean status, int batchId);
 
 }

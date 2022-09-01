@@ -12,5 +12,5 @@ public interface AttendanceRepository extends JpaRepository<Attendance,Integer> 
     public List<Attendance> findAllByClassroomId(Integer classroomId);
     List<Attendance> findByStudentId(int stuId);
     List<Attendance> findByAttendAndStudentId(String attend,int stuId);
-    List<Attendance> findAllOrderByIdAsc();
+    Attendance findByStudentIdAndClassroomId(int studentId, int classroomId);
 }

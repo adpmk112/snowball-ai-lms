@@ -36,25 +36,35 @@ public class AttendanceService {
         attendanceRepository.save(attendance);
     }
 
-    public List<AttendanceDTO> getAllAttendanceList(){
-        List<Attendance> allAttendanceList = attendanceRepository.findAllOrderByIdAsc();
+    public List<Student> getAllStudentByDeleteStatus(int batchId){
+        return studentRepository.findByDeleteStatusAndBatchIdOrderByIdAsc(false, batchId);
+    }
+
+    public List<AttendanceDTO> getAllAttendanceList(int batchId){
+        List<Classroom> allClassroomList = classRoomRepository.findAllByDeleteStatusAndBatchIdOrderByIdAsc(false, batchId);
 
         List<AttendanceDTO> attendanceDTOList = new ArrayList<>();
-        List<Student> allStudent = studentRepository.findAllOrderByIdAsc();
-
-        for(Attendance attendance : allAttendanceList){
-            int classroomId = attendance.getClassroom().getId();
-            String date = attendance.getClassroom().getDate();
+        List<Student> allStudent = getAllStudentByDeleteStatus(batchId);// All student according to batch
+        //get attendance dto
+        for(Classroom classroom : allClassroomList){
+            int classroomId = classroom.getId();
+            String date = classroom.getDate();
 
             HashMap<Integer,String> studentAndAttend = new HashMap<>();
-
-            AttendanceDTO attendanceDTO = new AttendanceDTO();
+            //get hashmap list
+            for(Student student: allStudent){                
+                Attendance attendance = attendanceRepository.findByStudentIdAndClassroomId(student.getId(), classroomId);
+                if(attendance != null){
+                    System.out.println("studdent pair is => "+ student.getId()+attendance.getAttend());
+                    studentAndAttend.put(student.getId(), attendance.getAttend());
+                }
+                //add to list
+            }
+            AttendanceDTO attendanceDTO = new AttendanceDTO(date, classroomId, studentAndAttend);
+            attendanceDTOList.add(attendanceDTO);
         }
 
-
-
-
-        return new ArrayList<>();
+        return attendanceDTOList;
     }
 
 }

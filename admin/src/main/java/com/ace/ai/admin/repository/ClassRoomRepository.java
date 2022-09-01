@@ -13,4 +13,5 @@ public interface ClassRoomRepository extends JpaRepository<Classroom,Integer> {
     public List<Classroom> findAllByBatchIdAndDeleteStatus(Integer batchId,boolean deleteStatus);
     public List<Classroom> findIdByBatchIdAndDeleteStatus(Integer batchId,boolean deleteStatus);
     public List<Classroom> findDateByBatchIdAndDeleteStatus(Integer batchId,boolean deleteStatus);
+    public List<Classroom> findAllByDeleteStatusAndBatchIdOrderByIdAsc(boolean status, int batchId);
 }
