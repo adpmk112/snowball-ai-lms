@@ -4,6 +4,13 @@
 <head>
   <meta charset="UTF-8" />
   <title>Title</title>
+  <style>
+    .chartBox {
+      width: 600px;
+      padding: 20px;
+      border-radius: 20px;
+    }
+  </style>
 </head>
 
 <body>
@@ -64,11 +71,13 @@
         <!-- <div class="interface"></div>   -->
 
         <div class="charts custom-div d-flex flex-column">
-          <select name="" id="batch">
-            <option th:each="batch : ${batchList}" th:value="${batch.id}" th:text="${batch.name}"></option>
-          </select>
-          <div class="container2 ms-5">
-            <canvas id="myChart" style="width: 100%; max-width: 700px"></canvas>
+          <div>
+            <select name="" id="batch">
+              <option th:each="batch : ${batchList}" th:value="${batch.id}" th:text="${batch.name}"></option>
+            </select>
+          </div>
+          <div id="graficoSituacoesPedidos" class="chartBox">
+            <canvas id="myChart"></canvas>
           </div>
         </div>
       </div>
@@ -77,96 +86,24 @@
 
       <script th:src="@{/assets/jquery/jquery.min.js}"></script>
       <script src="https://kit.fontawesome.com/83e4876698.js" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-
-      <!-- <script type="text/javascript">
-        var studentName = [];
-        var attendence = [];
-        let batchId = document.getElementById("batch").value;
-        var newsChart;
-
-        window.addEventListener('afterprint', () => {
-          newsChart.resize();
-        })
-
-        $(document).ready(() => {
-          renderChart(batchId);
-          $("#batch").html(getYearBtns(year));
-          $(".year-btn").each((index, btn) => {
-            btn.addEventListener("click", () =>){
-              let target = btn.textContent;
-              setActiveYearBtn(target);
-              newsChart.destroy();
-              renderChart(target);
-            }
-          })
-        });
-
-        function renderChart(batchId) {
-          $.ajax({
-            url: "/admin/grap?batchId=" + batchId,
-            success: function (result) {
-              result.forEach((element) => {
-                studentName.push(element.stuName);
-                attendence.push(element.attendance);
-              });
-            }
-          });
-          newsChart = new Chart(
-            document.getElementById("myChart"),
-            {
-              type: 'bar',
-              data: {
-                labels: studentName,
-                datasets: [
-                  {
-                    label: "Attend Count Per Student Data",
-                    backgroundColor: "rgba(255, 206, 86, 0.2)",
-                    borderColor: "rgba(255, 206, 86, 1)",
-                    data: attendence,
-                  }
-                ]
-              }
-            }
-          );
-        }
-        function getYearBtns(now) {
-          let html = "";
-
-          for (let cur = now - 2; cur <= now; cur++) {
-            let isActive = cur == now ? "active" : "";
-
-            html += `
-             <button id="year-btn" class="year-btn btn btn-sm fw-bold ${isActive}">${cur}</button>
-             `
-          }
-          return html;
-        }
-
-        function setActiveYearBtn(target) {
-          $('.year-btn').each((index, btn) => {
-            btn.textContent == target ? btn.classList.add("active") : btn.classList.remove("active");
-          })
-        }
-      </script> -->
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      </script>
 
 
-
-       <script type="text/javascript">
+      <script type="text/javascript">
         $(document).ready(function () {
           let batchId = document.getElementById("batch").value;
           var studentName = [];
           var attendence = [];
-          console.log(batchId);
-          var config = document.getElementById("batch").addEventListener("click", () => {
-            
+          document.getElementById("batch").addEventListener("change", () => {
 
-            batchId = document.getElementById("batch").value;
+            let target = document.getElementById("batch").value;
             studentName = []
             attendence = []
-           
+            $('#myChart').remove();
+            $('#graficoSituacoesPedidos').append('<canvas id="myChart" ></canvas>');
             $.ajax({
-              url: "/admin/grap?batchId=" + batchId,
+              url: "/admin/grap?batchId=" + target,
               success: function (result) {
                 var batchId = [studentName, attendence, batchId];
                 console.log(result);
@@ -174,109 +111,153 @@
                   studentName.push(element.stuName);
                   attendence.push(element.attendance);
                 });
-                // drawLineChart(studentName,attendence)
-                console.log(batchId);
-                console.log(studentName);
-                console.log(attendence);
-              },
+              }
             });
-            const ctx = document.getElementById("myChart").getContext("2d");
-            const myChart = new Chart(ctx, {
-              type: "bar",
-              data: {
-                labels: studentName,
-                datasets: [
-                  {
-                    label: "Attend Count Per Student Data",
-                    data: attendence,
-                    backgroundColor: [
-                      "rgba(255, 99, 132, 0.2)",
-                      "rgba(54, 162, 235, 0.2)",
-                      "rgba(255, 206, 86, 0.2)",
-                      "rgba(75, 192, 192, 0.2)",
-                      "rgba(153, 102, 255, 0.2)",
-                      "rgba(255, 159, 64, 0.2)",
-                    ],
-                    borderColor: [
-                      "rgba(255, 99, 132, 1)",
-                      "rgba(54, 162, 235, 1)",
-                      "rgba(255, 206, 86, 1)",
-                      "rgba(75, 192, 192, 1)",
-                      "rgba(153, 102, 255, 1)",
-                      "rgba(255, 159, 64, 1)",
-                    ],
-                    borderWidth: 1,
-                  },
-                ],
-              },
-              options: {
-                scales: {
-                  y: {
-                    beginAtZero: true,
-                  },
-                },
-              },
-            });
-          });
-          
-          setTimeout(() => {
-            $.ajax({
-              url: "/admin/grap?batchId=" + batchId,
-              success: function (result) {
-                var batchId = [studentName, attendence, batchId];
-                console.log(result);
-                result.forEach((element) => {
-                  studentName.push(element.stuName);
-                  attendence.push(element.attendance);
-                });
-                // drawLineChart(studentName,attendence)
-                console.log(batchId);
-                console.log(studentName);
-                console.log(attendence);
-              },
-            });
-            const ctx = document.getElementById("myChart").getContext("2d");
-            const myChart = new Chart(ctx, {
-              type: "bar",
-              data: {
-                labels: studentName,
-                datasets: [
-                  {
-                    label: "Attend Count Per Student Data",
-                    data: attendence,
-                    backgroundColor: [
-                      "rgba(255, 99, 132, 0.2)",
-                      "rgba(54, 162, 235, 0.2)",
-                      "rgba(255, 206, 86, 0.2)",
-                      "rgba(75, 192, 192, 0.2)",
-                      "rgba(153, 102, 255, 0.2)",
-                      "rgba(255, 159, 64, 0.2)",
-                    ],
-                    borderColor: [
-                      "rgba(255, 99, 132, 1)",
-                      "rgba(54, 162, 235, 1)",
-                      "rgba(255, 206, 86, 1)",
-                      "rgba(75, 192, 192, 1)",
-                      "rgba(153, 102, 255, 1)",
-                      "rgba(255, 159, 64, 1)",
-                    ],
-                    borderWidth: 1,
-                  },
-                ],
-              },
-              options: {
-                scales: {
-                  y: {
-                    beginAtZero: true,
-                  },
-                },
-              },
-            });
-            myChart.render(); 
-            myChart.destroy();}, 10);
-        });
+            var chartdata = {
+              labels: studentName,
+              datasets: [
+                {
+                  label: 'Attend Count Per Student Data',
+                  backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                  borderColor: 'rgba(200, 200, 200, 0.75)',
+                  hoverBackgroundColor: 'rgba(255, 99, 132, 1)',
+                  hoverBorderColor: 'rgba(200, 200, 200, 1)',
+                  data: attendence
+                }
+              ]
+            };
 
-      </script> 
+            var ctx = $("#myChart");
+
+            var barGraph = new Chart(ctx, {
+              type: 'bar',
+              data: chartdata
+            });
+
+
+          });
+
+          // setTimeout(() => {
+            $.ajax({
+              url: "/admin/grap?batchId=" + batchId,
+              success: function (result) {
+                var batchId = [studentName, attendence, batchId];
+                result.forEach((element) => {
+                  studentName.push(element.stuName);
+                  attendence.push(element.attendance);
+                });
+              },
+            });
+            var chartdata = {
+              labels: studentName,
+              datasets: [
+                {
+                  label: 'Attend Count Per Student Data',
+                  backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                  borderColor: 'rgba(200, 200, 200, 0.75)',
+                  hoverBackgroundColor: 'rgba(255, 99, 132, 1)',
+                  hoverBorderColor: 'rgba(200, 200, 200, 1)',
+                  data: attendence
+                }
+              ]
+            };
+
+            var ctx = $("#myChart");
+
+            var barGraph = new Chart(ctx, {
+              type: 'bar',
+              data: chartdata
+            });
+
+
+          // }, 100);
+
+        });
+      </script>
+
+
+      <!-- <script>
+        $(document).ready(function () {
+          
+          
+            var ctx = $("#myChart");
+            var batchId = document.getElementById("batch").value;
+            console.log(batchId);
+            $.ajax({
+              url: "/admin/grap?batchId=" + dd,
+              method: "GET",
+              success: function (result) {
+
+                result.forEach((element) => {
+                  studentName.push(element.stuName);
+                  attendence.push(element.attendance);
+                });
+              }
+            });
+            var chartdata = {
+              labels: studentName,
+              datasets: [
+                {
+                  label: 'Attend Count Per Student Data',
+                  backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                  borderColor: 'rgba(200, 200, 200, 0.75)',
+                  hoverBackgroundColor: 'rgba(255, 99, 132, 1)',
+                  hoverBorderColor: 'rgba(200, 200, 200, 1)',
+                  data: attendence
+                }
+              ]
+            };
+            if (barGraph !== undefined) {
+              barGraph.clear();
+              barGraph.destroy();
+            }
+            var barGraph = new Chart(ctx, {
+              type: 'bar',
+              data: chartdata
+            });
+            barGraph.update();
+          
+          // let batchId = document.getElementById("batch").value;
+          // var studentName = [];
+          // var attendence = [];
+          // $.ajax({
+          //   url: "/admin/grap?batchId=" + batchId,
+          //   method: "GET",
+          //   success: function (result) {
+
+          //     result.forEach((element) => {
+          //       studentName.push(element.stuName);
+          //       attendence.push(element.attendance);
+          //     });
+
+          //     var chartdata = {
+          //       labels: studentName,
+          //       datasets: [
+          //         {
+          //           label: 'Attend Count Per Student Data',
+          //           backgroundColor: 'rgba(255, 99, 132, 0.6)',
+          //           borderColor: 'rgba(200, 200, 200, 0.75)',
+          //           hoverBackgroundColor: 'rgba(255, 99, 132, 1)',
+          //           hoverBorderColor: 'rgba(200, 200, 200, 1)',
+          //           data: attendence
+          //         }
+          //       ]
+          //     };
+
+          //     var ctx = $("#myChart");
+
+          //     var barGraph = new Chart(ctx, {
+          //       type: 'bar',
+          //       data: chartdata
+          //     });
+          //   },
+          //   error: function (result) {
+          //     console.log(result);
+          //   }
+          // });
+        });
+      </script> -->
+
     </div>
   </main>
 </body>
