@@ -8,12 +8,15 @@ import lombok.Data;
 
 @Data
 public class ClassroomDTO {
+    private Integer id;
     private LocalDate date;
     private String link;
-    private LocalTime time;
-    private Long duration;
-    private LocalDateTime dateTime;
+    private String startTime;
+    private String endTime;
+    private LocalDateTime startDateTime;
+    private LocalDateTime endDateTime;
     private String teacherName;
     private String status;
+    private Integer batchId;
     private String recordedVideo;
 }

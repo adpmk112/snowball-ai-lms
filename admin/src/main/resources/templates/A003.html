@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head >
     <div th:replace="fragments :: head"></div>
-    <title>Batches</title>
+    <title>Batch</title>
   </head>
 
   <body style="background-color: rgb(235, 235, 235);">
@@ -46,7 +46,7 @@
                 console.log(batchId);
                 $.ajax({
                   type: "GET",
-                  url: "../BatchClose",
+                  url: "/admin/batch/BatchClose",
                   contentType: "application/json; charset=utf-8",
                   dataType: "json",
                   data: {batchId: batchId},
@@ -73,7 +73,7 @@
               console.log(batchId);
               $.ajax({
                 type: "GET",
-                url: "../BatchReopen",
+                url: "/admin/batch/BatchReopen",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 data: {batchId: batchId},

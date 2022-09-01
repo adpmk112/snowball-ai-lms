@@ -22,13 +22,13 @@
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item">
-                                            <a class="text-decoration-none" href="A002.html">
+                                            <a class="text-decoration-none" href="/admin/course">
                                                 Course List
                                             </a>
                                         </li>
                                         <li class="breadcrumb-item">
-                                            <a class="text-decoration-none" href="A002-01.html">
-                                                Chapter
+                                            <a class="text-decoration-none" th:href="@{/admin/course/courseDetail(courseId=${courseId},radio='chapter')}">
+                                                Course Details
                                             </a>
                                         </li>
                                         <li class="breadcrumb-item">

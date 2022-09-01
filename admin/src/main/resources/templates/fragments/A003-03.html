@@ -10,8 +10,8 @@
                 <i class="fa-solid fa-people-group"></i>
             </div>
             <div>
-                <h1>Batches</h1>
-                <h3>Total: 4</h3>
+                <h1 th:if="${batchName}" th:text="${batchName}"></h1>
+                <!-- <h3>Total: 4</h3> -->
             </div>
         </div>
         <div class="custom-div margin-top-8">
@@ -22,13 +22,12 @@
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a class="text-decoration-none" href="A003.html">
+                                        <a class="text-decoration-none" th:href="@{/admin/batch/}">
                                             Batch List
                                         </a>
                                     </li>
                                     <li class="breadcrumb-item">
-                                        <a class="
-                                        -none" href="A003-03.html">
+                                        <a class="text-decoration-none" >
                                             Batch Details
                                         </a>
                                     </li>
@@ -97,13 +96,13 @@
                             </table>
                         </div>
 
-                        <input type="radio" id="tabstudent" name="mytabs" />
+                        <input type="radio" id="tabstudent" name="mytabs" th:checked = "${radio == student}"/>
                         <label for="tabstudent" id="lab">Student</label>
                         <div class="tab">
                             <div class="add-list">
                                 <label>Add Student List</label>
                                 <a
-                                        th:href="@{/addStudent{batch_id}(batch_id=${batch_id})}"
+                                        th:href="@{/admin/batch/addStudent{batch_id}(batch_id=${batch_id})}"
                                         class="btn btn-outline-success btn-floating"
                                         data-mdb-ripple-color="dark"
                                 >
@@ -127,7 +126,7 @@
                                     <td th:text="${studentDTO.password}"></td>
                                     <td th:text="${studentDTO.attendance}"></td>
                                     <td>
-                                        <a th:href="@{/editStudent{studentdata}(studentdata=${studentDTO.id})}"
+                                        <a th:href="@{/admin/batch/editStudent(studentdata=${studentDTO.id}, batchId= ${batch_id})}"
                                                 class="btn btn-outline-primary btn-floating student-edit"
                                                 data-mdb-ripple-color="dark">
                                             <i  class="fa-regular fa-pen-to-square"></i>
@@ -147,7 +146,7 @@
                             </table>
                         </div>
 
-                        <input type="radio" id="tabteacher" name="mytabs" />
+                        <input type="radio" id="tabteacher" name="mytabs" th:checked = "${radio == teacher}"/>
                         <label for="tabteacher" id="lab">Teacher</label>
                         <div class="tab">
                             <div class="add-list">
@@ -175,32 +174,30 @@
                                 <tbody>
                                 <tr th:each="teacher: ${teacherList}" >
                                      <td><img th:src="@{${teacher.ImagePath}}" alt="teacher photo" id="teacherimage"></td>
-                                    <td th:text="${teacher.name}"></td>
+                                    <td th:text="${teacher.name}">
+                                    </td>
                                     <td th:text="${teacher.code}"></td>
                                     <td th:text="${teacher.password}"></td>
                                     <td>
-                                        <a
+                                      
+                                        <a      th:id="${teacher.code}+'_'+${batch_id}"
                                                 href=""
                                                 class="btn btn-outline-danger btn-floating remove-teacher"
                                                 data-mdb-ripple-color="dark"
                                         >
                                             <i class="fa-solid fa-circle-minus"></i>
                                         </a>
-                                        <input type="hidden" th:id="teacherId" th:value="${teacher.id}+'_'+${batch_id}">
+                                       
                                     </td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
 
-                        <input type="radio" id="tabexam" name="mytabs" />
+                        <input type="radio" id="tabexam" name="mytabs" th:checked = "${radio == examSchedule}" />
                         <label for="tabexam" id="lab">Exam-Schedule</label>
                         <div class="tab">
-                            <div class="add-list">
-                                <!-- <label>Add Exam List</label>
-                              <a href="exam-add-page.html" class="btn btn-outline-success btn-floating" data-mdb-ripple-color="dark">
-                                <i class="fa-solid fa-circle-plus"></i>
-                              </a> -->
+                            <div class="add-list">                            
                             </div>
                             <div  class="table-responsive ">
                                 <table id="datatable4" class="hover">
@@ -278,98 +275,64 @@
                         <input type="radio" id="tabattendance" name="mytabs" />
                         <label for="tabattendance" id="lab">Attendance</label>
                         <div class="tab">
-
                               <!-- Start Attendance Table-->
-                              <table id="datatable5">
-                                <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th th:each = "attendance: ${attendanceList}"
-                                    th:text = "${attendance.studentName}"></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each = "classroom: ${classroomDateList}">
-                                    <td>
-                                        <input
-                                                type="date"
-                                                class="form-control"
-                                                name="attend-date"
-                                                th:value = "${classroom.date}"
-                                        />
-                                    </td>
-                                    <td class="stu-attendance">
-                                        <input
-                                                type="hidden"
-                                                id="student-id"
-                                                value="student-id"
-                                                name="student-id"
-                                        />
-                                        <select
-                                                class="form-control attend-type"
-                                                name="attend-type"
-
-                                                id="attend-type"
-                                        >
-                                            <option selected value="present">present</option>
-                                            <option value="absent">absent</option>
-                                            <option value="leave">leave</option>
-                                        </select>
-                                    </td>
-                                    <td class="stu-attendance">
-                                        <input
-                                                type="hidden"
-                                                id="student-id"
-                                                value="student-id"
-                                                name="student-id"
-                                        />
-                                        <select
-                                                class="form-control attend-type"
-                                                name="attend-type"
-
-                                                id="attend-type"
-                                        >
-                                            <option selected value="present">present</option>
-                                            <option value="absent">absent</option>
-                                            <option value="leave">leave</option>
-                                        </select>
-                                    </td>
-                                    <td class="stu-attendance">
-                                        <input
-                                                type="hidden"
-                                                id="student-id"
-                                                value="student-id"
-                                                name="student-id"
-                                        />
-                                        <select
-                                                class="form-control attend-type"
-                                                name="attend-type"
-                                                id="attend-type"
-                                        >
-                                            <option selected value="present">present</option>
-                                            <option value="absent">absent</option>
-                                            <option value="leave">leave</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <a
-                                                href=""
-                                                class="btn btn-attendance-edit btn-outline-primary btn-floating"
-                                                data-mdb-ripple-color="dark"
-                                        >
-                                            <i class="fa-regular fa-pen-to-square"></i>
-                                        </a>
-                                        <a
-                                                href=""
-                                                class="btn btn-outline-danger remove-attendance btn-floating"
-                                                data-mdb-ripple-color="dark"
-                                        >
-                                            <i class="fa-solid fa-circle-minus"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                            <div class="table-responsive">
+                                <table id="datatable5" class=" hover">
+                                    <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th th:each = "student: ${allStudent}"
+                                        th:text = "${student.name}"></th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each = "attendance: ${attendanceDTOList}">
+                                        <form class="attendanceForm" th:object = "${attendanceDTO}" th:action="@{/admin/batch/setAttendance/${batch_id}}" method="post">
+                                            <td>
+                                                <input type="text" th:value="${attendance.classId}" th:name="${attendance.classId}">
+                                                <input
+                                                        type="date"
+                                                        class="form-control"
+                                                        name="date"
+                                                        readonly
+                                                        th:value = "${attendance.date}"
+                                                />
+                                            </td>
+                                            <td class="stu-attendance" th:each = "student : ${allStudent}">
+                                                <!-- Attend for all students -->
+                                                <input
+                                                        type="text"
+                                                        id="student-id"                                                        
+                                                        th:value="${student.id}"
+                                                        name="student-id"
+                                                />
+                                                <select
+                                                        class="form-control attend-type"                                        
+                                                        id="attend-type"
+                                                        th:value="${attendance.studentAndAttend[student.id]}"
+                                                        th:name="${student.id}"
+                                                >
+                                                    <option value="present">present</option>
+                                                    <option value="absent">absent</option>
+                                                    <option value="leave">leave</option>
+                                                </select>
+                                            </td>                                   
+                                            <!-- Action Buttons -->
+                                            <td>
+                                                <button                                                   
+                                                    type="submit"
+                                                    class="btn btn-attendance-edit btn-outline-primary btn-floating"                                                   
+                                                >
+                                                    <i class="fa-regular fa-pen-to-square"></i>
+                                                </button>                                            
+                                            </td>
+                                        </form>                                        
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
                             <!-- End attendance table-->
                         </div>
                         <input type="radio" id="tabclassroom" name="mytabs" />
@@ -378,7 +341,7 @@
                             <div class="add-list">
                                 <label>Add Class</label>
                                 <a
-                                        th:href="@{/addClassroom}"
+                                        th:href="@{/setupClassroomAdd/{batch_id}(batch_id = ${batch_id})}"
                                         class="btn btn-outline-success btn-floating"
                                         data-mdb-ripple-color="dark"
                                 >
@@ -389,7 +352,8 @@
                                 <thead>
                                 <tr>
                                     <th>Date</th>
-                                    <th>Time</th>
+                                    <th>Start-Time</th>
+                                    <th>End-Time</th>
                                     <th>Teacher</th>
                                     <th>Classroom Link</th>
                                     <th>Status</th>
@@ -400,14 +364,15 @@
                                 <tbody>
                                 <tr th:each = "classroom : ${classroomList}" >
                                     <td th:text = "${classroom.date}"></td>
-                                    <td th:text = "${classroom.time}"></td>
+                                    <td th:text = "${classroom.startTime}"></td>
+                                    <td th:text = "${classroom.endTime}"></td>
                                     <td th:text = "${classroom.teacherName}"></td>
                                     <td th:text = "${classroom.link}"></td>
                                     <td th:text = "${classroom.status}"></td>
                                     <td th:text = "${classroom.recordedVideo}"></td>
                                     <td>
                                         <a
-                                                th:href="@{/editClassroom}"
+                                                th:href="@{/setupClassroomEdit/{classId}(classId = ${classroom.id})}"
                                                 class="btn btn-outline-primary btn-floating"
                                                 data-mdb-ripple-color="dark"
                                         >
@@ -476,7 +441,7 @@
         </div>
 
         <!--Modal for Date Add in attendance-->
-        <div
+        <!-- <div
                 class="modal fade"
                 id="attendance-date-add"
                 aria-hidden="true"
@@ -511,7 +476,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
     </div>
 

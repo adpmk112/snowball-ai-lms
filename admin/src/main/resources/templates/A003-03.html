@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <div th:replace="fragments :: head"></div>
-  <title> Batch Details </title>
-</head>
+  <head>
+    <div th:replace="fragments :: head"></div>
+    <title>Batch Details</title>
+  </head>
 
   <body style="background-color: rgb(235, 235, 235);">
-  <header th:replace="fragments :: header"></header>
-  <main role="main">
-   <div th:replace="fragments/A003-03 :: admin-batch-see-more"></div>
-  </main>
-<footer th:replace="fragments :: footer"></footer>
-<div th:replace="fragments :: scripts"></div>
+    <header th:replace="fragments :: header"></header>
+    <main role="main">
+      <div th:replace="fragments/A003-03 :: admin-batch-see-more"></div>
+    </main>
+    <footer th:replace="fragments :: footer"></footer>
+    <div th:replace="fragments :: scripts"></div>
 
     <script th:src="@{/assets/js/data.js}"></script>
     <script
@@ -21,49 +21,42 @@
     ></script>
     <script th:src="@{/assets/js/admin-batch-detail.js}"></script>
 
-
     <!-- For student delete confirm-->
     <script>
       $(document).ready(function () {
-          $(document).on('click', 'a.remove-student', function() {
-              window.batchId=$(this).attr('id').split("_")[0];
-              window.studentId=$(this).attr('id').split("_")[1];
+        $(document).on('click', 'a.remove-student', function () {
+          window.batchId = window.studentId = $(this).attr('id').split('_')[1]
+        })
+        $('a.remove-student').confirm({
+          closeIcon: true,
+          theme: 'Material',
+          //icon: 'fa-solid fa-warning',
 
-          });
-          $('a.remove-student').confirm({
-              closeIcon: true,
-              theme: 'Material',
-              //icon: 'fa-solid fa-warning',
-
-              title: 'Remove Student',
-              content: 'Are you sure to remove this student?',
-              animation: 'Scale',
-              buttons: {
-                  Yes: function () {
-                      $.ajax({
-                          type: "GET",
-                          url: "../RemoveStudent",
-                          contentType: "application/json; charset=utf-8",
-                          dataType: "json",
-                          data: {batchId: batchId,studentId:studentId},
-                          success: function () {
-                              window.location = '/batchSeeMore?id=' + batchId;
-                          },
-                          error: function () {}
-
-                      })
-
-                  },
-                  No: function () {},
-              },
-          });
-
-        
-         window.teacherId= document.getElementById('teacherId').value;
-                window.batch_id=teacherId.split("_")[1];
-                window.teId=teacherId.split("_")[0];
+          title: 'Remove Student',
+          content: 'Are you sure to remove this student?',
+          animation: 'Scale',
+          buttons: {
+            Yes: function () {
+              $.ajax({
+                type: 'GET',
+                url: '/admin/batch/RemoveStudent',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                data: { batchId: batchId, studentId: studentId },
+                success: function () {
+                  window.location = '/admin/batch/batchSeeMore?id='+batchId+'&radio=student'
+                },
+                error: function () {},
+              })
+            },
+            No: function () {},
+          },
+        })
+        $(document).on('click', 'a.remove-teacher', function () {
+          window.batch_id = $(this).attr('id').split('_')[1]
+          window.teacherCode = $(this).attr('id').split('_')[0]
+        })
         $('a.remove-teacher').confirm({
-
           closeIcon: true,
           theme: 'Material',
           //icon: 'fa-solid fa-warning',
@@ -73,25 +66,24 @@
           animation: 'Scale',
           buttons: {
             Yes: function () {
-                $.ajax({
-                    type: "GET",
-                    url: "../RemoveTeacher",
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    data:{teacherId:teacherId},
-                    success: function () {
-                        window.location = '/batchSeeMore?id=' + batch_id;
-                    },
-                    error: function () {}
-
-                })
+              $.ajax({
+                type: 'GET',
+                url: '/admin/batch/RemoveTeacher',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                data: { batch_id: batch_id, teacherCode: teacherCode },
+                success: function () {
+                  window.location = '/batchSeeMore?id='+batch_id+'radio=teacher'
+                },
+                error: function () {},
+              })
             },
             No: function () {},
           },
-        });
+        })
         //<!-- For exam-schedule delete confirm -->
-        $('a.remove-exam').on("click",function(){
-          window.exam_schedule_id = $(this).attr("id");          
+        $('a.remove-exam').on('click', function () {
+          window.exam_schedule_id = $(this).attr('id')
         })
         $('a.remove-exam').confirm({
           closeIcon: true,
@@ -103,11 +95,11 @@
           animation: 'Scale',
           buttons: {
             Yes: function () {
-              window.location = "/removeExamSchedule/"+exam_schedule_id;
+              window.location = '/admin/batch/removeExamSchedule/'+exam_schedule_id
             },
             No: function () {},
           },
-        });
+        })
         //<!-- For Remove Attencance confirm -->
         $('a.remove-attendance').confirm({
           closeIcon: true,
@@ -121,7 +113,7 @@
             Yes: function () {},
             No: function () {},
           },
-        });
+        })
         //<!--For Classroom Delete confirm -->
         $('a.remove-classroom').confirm({
           closeIcon: true,
@@ -135,29 +127,24 @@
             Yes: function () {},
             No: function () {},
           },
-        });
+        })
       })
 
-
-      function addTeacherToBatch(){
-          window.bId= document.getElementById('bId').value;
-         window.tId=document.getElementById('tId').value;
-          $.ajax({
-              type: "GET",
-              url: "../addTeacherToBatch",
-              contentType: "application/json; charset=utf-8",
-              dataType: "json",
-              data:{bId:bId,tId:tId},
-              success: function () {
-                  window.location = '/batchSeeMore?id=' + bId;
-              },
-              error: function () {}
-
-          })
-
+      function addTeacherToBatch() {
+        window.bId = document.getElementById('bId').value
+        window.tId = document.getElementById('tId').value
+        $.ajax({
+          type: 'GET',
+          url: '/admin/batch/addTeacherToBatch',
+          contentType: 'application/json; charset=utf-8',
+          dataType: 'json',
+          data: { bId: bId, tId: tId },
+          success: function () {
+            window.location = '/admin/batch/batchSeeMore?id='+bId+'&radio=teacher'
+          },
+          error: function () {},
+        })
       }
-
-
     </script>
   </body>
 </html>

@@ -26,12 +26,12 @@
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                      <a class="text-decoration-none" href="A003.html">
+                      <a class="text-decoration-none" th:href="@{/admin/batch/}">
                         Batch List
                       </a>
                     </li>
                     <li class="breadcrumb-item">
-                      <a class="text-decoration-none" href="A003-03.html">
+                      <a class="text-decoration-none">
                         Batch Details
                       </a>
                     </li>
@@ -50,20 +50,25 @@
             </a>
           </div>
 
-          <form class="py-3" style="max-width: 500px;">
+          <form class="py-3" style="max-width: 500px;" method="POST" action="/createClassroom" th:object="${reqClassroomDTO}">
             <div class="row">
               <label class="mb-3 text-center" for="id">
                 <h3 class="text-dark">Add Live Classes</h3>
               </label>
             </div>
             <div class="row mb-3">
+              <h6 style="color: blue;" th:text="${msg}"></h6>
+              <br>
               <label class="col-sm-4" for="id">Teacher name:</label>
               <div class="col-sm-8">
-              <select
-                    class="form-control"
-              >
-                <option selected value="teacher-name">Teacher-name</option>
-                <option value="Azz">Azz</option>
+              <select class="form-control" id="teacherNameDropDownList" th:field="*{teacherName}">
+                <option th:value="0">Select Teacher</option>
+                <option th:each="teacher : ${teacherList}" th:value="${teacher.teacherName}"
+                th:text="${teacher.teacherName}"
+                > 
+              </option>
+              <input type="hidden" th:field="*{batchId}"></input>
+                
               </select>
             </div>
             </div>
@@ -76,6 +81,7 @@
                   id="name"
                   placeholder="Enter Date"
                   name="date"
+                  th:field="*{date}"
                 />
               </div>
             </div>
@@ -86,6 +92,7 @@
                   type="time"
                   class="form-control"
                   id="datetime"
+                  th:field="*{startTime}"
                 />
               </div>
             </div>
@@ -96,6 +103,7 @@
                   type="time"
                   class="form-control"
                   id="datetime"
+                  th:field="*{endTime}"
                 />
               </div>
             </div>
@@ -105,11 +113,12 @@
               </label>
               <div class="col-sm-8">
                 <input
-                  type="text"
+                  type="url"
                   class="form-control"
                   id="name"
                   placeholder="Enter Link"
                   name="link"
+                  th:field="*{link}"
                 />
               </div>
             </div>

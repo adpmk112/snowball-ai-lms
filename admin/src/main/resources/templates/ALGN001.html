@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="utf-8" />
     <meta
@@ -27,12 +27,12 @@
               <div class="row">
                 <div class="col-lg-6 d-none d-lg-flex">
                   <div class="flex-grow-1 logo-fix">
-                    <center>
+                    <div align="center">
                       <img
                         src="../assets/img/ace-logo-long.png"
                         class="image-margin"
                       />
-                    </center>
+                    </div>
                   </div>
                 </div>
                 <div class="col-lg-6">
@@ -43,14 +43,19 @@
                       </h1>
                     </div>
                     <!--  <form class=""> -->
+                    <div th:if="${param.error}">
+                      <h4 style="color:red">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</h4>
+                    </div>
+                    <form th:action="@{/admin/login}" method="post">
                     <div class="mb-3">
+
                       <input
                         class="form-control form-control-user"
-                        type="email"
+                        type="text"
                         id="exampleInputEmail"
                         aria-describedby="emailHelp"
-                        placeholder="Enter Email Address..."
-                        name="email"
+                        placeholder="Enter Your Id..."
+                        name="code"
                       />
                     </div>
                     <div class="mb-3">
@@ -74,6 +79,7 @@
                         Login
                       </button>
                     </a>
+                    </form>
                     <hr />
                     <!-- </form> -->
                     <div class="text-center">
