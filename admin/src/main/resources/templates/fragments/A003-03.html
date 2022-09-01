@@ -406,7 +406,7 @@
                                     <td th:text = "${classroom.recordedVideo}"></td>
                                     <td>
                                         <a
-                                                th:href="@{/editClassroom}"
+                                                th:href="@{/setupClassroomEdit/{classId}(classId = ${classroom.id})}"
                                                 class="btn btn-outline-primary btn-floating"
                                                 data-mdb-ripple-color="dark"
                                         >

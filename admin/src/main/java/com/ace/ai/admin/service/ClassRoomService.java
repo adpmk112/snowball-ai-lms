@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -117,6 +118,7 @@ public class ClassRoomService {
 
         for(Classroom classroom: classroomList){
             ClassroomDTO classroomDTO = new ClassroomDTO();
+            classroomDTO.setId(classroom.getId());
             classroomDTO.setDate(LocalDate.parse(classroom.getDate(),df));
             classroomDTO.setLink(classroom.getLink());
             classroomDTO.setRecordedVideo(classroom.getRecordVideo());
@@ -166,6 +168,7 @@ public class ClassRoomService {
             classroomDTOforTeacherList.add(classroomDTOforTeacher);
         }
 
+        log.info(classroomDTOforTeacherList.get(0).getTeacherName());
         return classroomDTOforTeacherList;
     }
 
@@ -194,5 +197,10 @@ public class ClassRoomService {
             attendance.setAttend("Present");
             attendanceRepository.save(attendance);
         }
+    }
+
+    public Classroom fetchClassroom(ClassroomDTO classroomDTO){
+        Classroom classroom = classRoomRepository.findById(classroomDTO.getId()).get();
+        return classroom;
     }
 }
