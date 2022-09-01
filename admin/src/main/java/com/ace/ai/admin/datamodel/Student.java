@@ -29,6 +29,8 @@ public class Student implements Serializable{
     @Column(columnDefinition = "tinyint(1) default 0")
     private boolean deleteStatus;
 
+
+
     @ManyToOne
     @JoinColumn(name = "batch_id")
     private Batch batch;
