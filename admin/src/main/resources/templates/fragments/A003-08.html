@@ -9,22 +9,31 @@
             <i class="fa-solid fa-people-group"></i>
         </div>
         <div>
-            <h1>Batches</h1>
-            <h3>Total: 4</h3>
+            <h1 th:if="${batchName}" th:text="${batchName}"></h1>
         </div>
     </div>
     <div class="custom-div margin-top-8">
         <div id="add-form" class="width-100">
-            <div class="container mt-2">
+            <div class="container mt-2 py-3">
                 <div class="title">
                     <div class="main-title d-flex flex-row justify-content-center">
-                        <h4>Batch Name</h4>
+                      <h4></h4>
                     </div>
                     <div class="sub-title d-flex justify-content-between mb-2">
-                        <h4>Course Name</h4>
-                        <h4>Teacher Name</h4>
+                      <h4>Edit Student</h4>
+                      <h4>
+                        <button
+                          type="submit"
+                          value="Save"
+                          class="btn btn-outline-primary float-end me-4"
+                          id="saveStudent"
+                        >
+                          <i class="fa-solid fa-file me-1"></i>
+                          Update
+                        </button>
+                      </h4>
                     </div>
-                </div>
+                  </div>
                 <div class="table-responsive">
                     <form th:action="@{/updateStudent}"  method="POST" th:object="${studentDTO}">
 
@@ -36,10 +45,7 @@
                                 <th class="align-middle">Name</th>
                                 <th>
                                     <span id="total-student">Total: 1</span>
-                                    <button  type="submit" value="Save" class="btn text-primary">
-                                        <i class="fa-solid fa-file me-1"></i>
-                                       Update
-                                    </button>
+                                    
 
                                 </th>
                             </tr>

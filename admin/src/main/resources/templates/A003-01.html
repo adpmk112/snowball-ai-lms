@@ -24,7 +24,7 @@
       let batchName=$("#name").val();
       $.ajax({
         type: "GET",
-        url: "../CheckBatchName",
+        url: "/admin/batch/CheckBatchName",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data : {batchName: batchName},

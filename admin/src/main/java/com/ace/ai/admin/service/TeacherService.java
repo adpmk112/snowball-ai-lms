@@ -31,5 +31,8 @@ public class TeacherService {
     return teacherRepository.findByCode(code);
   }
 
+  public Teacher findById(int id){
+    return teacherRepository.findTeacherById(id);
+  }
   
 }
