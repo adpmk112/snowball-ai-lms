@@ -15,12 +15,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ace.ai.admin.datamodel.Attendance;
 import com.ace.ai.admin.datamodel.Classroom;
+import com.ace.ai.admin.datamodel.Student;
 import com.ace.ai.admin.datamodel.TeacherBatch;
 import com.ace.ai.admin.dtomodel.ClassroomDTO;
 import com.ace.ai.admin.dtomodel.ReqClassroomDTO;
+import com.ace.ai.admin.repository.AttendanceRepository;
 import com.ace.ai.admin.repository.BatchRepository;
 import com.ace.ai.admin.repository.ClassRoomRepository;
+import com.ace.ai.admin.repository.StudentRepository;
 import com.ace.ai.admin.repository.TeacherBatchRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +41,36 @@ public class ClassRoomService {
 
     @Autowired
     BatchRepository batchRepository;
+
+    @Autowired
+    StudentRepository studentRepository;
+
+    @Autowired
+    AttendanceRepository attendanceRepository;
+
+    public static String englishTime(String input)
+    throws ParseException
+{
+
+    // Format of the date defined in the input String
+    DateFormat dateFormat
+        = new SimpleDateFormat("hh:mm");
+   
+    // Change the pattern into 24 hour format
+    DateFormat format
+        = new SimpleDateFormat("HH:mm");
+    Date time = null;
+    String output = "";
+   
+    // Converting the input String to Date
+    time = dateFormat.parse(input);
+   
+    // Changing the format of date
+    // and storing it in
+    // String
+    output = format.format(time);
+    return output;
+}
 
     public String twelveHourFormat(String time) throws ParseException{
 
@@ -87,8 +121,8 @@ public class ClassRoomService {
             classroomDTO.setStatus("");
             classroomDTO.setTeacherName(classroom.getTeacherName());
 
-            classroomDTO.setStartTime(LocalTime.parse(twelveHourFormat(classroom.getStartTime())));
-            classroomDTO.setEndTime(LocalTime.parse(twelveHourFormat(classroom.getEndTime()))); 
+            classroomDTO.setStartTime(LocalTime.parse(classroom.getStartTime()));
+            classroomDTO.setEndTime(LocalTime.parse(classroom.getEndTime())); 
 
             classroomDTO.setStartDateTime(LocalDateTime.parse
             (classroomDTO.getDate()+" "+classroomDTO.getStartTime(),dtf));
@@ -133,30 +167,6 @@ public class ClassRoomService {
         return classroomDTOforTeacherList;
     }
 
-    public static String englishTime(String input)
-    throws ParseException
-{
-
-    // Format of the date defined in the input String
-    DateFormat dateFormat
-        = new SimpleDateFormat("hh:mm");
-   
-    // Change the pattern into 24 hour format
-    DateFormat format
-        = new SimpleDateFormat("HH:mm");
-    Date time = null;
-    String output = "";
-   
-    // Converting the input String to Date
-    time = dateFormat.parse(input);
-   
-    // Changing the format of date
-    // and storing it in
-    // String
-    output = format.format(time);
-    return output;
-}
-
     public void createClassroom(ReqClassroomDTO reqClassroomDTO) throws ParseException{
         Classroom classroom = new Classroom();
 
@@ -167,5 +177,20 @@ public class ClassRoomService {
         classroom.setStartTime(englishTime(reqClassroomDTO.getStartTime()));
         classroom.setEndTime(englishTime(reqClassroomDTO.getEndTime()));
         classRoomRepository.save(classroom);
+        createAttendanceByClassroom(classroom);
+    }
+
+    public void createAttendanceByClassroom(Classroom classroom){
+
+        Attendance attendance = new Attendance();
+        attendance.setClassroom(classroom);
+
+        List<Student>students = studentRepository.findByBatch(classroom.getBatch());
+
+        for(Student student : students){
+            attendance.setStudent(student);
+            attendance.setAttend("Present");
+            attendanceRepository.save(attendance);
+        }
     }
 }
