@@ -13,8 +13,8 @@
             <i class="fa-solid fa-people-group"></i>
           </div>
           <div>
-            <h1>Batches</h1>
-            <h3>Total: 4</h3>
+            <h1 th:if="${batchName}" th:text="${batchName}"></h1>
+            <!-- <h3>Total: 4</h3> -->
           </div>
         </div>
         <div class="custom-div margin-top-8">
@@ -52,15 +52,7 @@
                       <th class="align-middle">Name</th>
                       <th>
                         <span id="total-student">Total: 1</span>
-                        <!-- <button
-                          type="submit"
-                          value="Save"
-                          class="btn btn-primary float-end"
-                          id="saveStudent"
-                        >
-                          <i class="fa-solid fa-file me-1"></i>
-                          Save
-                        </button> -->
+                       
                       </th>
                     </tr>
 

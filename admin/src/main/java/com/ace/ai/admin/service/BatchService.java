@@ -249,4 +249,8 @@ public class BatchService {
       student.setDeleteStatus(true);
       studentRepository.save(student);
     }
+
+    public Batch getById(int id){
+        return batchRepository.getById(id);
+    }
 }

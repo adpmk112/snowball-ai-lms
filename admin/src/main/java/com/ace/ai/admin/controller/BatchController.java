@@ -5,6 +5,7 @@ import com.ace.ai.admin.datamodel.BatchExamForm;
 import com.ace.ai.admin.datamodel.Course;
 import com.ace.ai.admin.datamodel.ExamForm;
 import com.ace.ai.admin.datamodel.Teacher;
+import com.ace.ai.admin.datamodel.TeacherBatch;
 import com.ace.ai.admin.dtomodel.BatchDTO;
 import com.ace.ai.admin.dtomodel.StudentDTO;
 import com.ace.ai.admin.dtomodel.TeacherDTO;
@@ -14,6 +15,7 @@ import com.ace.ai.admin.service.ChapterViewService;
 import com.ace.ai.admin.service.ExamFormService;
 import com.ace.ai.admin.service.ClassRoomService;
 import com.ace.ai.admin.service.ExamScheduleService;
+import com.ace.ai.admin.service.TeacherBatchService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,11 +46,14 @@ public class BatchController {
     ExamFormService examFormService;
     @Autowired
     ClassRoomService classRoomService;
+    @Autowired
+    TeacherBatchService teacherBatchService;
 
-
-    @GetMapping({"/goToBatch"})
+    @GetMapping({"/"})
     public String gotoBatch(Model model) {
         List<Batch> batchList = batchService.findAll();
+        int totalBatch = batchList.size();
+        model.addAttribute("totalBatch", totalBatch);
         model.addAttribute("batchList", batchList);
         return "A003";
     }
@@ -63,11 +68,12 @@ public class BatchController {
     }
 
     @GetMapping({"/batchSeeMore"})
-    public ModelAndView batchSeeMore(@RequestParam("id") Integer id, Model model) throws ParseException {
+    public ModelAndView batchSeeMore(@RequestParam("id") Integer id, @RequestParam("radio") String radio, Model model) throws ParseException {
         model.addAttribute("chapterDTOList", chapterViewService.findAllChapterInChapterBatchByBatchId(id));
         model.addAttribute("teacherList", batchService.findALlTeacherByBatchId(id));
         model.addAttribute("teacherList1", batchService.findALlTeacherForAllBatchExcept(id));
         model.addAttribute("batch_id", id);
+        model.addAttribute("batchName", batchService.getById(id).getName());
         model.addAttribute("examScheduleList", examScheduleService.showExamScheduleTable(id));
         model.addAttribute("attendanceList", attendanceService.showAttendanceTable(id));
         model.addAttribute("classroomDateList", attendanceService.getClassroomDate(id));
@@ -88,7 +94,7 @@ public class BatchController {
 
         List<Course> courseList = batchService.findAllCourseByDeleteStatus();
         List<Teacher> teacherList = batchService.findALlTeacherByDeleteStatus(false);
-        model.addAttribute("teacherList", teacherList);
+        model.addAttribute("teacherListAll", teacherList);
         model.addAttribute("courseList", courseList);
         return new ModelAndView("A003-01", "batchDTO", new BatchDTO());
     }
@@ -99,9 +105,9 @@ public class BatchController {
 
         List<Course> courseList = batchService.findAllCourseByDeleteStatus();
         List<Teacher> teacherList = batchService.findALlTeacherByDeleteStatus(false);
-        model.addAttribute("teacherList", teacherList);
+        model.addAttribute("teacherListAll", teacherList);
         model.addAttribute("courseList", courseList);
-        model.addAttribute("msg", "Add Teacher Success");
+        model.addAttribute("msg", "Batch is added successfully.");
         return new ModelAndView("A003-01", "batchDTO", new BatchDTO());
     }
 
@@ -131,8 +137,8 @@ public class BatchController {
         batch.setCourse(course);
         batchService.saveBatch(batch);
         batch = batchService.findLastBatch();
-        for(Integer t_id : batchDTO.getTeacherId()){
-            batchService.saveTeacherBatch(t_id, batch.getId());
+        for(Teacher teacher : batchDTO.getTeacherList()){
+            batchService.saveTeacherBatch(teacher.getId(), batch.getId());
         }
         // save batchExamFormTable
         List<ExamForm> examFormList = examFormService.findByDeleteStatusAndCourseId(false,course.getId());
@@ -140,7 +146,7 @@ public class BatchController {
             BatchExamForm bef = new BatchExamForm("", "", false, batch, examForm);
             examScheduleService.saveBathExamFrom(bef);
         }
-        return "redirect:/goToAddBatchSuccess";
+        return "redirect:/admin/batch/goToAddBatchSuccess";
     }
 
     @GetMapping({ "/BatchClose" })
@@ -166,6 +172,7 @@ public class BatchController {
     @GetMapping({"/addStudent{batch_id}"})
     public String addStudent(@PathVariable("batch_id") Integer batchId, Model model) {
         model.addAttribute("batchId", batchId);
+        model.addAttribute("batchName", batchService.getById(batchId).getName());
         return "A003-04";
     }
 
@@ -176,19 +183,18 @@ public class BatchController {
     }
 
 
-    @GetMapping("/editStudent{studentdata}")
-    public ModelAndView editStudent(@PathVariable("studentdata") Integer studentId, Model model) {
-        System.out.println("Path variable is " + studentId);
-
+    @GetMapping("/editStudent")
+    public ModelAndView editStudent(@RequestParam("studentdata") Integer studentId, Model model, @RequestParam("batchId") int batchId) {
         model.addAttribute("edit", "edit");
         StudentDTO studentDTO = batchService.findStudentById(studentId);
+        model.addAttribute("batchName", batchService.getById(batchId).getName());
         return new ModelAndView("A003-08", "studentDTO", studentDTO);
     }
 
     @PostMapping("/updateStudent")
     public String updateStudent(@ModelAttribute("studentDTO") StudentDTO studentDTO) {
         batchService.updateStudent(studentDTO);
-        return String.format("redirect:/batchSeeMore?id=%d", studentDTO.getBatchId());
+        return "redirect:/admin/batch/batchSeeMore?id="+studentDTO.getBatchId()+"&radio=student";
     }
 
 
@@ -257,6 +263,54 @@ public class BatchController {
         bef.setDeleteStatus(true);
         examScheduleService.saveBathExamFrom(bef);
         int batch_id = bef.getBatch().getId();
-        return "redirect:/batchSeeMore?id="+batch_id;
+        return "redirect:/admin/batch/batchSeeMore?id="+batch_id+"&radio=examSchedule";
     }
+
+    @GetMapping("/showEditBatch/{id}")
+    public String editBatch(@PathVariable("id") int id , Model model){
+        Batch batch = batchService.findBatchById(id);
+        List<Course> courseList = batchService.findAllCourseByDeleteStatus();
+        List<Teacher> teacherList = batchService.findALlTeacherByDeleteStatus(false); // All teacher
+        
+        BatchDTO batchDTO = new BatchDTO();
+        batchDTO.setName(batch.getName());
+        batchDTO.setCourseId(batch.getCourse().getId());
+        batchDTO.setBatchId(batch.getId());
+
+        List<TeacherBatch> teachersFromBatch = batch.getTeacherBatches(); //For batchteachers
+        List<Teacher> selectedTeacher =new ArrayList<Teacher>();
+        for(TeacherBatch teacherFromBatch: teachersFromBatch){
+            Teacher teacher = teacherFromBatch.getTeacher();            
+            selectedTeacher.add(teacher);
+        }
+        batchDTO.setTeacherList(selectedTeacher);
+
+        model.addAttribute("teacherListAll", teacherList);
+        model.addAttribute("courseList", courseList);
+        model.addAttribute("batchDTO", batchDTO);
+        return "A003-02";
+    }
+
+    @PostMapping("/updateBatch")
+    public String updateBatch(@ModelAttribute("batchDTO") BatchDTO batchDTO) {
+        int batchId = batchDTO.getBatchId();
+        System.out.println("Batch Name is "+batchDTO.getName());
+        Batch batch = batchService.findBatchById(batchId);
+        System.out.print("batch info"+ batchId+ batchDTO.getName()+ batch.getName());
+        batch.setName(batchDTO.getName());
+        //     LocalDate localDate = LocalDate.now();
+        //     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        //     String localDateString = localDate.format(dateTimeFormatter);
+        // batch.setCreatedDate(localDateString);//This will be updated Date
+             
+        batchService.saveBatch(batch);
+        //Delete All Teacher
+        teacherBatchService.deleteByBatchId(batchId);
+        for(Teacher teacher : batchDTO.getTeacherList()){
+            batchService.saveTeacherBatch(teacher.getId(), batch.getId());
+        }
+        return "redirect:/admin/batch/goToBatch";
+        //return "redirect:/updateBatchSuccess/"+batchId;
+    }
+   
 }

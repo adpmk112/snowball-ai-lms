@@ -1,185 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
-    />
-    <title>header</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css" />
 
-    <!-- carousel-css -->
-    <link
-      rel="stylesheet"
-      href="./assets/owlcarousel/css/owl.carousel.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="./assets/owlcarousel/css/owl.theme.default.min.css"
-    />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+  <title>header</title>
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="assets/fonts/font-awesome.min.css" />
 
-    <!-- subject-css -->
-    <link rel="stylesheet" href="assets/css/styles.css" />
-    <link rel="stylesheet" href="./assets/css/student-home.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
-      integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link rel="stylesheet" href="assets/css/header.css" />
-    <link rel="stylesheet" href="assets/css/main.css" />
-    <script src="./assets/jquery/jquery.min.js"></script>
-    <script
-      src="https://kit.fontawesome.com/83e4876698.js"
-      crossorigin="anonymous"
-    ></script>
-    <script>
-      $(function () {
-        $('#header').load('S005.html')
-      })
-    </script>
-    <script>
-      $(function () {
-        $('#footer').load('F001.html')
-      })
-    </script>
-  </head>
+  <!-- carousel-css -->
+  <link rel="stylesheet" href="./assets/owlcarousel/css/owl.carousel.min.css" />
+  <link rel="stylesheet" href="./assets/owlcarousel/css/owl.theme.default.min.css" />
 
-  <body class="body-color">
-    <main>
-      <div id="header"></div>
-      <div class="semi-circle"></div>
-      <div class="banner">
-        <div class="circle"><i class="fa-solid fa-chalkboard-user"></i></div>
-        <div>
-          <h1>Java Course</h1>
-          <h3>Batch 01</h3>
-        </div>
+  <!-- subject-css -->
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="./assets/css/student-home.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+    integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="assets/css/header.css" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <script src="./assets/jquery/jquery.min.js"></script>
+  <script src="https://kit.fontawesome.com/83e4876698.js" crossorigin="anonymous"></script>
+  <script>
+    $(function () {
+      $('#header').load('S005.html')
+    })
+  </script>
+  <script>
+    $(function () {
+      $('#footer').load('F001.html')
+    })
+  </script>
+</head>
+
+<body class="body-color">
+  <main>
+    <div id="header"></div>
+    <div class="semi-circle"></div>
+    <div class="banner">
+      <div class="circle"><i class="fa-solid fa-chalkboard-user"></i></div>
+      <div>
+        <h1>Java Course</h1>
+        <h3>Batch 01</h3>
       </div>
-      <section
-        class="container header-margin"
-        id="subject"
-        style="margin-top: 10px;"
-      >
-        <div class="subject">
-          <div class="row subject-button">
-            <div class="btn-group" role="group" aria-label="Basic example">
-              <button type="button" class="btn button active" id="inprogress">
-                InProgress
-              </button>
-              <button type="button" class="btn button" id="upcomming">
-                Upcomming
-              </button>
-              <button type="button" class="btn button" id="done">Done</button>
-            </div>
+    </div>
+    <section class="container header-margin" id="subject" style="margin-top: 10px;">
+      <div class="subject">
+        <div class="row subject-button">
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn button active" id="inprogress">
+              InProgress
+            </button>
+            <button type="button" class="btn button" id="upcomming">
+              Upcomming
+            </button>
+            <button type="button" class="btn button" id="done">Done</button>
           </div>
-          <div class="row">
-            <div class="carousel-container">
-              <div class="owl-carousel show owl-theme" id="inprogress-show">
-                <a href="S001-01.html" class="unit-a">
-                  <div class="chapter">
-                    <div style="max-width: 100%;">
-                      <div class="card-header chapter-text">Chapter 1</div>
-                      <div class="card-body">
-                        <h5 class="card-title chapter-text">Core Java</h5>
-                      </div>
+        </div>
+        <div class="row">
+          <div class="carousel-container">
+            <div class="owl-carousel show owl-theme" id="inprogress-show">
+              <a href="S001-01.html" class="unit-a">
+                <div class="chapter">
+                  <div style="max-width: 100%;">
+                    <div class="card-header chapter-text">Chapter 1</div>
+                    <div class="card-body">
+                      <h5 class="card-title chapter-text">Core Java</h5>
                     </div>
                   </div>
-                </a>
+                </div>
+              </a>
 
-                <a href="S001-01.html" class="unit-a">
-                  <div class="chapter">
-                    <div style="max-width: 100%;">
-                      <div class="card-header chapter-text">Unit 2</div>
-                      <div class="card-body">
-                        <h5 class="card-title chapter-text">
-                          Secondary card title
-                        </h5>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-                <div class="chapter">
-                  <div style="max-width: 100%;">
-                    <div class="card-header">Unit 3</div>
-                    <div class="card-body">
-                      <h5 class="card-title">Secondary card title</h5>
-                    </div>
-                  </div>
-                </div>
-                <div class="chapter">
-                  <a>
-                    <div style="max-width: 100%;">
-                      <div class="card-header chapter-text">Header</div>
-                      <div class="card-body">
-                        <h5 class="card-title chapter-text">
-                          Secondary card title
-                        </h5>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="chapter">
-                  <div style="max-width: 100%;">
-                    <div class="card-header chapter-text">Unit 3</div>
-                    <div class="card-body">
-                      <h5 class="card-title chapter-text">
-                        Secondary card title
-                      </h5>
-                    </div>
-                  </div>
-                </div>
-                <div class="chapter">
-                  <div style="max-width: 100%;">
-                    <div class="card-header chapter-text">Header</div>
-                    <div class="card-body">
-                      <h5 class="card-title chapter-text">
-                        Secondary card title
-                      </h5>
-                    </div>
-                  </div>
-                </div>
-                <div class="chapter">
-                  <div style="max-width: 100%;">
-                    <div class="card-header chapter-text">Header</div>
-                    <div class="card-body">
-                      <h5 class="card-title chapter-text">
-                        Secondary card title
-                      </h5>
-                    </div>
-                  </div>
-                </div>
-                <div class="chapter">
-                  <div style="max-width: 100%;">
-                    <div class="card-header chapter-text">Header</div>
-                    <div class="card-body">
-                      <h5 class="card-title chapter-text">
-                        Secondary card title
-                      </h5>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!--End owl-carousel-->
-
-              <div class="owl-carousel owl-theme" id="upcomming-show">
-                <a href="S001-01.html" class="unit-a">
-                  <div class="chapter">
-                    <div style="max-width: 100%;">
-                      <div class="card-header chapter-text">Unit 1</div>
-                      <div class="card-body">
-                        <h5 class="card-title chapter-text">
-                          Secondary card title
-                        </h5>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-
+              <a href="S001-01.html" class="unit-a">
                 <div class="chapter">
                   <div style="max-width: 100%;">
                     <div class="card-header chapter-text">Unit 2</div>
@@ -190,495 +83,501 @@
                     </div>
                   </div>
                 </div>
-                <div class="chapter">
-                  <div style="max-width: 100%;">
-                    <div class="card-header chapter-text">Unit 3</div>
-                    <div class="card-body">
-                      <h5 class="card-title chapter-text">
-                        Secondary card title
-                      </h5>
-                    </div>
-                  </div>
-                </div>
-                <div class="chapter">
-                  <a>
-                    <div style="max-width: 100%;">
-                      <div class="card-header chapter-text">Header</div>
-                      <div class="card-body">
-                        <h5 class="card-title chapter-text">
-                          Secondary card title
-                        </h5>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="chapter">
-                  <div style="max-width: 100%;">
-                    <div class="card-header chapter-text">Unit 3</div>
-                    <div class="card-body">
-                      <h5 class="card-title chapter-text">
-                        Secondary card title
-                      </h5>
-                    </div>
-                  </div>
-                </div>
-                <div class="chapter">
-                  <div style="max-width: 100%;">
-                    <div class="card-header chapter-text">Header</div>
-                    <div class="card-body">
-                      <h5 class="card-title chapter-text">
-                        Secondary card title
-                      </h5>
-                      <p class="card-text">
-                        Some quick example text to build on the card title and
-                        make up the bulk of the card's content.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="chapter">
-                  <div style="max-width: 100%;">
-                    <div class="card-header chapter-text">Header</div>
-                    <div class="card-body">
-                      <h5 class="card-title chapter-text">
-                        Secondary card title
-                      </h5>
-                      <p class="card-text">
-                        Some quick example text to build on the card title and
-                        make up the bulk of the card's content.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="chapter">
-                  <div style="max-width: 100%;">
-                    <div class="card-header chapter-text">Header</div>
-                    <div class="card-body">
-                      <h5 class="card-title chapter-text">
-                        Secondary card title
-                      </h5>
-                    </div>
+              </a>
+              <div class="chapter">
+                <div style="max-width: 100%;">
+                  <div class="card-header">Unit 3</div>
+                  <div class="card-body">
+                    <h5 class="card-title">Secondary card title</h5>
                   </div>
                 </div>
               </div>
-              <!--End owl-carousel-->
-
-              <div class="owl-carousel owl-theme" id="done-show">
-                <a href="S001-01.html" class="unit-a">
-                  <div class="item">
-                    <div
-                      class="card text-white bg-danger m-3"
-                      style="max-width: 100%;"
-                    >
-                      <div class="card-header">Unit 1</div>
-                      <div class="card-body">
-                        <h5 class="card-title">Secondary card title</h5>
-                        <p class="card-text">
-                          Some quick example text to build on the card title and
-                          make up the bulk of the card's content.
-                        </p>
-                      </div>
+              <div class="chapter">
+                <a>
+                  <div style="max-width: 100%;">
+                    <div class="card-header chapter-text">Header</div>
+                    <div class="card-body">
+                      <h5 class="card-title chapter-text">
+                        Secondary card title
+                      </h5>
                     </div>
                   </div>
                 </a>
-
-                <div class="item">
-                  <div
-                    class="card text-white bg-success m-3"
-                    style="max-width: 100%;"
-                  >
-                    <div class="card-header">Unit 2</div>
-                    <div class="card-body">
-                      <h5 class="card-title">Secondary card title</h5>
-                      <p class="card-text">
-                        Some quick example text to build on the card title and
-                        make up the bulk of the card's content.
-                      </p>
-                    </div>
+              </div>
+              <div class="chapter">
+                <div style="max-width: 100%;">
+                  <div class="card-header chapter-text">Unit 3</div>
+                  <div class="card-body">
+                    <h5 class="card-title chapter-text">
+                      Secondary card title
+                    </h5>
                   </div>
                 </div>
-                <div class="item">
-                  <div
-                    class="card text-white bg-secondary m-3"
-                    style="max-width: 100%;"
-                  >
-                    <div class="card-header">Unit 3</div>
-                    <div class="card-body">
-                      <h5 class="card-title">Secondary card title</h5>
-                      <p class="card-text">
-                        Some quick example text to build on the card title and
-                        make up the bulk of the card's content.
-                      </p>
-                    </div>
+              </div>
+              <div class="chapter">
+                <div style="max-width: 100%;">
+                  <div class="card-header chapter-text">Header</div>
+                  <div class="card-body">
+                    <h5 class="card-title chapter-text">
+                      Secondary card title
+                    </h5>
                   </div>
                 </div>
-                <div class="item">
-                  <a>
-                    <div
-                      class="card text-white bg-primary m-3"
-                      style="max-width: 100%;"
-                    >
-                      <div class="card-header">Header</div>
-                      <div class="card-body">
-                        <h5 class="card-title">Secondary card title</h5>
-                        <p class="card-text">
-                          Some quick example text to build on the card title and
-                          make up the bulk of the card's content.
-                        </p>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="item">
-                  <div
-                    class="card text-white bg-success m-3"
-                    style="max-width: 100%;"
-                  >
-                    <div class="card-header">Unit 3</div>
-                    <div class="card-body">
-                      <h5 class="card-title">Secondary card title</h5>
-                      <p class="card-text">
-                        Some quick example text to build on the card title and
-                        make up the bulk of the card's content.
-                      </p>
-                    </div>
+              </div>
+              <div class="chapter">
+                <div style="max-width: 100%;">
+                  <div class="card-header chapter-text">Header</div>
+                  <div class="card-body">
+                    <h5 class="card-title chapter-text">
+                      Secondary card title
+                    </h5>
                   </div>
                 </div>
-                <div class="item">
-                  <div
-                    class="card text-white bg-secondary m-3"
-                    style="max-width: 100%;"
-                  >
-                    <div class="card-header">Header</div>
-                    <div class="card-body">
-                      <h5 class="card-title">Secondary card title</h5>
-                      <p class="card-text">
-                        Some quick example text to build on the card title and
-                        make up the bulk of the card's content.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="item">
-                  <div
-                    class="card text-white bg-secondary m-3"
-                    style="max-width: 100%;"
-                  >
-                    <div class="card-header">Header</div>
-                    <div class="card-body">
-                      <h5 class="card-title">Secondary card title</h5>
-                      <p class="card-text">
-                        Some quick example text to build on the card title and
-                        make up the bulk of the card's content.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="item">
-                  <div
-                    class="card text-white bg-danger m-3"
-                    style="max-width: 100%;"
-                  >
-                    <div class="card-header">Header</div>
-                    <div class="card-body">
-                      <h5 class="card-title">Secondary card title</h5>
-                      <p class="card-text">
-                        Some quick example text to build on the card title and
-                        make up the bulk of the card's content.
-                      </p>
-                    </div>
+              </div>
+              <div class="chapter">
+                <div style="max-width: 100%;">
+                  <div class="card-header chapter-text">Header</div>
+                  <div class="card-body">
+                    <h5 class="card-title chapter-text">
+                      Secondary card title
+                    </h5>
                   </div>
                 </div>
               </div>
             </div>
-            <!--End container-->
-          </div>
-        </div>
-        <!--End subject-->
-      </section>
-      <!--End subject Section-->
+            <!--End owl-carousel-->
 
-      <section
-        class="gradient-custom custom-comment-box"
-        style="background-color: rgb(255, 255, 255);"
-      >
-        <div class="container my-5 py-5">
-          <div class="row d-flex justify-content-center">
-            <div class="col-md-12 col-lg-10 col-xl-8">
-              <div class="">
-                <div class="card-body p-4">
-                  <div class="row">
-                    <div class="col">
-                      <div class="d-flex flex-start">
-                        <img
-                          class="rounded-circle shadow-1-strong me-3"
-                          src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp"
-                          alt="avatar"
-                          width="65"
-                          height="65"
-                        />
-                        <div class="flex-grow-1 flex-shrink-1">
-                          <div>
-                            <div
-                              class="d-flex justify-content-between align-items-center"
-                            >
-                              <p class="mb-1">
-                                Maria Smantha
-                                <span class="small">- 2 hours ago</span>
-                              </p>
-                              <a href="#!">
-                                <i class="fas fa-reply fa-xs"></i>
-                                <span class="small">reply</span>
-                              </a>
-                            </div>
-                            <p class="small mb-0">
-                              It is a long established fact that a reader will
-                              be distracted by the readable content of a page.
-                            </p>
-                          </div>
-
-                          <div class="d-flex flex-start mt-4">
-                            <a class="me-3" href="#">
-                              <img
-                                class="rounded-circle shadow-1-strong"
-                                src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(11).webp"
-                                alt="avatar"
-                                width="65"
-                                height="65"
-                              />
-                            </a>
-                            <div class="flex-grow-1 flex-shrink-1">
-                              <div>
-                                <div
-                                  class="d-flex justify-content-between align-items-center"
-                                >
-                                  <p class="mb-1">
-                                    Simona Disa
-                                    <span class="small">- 3 hours ago</span>
-                                  </p>
-                                </div>
-                                <p class="small mb-0">
-                                  letters, as opposed to using 'Content here,
-                                  content here', making it look like readable
-                                  English.
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="d-flex flex-start mt-4">
-                            <a class="me-3" href="#">
-                              <img
-                                class="rounded-circle shadow-1-strong"
-                                src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp"
-                                alt="avatar"
-                                width="65"
-                                height="65"
-                              />
-                            </a>
-                            <div class="flex-grow-1 flex-shrink-1">
-                              <div>
-                                <div
-                                  class="d-flex justify-content-between align-items-center"
-                                >
-                                  <p class="mb-1">
-                                    John Smith
-                                    <span class="small">- 4 hours ago</span>
-                                  </p>
-                                </div>
-                                <p class="small mb-0">
-                                  the majority have suffered alteration in some
-                                  form, by injected humour, or randomised words.
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="d-flex flex-start mt-4">
-                        <img
-                          class="rounded-circle shadow-1-strong me-3"
-                          src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(12).webp"
-                          alt="avatar"
-                          width="65"
-                          height="65"
-                        />
-                        <div class="flex-grow-1 flex-shrink-1">
-                          <div>
-                            <div
-                              class="d-flex justify-content-between align-items-center"
-                            >
-                              <p class="mb-1">
-                                Natalie Smith
-                                <span class="small">- 2 hours ago</span>
-                              </p>
-                              <a href="#!">
-                                <i class="fa-solid fa-reply"></i>
-                                <span class="small">reply</span>
-                              </a>
-                            </div>
-                            <p class="small mb-0">
-                              The standard chunk of Lorem Ipsum used since the
-                              1500s is reproduced below for those interested.
-                              Sections 1.10.32 and 1.10.33.
-                            </p>
-                          </div>
-
-                          <div class="d-flex flex-start mt-4">
-                            <a class="me-3" href="#">
-                              <img
-                                class="rounded-circle shadow-1-strong"
-                                src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(31).webp"
-                                alt="avatar"
-                                width="65"
-                                height="65"
-                              />
-                            </a>
-                            <div class="flex-grow-1 flex-shrink-1">
-                              <div>
-                                <div
-                                  class="d-flex justify-content-between align-items-center"
-                                >
-                                  <p class="mb-1">
-                                    Lisa Cudrow
-                                    <span class="small">- 4 hours ago</span>
-                                  </p>
-                                </div>
-                                <p class="small mb-0">
-                                  Cras sit amet nibh libero, in gravida nulla.
-                                  Nulla vel metus scelerisque ante sollicitudin
-                                  commodo. Cras purus odio, vestibulum in
-                                  vulputate at, tempus viverra turpis.
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="d-flex flex-start mt-4">
-                            <a class="me-3" href="#">
-                              <img
-                                class="rounded-circle shadow-1-strong"
-                                src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(29).webp"
-                                alt="avatar"
-                                width="65"
-                                height="65"
-                              />
-                            </a>
-                            <div class="flex-grow-1 flex-shrink-1">
-                              <div>
-                                <div
-                                  class="d-flex justify-content-between align-items-center"
-                                >
-                                  <p class="mb-1">
-                                    Maggie McLoan
-                                    <span class="small">- 5 hours ago</span>
-                                  </p>
-                                </div>
-                                <p class="small mb-0">
-                                  a Latin professor at Hampden-Sydney College in
-                                  Virginia, looked up one of the more obscure
-                                  Latin words, consectetur
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="d-flex flex-start mt-4">
-                            <a class="me-3" href="#">
-                              <img
-                                class="rounded-circle shadow-1-strong"
-                                src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp"
-                                alt="avatar"
-                                width="65"
-                                height="65"
-                              />
-                            </a>
-                            <div class="flex-grow-1 flex-shrink-1">
-                              <div>
-                                <div
-                                  class="d-flex justify-content-between align-items-center"
-                                >
-                                  <p class="mb-1">
-                                    John Smith
-                                    <span class="small">- 6 hours ago</span>
-                                  </p>
-                                </div>
-                                <p class="small mb-0">
-                                  Autem, totam debitis suscipit saepe sapiente
-                                  magnam officiis quaerat necessitatibus odio
-                                  assumenda, perferendis quae iusto labore
-                                  laboriosam minima numquam impedit quam
-                                  dolorem!
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div
-                        class="card-footer py-3 border-0"
-                        style="background-color: #f8f9fa;"
-                      >
-                        <div class="d-flex flex-start w-100">
-                          <img
-                            class="rounded-circle shadow-1-strong me-3"
-                            src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp"
-                            alt="avatar"
-                            width="40"
-                            height="40"
-                          />
-                          <div class="form-outline w-100">
-                            <textarea
-                              class="form-control"
-                              id="textAreaExample"
-                              rows="4"
-                              style="background: #fff;"
-                            ></textarea>
-                            <label class="form-label" for="textAreaExample">
-                              Message
-                            </label>
-                          </div>
-                        </div>
-                        <div class="float-end mt-2 pt-1">
-                          <button type="button" class="btn btn-primary btn-sm">
-                            Post comment
-                          </button>
-                          <button
-                            type="button"
-                            class="btn btn-outline-primary btn-sm"
-                          >
-                            Cancel
-                          </button>
-                        </div>
-                      </div>
+            <div class="owl-carousel owl-theme" id="upcomming-show">
+              <a href="S001-01.html" class="unit-a">
+                <div class="chapter">
+                  <div style="max-width: 100%;">
+                    <div class="card-header chapter-text">Unit 1</div>
+                    <div class="card-body">
+                      <h5 class="card-title chapter-text">
+                        Secondary card title
+                      </h5>
                     </div>
+                  </div>
+                </div>
+              </a>
+
+              <div class="chapter">
+                <div style="max-width: 100%;">
+                  <div class="card-header chapter-text">Unit 2</div>
+                  <div class="card-body">
+                    <h5 class="card-title chapter-text">
+                      Secondary card title
+                    </h5>
+                  </div>
+                </div>
+              </div>
+              <div class="chapter">
+                <div style="max-width: 100%;">
+                  <div class="card-header chapter-text">Unit 3</div>
+                  <div class="card-body">
+                    <h5 class="card-title chapter-text">
+                      Secondary card title
+                    </h5>
+                  </div>
+                </div>
+              </div>
+              <div class="chapter">
+                <a>
+                  <div style="max-width: 100%;">
+                    <div class="card-header chapter-text">Header</div>
+                    <div class="card-body">
+                      <h5 class="card-title chapter-text">
+                        Secondary card title
+                      </h5>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="chapter">
+                <div style="max-width: 100%;">
+                  <div class="card-header chapter-text">Unit 3</div>
+                  <div class="card-body">
+                    <h5 class="card-title chapter-text">
+                      Secondary card title
+                    </h5>
+                  </div>
+                </div>
+              </div>
+              <div class="chapter">
+                <div style="max-width: 100%;">
+                  <div class="card-header chapter-text">Header</div>
+                  <div class="card-body">
+                    <h5 class="card-title chapter-text">
+                      Secondary card title
+                    </h5>
+                    <p class="card-text">
+                      Some quick example text to build on the card title and
+                      make up the bulk of the card's content.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="chapter">
+                <div style="max-width: 100%;">
+                  <div class="card-header chapter-text">Header</div>
+                  <div class="card-body">
+                    <h5 class="card-title chapter-text">
+                      Secondary card title
+                    </h5>
+                    <p class="card-text">
+                      Some quick example text to build on the card title and
+                      make up the bulk of the card's content.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="chapter">
+                <div style="max-width: 100%;">
+                  <div class="card-header chapter-text">Header</div>
+                  <div class="card-body">
+                    <h5 class="card-title chapter-text">
+                      Secondary card title
+                    </h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--End owl-carousel-->
+
+            <div class="owl-carousel owl-theme" id="done-show">
+              <a href="S001-01.html" class="unit-a">
+                <div class="item">
+                  <div class="card text-white bg-danger m-3" style="max-width: 100%;">
+                    <div class="card-header">Unit 1</div>
+                    <div class="card-body">
+                      <h5 class="card-title">Secondary card title</h5>
+                      <p class="card-text">
+                        Some quick example text to build on the card title and
+                        make up the bulk of the card's content.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </a>
+
+              <div class="item">
+                <div class="card text-white bg-success m-3" style="max-width: 100%;">
+                  <div class="card-header">Unit 2</div>
+                  <div class="card-body">
+                    <h5 class="card-title">Secondary card title</h5>
+                    <p class="card-text">
+                      Some quick example text to build on the card title and
+                      make up the bulk of the card's content.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="card text-white bg-secondary m-3" style="max-width: 100%;">
+                  <div class="card-header">Unit 3</div>
+                  <div class="card-body">
+                    <h5 class="card-title">Secondary card title</h5>
+                    <p class="card-text">
+                      Some quick example text to build on the card title and
+                      make up the bulk of the card's content.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <a>
+                  <div class="card text-white bg-primary m-3" style="max-width: 100%;">
+                    <div class="card-header">Header</div>
+                    <div class="card-body">
+                      <h5 class="card-title">Secondary card title</h5>
+                      <p class="card-text">
+                        Some quick example text to build on the card title and
+                        make up the bulk of the card's content.
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="item">
+                <div class="card text-white bg-success m-3" style="max-width: 100%;">
+                  <div class="card-header">Unit 3</div>
+                  <div class="card-body">
+                    <h5 class="card-title">Secondary card title</h5>
+                    <p class="card-text">
+                      Some quick example text to build on the card title and
+                      make up the bulk of the card's content.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="card text-white bg-secondary m-3" style="max-width: 100%;">
+                  <div class="card-header">Header</div>
+                  <div class="card-body">
+                    <h5 class="card-title">Secondary card title</h5>
+                    <p class="card-text">
+                      Some quick example text to build on the card title and
+                      make up the bulk of the card's content.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="card text-white bg-secondary m-3" style="max-width: 100%;">
+                  <div class="card-header">Header</div>
+                  <div class="card-body">
+                    <h5 class="card-title">Secondary card title</h5>
+                    <p class="card-text">
+                      Some quick example text to build on the card title and
+                      make up the bulk of the card's content.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="card text-white bg-danger m-3" style="max-width: 100%;">
+                  <div class="card-header">Header</div>
+                  <div class="card-body">
+                    <h5 class="card-title">Secondary card title</h5>
+                    <p class="card-text">
+                      Some quick example text to build on the card title and
+                      make up the bulk of the card's content.
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          <!--End container-->
         </div>
-      </section>
-    </main>
-    <div id="footer"></div>
+      </div>
+      <!--End subject-->
+    </section>
+    <!--End subject Section-->
 
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/owlcarousel/js/owl.carousel.min.js"></script>
-    <script src="assets/js/subject-carousel.js"></script>
-    <script src="assets/js/header.js"></script>
+    <section class="gradient-custom custom-comment-box" style="background-color: rgb(255, 255, 255);">
+      <div class="container my-5 py-5">
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-lg-10 col-xl-8">
+            <div class="">
+              <div class="card-body p-4">
+                <div class="row">
+                  <div class="col">
+                    <div class="d-flex flex-start">
+                      <img class="rounded-circle shadow-1-strong me-3"
+                        src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp" alt="avatar" width="65"
+                        height="65" />
+                      <div class="flex-grow-1 flex-shrink-1">
+                        <div>
+                          <div class="d-flex justify-content-between align-items-center">
+                            <p class="mb-1">
+                              Maria Smantha
+                              <span class="small">- 2 hours ago</span>
+                            </p>
+                            <a href="#!">
+                              <i class="fas fa-reply fa-xs"></i>
+                              <span class="small">reply</span>
+                            </a>
+                          </div>
+                          <p class="small mb-0">
+                            It is a long established fact that a reader will
+                            be distracted by the readable content of a page.
+                          </p>
+                        </div>
 
-    <script>
-      $('#subject .subject .button').click(function () {
-        $('#subject .subject .button').removeClass('active')
-        $(this).addClass('active')
-        //$(".owl-carousel").addClass("d-none");
-        //$("#"+$(this).attr("id")+"-show").removeClass("d-none");
-        $('.owl-carousel').removeClass('show')
-        $('#' + $(this).attr('id') + '-show').addClass('show')
-      })
-    </script>
-  </body>
+                        <div class="d-flex flex-start mt-4">
+                          <a class="me-3" href="#">
+                            <img class="rounded-circle shadow-1-strong"
+                              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(11).webp" alt="avatar" width="65"
+                              height="65" />
+                          </a>
+                          <div class="flex-grow-1 flex-shrink-1">
+                            <div>
+                              <div class="d-flex justify-content-between align-items-center">
+                                <p class="mb-1">
+                                  Simona Disa
+                                  <span class="small">- 3 hours ago</span>
+                                </p>
+                              </div>
+                              <p class="small mb-0">
+                                letters, as opposed to using 'Content here,
+                                content here', making it look like readable
+                                English.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="d-flex flex-start mt-4">
+                          <a class="me-3" href="#">
+                            <img class="rounded-circle shadow-1-strong"
+                              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp" alt="avatar" width="65"
+                              height="65" />
+                          </a>
+                          <div class="flex-grow-1 flex-shrink-1">
+                            <div>
+                              <div class="d-flex justify-content-between align-items-center">
+                                <p class="mb-1">
+                                  John Smith
+                                  <span class="small">- 4 hours ago</span>
+                                </p>
+                              </div>
+                              <p class="small mb-0">
+                                the majority have suffered alteration in some
+                                form, by injected humour, or randomised words.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="d-flex flex-start mt-4">
+                      <img class="rounded-circle shadow-1-strong me-3"
+                        src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(12).webp" alt="avatar" width="65"
+                        height="65" />
+                      <div class="flex-grow-1 flex-shrink-1">
+                        <div>
+                          <div class="d-flex justify-content-between align-items-center">
+                            <p class="mb-1">
+                              Natalie Smith
+                              <span class="small">- 2 hours ago</span>
+                            </p>
+                            <a href="#!">
+                              <i class="fa-solid fa-reply"></i>
+                              <span class="small">reply</span>
+                            </a>
+                          </div>
+                          <p class="small mb-0">
+                            The standard chunk of Lorem Ipsum used since the
+                            1500s is reproduced below for those interested.
+                            Sections 1.10.32 and 1.10.33.
+                          </p>
+                        </div>
+
+                        <div class="d-flex flex-start mt-4">
+                          <a class="me-3" href="#">
+                            <img class="rounded-circle shadow-1-strong"
+                              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(31).webp" alt="avatar" width="65"
+                              height="65" />
+                          </a>
+                          <div class="flex-grow-1 flex-shrink-1">
+                            <div>
+                              <div class="d-flex justify-content-between align-items-center">
+                                <p class="mb-1">
+                                  Lisa Cudrow
+                                  <span class="small">- 4 hours ago</span>
+                                </p>
+                              </div>
+                              <p class="small mb-0">
+                                Cras sit amet nibh libero, in gravida nulla.
+                                Nulla vel metus scelerisque ante sollicitudin
+                                commodo. Cras purus odio, vestibulum in
+                                vulputate at, tempus viverra turpis.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="d-flex flex-start mt-4">
+                          <a class="me-3" href="#">
+                            <img class="rounded-circle shadow-1-strong"
+                              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(29).webp" alt="avatar" width="65"
+                              height="65" />
+                          </a>
+                          <div class="flex-grow-1 flex-shrink-1">
+                            <div>
+                              <div class="d-flex justify-content-between align-items-center">
+                                <p class="mb-1">
+                                  Maggie McLoan
+                                  <span class="small">- 5 hours ago</span>
+                                </p>
+                              </div>
+                              <p class="small mb-0">
+                                a Latin professor at Hampden-Sydney College in
+                                Virginia, looked up one of the more obscure
+                                Latin words, consectetur
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="d-flex flex-start mt-4">
+                          <a class="me-3" href="#">
+                            <img class="rounded-circle shadow-1-strong"
+                              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp" alt="avatar" width="65"
+                              height="65" />
+                          </a>
+                          <div class="flex-grow-1 flex-shrink-1">
+                            <div>
+                              <div class="d-flex justify-content-between align-items-center">
+                                <p class="mb-1">
+                                  John Smith
+                                  <span class="small">- 6 hours ago</span>
+                                </p>
+                              </div>
+                              <p class="small mb-0">
+                                Autem, totam debitis suscipit saepe sapiente
+                                magnam officiis quaerat necessitatibus odio
+                                assumenda, perferendis quae iusto labore
+                                laboriosam minima numquam impedit quam
+                                dolorem!
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
+                      <div class="d-flex flex-start w-100">
+                        <img class="rounded-circle shadow-1-strong me-3"
+                          src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="40"
+                          height="40" />
+                        <div class="form-outline w-100">
+                          <textarea class="form-control" id="textAreaExample" rows="4"
+                            style="background: #fff;"></textarea>
+                          <label class="form-label" for="textAreaExample">
+                            Message
+                          </label>
+                        </div>
+                      </div>
+                      <div class="float-end mt-2 pt-1">
+                        <button type="button" class="btn btn-primary btn-sm">
+                          Post comment
+                        </button>
+                        <button type="button" class="btn btn-outline-primary btn-sm">
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="footer"></div>
+
+  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/owlcarousel/js/owl.carousel.min.js"></script>
+  <script src="assets/js/subject-carousel.js"></script>
+  <script src="assets/js/header.js"></script>
+
+  <script>
+    $('#subject .subject .button').click(function () {
+      $('#subject .subject .button').removeClass('active')
+      $(this).addClass('active')
+      //$(".owl-carousel").addClass("d-none");
+      //$("#"+$(this).attr("id")+"-show").removeClass("d-none");
+      $('.owl-carousel').removeClass('show')
+      $('#' + $(this).attr('id') + '-show').addClass('show')
+    })
+  </script>
+</body>
+
 </html>
