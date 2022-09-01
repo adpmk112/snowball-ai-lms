@@ -1,8 +1,11 @@
 package com.ace.ai.admin.controller;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,25 +14,28 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ace.ai.admin.dtomodel.ClassroomDTO;
 import com.ace.ai.admin.dtomodel.ReqClassroomDTO;
 import com.ace.ai.admin.service.ClassRoomService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class ClassRoomController {
     @Autowired
     ClassRoomService classRoomService;
 
     @GetMapping("/setupClassroomAdd/{batch_id}")
-    public ModelAndView classroomAdd(Model model, @PathVariable("batch_id")Integer id){
+    public ModelAndView classroomAdd(Model model, @PathVariable("batch_id") Integer id) {
         ReqClassroomDTO reqClassroomDTO = new ReqClassroomDTO();
         reqClassroomDTO.setBatchId(id);
-        model.addAttribute("teacherList",classRoomService.fetchTeacherListForClassroom(id));
-        return new ModelAndView("A003-06","reqClassroomDTO",reqClassroomDTO);
+        model.addAttribute("teacherList", classRoomService.fetchTeacherListForClassroom(id));
+        return new ModelAndView("A003-06", "reqClassroomDTO", reqClassroomDTO);
     }
 
     @PostMapping("/createClassroom")
-    public String createClassroom(Error errors,@ModelAttribute("reqClassroomDTO") ReqClassroomDTO reqClassroomDTO) throws ParseException{
+    public ModelAndView createClassroom(Model model, @ModelAttribute("reqClassroomDTO") ReqClassroomDTO reqClassroomDTO)
+            throws ParseException {
         ReqClassroomDTO reqClassroomDTO2 = new ReqClassroomDTO();
         reqClassroomDTO2.setDate(reqClassroomDTO.getDate());
         reqClassroomDTO2.setTeacherName(reqClassroomDTO.getTeacherName());
@@ -40,11 +46,15 @@ public class ClassRoomController {
 
         classRoomService.createClassroom(reqClassroomDTO2);
 
-        return "A003-06";
+        model.addAttribute("msg", "Classroom added !");
+
+        model.addAttribute("teacherList", classRoomService.fetchTeacherListForClassroom(reqClassroomDTO.getBatchId()));
+        return new ModelAndView("A003-06", "reqClassroomDTO", reqClassroomDTO);
     }
 
     @GetMapping("/editClassroom")
-    public String classroomEdit(){
+    public String classroomEdit() throws ParseException {
+        
         return "A003-07";
     }
 }

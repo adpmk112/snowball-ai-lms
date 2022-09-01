@@ -38,13 +38,43 @@ public class ClassRoomService {
     @Autowired
     BatchRepository batchRepository;
 
-    public List<ClassroomDTO> showClassroomTable(Integer batchId){
+    public String twelveHourFormat(String time) throws ParseException{
+
+        String format;
+
+        final SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
+        final Date dateObj = sdf.parse(time);
+
+        // Parsing hours, minutes and seconds in array
+        String[] arr = time.split(":");
+ 
+        // Converting hours into integer
+        int hh = Integer.parseInt(arr[0]);
+ 
+        if (hh > 12) {
+            hh = hh - 12;
+            format = "PM";
+        }
+        else if (hh == 00) {
+            hh = 12;
+            format = "AM";
+        }
+        else if (hh == 12) {
+            hh = 12;
+            format = "PM";
+        }
+        else {
+            format = "AM";
+        }
+        return new SimpleDateFormat("KK:mm aa").format(dateObj);
+    }
+
+    public List<ClassroomDTO> showClassroomTable(Integer batchId) throws ParseException{
 
         List<ClassroomDTO> classroomDTOList = new ArrayList<>();
         List<Classroom> classroomList = classRoomRepository.findAllByBatchIdAndDeleteStatus(batchId,false);
 
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        DateTimeFormatter tf = DateTimeFormatter.ofPattern("HH:mm");
         DateTimeFormatter dtf
         = DateTimeFormatter.ofPattern(
             "yyyy-MM-dd HH:mm");
@@ -57,8 +87,8 @@ public class ClassRoomService {
             classroomDTO.setStatus("");
             classroomDTO.setTeacherName(classroom.getTeacherName());
 
-            classroomDTO.setStartTime(LocalTime.parse(classroom.getStartTime(),tf));
-            classroomDTO.setEndTime(LocalTime.parse(classroom.getEndTime())); 
+            classroomDTO.setStartTime(LocalTime.parse(twelveHourFormat(classroom.getStartTime())));
+            classroomDTO.setEndTime(LocalTime.parse(twelveHourFormat(classroom.getEndTime()))); 
 
             classroomDTO.setStartDateTime(LocalDateTime.parse
             (classroomDTO.getDate()+" "+classroomDTO.getStartTime(),dtf));
@@ -129,11 +159,6 @@ public class ClassRoomService {
 
     public void createClassroom(ReqClassroomDTO reqClassroomDTO) throws ParseException{
         Classroom classroom = new Classroom();
-
-        // LocalDate classroomDate = classroomDTO.getDate();
-        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        // classroom.setDate(classroomDate.format(formatter));
-        // log.info(classroom.getDate()+"format to string is ok.");
 
         classroom.setDate(reqClassroomDTO.getDate());
         classroom.setLink(reqClassroomDTO.getLink());
