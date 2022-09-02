@@ -39,7 +39,7 @@ public class ChapterViewService {
             LocalDate now=LocalDate.now();
             boolean lessThan=startDate.isBefore(endDate);
             boolean equal=startDate.isEqual(endDate);
-            if(chapterBatch.getStartDate().equals(null) || chapterBatch.getEndDate().equals(null)){
+            if(chapterBatch.getStartDate().equals("") || chapterBatch.getEndDate().equals("")){
                 chapterDTO.setStatus("Not added");
 
             }

@@ -24,6 +24,8 @@ public class BatchService {
     StudentRepository studentRepository;
     @Autowired
     AdminDashboardService adminDashboardService;
+    @Autowired
+    ChapterRepository chapterRepository;
 
     public Course findCourseById(Integer id){
         return courseRepository.findCourseById(id);
@@ -252,5 +254,9 @@ public class BatchService {
 
     public Batch getById(int id){
         return batchRepository.getById(id);
+    }
+
+    public List<Chapter> findChapterByCourseId(int courseId) {
+        return chapterRepository.findByCourseIdAndDeleteStatus(courseId,0);
     }
 }

@@ -49,6 +49,7 @@ public class AdminSecurityConfig {
         http.antMatcher("/admin/**")
                 .authorizeRequests().anyRequest().authenticated()
                 .and()
+                .csrf().disable()
                 .formLogin()
                 .loginPage("/admin/login")
                 .usernameParameter("code")
