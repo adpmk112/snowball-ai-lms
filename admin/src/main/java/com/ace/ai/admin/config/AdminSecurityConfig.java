@@ -49,6 +49,7 @@ public class AdminSecurityConfig {
         http.antMatcher("/admin/**")
                 .authorizeRequests().anyRequest().authenticated()
                 .and()
+                .csrf().disable()
                 .formLogin()
                 .loginPage("/admin/login")
                 .usernameParameter("code")
@@ -58,7 +59,9 @@ public class AdminSecurityConfig {
                 .and()
                 .logout()
                 .logoutUrl("/admin/logout")
-                .logoutSuccessUrl("/");
+                .logoutSuccessUrl("/")
+                .and()
+                .rememberMe().key("remember-me").userDetailsService(userDetailsService()).tokenValiditySeconds(2628000).rememberMeCookieName("remember-me");
 
         return http.build();
     }

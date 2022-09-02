@@ -3,8 +3,6 @@ package com.ace.ai.admin.datamodel;
 import java.beans.Transient;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,7 +34,7 @@ public class Teacher {
     @Transient
     public String getImagePath(){
         if(photo == null || code == null)return null;
-        return "admin/src/main/resources/static/assets/img/" + code + "/" +photo;
+        return "/assets/img/" + code + "/" +photo;
     }
      public Teacher(){
         

@@ -26,7 +26,7 @@ import com.ace.ai.admin.service.TeacherService;
 
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/teacher")
 public class TeacherController {
     @Autowired
     private TeacherService teacherService;
@@ -60,12 +60,12 @@ public class TeacherController {
        boolean code=teacherService.existsByCode(bean.getCode());
         if(code == true){
           model.addAttribute("error","Teacher Code Exists in Database");
-          return "redirect:/admin/addTeacherFail";
+          return "redirect:/admin/teacher/addTeacherFail";
         }
          else{
           Teacher savedTeacher=teacherRepository.save(bean);
 
-          String uploadDir="admin/src/main/resources/static/assets/img/"+ savedTeacher.getCode();
+          String uploadDir="./assets/img/"+ savedTeacher.getCode();
             
 
           Path uploadPath = Paths.get(uploadDir);
@@ -82,11 +82,11 @@ public class TeacherController {
           throw new IOException("Could not save upload file: " + fileName);
       }
       model.addAttribute("msg","Register Successfully !!!");
-       return "redirect:/admin/addTeacherSuccess";
+       return "redirect:/admin/teacher/addTeacherSuccess";
     }
 }
 
-  @GetMapping("/teacherList")
+  @GetMapping("/")
     public String showTeacher(ModelMap model){
       List<Teacher> teacherList=teacherRepository.findByDeleteStatus(false);      
       model.addAttribute("teacherList",teacherList);
@@ -125,7 +125,7 @@ public class TeacherController {
             bean.setPhoto(teacher.getPhoto());
             teacherRepository.save(bean);
             model.addAttribute("msg","Update Successfully !!!");
-            return "redirect:/admin/updateTeacherSuccess";
+            return "redirect:/admin/teacher/updateTeacherSuccess";
         }
         else{
 
@@ -159,7 +159,7 @@ public class TeacherController {
           } 
           
           model.addAttribute("msg","Update Successfully !!!");
-          return "redirect:/admin/updateTeacherSuccess";
+          return "redirect:/admin/teacher/updateTeacherSuccess";
         }
         
       }
@@ -169,7 +169,7 @@ public class TeacherController {
         Teacher teacher = teacherService.getId(id);
         teacher.setDeleteStatus(true);
         teacherService.saveTeacher(teacher);
-        return "redirect:/admin/teacherList";
+        return "redirect:/admin/teacher/teacherList";
       }
       
     }

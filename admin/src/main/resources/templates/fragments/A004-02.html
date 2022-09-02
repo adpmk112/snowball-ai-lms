@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layouts/main :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org" xmlns:teacher>
+
+
+<body>
+    <div role="main">
+        <div th:fragment="edit-teacher">
+
+            <div class="semi-circle"></div>
+            <div class="banner">
+                <div class="circle"><i class="fa-solid fa-person-chalkboard"></i></div>
+                <div>
+                    <h1>Teachers</h1>
+                    <h3>Total: 3</h3>
+                </div>
+            </div>
+            <div class="custom-div margin-top-8">
+                <div id="courselist" class="width-100">
+                    <div class="container bg-light">
+                        <form action="/admin/teacher/updateTeacherPost" th:object="${teacherDto}" method="post"
+                            enctype="multipart/form-data" class="m-4 p-3" style="max-width: 500px;">
+                            <h6 style="color: blue;" th:text="${msg}"></h6>
+                            <h3 class="text-secondary">Edit Teacher's Data</h3>
+                            <input type="hidden" th:field="*{id}" />
+                            <div class="form-group mt-2 row">
+                                <label for="inputPassword" class="col-sm-2 col-form-label">
+                                    Photo
+                                </label>
+                                <div class="col-sm-10">
+                                    <img th:src="@{${photo}}" alt="" id="teacherimage">
+                                    <input type="file" class="form-control" placeholder="Choose Image" id="file"
+                                        th:field="*{photo}" />
+                                </div>
+                            </div>
+                            <div class="form-group mt-2 row">
+                                <label for="inputPassword" class="col-sm-2 col-form-label">
+                                    Code
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputPassword" placeholder="Teacher Id"
+                                        th:field="*{code}" readonly="readonly" />
+                                </div>
+                            </div>
+                            <div class="form-group mt-2 row">
+                                <label for="inputPassword" class="col-sm-2 col-form-label">
+                                    Name
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputPassword" placeholder="Name"
+                                        th:field="*{name}" />
+                                </div>
+                            </div>
+                            <div class="form-group mt-2 row">
+                                <label for="inputPassword" class="col-sm-2 col-form-label">
+                                    Password
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control" id="inputPassword"
+                                        placeholder="Password" th:field="*{password}" />
+                                </div>
+                            </div>
+                            <div class="form-group mt-2 row">
+                                <div class="col-sm-2 col-form-label"></div>
+                                <div class="col-sm-10 text-end">
+                                    <input type="reset" class="btn btn-secondary" value="Reset" />
+                                    <input type="submit" class="btn btn-primary" value="Ok" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </main>
+</body>
+
+</html>

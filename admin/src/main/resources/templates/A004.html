@@ -1,45 +1,46 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <div th:replace="fragments :: head"></div>
-    <title>teacher List</title>
-  </head>
 
-  <body style="background-color: rgb(235, 235, 235);">
-    <header th:replace="fragments :: header"></header>
-    <main role="main">
-      <div th:replace="fragments/A004 :: admin-teacher"></div>
-     </main>
-   <footer th:replace="fragments :: footer"></footer>
-   <div th:replace="fragments :: scripts"></div>
-    <script
-      type="text/javascript"
-      charset="utf8"
-      src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"
-    ></script>
-    <script src="../assets/js/data.js"></script>
-    <!-- Teacher Remove -->
-    <script>
-      $(document).on("click",'a.remove-teacher',function(){
-        window.teacherId=$(this).attr('id');
-      })
-      $(document).ready(function () {
-        $('a.remove-teacher').confirm({
-          closeIcon: true,
-          theme: 'Material',
-          //icon: 'fa-solid fa-warning',
+<head>
+  <div th:replace="fragments :: head"></div>
+  <title>teacher List</title>
+</head>
 
-          title: 'Remove Teacher',
-          content: 'Are you sure?',
-          animation: 'Scale',
-          buttons: {
-            Yes: function () {              
-              window.location = `/admin/deleteTeacher/`+teacherId;
-            },
-            No: function () {},
+<body style="background-color: rgb(235, 235, 235);">
+  <header th:replace="fragments :: header"></header>
+  <main role="main">
+    <div th:replace="fragments/A004 :: admin-teacher"></div>
+  </main>
+  <footer th:replace="fragments :: footer"></footer>
+  <div th:replace="fragments :: scripts"></div>
+
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js">
+  </script>
+  <script th:src="@{/assets/js/data.js}"></script>
+  <script th:src="@{/assets/jquery-confirm/jquery-confirm.min.js}"></script>
+  <!-- Teacher Remove -->
+  <script>
+    $(document).on("click", 'a.remove-teacher', function () {
+      window.teacherId = $(this).attr('id');
+    })
+    $(document).ready(function () {
+      $('a.remove-teacher').confirm({
+        closeIcon: true,
+        theme: 'Material',
+        //icon: 'fa-solid fa-warning',
+
+        title: 'Remove Teacher',
+        content: 'Are you sure?',
+        animation: 'Scale',
+        buttons: {
+          Yes: function () {
+            window.location = `/admin/teacher/deleteTeacher/` + teacherId;
           },
-        })
+          No: function () { },
+        },
       })
-    </script>
-  </body>
+    })
+  </script>
+</body>
+
 </html>

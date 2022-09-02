@@ -68,7 +68,7 @@
           content: 'Are you sure?',
           animation: 'Scale',
           buttons: {
-            No: function () {},
+
             Yes: function () {
               console.log(batchId);
               $.ajax({
@@ -85,7 +85,8 @@
               })
 
 
-            }
+            },
+            No: function () {}
           }
         });
       })
