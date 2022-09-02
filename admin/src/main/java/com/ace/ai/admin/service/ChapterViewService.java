@@ -34,18 +34,13 @@ public class ChapterViewService {
         for(ChapterBatch chapterBatch:chapterBatches){
             ChapterDTO chapterDTO=new ChapterDTO();
             chapterDTO.setName( chapterBatch.getChapter().getName());
-            LocalDate startDate=LocalDate.parse(chapterBatch.getStartDate());
-            LocalDate endDate=LocalDate.parse(chapterBatch.getEndDate());
-            LocalDate now=LocalDate.now();
-            boolean lessThan=startDate.isBefore(endDate);
-            boolean equal=startDate.isEqual(endDate);
-            if(chapterBatch.getStartDate().equals("") || chapterBatch.getEndDate().equals("")){
-                chapterDTO.setStatus("Not added");
-
-            }
-            else{
-
-                chapterDTO.setStart_date(startDate);
+            if(chapterBatch.getStartDate()!=null && chapterBatch.getEndDate()!=null){
+                LocalDate startDate=LocalDate.parse(chapterBatch.getStartDate());
+                LocalDate endDate=LocalDate.parse(chapterBatch.getEndDate());
+                LocalDate now=LocalDate.now();
+                boolean lessThan=startDate.isBefore(endDate);
+                boolean equal=startDate.isEqual(endDate);
+               chapterDTO.setStart_date(startDate);
                 chapterDTO.setEnd_date(endDate);
                 if((lessThan && endDate.isAfter(now)  && startDate.isEqual(now) ) ||  ( lessThan && endDate.isEqual(now)  || startDate.isEqual(now))){
                     chapterDTO.setStatus("In progress");
@@ -57,8 +52,13 @@ public class ChapterViewService {
                 }
                 else{
                     chapterDTO.setStatus("Not Started");
-                   
+
                 }
+
+
+            }
+            else{
+                chapterDTO.setStatus("Not added");
 
             }
             chapterDTOList.add(chapterDTO);

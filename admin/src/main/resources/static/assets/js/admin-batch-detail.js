@@ -45,6 +45,7 @@
 
 //For Chapter date schedule
 $(document).on('click', '.btn.btn-chapter-edit', function (e) {
+  e.preventDefault();
   let _start_date = $(this).closest('tr').find('input[name="start-date"]')
   let _end_date = $(this).closest('tr').find('input[name="end-date"]')
   let edit_btn = $(this).find('.fa-pen-to-square')
@@ -81,7 +82,7 @@ $(document).on('click', '.btn.btn-chapter-edit', function (e) {
       _end_date.css('border', 'none')
       $.ajax({
         type: 'GET',
-        url: '../SendData',
+        url: '../batch/SendData',
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         data: {
@@ -95,14 +96,7 @@ $(document).on('click', '.btn.btn-chapter-edit', function (e) {
             $('#chpStatus_' + id)[0].innerHTML = 'Not Added'
           } else {
             if (
-              (lessThan &&
-                d2.getTime() > currentDate.getTime() &&
-                startDay == today) ||
-              (equal && endDay == today) ||
-              startDay == today ||
-              (lessThan && endDay == today) ||
-              startDay == today
-            ) {
+                ((d1.getTime() < currentDate.getTime()) && d2.getTime()>currentDate.getTime()) || (lessThan && startDay == today && d2.getTime()>currentDate.getTime()) || (lessThan && d1.getTime()<currentDate.getTime() && d2.getTime()>currentDate.getTime()) || (equal && endDay == today)  || (lessThan && endDay == today)) {
               $('#chpStatus_' + id)[0].innerHTML = 'In progress'
             } else if (
               (lessThan && d2.getTime() < currentDate.getTime()) ||
