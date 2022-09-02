@@ -38,3 +38,8 @@ section{
     max-width:400px;
     max-height:400px;
 }
+.errorPage{
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}

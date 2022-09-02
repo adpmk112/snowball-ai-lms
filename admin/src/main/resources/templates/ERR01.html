@@ -7,6 +7,13 @@
     <title>Error</title>
     <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="../assets/css/error-page.css">
+    <style>
+        .errorPage {
+            display: flex;
+            justify-content:center ;
+            align-items: center;
+             }
+    </style>
 </head>
 <body>
 
@@ -14,22 +21,23 @@
         
     </div>
 
-    <section >
+    <section class="errorPage" >
         <div class="container" id="error">
             <div class="error-card">
-                <div class="row">
+                <div class="row ms-5" >
                     <div class="col error-title"
                          th:with="httpStatus=${T(org.springframework.http.HttpStatus).valueOf(#response.status)}">
-                        <h2>Error Page</h2>
+                        <h2>Sorry !</h2>
                         <div class="alert alert-danger" role="alert">
                             <h3 th:text="|${httpStatus}|"></h3>
+                            <p th:text="${errorMessage}"></p>
                         </div>
 
                     </div>
                 </div>
-                <div class="row">
+                <div class="row ms-5">
                     <div class="error-content">
-                        <embed class="error-pict" src="error.svg"/>
+                        <embed class="error-pict" src="/assets/img/error.svg" style="width: 300px;"/>
                     </div>
                 </div>
             </div>

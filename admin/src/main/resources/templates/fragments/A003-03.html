@@ -276,13 +276,14 @@
                         <div class="tab">
                               <!-- Start Attendance Table-->
                             <div class="table-responsive">
-                                <table id="datatable5" class=" hover">
+                                <table id="datatable5" class=" hover attendanceTable">
                                     <thead>
                                     <tr>
                                         <th>Date</th>
                                         <th th:each = "student: ${allStudent}"
-                                        th:text = "${student.name}"></th>
-                                        <th>Actions</th>
+                                        th:text = "${student.name}"
+                                        style="max-width: 150px !important;"></th>
+                                        <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -292,30 +293,32 @@
                                                 <input type="hidden" th:value="${attendance.classId}" name="classId">
                                                 <input
                                                         type="date"
-                                                        class="form-control"
+                                                        class="form-control text-end"
                                                         name="date"
-                                                        readonly
+                                                        disabled
                                                         th:value = "${attendance.date}"
+                                                        style="max-width: 150px; cursor: default;"
                                                 />
                                             </td>
-                                            <td class="studentList" th:each = "student : ${allStudent}">
+                                            <td class="studentList text-center" th:each = "student : ${allStudent}">
                                                 <!-- Attend for all students -->
                                                 <input
                                                         type="hidden"
                                                         class="studentId"                                                        
                                                         th:value="${student.id}"                                                        
                                                 />
-                                                <input type="text" th:value="${attendance.studentAndAttend[student.id] == 'absent'}">
                                                 <select
-                                                        class="form-control attend-type"                                        
+                                                        class="form-control attend-type text-center"                                        
                                                         id="attend-type"
                                                         th:value="${attendance.studentAndAttend[student.id]}"  
                                                         name="attend" 
-                                                        disabled                                                     
+                                                        disabled      
+                                                        style="max-width: 90px; cursor: pointer;"                                               
                                                 >
-                                                    <option value="present">present</option>
-                                                    <option value="absent">absent</option>
-                                                    <option value="leave" th:selected="${attendance.studentAndAttend[student.id]=='leave'}">leave</option>
+                                                <option value="" selected></option>
+                                                <option value="Present" th:selected="${attendance.studentAndAttend[student.id] == 'Present'}" class="text-center text-dark">Present</option>
+                                                <option value="Absent" th:selected="${attendance.studentAndAttend[student.id] == 'Absent'}" class="text-center text-dark">Absent</option>
+                                                <option value="Leave" th:selected="${attendance.studentAndAttend[student.id] == 'Leave'}" class="text-center text-dark">Leave</option>
                                                 </select>
                                             </td>                                   
                                             <!-- Action Buttons -->
