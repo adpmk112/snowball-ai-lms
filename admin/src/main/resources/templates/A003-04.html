@@ -1,26 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
-    <div th:replace="fragments :: head"></div>
-    <title>Add Student</title>
-
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
-      integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
+    <div th:replace="ADMFRG :: head"></div>
+    <title>Add Students</title>
     <link rel="stylesheet" href="../assets/css/admin-student-add.css" />
   </head>
 
   <body style="background-color: rgb(235, 235, 235);">
-    <header th:replace="fragments :: header"></header>
+    <header th:replace="ADMFRG :: header"></header>
     <main role="main">
       <div th:replace="fragments/A003-04 :: student-add"></div>
     </main>
-    <footer th:replace="fragments :: footer"></footer>
-    <div th:replace="fragments :: scripts"></div>
+    <footer th:replace="ADMFRG :: footer"></footer>
+    <div th:replace="ADMFRG :: scripts"></div>
 
     <script>
       window.minRow = 1

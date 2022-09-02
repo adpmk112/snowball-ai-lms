@@ -39,7 +39,7 @@
                         <input type="radio" id="tabunit" name="mytabs" checked="checked" />
                         <label for="tabunit" id="lab">Chapter</label>
                         <div class="tab">
-                            <table id="datatable">
+                            <table id="datatable5">
                                 <thead>
                                 <tr>
                                     <th>No.</th>
@@ -96,7 +96,7 @@
                             </table>
                         </div>
 
-                        <input type="radio" id="tabstudent" name="mytabs" th:checked = "${radio == student}"/>
+                        <input type="radio" id="tabstudent" name="mytabs" th:checked = "${radio == 'student'}"/>
                         <label for="tabstudent" id="lab">Student</label>
                         <div class="tab">
                             <div class="add-list">
@@ -109,7 +109,7 @@
                                     <i class="fa-solid fa-circle-plus"></i>
                                 </a>
                             </div>
-                            <table id="datatable1">
+                            <table id="datatable">
                                 <thead>
                                 <tr>
                                     <th>Student Id</th>
@@ -146,7 +146,7 @@
                             </table>
                         </div>
 
-                        <input type="radio" id="tabteacher" name="mytabs" th:checked = "${radio == teacher}"/>
+                        <input type="radio" id="tabteacher" name="mytabs" th:checked = "${radio == 'teacher'}"/>
                         <label for="tabteacher" id="lab">Teacher</label>
                         <div class="tab">
                             <div class="add-list">
@@ -161,7 +161,7 @@
                                     <i class="fa-solid fa-circle-plus"></i>
                                 </a>
                             </div>
-                            <table id="datatable2">
+                            <table id="datatable1">
                                 <thead>
                                 <tr>
                                     <th>Teacher Photo</th>
@@ -193,40 +193,40 @@
                                 </tbody>
                             </table>
                         </div>
-
-                        <input type="radio" id="tabexam" name="mytabs" th:checked = "${radio == examSchedule}" />
+                        <input type="radio" id="tabexam" name="mytabs" th:checked = "${radio == 'examSchedule'}" />
                         <label for="tabexam" id="lab">Exam-Schedule</label>
                         <div class="tab">
+                            <input type="hidden" id="batchIdForExamSchedule" th:value="${batch_id}">
                             <div class="add-list">                            
                             </div>
                             <div  class="table-responsive ">
-                                <table id="datatable4" class="hover">
+                                <table id="datatable2" class="hover">
                                     <thead>
                                     <tr>
-                                        <th>Exam Name</th>
-                                        <th>Start-Date</th>
-                                        <th>End-Date</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
+                                        <th style="max-width: 100px !important;">Exam Name</th>
+                                        <th style="max-width: 100px !important;"> Start-Date</th>
+                                        <th style="max-width: 100px !important;">End-Date</th>
+                                        <th style="max-width: 100px !important;">Status</th>
+                                        <th style="max-width: 100px !important;">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>                                    
                                     <tr th:each="examSchedule: ${examScheduleList}">
-                                        <td th:text="${examSchedule.examName}"></td>
-                                        <td>
+                                        <td th:text="${examSchedule.examName}" style="max-width: 100px !important;"></td>
+                                        <td style="max-width: 100px !important;">
                                             <input
                                                     type="datetime-local"
-                                                    class="form-control"
+                                                    class="form-control text-start"
                                                     name="start-date"                                                
                                                     th:value = "${examSchedule.startDate != null ? examSchedule.startDate: ''}"
                                                     style="max-width: 200px; padding:6px 15px;"
                                                     disabled
                                             />
                                         </td>
-                                        <td>
+                                        <td style="max-width: 100px !important;">
                                             <input
                                                     type="datetime-local"
-                                                    class="form-control"
+                                                    class="form-control text-start"
                                                     name="end-date"                                                
                                                     th:value = "${examSchedule.endDate != null ? examSchedule.endDate: ''}"
                                                     style="max-width: 200px; padding:6px 15px;"
@@ -235,15 +235,15 @@
                                         <!-- <td th:text = "${examSchedule.status != null ? examSchedule.status : 'No Status'}"
                                              th:class="${examSchedule.status == 'Upcoming'? 'text-info':''}"></td>
                                         <td> -->
-                                        <td th:if = "${examSchedule.status == null}" th:text="'No Status'">
+                                        <td style="max-width: 100px !important;" th:if = "${examSchedule.status == null}" th:text="'No Status'">
                                         </td>
-                                        <td th:if = "${examSchedule.status == 'Upcoming'}" th:text="${examSchedule.status}"
+                                        <td style="max-width: 100px !important;" th:if = "${examSchedule.status == 'Upcoming'}" th:text="${examSchedule.status}"
                                             class="text-danger">
                                         </td>
-                                        <td th:if = "${examSchedule.status == 'In Progress'}" th:text="${examSchedule.status}"
+                                        <td style="max-width: 100px !important;" th:if = "${examSchedule.status == 'In Progress'}" th:text="${examSchedule.status}"
                                             class="text-success">
                                         </td>
-                                        <td th:if = "${examSchedule.status == 'Done'}" th:text="${examSchedule.status}"
+                                        <td style="max-width: 100px !important;" th:if = "${examSchedule.status == 'Done'}" th:text="${examSchedule.status}"
                                             class="text-secondary">
                                         </td>
                                        <td>
@@ -271,12 +271,12 @@
                             
                             
                         </div>
-                        <input type="radio" id="tabattendance" name="mytabs" checked/>
+                        <input type="radio" id="tabattendance" name="mytabs" th:checked="${radio == 'attendance' }"/>
                         <label for="tabattendance" id="lab">Attendance</label>
                         <div class="tab">
                               <!-- Start Attendance Table-->
                             <div class="table-responsive">
-                                <table id="datatable5" class=" hover attendanceTable">
+                                <table id="datatable3" class=" hover attendanceTable">
                                     <thead>
                                     <tr>
                                         <th>Date</th>
@@ -337,7 +337,7 @@
                             
                             <!-- End attendance table-->
                         </div>
-                        <input type="radio" id="tabclassroom" name="mytabs" />
+                        <input type="radio" id="tabclassroom" name="mytabs" th:checked="${radio == 'classroom' }" />
                         <label for="tabclassroom" id="lab">Classroom</label>
                         <div class="tab">
                             <div class="add-list">
@@ -350,7 +350,7 @@
                                     <i class="fa-solid fa-circle-plus"></i>
                                 </a>
                             </div>
-                            <table id="datatable6">
+                            <table id="datatable4">
                                 <thead>
                                 <tr>
                                     <th>Date</th>
@@ -427,8 +427,8 @@
 
                             <p th:if="${#lists.isEmpty(teacherList1)}">No Teacher To add</p>
                             <div th:unless="${#lists.isEmpty(teacherList1)}" >
-                            <select  class="form-select" aria-label="Default select example" name="code">
-                                <option id="tId" th:each="teacher: ${teacherList1}"   th:value="${teacher.id}" th:text="${teacher.name}">No Teacher To Add
+                            <select id="tId" class="form-select" aria-label="Default select example" name="code">
+                                <option  th:each="teacher: ${teacherList1}"   th:value="${teacher.id}" th:text="${teacher.name}">No Teacher To Add
                                 </option>
                             </select>
                             </div>

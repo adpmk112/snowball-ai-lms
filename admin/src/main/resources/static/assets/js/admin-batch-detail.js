@@ -65,7 +65,7 @@ $(document).ready(function () {
         },
         data: JSON.stringify(attendance),
         success: function () {
-          //window.location.replace("/admin/course/courseDetail?radio=exam&courseId="+course_id);
+          window.location.replace("/admin/batch/batchSeeMore?radio=attendance&id="+batchId);
         },
       });
     }
@@ -163,9 +163,12 @@ $(document).ready(function () {
   });
   // For exam-schedule edit
   $(document).on("click", ".btn.btn-exam-schedule-edit", function (e) {
+    e.preventDefault();
     let _start_date = $(this).closest("tr").find('input[name="start-date"]');
     let _end_date = $(this).closest("tr").find('input[name="end-date"]');
     let edit_btn = $(this).find(".fa-pen-to-square");
+    let batchId = $("input#batchIdForExamSchedule").val();
+    console.log(batchId)
     if (edit_btn.length > 0) {
       edit_btn.removeClass("fa-pen-to-square").addClass("fa-solid fa-check");
       _start_date.removeAttr("disabled");
@@ -209,11 +212,13 @@ $(document).ready(function () {
 
         $.ajax({
           type: "GET",
-          url: "../addExamSchedule",
+          url: "/admin/batch/addExamSchedule",
           contentType: "application/json; charset=utf-8",
           dataType: "json",
           data: { id: id, startDate: startDate, endDate: endDate },
-          success: function (responce) {},
+          success: function () {
+            window.location = "/admin/batch/batchSeeMore?radio=examSchedule&id="+batchId;
+          },
           error: function () {
             alert("Error!");
           },
@@ -224,28 +229,4 @@ $(document).ready(function () {
     }
   });
 
-  //For student edit
-
-  //For exam schedule
-  $(document).on("click", ".btn.btn-exam-schedule", function (e) {
-    let _start_date = $(this).closest("tr").find('input[name="start-date"]');
-    let _end_date = $(this).closest("tr").find('input[name="end-date"]');
-    let edit_btn = $(this).find(".fa-pen-to-square");
-    if (edit_btn.length > 0) {
-      edit_btn.removeClass("fa-pen-to-square").addClass("fa-solid fa-check");
-      _start_date.removeAttr("disabled");
-      _end_date.removeAttr("disabled");
-      _start_date.css("border", "1px solid red");
-      _end_date.css("border", "1px solid red");
-    } else {
-      $(this)
-        .find(".fa-solid.fa-check")
-        .removeClass("fa-solid fa-check")
-        .addClass("fa-pen-to-square");
-      _start_date.attr("disabled", true);
-      _end_date.attr("disabled", true);
-      _start_date.css("border", "none");
-      _end_date.css("border", "none");
-    }
-  });
 });

@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
-    <div th:replace="fragments :: head"></div>
+    <div th:replace="ADMFRG :: head"></div>
     <title>Batch Details</title>
   </head>
 
   <body style="background-color: rgb(235, 235, 235);">
-    <header th:replace="fragments :: header"></header>
+    <header th:replace="ADMFRG :: header"></header>
     <main role="main">
       <div th:replace="fragments/A003-03 :: admin-batch-see-more"></div>
     </main>
-    <footer th:replace="fragments :: footer"></footer>
-    <div th:replace="fragments :: scripts"></div>
+    <footer th:replace="ADMFRG :: footer"></footer>
+    <div th:replace="ADMFRG :: scripts"></div>
 
     <script th:src="@{/assets/js/data.js}"></script>
     <script
@@ -25,7 +25,8 @@
     <script>
       $(document).ready(function () {
         $(document).on('click', 'a.remove-student', function () {
-          window.batchId = window.studentId = $(this).attr('id').split('_')[1]
+          window.batchId =  $(this).attr('id').split('_')[0]
+         window.studentId = $(this).attr('id').split('_')[1]
         })
         $('a.remove-student').confirm({
           closeIcon: true,
@@ -130,9 +131,9 @@
         })
       })
 
-      function addTeacherToBatch() {
+      function addTeacherToBatch(e) {
         window.bId = document.getElementById('bId').value
-        window.tId = document.getElementById('tId').value
+        window.tId = $('#tId').val();
         $.ajax({
           type: 'GET',
           url: '/admin/batch/addTeacherToBatch',
