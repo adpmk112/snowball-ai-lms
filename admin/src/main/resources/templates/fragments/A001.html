@@ -1,219 +1,179 @@
 <!DOCTYPE html>
-<html
-  lang="en"
-  th:replace="~{layouts/main :: layout(~{::main})}"
-  xmlns:th="http://www.thymeleaf.org"
->
-  <head>
-    <meta charset="UTF-8" />
-    <title>Title</title>
-  </head>
+<html lang="en" th:replace="~{layouts/main :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org">
 
-  <body>
-    <main role="main">
-      <div th:fragment="admin-home">
-        <div class="semi-circle"></div>
-        <div class="d-flex flex-column">
-          <div class="cards form-group custom-div1">
-            <!-- <a href="admin-student-page.html" class="unit-a">
-              <div class="card-single cs2">
-                <div>
-                  <h1>Student</h1>
-                </div>
-                <div class="card-link">
-                  <i class="fa-solid fa-graduation-cap"></i>
-                  <span id="num">13</span>
-                  <a href="" class="btn btn-floating" data-mdb-ripple-color="dark">
-                    <i class="fa-solid fa-circle-plus" id="add"></i>
-                  </a>
-                </div>
-              </div>
-            </a> -->
-            <a href="/templates/A002.html" class="unit-a">
-              <div class="card-single cs3">
-                <div>
-                  <h1>Course</h1>
-                </div>
-                <div class="card-link">
-                  <i class="fa-solid fa-book"></i>
-                  <span id="num" th:text="${courseCount}"></span>
-                </div>
-              </div>
-            </a>
-            <a href="/templates/A003.html" class="unit-a">
-              <div class="card-single cs4">
-                <div>
-                  <h1>Batch</h1>
-                </div>
-                <div class="card-link">
-                  <i class="fa-solid fa-person-chalkboard"></i>
-                  <span id="num" th:text="${courseCount}"></span>
-                </div>
-              </div>
-            </a>
-            <a href="/templates/A004.html" class="unit-a">
-              <div class="card-single cs1">
-                <div>
-                  <h1>Teacher</h1>
-                </div>
-                <div class="card-link">
-                  <i class="fa-solid fa-people-group"></i>
-                  <span id="num" th:text="${teacherCount}"></span>
-                </div>
-              </div>
-            </a>
-          </div>
+<head>
+  <meta charset="UTF-8" />
+  <title>Title</title>
+  <style>
+    .chartBox {
+      width: 128px;
+      height: 128px;
+      padding: 20px;
+      border-radius: 20px;
+      display: inline-block;
+      position: relative;
+    }
+  </style>
+</head>
 
-          <!-- <div class="interface"></div>   -->
-
-          <div class="charts custom-div d-flex flex-column">
-            <select name="" id="batch">
-              <option
-                th:each="batch : ${batchList}"
-                th:value="${batch.id}"
-                th:text="${batch.name}"
-              ></option>
-            </select>
-            <div class="container2 ms-5">
-              <canvas
-                id="myChart"
-                style="width: 100%; max-width: 700px"
-              ></canvas>
+<body>
+  <main role="main">
+    <div th:fragment="admin-home">
+      <div class="semi-circle"></div>
+      <div class="d-flex flex-column">
+        <div class="cards form-group custom-div1">
+          <a th:href="@{/admin/course}" class="unit-a">
+            <div class="card-single cs3">
+              <div>
+                <h1>Course</h1>
+              </div>
+              <div class="card-link">
+                <i class="fa-solid fa-book"></i>
+                <span id="num" th:text="${courseCount}"></span>
+              </div>
             </div>
-          </div>
+          </a>
+          <a th:href="@{/admin/batch/}" class="unit-a">
+            <div class="card-single cs4">
+              <div>
+                <h1>Batch</h1>
+              </div>
+              <div class="card-link">
+                <i class="fa-solid fa-person-chalkboard"></i>
+                <span id="num" th:text="${courseCount}"></span>
+              </div>
+            </div>
+          </a>
+          <a th:href="@{/admin/teacher/teacherList}" class="unit-a">
+            <div class="card-single cs1">
+              <div>
+                <h1>Teacher</h1>
+              </div>
+              <div class="card-link">
+                <i class="fa-solid fa-people-group"></i>
+                <span id="num" th:text="${teacherCount}"></span>
+              </div>
+            </div>
+          </a>
         </div>
 
-        <div id="footer"></div>
+        <div class="interface"></div>
 
-        <script th:src="@{/assets/jquery/jquery.min.js}"></script>
-        <script
-          src="https://kit.fontawesome.com/83e4876698.js"
-          crossorigin="anonymous"
-        ></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+        <div class="charts custom-div d-flex flex-column">
 
-        <script type="text/javascript">
-          $(document).ready(function () {
-            let batchId = document.getElementById("batch").value;
-             
-            var studentName = [];
-              var attendence = [];
-            console.log(batchId);
-            document.getElementById("batch").addEventListener("change", () => {
-                // myChart.destroy();
-                batchId = document.getElementById("batch").value;
-             studentName = []
-             attendence = []
-              $.ajax({
-                url: "/admin/grap?batchId=" + batchId,
-                success: function (result) {
-                  var batchId = [studentName, attendence, batchId];
-                  console.log(result);
-                  result.forEach((element) => {
-                    studentName.push(element.stuName);
-                    attendence.push(element.attendance);
-                  });
-                  // drawLineChart(studentName,attendence)
-                  console.log(batchId);
-                  console.log(studentName);
-                  console.log(attendence);
-                },
-              });
-              const ctx = document.getElementById("myChart").getContext("2d");
-            const myChart = new Chart(ctx, {
-              type: "bar",
-              data: {
-                labels: studentName,
-                datasets: [
-                  {
-                    label: "Attend Count Per Student Data",
-                    data: attendence,
-                    backgroundColor: [
-                      "rgba(255, 99, 132, 0.2)",
-                      "rgba(54, 162, 235, 0.2)",
-                      "rgba(255, 206, 86, 0.2)",
-                      "rgba(75, 192, 192, 0.2)",
-                      "rgba(153, 102, 255, 0.2)",
-                      "rgba(255, 159, 64, 0.2)",
-                    ],
-                    borderColor: [
-                      "rgba(255, 99, 132, 1)",
-                      "rgba(54, 162, 235, 1)",
-                      "rgba(255, 206, 86, 1)",
-                      "rgba(75, 192, 192, 1)",
-                      "rgba(153, 102, 255, 1)",
-                      "rgba(255, 159, 64, 1)",
-                    ],
-                    borderWidth: 1,
-                  },
-                ],
-              },
-              options: {
-                scales: {
-                  y: {
-                    beginAtZero: true,
-                  },
-                },
-              },
-            });
-            });
-            setTimeout(() => {
-                $.ajax({
-                url: "/admin/grap?batchId=" + batchId,
-                success: function (result) {
-                  var batchId = [studentName, attendence, batchId];
-                  console.log(result);
-                  result.forEach((element) => {
-                    studentName.push(element.stuName);
-                    attendence.push(element.attendance);
-                  });
-                  // drawLineChart(studentName,attendence)
-                  console.log(batchId);
-                  console.log(studentName);
-                  console.log(attendence);
-                },
-              });
-            const ctx = document.getElementById("myChart").getContext("2d");
-            const myChart = new Chart(ctx, {
-              type: "bar",
-              data: {
-                labels: studentName,
-                datasets: [
-                  {
-                    label: "Attend Count Per Student Data",
-                    data: attendence,
-                    backgroundColor: [
-                      "rgba(255, 99, 132, 0.2)",
-                      "rgba(54, 162, 235, 0.2)",
-                      "rgba(255, 206, 86, 0.2)",
-                      "rgba(75, 192, 192, 0.2)",
-                      "rgba(153, 102, 255, 0.2)",
-                      "rgba(255, 159, 64, 0.2)",
-                    ],
-                    borderColor: [
-                      "rgba(255, 99, 132, 1)",
-                      "rgba(54, 162, 235, 1)",
-                      "rgba(255, 206, 86, 1)",
-                      "rgba(75, 192, 192, 1)",
-                      "rgba(153, 102, 255, 1)",
-                      "rgba(255, 159, 64, 1)",
-                    ],
-                    borderWidth: 1,
-                  },
-                ],
-              },
-              options: {
-                scales: {
-                  y: {
-                    beginAtZero: true,
-                  },
-                },
-              },
-            });
-            }, 10);
-          });
-        </script>
+          <div>
+            <select name="" id="batch">
+              <option th:each="batch : ${batchList}" th:value="${batch.id}" th:text="${batch.name}"></option>
+            </select>
+          </div>
+          <div id="graficoSituacoesPedidos" class="chartBox">
+            <canvas id="myChart" style="max-width:70%; width: 40% ; height: 200px;"></canvas>
+          </div>
+        </div>
       </div>
-    </main>
-  </body>
+
+      <div id="footer"></div>
+
+      <script th:src="@{/assets/jquery/jquery.min.js}"></script>
+      <script src="https://kit.fontawesome.com/83e4876698.js" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      </script>
+
+
+      <script type="text/javascript">
+
+        $(document).ready(function () {
+          let batchId = document.getElementById("batch").value;
+          var studentName = [];
+          var attendence = [];
+          window.addEventListener('afterprint', () => {
+            barGraph.resize();
+          })
+          document.getElementById("batch").addEventListener("change", () => {
+
+            let target = document.getElementById("batch").value;
+            studentName = []
+            attendence = []
+            $('#myChart').remove();
+            $('#graficoSituacoesPedidos').append('<canvas id="myChart" style="max-width:70%; width:40% ; height: 200px;"></canvas>');
+            $.ajax({
+              url: "/admin/grap?batchId=" + target,
+              success: function (result) {
+                var batchId = [studentName, attendence, batchId];
+                console.log(result);
+                result.forEach((element) => {
+                  studentName.push(element.stuName);
+                  attendence.push(element.attendance);
+                });
+                var chartdata = {
+                  labels: studentName,
+                  datasets: [
+                    {
+                      label: 'Attend Count Per Student Data',
+                      backgroundColor: 'rgb(106, 204, 226)',
+                      borderColor: 'rgb(106, 204, 226)',
+                      hoverBackgroundColor: 'rgb(38, 163, 192)',
+                      hoverBorderColor: 'rgb(38, 163, 192)',
+                      data: attendence
+                    }
+                  ]
+                };
+
+                var ctx = $("#myChart");
+
+                var barGraph = new Chart(ctx, {
+                  type: 'bar',
+                  data: chartdata
+                });
+
+              }
+            });
+
+
+          });
+
+        //   setTimeout(() => {
+          $.ajax({
+            url: "/admin/grap?batchId=" + batchId,
+            success: function (result) {
+              var batchId = [studentName, attendence, batchId];
+              result.forEach((element) => {
+                studentName.push(element.stuName);
+                attendence.push(element.attendance);
+              });
+
+              var chartdata = {
+                labels: studentName,
+                datasets: [
+                  {
+                    label: 'Attend Count Per Student Data',
+                    backgroundColor: 'rgb(106, 204, 226)',
+                    borderColor: 'rgb(106, 204, 226)',
+                    hoverBackgroundColor: 'rgb(38, 163, 192)',
+                    hoverBorderColor: 'rgb(38, 163, 192)',
+                    data: attendence
+                  }
+                ]
+              };
+
+              var ctx = $("#myChart");
+
+              var barGraph = new Chart(ctx, {
+                type: 'bar',
+                data: chartdata
+              });
+
+            },
+          });
+
+
+        //   }, 100);
+
+        });
+      </script>
+
+    </div>
+  </main>
+</body>
+
 </html>
