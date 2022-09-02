@@ -26,7 +26,7 @@ import com.ace.ai.admin.service.TeacherService;
 
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/teacher")
 public class TeacherController {
     @Autowired
     private TeacherService teacherService;
