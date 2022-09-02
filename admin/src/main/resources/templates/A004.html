@@ -12,12 +12,13 @@
      </main>
    <footer th:replace="fragments :: footer"></footer>
    <div th:replace="fragments :: scripts"></div>
-    <script
-      type="text/javascript"
-      charset="utf8"
-      src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"
-    ></script>
+   <script
+   type="text/javascript"
+   charset="utf8"
+   src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"
+ ></script>
     <script src="../assets/js/data.js"></script>
+    <script th:src="@{/assets/jquery-confirm/jquery-confirm.min.js}"></script>
     <!-- Teacher Remove -->
     <script>
       $(document).on("click",'a.remove-teacher',function(){
@@ -34,7 +35,7 @@
           animation: 'Scale',
           buttons: {
             Yes: function () {              
-              window.location = `/admin/deleteTeacher/`+teacherId;
+              window.location = `/admin/teacher/deleteTeacher/`+teacherId;
             },
             No: function () {},
           },
