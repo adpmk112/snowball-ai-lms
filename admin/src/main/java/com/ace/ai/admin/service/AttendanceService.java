@@ -55,7 +55,6 @@ public class AttendanceService {
             for(Student student: allStudent){                
                 Attendance attendance = attendanceRepository.findByStudentIdAndClassroomId(student.getId(), classroomId);
                 if(attendance != null){
-                    System.out.println("studdent pair is => "+ student.getId()+attendance.getAttend());
                     studentAndAttend.put(student.getId(), attendance.getAttend());
                 }
                 //add to list
@@ -65,6 +64,17 @@ public class AttendanceService {
         }
 
         return attendanceDTOList;
+    }
+
+    public AttendanceDTO getEmptyAttendanceDTO(int batchId){
+        AttendanceDTO attendanceDTO = new AttendanceDTO();
+        List<Student> allStudent = getAllStudentByDeleteStatus(batchId);// All student according to batch
+        HashMap<Integer,String> studentAndAttend = new HashMap<>();
+        for(Student student: allStudent){               
+            studentAndAttend.put(student.getId(), "");
+        }
+        attendanceDTO.setStudentAndAttend(studentAndAttend);
+        return attendanceDTO;
     }
 
 }

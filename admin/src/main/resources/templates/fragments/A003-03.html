@@ -210,8 +210,7 @@
                                         <th>Action</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <form th:action="@{/}" action="#" method="post" th:object="${examScheduleList}">
+                                    <tbody>                                    
                                     <tr th:each="examSchedule: ${examScheduleList}">
                                         <td th:text="${examSchedule.examName}"></td>
                                         <td>
@@ -272,7 +271,7 @@
                             
                             
                         </div>
-                        <input type="radio" id="tabattendance" name="mytabs" />
+                        <input type="radio" id="tabattendance" name="mytabs" checked/>
                         <label for="tabattendance" id="lab">Attendance</label>
                         <div class="tab">
                               <!-- Start Attendance Table-->
@@ -287,10 +286,10 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each = "attendance: ${attendanceDTOList}">
-                                        <form class="attendanceForm" th:object = "${attendanceDTO}" th:action="@{/admin/batch/setAttendance/${batch_id}}" method="post">
+                                    <tr th:each = "attendance: ${attendanceDTOList}">                                        
                                             <td>
-                                                <input type="text" th:value="${attendance.classId}" th:name="${attendance.classId}">
+                                                <input type="hidden" th:value="${batch_id}" name="batchId">
+                                                <input type="hidden" th:value="${attendance.classId}" name="classId">
                                                 <input
                                                         type="date"
                                                         class="form-control"
@@ -299,19 +298,19 @@
                                                         th:value = "${attendance.date}"
                                                 />
                                             </td>
-                                            <td class="stu-attendance" th:each = "student : ${allStudent}">
+                                            <td class="studentList" th:each = "student : ${allStudent}">
                                                 <!-- Attend for all students -->
                                                 <input
-                                                        type="text"
-                                                        id="student-id"                                                        
-                                                        th:value="${student.id}"
-                                                        name="student-id"
+                                                        type="hidden"
+                                                        class="studentId"                                                        
+                                                        th:value="${student.id}"                                                        
                                                 />
                                                 <select
                                                         class="form-control attend-type"                                        
                                                         id="attend-type"
-                                                        th:value="${attendance.studentAndAttend[student.id]}"
-                                                        th:name="${student.id}"
+                                                        th:value="${attendance.studentAndAttend[student.id]}"  
+                                                        th:name="attend" 
+                                                        disabled                                                     
                                                 >
                                                     <option value="present">present</option>
                                                     <option value="absent">absent</option>
@@ -320,14 +319,13 @@
                                             </td>                                   
                                             <!-- Action Buttons -->
                                             <td>
-                                                <button                                                   
-                                                    type="submit"
-                                                    class="btn btn-attendance-edit btn-outline-primary btn-floating"                                                   
+                                                <button                                                  
+                                                    class="btn btn-attendance-edit btn-outline-primary btn-floating"      
+
                                                 >
                                                     <i class="fa-regular fa-pen-to-square"></i>
                                                 </button>                                            
-                                            </td>
-                                        </form>                                        
+                                            </td>                                                                              
                                     </tr>
                                     </tbody>
                                 </table>
@@ -431,53 +429,14 @@
                             </select>
                             </div>
                             <div class="modal-footer">
-<!--                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>-->
+                            <!--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>-->
                                 <button  th:disabled="${#lists.isEmpty(teacherList1)}" th:onclick="addTeacherToBatch()" class="btn btn-primary" >Add</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!--Modal for Date Add in attendance-->
-        <!-- <div
-                class="modal fade"
-                id="attendance-date-add"
-                aria-hidden="true"
-                aria-labelledby="Teachareaddmodal"
-                tabindex="-1"
-        >
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalToggleLabel2">Add Date</h5>
-                        <button
-                                type="button"
-                                class="btn-close"
-                                data-bs-dismiss="modal"
-                                aria-label="Close"
-                        ></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="">
-                            <input
-                                    type="date"
-                                    class="form-control text-center mb-3 mx-auto"
-                                    id="attendance-date"
-                                    style="width: 80%; border: 1px solid;"
-                            />
-
-                            <div class="modal-footer">
-                                <button class="btn btn-secondary">Cancel</button>
-                                <button class="btn btn-primary">Add</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
+        </div>        
     </div>
 
 </main>

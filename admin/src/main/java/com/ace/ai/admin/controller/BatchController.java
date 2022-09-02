@@ -31,6 +31,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/admin/batch")
@@ -78,8 +79,7 @@ public class BatchController {
         model.addAttribute("examScheduleList", examScheduleService.showExamScheduleTable(id));
         model.addAttribute("attendanceDTOList", attendanceService.getAllAttendanceList(id));// Attendance with bath id
         model.addAttribute("allStudent", attendanceService.getAllStudentByDeleteStatus(id));// for attendance with batch
-                                                                                            // id
-        model.addAttribute("attendanceDTO", new AttendanceDTO());
+        model.addAttribute("attendanceDTO", attendanceService.getEmptyAttendanceDTO(id));//for setattendance
         model.addAttribute("classroomList", classRoomService.showClassroomTable(id));
         model.addAttribute("studentDTOList", batchService.findALlStudentByBatchId(id));
         return new ModelAndView("A003-03", "TeacherDTO", new TeacherDTO());
@@ -314,9 +314,11 @@ public class BatchController {
         // return "redirect:/updateBatchSuccess/"+batchId;
     }
 
-    @GetMapping("/setAttendance/{batchId}")
-    public String saveAttendance(@PathVariable("batchId") int batchId, @ModelAttribute("attendanceDTO") AttendanceDTO attendanceDTO){
-        return "";
+    @PostMapping("/setAttendance/{batchId}")
+    public String saveAttendance(@RequestBody AttendanceDTO attendanceDTO ,@RequestParam("batchId") int batchId){
+
+       System.out.println(attendanceDTO.getClassId());
+        return "redirect:/admin/batch/batchSeeMore?id="+batchId+"&radio=attendance";
     }
 
 }

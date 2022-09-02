@@ -1,47 +1,55 @@
-// $(document).on('click', '.btn.btn-attendance-edit', function (e) {
-//   let _input = $(this).closest('tr').find('select')
-//   let _date = $(this).closest('tr').find('#attend-date')
-//   let edit_btn = $(this).find('.fa-pen-to-square')
-//   if (edit_btn.length > 0) {
-//     edit_btn.removeClass('fa-pen-to-square').addClass('fa-solid fa-check')
-//     _input.removeAttr('disabled')
-//     _input.css('border', '1px solid red')
-//     _date.css('border', '1px solid red')
-//     $(this).attr("type", "submit");
-//   } else {
-//     $(this)
-//       .find('.fa-solid.fa-check')
-//       .removeClass('fa-solid fa-check')
-//       .addClass('fa-pen-to-square')
-//       .removeAttr('type')
-//     _input.attr('disabled', true)
-//     _date.attr('disabled', true)
-//     _input.css('border', 'none')
-//     _date.css('border', 'none')
-//     $(this).removeAttr("type")
+$(document).on('click', '.btn.btn-attendance-edit', function (e) {
+  e.preventDefault();
+  let _input = $(this).closest('tr').find('select')
+  let _date = $(this).closest('tr').find('#attend-date')
+  let edit_btn = $(this).find('.fa-pen-to-square')
+  if (edit_btn.length > 0) {    
+    edit_btn.removeClass('fa-pen-to-square').addClass('fa-solid fa-check')
+    _input.removeAttr('disabled')
+    _input.css('border', '1px solid red')
+    _date.css('border', '1px solid red')
+  } else {
+    $(this)
+      .find('.fa-solid.fa-check')
+      .removeClass('fa-solid fa-check')
+      .addClass('fa-pen-to-square')
+      .removeAttr('type')
+    _input.attr('disabled', true)
+    _date.attr('disabled', true)
+    _input.css('border', 'none')
+    _date.css('border', 'none')
+   
   
    
-//     //Attendancce array
-//     // let attendance = [];
-//     // let _tr = $(".fa-pen-to-square").closest("tr");
-//     // let attend_date = _tr.find("#attend-date").val();
-
-//     // let _td = _tr.find(".stu-attendance");
-//     // //console.log(_td.length);
-//     //     _td.each(function(){
-//     //         let student = {}
-//     //         if ($(this).find("#student-id").length > 0 ) {
-//     //             student["attendance_date"] = _date.val();
-//     //             student["student_id"] = $(this).find("#student-id").val();
-//     //         }
-//     //         if($(this).find("#attend-type").length > 0){
-//     //             student["attend_type"] = $(this).find("#attend-type").val();
-//     //         }
-//     //         attendance.push(student);
-//     //     })
-//     //     console.log(attendance);
-//   }
-// })
+    //Attendancce object
+    let attendance = {};
+    let _tr = $(this).closest("tr");
+    let batchId = _tr.find("input[name='batchId']").val();
+    let classId = _tr.find("input[name='classId']").val();
+    let studentLoop = $(this).closest("tr").find('.studentList');
+    let studentAttendList = [];    
+    $(studentLoop).each(function(){
+      let studentAndAttend = {}
+      let studentId = $(this).find('input.studentId').val();
+      let attend = $(this).find('select').val();     
+      studentAndAttend[studentId] = attend;
+      studentAttendList.push(studentAndAttend);
+    })
+    console.log(studentAttendList);
+    attendance["batchId"] = batchId;
+    attendance["classId"] = classId;
+    attendance["studentAndAttendList"] = studentAttendList;  
+    console.log(attendance);
+    //Send with ajax
+    $.ajax({
+      type: "POST",
+      url: "/admin/batch/setAttendance/"+batchId,
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'json',
+      data:{attendance: JSON.stringify(attendance)},
+    })
+  }
+})
 
 //For Chapter date schedule
 $(document).on('click', '.btn.btn-chapter-edit', function (e) {
@@ -214,4 +222,4 @@ $(document).on('click', '.btn.btn-exam-schedule', function (e) {
   }
 })
 
-//Check name for batch
+
