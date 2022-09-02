@@ -69,9 +69,22 @@
                                                 name="code"
                                                 placeholder="Id"
                                                 th:field="*{code}"
+                                                oninput="checkId(this);"
                                                 required
                                                 autofocus
                                         />
+                                        <span
+                                                id="same-name"
+                                                hidden="hidden"
+                                                style="color: red;"
+                                        ></span>
+                                        <span
+                                                id="diff-name"
+                                                hidden="hidden"
+                                                style="color: green;"
+                                        >
+                                     Id Available!
+                                     </span>
                                     </td>
                                     <td class="tdInput">
                                         <input
@@ -111,7 +124,7 @@
                                         <input
                                                 type="hidden"
                                                 class="form-control"
-                                                name="batchId"
+                                                id="batchId"
                                                 placeholder="Name"
                                                 th:value="${studentDTO.batchId}"
                                                 required

@@ -25,4 +25,9 @@ public class IndexController {
                return "ALGN001";
            }
 
+           @GetMapping({"/admin/logout"})
+            public String adminLogout(){
+        return "ALGN001";
+    }
+
 }
