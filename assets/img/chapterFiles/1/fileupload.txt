@@ -1,0 +1,563 @@
+//  bean.setPhoto(teacherDto.getPhoto().getOriginalFilename());      
+      //  teacherService.uploadFile(teacherDto.getPhoto());
+
+
+ public void uploadFile(MultipartFile file) throws IllegalStateException, IOException {
+      file.transferTo(
+              new File("C:\\Users\\Win Win Khaing\\eclipse-workspace\\hexa_project\\src\\main\\resources\\static\\img"
+                      + file.getOriginalFilename()));
+  }
+
+
+ <!-- <td><img th:src="@{'/assets/img/'+${teacher.photo}}" alt="" width="65"
+                      height="65"/></td> -->
+
+
+
+// @GetMapping("/setupUpdateTeacher")
+    // public ModelAndView setupUpdateTeacher(ModelMap model,@RequestParam("id")Integer id,  HttpServletRequest request) throws ParseException{
+    //   Teacher bean = teacherService.getId(id);
+    //   String photo=bean.getImagePath();
+    //   request.setAttribute("photo", photo);
+    //   return new ModelAndView("A004-02","teacherDto",bean);
+    // }
+
+    // @PostMapping("/A004-02")
+    // public String updateTeacher(@ModelAttribute("teacherDto") TeacherDTO teacherDto,ModelMap model, HttpServletRequest request) throws IOException{
+    //   String photo = request.getParameter("photo");
+    //   Teacher bean=new Teacher();
+    //   bean.setId(teacherDto.getId());
+    //   bean.setCode(teacherDto.getCode());
+    //   bean.setName(teacherDto.getName());
+    //   bean.setPassword(teacherDto.getPassword());
+    //   if(teacherDto.getPhoto().getOriginalFilename() != photo){
+    //     Teacher teacher = teacherService.getId(bean.getId());
+    //     Path path = Paths.get("./assets/img/"+teacher.getCode()+"/"+teacher.getPhoto());
+    //     Files.delete(path);
+    //     String fileName=StringUtils.cleanPath(teacherDto.getPhoto().getOriginalFilename());
+    //     bean.setPhoto(fileName);
+         
+    //        Teacher savedTeacher=teacherRepository.save(bean);
+    //        String uploadDir="./assets/img/"+ savedTeacher.getCode();
+    //        Path uploadPath = Paths.get(uploadDir);
+    //        if(!Files.exists(uploadPath)){
+    //        try {
+    //         Files.createDirectories(uploadPath);
+    //       } catch (IOException e) {
+            
+    //          e.printStackTrace();
+    //      }
+    //       }
+    //      try( InputStream inputStream=teacherDto.getPhoto().getInputStream()){
+    //        Path filePath=uploadPath.resolve(fileName);
+    //        System.out.println(filePath.toFile().getAbsolutePath());
+    //        Files.copy(inputStream, filePath ,StandardCopyOption.REPLACE_EXISTING);
+    //      }catch (IOException e){
+    //          try {
+    //            throw new IOException("Could not save upload file: " + fileName);
+    //          } catch (IOException e1) {
+              
+    //            e1.printStackTrace();
+    //          }
+    //      }
+    //   }
+    //   else{
+    //     teacherRepository.save(bean);
+    //   }
+     
+    //   return "redirect:/A004";
+    
+    // }
+
+model.addAttribute("photo",savedTeacher.getImagePath());
+
+
+
+
+
+AdminDashboard chart
+// this is all batch list with each student's attendance info
+        // List<AdminBatchAttendanceDTO> allBatchAttendanceList = new ArrayList<>();
+        // List<Batch> batchList = adminDashboardService.getBatchList(false);
+        // for(Batch batch : batchList){
+           AdminBatchAttendanceDTO adminAllBatchAttendanceListDTO = new AdminBatchAttendanceDTO();
+        //     get students' attend list by batch
+            List<StudentAttendanceDTO> studentListByBatch = adminDashboardService.getStuAttendanceByBatch(batch);
+            adminAllBatchAttendanceListDTO.setAdminDashboardDTO(studentListByBatch);
+           // adminAllBatchAttendanceListDTO.setBatchId(batch);
+            //add one batch student list to all batch list
+          //  allBatchAttendanceList.add(adminAllBatchAttendanceListDTO);
+        //}
+
+
+
+
+Chart JS
+
+
+<script type="text/javascript">
+          $(document).ready(function () {
+            let batchId = document.getElementById("batch").value;
+             
+            var studentName = [];
+              var attendence = [];
+            console.log(batchId);
+            document.getElementById("batch").addEventListener("change", () => {
+                // myChart.destroy();
+                batchId = document.getElementById("batch").value;
+             studentName = []
+             attendence = []
+              $.ajax({
+                url: "/admin/grap?batchId=" + batchId,
+                success: function (result) {
+                  var batchId = [studentName, attendence, batchId];
+                  console.log(result);
+                  result.forEach((element) => {
+                    studentName.push(element.stuName);
+                    attendence.push(element.attendance);
+                  });
+                  // drawLineChart(studentName,attendence)
+                  console.log(batchId);
+                  console.log(studentName);
+                  console.log(attendence);
+                },
+              });
+              const ctx = document.getElementById("myChart").getContext("2d");
+            const myChart = new Chart(ctx, {
+              type: "bar",
+              data: {
+                labels: studentName,
+                datasets: [
+                  {
+                    label: "Attend Count Per Student Data",
+                    data: attendence,
+                    backgroundColor: [
+                      "rgba(255, 99, 132, 0.2)",
+                      "rgba(54, 162, 235, 0.2)",
+                      "rgba(255, 206, 86, 0.2)",
+                      "rgba(75, 192, 192, 0.2)",
+                      "rgba(153, 102, 255, 0.2)",
+                      "rgba(255, 159, 64, 0.2)",
+                    ],
+                    borderColor: [
+                      "rgba(255, 99, 132, 1)",
+                      "rgba(54, 162, 235, 1)",
+                      "rgba(255, 206, 86, 1)",
+                      "rgba(75, 192, 192, 1)",
+                      "rgba(153, 102, 255, 1)",
+                      "rgba(255, 159, 64, 1)",
+                    ],
+                    borderWidth: 1,
+                  },
+                ],
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true,
+                  },
+                },
+              },
+            });
+            });
+            setTimeout(() => {
+                $.ajax({
+                url: "/admin/grap?batchId=" + batchId,
+                success: function (result) {
+                  var batchId = [studentName, attendence, batchId];
+                  console.log(result);
+                  result.forEach((element) => {
+                    studentName.push(element.stuName);
+                    attendence.push(element.attendance);
+                  });
+                  // drawLineChart(studentName,attendence)
+                  console.log(batchId);
+                  console.log(studentName);
+                  console.log(attendence);
+                },
+              });
+            const ctx = document.getElementById("myChart").getContext("2d");
+            const myChart = new Chart(ctx, {
+              type: "bar",
+              data: {
+                labels: studentName,
+                datasets: [
+                  {
+                    label: "Attend Count Per Student Data",
+                    data: attendence,
+                    backgroundColor: [
+                      "rgba(255, 99, 132, 0.2)",
+                      "rgba(54, 162, 235, 0.2)",
+                      "rgba(255, 206, 86, 0.2)",
+                      "rgba(75, 192, 192, 0.2)",
+                      "rgba(153, 102, 255, 0.2)",
+                      "rgba(255, 159, 64, 0.2)",
+                    ],
+                    borderColor: [
+                      "rgba(255, 99, 132, 1)",
+                      "rgba(54, 162, 235, 1)",
+                      "rgba(255, 206, 86, 1)",
+                      "rgba(75, 192, 192, 1)",
+                      "rgba(153, 102, 255, 1)",
+                      "rgba(255, 159, 64, 1)",
+                    ],
+                    borderWidth: 1,
+                  },
+                ],
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true,
+                  },
+                },
+              },
+            });
+            }, 10);
+          });
+        </script>
+
+
+How to update Chart.js based on dropdown list?
+
+
+
+
+
+<script>
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+              label: 'Attend Count Per Student Data',
+              data: [12, 19, 3, 5, 2, 3],
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.2)'                
+              ],
+              borderColor: [
+                'rgba(255, 159, 64, 1)'
+              ],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+
+        $(document).ready(function () {
+          let batchId = document.getElementById('batch-btn').value;
+          batchId.addEventListener('change', batchOnclick);
+          var studentName = [];
+          var attendence = [];
+          $.ajax({
+            url: "/admin/grap?batchId=" + batchId,
+            success: function (result) {
+              result.forEach((element) => {
+                studentName.push(element.stuName);
+                attendence.push(element.attendance);
+              });
+            },
+          });
+          function batchOnclick() {
+          const lable = batchId.options[batchId.selectedIndex].text;
+          myChart.data.datasets[0].label = label;
+          myChart.data.datasets[0].data = attend;
+          myChart.update();
+        }
+        })
+
+        let batchId = document.getElementById('batch-btn');
+
+        batchId.addEventListener('change', batchOnclick);
+        function batchOnclick() {
+          const lable = batchId.options[batchId.selectedIndex].text;
+          myChart.data.datasets[0].label = label;
+          myChart.data.datasets[0].data = batchId.value.split(',');
+          myChart.update();
+        }
+
+      </script>
+
+
+
+
+// if (batchId == 'All') {
+              //   myChart.data.labels = studentName,
+              //     myChart.data.datasets[0].data = attendence;
+              // } else {
+              //   myChart.data.labels = studentName;
+              //   myChart.data.datasets[0].data = attendence;
+              // }
+              // myChart.update();
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html
+  lang="en"
+  th:replace="~{layouts/main :: layout(~{::main})}"
+  xmlns:th="http://www.thymeleaf.org"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+  </head>
+
+  <body>
+    <main role="main">
+      <div th:fragment="admin-home">
+        <div class="semi-circle"></div>
+        <div class="d-flex flex-column">
+          <div class="cards form-group custom-div1">
+            <!-- <a href="admin-student-page.html" class="unit-a">
+              <div class="card-single cs2">
+                <div>
+                  <h1>Student</h1>
+                </div>
+                <div class="card-link">
+                  <i class="fa-solid fa-graduation-cap"></i>
+                  <span id="num">13</span>
+                  <a href="" class="btn btn-floating" data-mdb-ripple-color="dark">
+                    <i class="fa-solid fa-circle-plus" id="add"></i>
+                  </a>
+                </div>
+              </div>
+            </a> -->
+            <a href="/templates/A002.html" class="unit-a">
+              <div class="card-single cs3">
+                <div>
+                  <h1>Course</h1>
+                </div>
+                <div class="card-link">
+                  <i class="fa-solid fa-book"></i>
+                  <span id="num" th:text="${courseCount}"></span>
+                </div>
+              </div>
+            </a>
+            <a href="/templates/A003.html" class="unit-a">
+              <div class="card-single cs4">
+                <div>
+                  <h1>Batch</h1>
+                </div>
+                <div class="card-link">
+                  <i class="fa-solid fa-person-chalkboard"></i>
+                  <span id="num" th:text="${courseCount}"></span>
+                </div>
+              </div>
+            </a>
+            <a href="/templates/A004.html" class="unit-a">
+              <div class="card-single cs1">
+                <div>
+                  <h1>Teacher</h1>
+                </div>
+                <div class="card-link">
+                  <i class="fa-solid fa-people-group"></i>
+                  <span id="num" th:text="${teacherCount}"></span>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <!-- <div class="interface"></div>   -->
+
+          <div class="charts custom-div d-flex flex-column">
+            <select name="" id="batch">
+              <option
+                th:each="batch : ${batchList}"
+                th:value="${batch.id}"
+                th:text="${batch.name}"
+              ></option>
+            </select>
+            <div class="container2 ms-5">
+              <canvas
+                id="myChart"
+                style="width: 100%; max-width: 700px"
+              ></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div id="footer"></div>
+
+        <script th:src="@{/assets/jquery/jquery.min.js}"></script>
+        <script
+          src="https://kit.fontawesome.com/83e4876698.js"
+          crossorigin="anonymous"
+        ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+        <script type="text/javascript">
+          $(document).ready(function () {
+            let batchId = document.getElementById("batch").value;
+             
+            var studentName = [];
+              var attendence = [];
+            console.log(batchId);
+            document.getElementById("batch").addEventListener("change", () => {
+                // myChart.destroy();
+                batchId = document.getElementById("batch").value;
+             studentName = []
+             attendence = []
+              $.ajax({
+                url: "/admin/grap?batchId=" + batchId,
+                success: function (result) {
+                  var batchId = [studentName, attendence, batchId];
+                  console.log(result);
+                  result.forEach((element) => {
+                    studentName.push(element.stuName);
+                    attendence.push(element.attendance);
+                  });
+                  // drawLineChart(studentName,attendence)
+                  console.log(batchId);
+                  console.log(studentName);
+                  console.log(attendence);
+                },
+              });
+              const ctx = document.getElementById("myChart").getContext("2d");
+            const myChart = new Chart(ctx, {
+              type: "bar",
+              data: {
+                labels: studentName,
+                datasets: [
+                  {
+                    label: "Attend Count Per Student Data",
+                    data: attendence,
+                    backgroundColor: [
+                      "rgba(255, 99, 132, 0.2)",
+                      "rgba(54, 162, 235, 0.2)",
+                      "rgba(255, 206, 86, 0.2)",
+                      "rgba(75, 192, 192, 0.2)",
+                      "rgba(153, 102, 255, 0.2)",
+                      "rgba(255, 159, 64, 0.2)",
+                    ],
+                    borderColor: [
+                      "rgba(255, 99, 132, 1)",
+                      "rgba(54, 162, 235, 1)",
+                      "rgba(255, 206, 86, 1)",
+                      "rgba(75, 192, 192, 1)",
+                      "rgba(153, 102, 255, 1)",
+                      "rgba(255, 159, 64, 1)",
+                    ],
+                    borderWidth: 1,
+                  },
+                ],
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true,
+                  },
+                },
+              },
+            });
+            });
+            setTimeout(() => {
+                $.ajax({
+                url: "/admin/grap?batchId=" + batchId,
+                success: function (result) {
+                  var batchId = [studentName, attendence, batchId];
+                  console.log(result);
+                  result.forEach((element) => {
+                    studentName.push(element.stuName);
+                    attendence.push(element.attendance);
+                  });
+                  // drawLineChart(studentName,attendence)
+                  console.log(batchId);
+                  console.log(studentName);
+                  console.log(attendence);
+                },
+              });
+            const ctx = document.getElementById("myChart").getContext("2d");
+            const myChart = new Chart(ctx, {
+              type: "bar",
+              data: {
+                labels: studentName,
+                datasets: [
+                  {
+                    label: "Attend Count Per Student Data",
+                    data: attendence,
+                    backgroundColor: [
+                      "rgba(255, 99, 132, 0.2)",
+                      "rgba(54, 162, 235, 0.2)",
+                      "rgba(255, 206, 86, 0.2)",
+                      "rgba(75, 192, 192, 0.2)",
+                      "rgba(153, 102, 255, 0.2)",
+                      "rgba(255, 159, 64, 0.2)",
+                    ],
+                    borderColor: [
+                      "rgba(255, 99, 132, 1)",
+                      "rgba(54, 162, 235, 1)",
+                      "rgba(255, 206, 86, 1)",
+                      "rgba(75, 192, 192, 1)",
+                      "rgba(153, 102, 255, 1)",
+                      "rgba(255, 159, 64, 1)",
+                    ],
+                    borderWidth: 1,
+                  },
+                ],
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true,
+                  },
+                },
+              },
+            });
+            }, 10);
+          });
+        </script>
+      </div>
+    </main>
+  </body>
+</html>
+
+
+
+
+$('#myChart').remove();
+            $('#graficoSituacoesPedidos').append('<canvas id="myChart" style="width: 100%; max-width: 700px"></canvas>');
+
+
+
+
+
+
+
+<canvas id="bar-chart" width="800" height="450"></canvas>
+// Bar chart
+new Chart(document.getElementById("bar-chart"), {
+    type: 'bar',
+    data: {
+      labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+      datasets: [
+        {
+          label: "Population (millions)",
+          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+          data: [2478,5267,734,784,433]
+        }
+      ]
+    },
+    options: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: 'Predicted world population (millions) in 2050'
+      }
+    }
+});
