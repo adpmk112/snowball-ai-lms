@@ -8,6 +8,7 @@ import lombok.Data;
 
 @Data
 public class ClassroomDTO {
+    private Integer id;
     private LocalDate date;
     private String link;
     private String startTime;
