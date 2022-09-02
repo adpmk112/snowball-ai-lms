@@ -305,16 +305,17 @@
                                                         class="studentId"                                                        
                                                         th:value="${student.id}"                                                        
                                                 />
+                                                <input type="text" th:value="${attendance.studentAndAttend[student.id] == 'absent'}">
                                                 <select
                                                         class="form-control attend-type"                                        
                                                         id="attend-type"
                                                         th:value="${attendance.studentAndAttend[student.id]}"  
-                                                        th:name="attend" 
+                                                        name="attend" 
                                                         disabled                                                     
                                                 >
                                                     <option value="present">present</option>
                                                     <option value="absent">absent</option>
-                                                    <option value="leave">leave</option>
+                                                    <option value="leave" th:selected="${attendance.studentAndAttend[student.id]=='leave'}">leave</option>
                                                 </select>
                                             </td>                                   
                                             <!-- Action Buttons -->

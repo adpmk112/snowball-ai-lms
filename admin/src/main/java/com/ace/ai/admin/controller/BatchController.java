@@ -2,7 +2,9 @@ package com.ace.ai.admin.controller;
 
 import com.ace.ai.admin.datamodel.*;
 import com.ace.ai.admin.dtomodel.AttendanceDTO;
+import com.ace.ai.admin.dtomodel.AttendanceRequestDTO;
 import com.ace.ai.admin.dtomodel.BatchDTO;
+import com.ace.ai.admin.dtomodel.StudentAttendDTO;
 import com.ace.ai.admin.dtomodel.StudentDTO;
 import com.ace.ai.admin.dtomodel.TeacherDTO;
 import com.ace.ai.admin.repository.ChapterBatchRepository;
@@ -77,7 +79,6 @@ public class BatchController {
         model.addAttribute("examScheduleList", examScheduleService.showExamScheduleTable(id));
         model.addAttribute("attendanceDTOList", attendanceService.getAllAttendanceList(id));// Attendance with bath id
         model.addAttribute("allStudent", attendanceService.getAllStudentByDeleteStatus(id));// for attendance with batch
-        model.addAttribute("attendanceDTO", attendanceService.getEmptyAttendanceDTO(id));//for setattendance
         model.addAttribute("classroomList", classRoomService.showClassroomTable(id));
         model.addAttribute("studentDTOList", batchService.findALlStudentByBatchId(id));
         return new ModelAndView("A003-03", "TeacherDTO", new TeacherDTO());
@@ -322,9 +323,21 @@ public class BatchController {
         // return "redirect:/updateBatchSuccess/"+batchId;
     }
 
-    @PostMapping("/setAttendance/{batchId}")
-    public String saveAttendance(@RequestBody AttendanceDTO attendanceDTO ,@RequestParam("batchId") int batchId){
-       System.out.println("class id is => "+attendanceDTO.getClassId());
+    @PostMapping("/setAttendance")
+    public String saveAttendance( @RequestBody AttendanceRequestDTO attendance ){
+        int batchId=attendance.getBatchId();
+        int classId = attendance.getClassId();
+        List<StudentAttendDTO> studentAndAttendList = attendance.getStudentAndAttendList();
+        System.out.println("studentAndAttendList is "+studentAndAttendList.size());
+        for(StudentAttendDTO studentAndAttend : studentAndAttendList){
+            int studentId = studentAndAttend.getStudentId();
+            String attend = studentAndAttend.getAttend();
+            Attendance attendanceFromDb = attendanceService.getByStudentIdAndClassroomId(studentId, classId);
+            if(attendanceFromDb != null){
+                attendanceFromDb.setAttend(attend);
+                attendanceService.saveAttendance(attendanceFromDb);
+            }
+        }
         return "redirect:/admin/batch/batchSeeMore?id="+batchId+"&radio=attendance";
     }
 

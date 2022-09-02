@@ -32,10 +32,10 @@ $(document).on('click', '.btn.btn-attendance-edit', function (e) {
       let studentAndAttend = {}
       let studentId = $(this).find('input.studentId').val();
       let attend = $(this).find('select').val();     
-      studentAndAttend[studentId] = attend;
+      studentAndAttend["studentId"] = studentId;
+      studentAndAttend["attend"] = attend;
       studentAttendList.push(studentAndAttend);
     })
-    console.log(studentAttendList);
     attendance["batchId"] = batchId;
     attendance["classId"] = classId;
     attendance["studentAndAttendList"] = studentAttendList;  
@@ -43,15 +43,15 @@ $(document).on('click', '.btn.btn-attendance-edit', function (e) {
     //Send with ajax
     $.ajax({
       type: "POST",
-      url: "/admin/batch/setAttendance/"+batchId,
+      url: "/admin/batch/setAttendance",
       headers: {
-        contentType: 'application/json',
-
+        "Content-Type": "application/json",
       },
-      data:{attendance: JSON.stringify(attendance)},
-      success: function(){alert("success")},
-      error: function(){} ,
-    })
+      data: JSON.stringify(attendance),
+      success: function () {        
+        //window.location.replace("/admin/course/courseDetail?radio=exam&courseId="+course_id);
+      },
+    });
   }
 })
 
