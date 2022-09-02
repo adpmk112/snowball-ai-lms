@@ -39,7 +39,7 @@
                         <input type="radio" id="tabunit" name="mytabs" checked="checked" />
                         <label for="tabunit" id="lab">Chapter</label>
                         <div class="tab">
-                            <table id="datatable">
+                            <table id="datatable5">
                                 <thead>
                                 <tr>
                                     <th>No.</th>
@@ -109,7 +109,7 @@
                                     <i class="fa-solid fa-circle-plus"></i>
                                 </a>
                             </div>
-                            <table id="datatable1">
+                            <table id="datatable">
                                 <thead>
                                 <tr>
                                     <th>Student Id</th>
@@ -161,7 +161,7 @@
                                     <i class="fa-solid fa-circle-plus"></i>
                                 </a>
                             </div>
-                            <table id="datatable2">
+                            <table id="datatable1">
                                 <thead>
                                 <tr>
                                     <th>Teacher Photo</th>
@@ -200,7 +200,7 @@
                             <div class="add-list">                            
                             </div>
                             <div  class="table-responsive ">
-                                <table id="datatable4" class="hover">
+                                <table id="datatable2" class="hover">
                                     <thead>
                                     <tr>
                                         <th>Exam Name</th>
@@ -277,7 +277,7 @@
                         <div class="tab">
                               <!-- Start Attendance Table-->
                             <div class="table-responsive">
-                                <table id="datatable5" class=" hover">
+                                <table id="datatable3" class=" hover">
                                     <thead>
                                     <tr>
                                         <th>Date</th>
@@ -348,7 +348,7 @@
                                     <i class="fa-solid fa-circle-plus"></i>
                                 </a>
                             </div>
-                            <table id="datatable6">
+                            <table id="datatable4">
                                 <thead>
                                 <tr>
                                     <th>Date</th>
@@ -425,8 +425,8 @@
 
                             <p th:if="${#lists.isEmpty(teacherList1)}">No Teacher To add</p>
                             <div th:unless="${#lists.isEmpty(teacherList1)}" >
-                            <select  class="form-select" aria-label="Default select example" name="code">
-                                <option id="tId" th:each="teacher: ${teacherList1}"   th:value="${teacher.id}" th:text="${teacher.name}">No Teacher To Add
+                            <select id="tId" class="form-select" aria-label="Default select example" name="code">
+                                <option  th:each="teacher: ${teacherList1}"   th:value="${teacher.id}" th:text="${teacher.name}">No Teacher To Add
                                 </option>
                             </select>
                             </div>

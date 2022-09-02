@@ -2,17 +2,17 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <div th:replace="fragments :: head"></div>
+  <div th:replace="ADMFRG :: head"></div>
   <title>Add Exam</title>
 </head>
 
 <body>
-  <header th:replace="fragments :: header"></header>
+  <header th:replace="ADMFRG :: header"></header>
   <main role="main">
     <div th:replace="fragments/A002-05 :: exam-add"></div>
   </main>
-  <footer th:replace="fragments :: footer"></footer>
-  <div th:replace="fragments :: scripts"></div>
+  <footer th:replace="ADMFRG :: footer"></footer>
+  <div th:replace="ADMFRG :: scripts"></div>
   <script>
     $(document).ready(function () {
       let total_point = 0;

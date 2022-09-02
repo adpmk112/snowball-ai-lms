@@ -83,6 +83,12 @@
         nomodule
         src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
       ></script>
+      <script
+              type="text/javascript"
+              charset="utf8"
+              src="https://cdn.dat atables.net/1.12.1/js/jquery.dataTables.js"
+      ></script>
+      <script th:src="@{/assets/js/data.js}"></script>
     </th:block>
     <header
       th:fragment="header"
@@ -193,7 +199,7 @@
                   </svg>
                   Profile
                 </a>
-                <a class="dropdown-item" href="./ALGN001.html">
+                <a class="dropdown-item" th:href="@{/admin/logout}">
                   <i class="fa fa-sign-out dropdown-menu-item"></i>
                   Logout
                 </a>
