@@ -41,4 +41,5 @@ public class AdminDashboardController {
            adminAllBatchAttendanceListDTO.setAdminDashboardDTO(studentListByBatch);
            return adminAllBatchAttendanceListDTO.getAdminDashboardDTO();
     }
+
 }
