@@ -1,100 +1,96 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="utf-8" />
+<head>
+    <meta charset="utf-8"/>
     <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
     />
     <title>Login - Brand</title>
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css"/>
     <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
     />
-    <link rel="stylesheet" href="../assets/css/styles.css" />
-  </head>
+    <link rel="stylesheet" href="../assets/css/styles.css"/>
+</head>
 
-  <body class="body-color">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-md-9 col-lg-12 col-xl-10">
-          <div
-            class="card shadow-lg o-hidden border-0 header-unit"
-            style="background-color: lavender;"
-          >
-            <div class="card-body p-0">
-              <div class="row">
-                <div class="col-lg-6 d-none d-lg-flex">
-                  <div class="flex-grow-1 logo-fix">
-                    <div align="center">
-                      <img
-                        src="../assets/img/ace-logo-long.png"
-                        class="image-margin"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="p-5">
-                    <div class="text-center">
-                      <h1>
-                        Welcome Form AILMS Admin Login
-                      </h1>
-                    </div>
-                    <!--  <form class=""> -->
-                    <div th:if="${param.error}">
-                      <h4 style="color:red">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</h4>
-                    </div>
-                    <form th:action="@{/admin/login}" method="post">
-                    <div class="mb-3">
+<body class="body-color">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-sm-12">
+            <div class="card shadow-lg o-hidden border-0 header-unit" style="background-color: lavender;">
+                <div class="card-body p-0">
+                    <div class="row gx-0">
+                        <div class="col-lg-6 d-none d-lg-flex">
+                            <img src="https://aceplussolutions.com/wp-content/uploads/2021/02/AI.jpg" width="100%"/>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="p-5">
+                                <div class="text-center">
+                                   <h4 class="py-2">Ace Inspiration Login</h4>
+                                </div>
+                                <!--  <form class=""> -->
+                                <div th:if="${param.error}">
+                                    <h4 style="color:red">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</h4>
+                                </div>
+                                <form th:action="@{/admin/login}" method="post">
+                                    <div class="mb-3">
 
-                      <input
-                        class="form-control form-control-user"
-                        type="text"
-                        id="exampleInputEmail"
-                        aria-describedby="emailHelp"
-                        placeholder="Enter Your Id..."
-                        name="code"
-                      />
+                                        <input
+                                                class="form-control form-control-user"
+                                                type="text"
+                                                id="exampleInputEmail"
+                                                aria-describedby="emailHelp"
+                                                placeholder="User ID"
+                                                name="code"
+                                        />
+                                    </div>
+                                    <div class="mb-3">
+                                        <input
+                                                class="form-control form-control-user"
+                                                type="password"
+                                                id="exampleInputPassword"
+                                                placeholder="User Password"
+                                                name="password"
+                                        />
+                                    </div>
+                                    <div class="mb-4">
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="remember-me"
+                                                   name="remember-me">
+                                            <label for="remember-me" class="form-check-label">Keep me signed in</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <div class="custom-control custom-checkbox small"></div>
+                                    </div>
+                                    <a href="./A001.html" class="text-decoration-none">
+                                        <button
+                                                class="btn btn-primary d-block w-100"
+                                                type=""
+                                                style="background: rgb(104, 105, 109);"
+                                        >
+                                            Login
+                                        </button>
+                                    </a>
+                                </form>
+                                <hr/>
+                                <!-- </form> -->
+                                <div class="text-center">
+                                    <a class="small" href="forgot-password.html">
+                                        Forgot Password?
+                                    </a>
+                                </div>
+                                <div class="text-center"></div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                      <input
-                        class="form-control form-control-user"
-                        type="password"
-                        id="exampleInputPassword"
-                        placeholder="Password"
-                        name="password"
-                      />
-                    </div>
-                    <div class="mb-3">
-                      <div class="custom-control custom-checkbox small"></div>
-                    </div>
-                    <a href="./A001.html">
-                      <button
-                        class="btn btn-primary d-block w-100"
-                        type=""
-                        style="background: rgb(104, 105, 109);"
-                      >
-                        Login
-                      </button>
-                    </a>
-                    </form>
-                    <hr />
-                    <!-- </form> -->
-                    <div class="text-center">
-                      <a class="small" href="forgot-password.html">
-                        Forgot Password?
-                      </a>
-                    </div>
-                    <div class="text-center"></div>
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </body>
+</div>
+</body>
 </html>
