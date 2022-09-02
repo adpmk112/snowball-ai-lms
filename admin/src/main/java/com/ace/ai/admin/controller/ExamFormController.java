@@ -24,6 +24,7 @@ import com.ace.ai.admin.service.*;
 import com.ace.ai.admin.service.ExamFormService;
 import com.ace.ai.admin.service.QuestionService;
 
+import java.io.Console;
 import java.util.*;
 
 @Controller
@@ -75,6 +76,7 @@ public class ExamFormController {
     public String saveExam(@RequestBody ExamDTO examDTO) {
         examFormService.saveExam(examDTO);
         int courseId = Integer.valueOf(examDTO.getCourse_id());
+        System.out.println("course id is "+courseId);
         return "redirect:/admin/course/courseDetail?radio=exam&courseId=" + courseId;
         
     }

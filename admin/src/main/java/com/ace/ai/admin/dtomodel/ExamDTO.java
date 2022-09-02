@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter
 public class ExamDTO {
     private String id;
-    private String course_id = "0";
+    private String course_id;
     private String name;
     private String type;
     private String duration;

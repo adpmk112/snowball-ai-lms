@@ -1,15 +1,11 @@
 package com.ace.ai.admin.controller;
 
-import com.ace.ai.admin.datamodel.Batch;
-import com.ace.ai.admin.datamodel.BatchExamForm;
-import com.ace.ai.admin.datamodel.Course;
-import com.ace.ai.admin.datamodel.ExamForm;
-import com.ace.ai.admin.datamodel.Teacher;
-import com.ace.ai.admin.datamodel.TeacherBatch;
+import com.ace.ai.admin.datamodel.*;
 import com.ace.ai.admin.dtomodel.AttendanceDTO;
 import com.ace.ai.admin.dtomodel.BatchDTO;
 import com.ace.ai.admin.dtomodel.StudentDTO;
 import com.ace.ai.admin.dtomodel.TeacherDTO;
+import com.ace.ai.admin.repository.ChapterBatchRepository;
 import com.ace.ai.admin.service.AttendanceService;
 import com.ace.ai.admin.service.BatchService;
 import com.ace.ai.admin.service.ChapterViewService;
@@ -50,6 +46,8 @@ public class BatchController {
     ClassRoomService classRoomService;
     @Autowired
     TeacherBatchService teacherBatchService;
+    @Autowired
+    ChapterBatchRepository chapterBatchRepository;
 
     @GetMapping({ "/" })
     public String gotoBatch(Model model) {
@@ -136,9 +134,19 @@ public class BatchController {
         batch.setCreatedDate(localDateString);
         batch.setName(batchDTO.getName());
         Course course = batchService.findCourseById(batchDTO.getCourseId());
+
         batch.setCourse(course);
         batchService.saveBatch(batch);
         batch = batchService.findLastBatch();
+        //Find chapters for a particular course
+        List<Chapter> chapters=batchService.findChapterByCourseId(batchDTO.getCourseId());
+        for(Chapter chapter:chapters){
+            ChapterBatch chapterBatch=new ChapterBatch();
+            chapterBatch.setChapter(chapter);
+            chapterBatch.setBatch(batch);
+            chapterBatch.setDeleteStatus(0);
+            chapterBatchRepository.save(chapterBatch);
+        }
         for (Teacher teacher : batchDTO.getTeacherList()) {
             batchService.saveTeacherBatch(teacher.getId(), batch.getId());
         }
