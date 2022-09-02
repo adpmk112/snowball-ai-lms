@@ -44,9 +44,13 @@ $(document).on('click', '.btn.btn-attendance-edit', function (e) {
     $.ajax({
       type: "POST",
       url: "/admin/batch/setAttendance/"+batchId,
-      contentType: 'application/json; charset=utf-8',
-      dataType: 'json',
+      headers: {
+        contentType: 'application/json',
+
+      },
       data:{attendance: JSON.stringify(attendance)},
+      success: function(){alert("success")},
+      error: function(){} ,
     })
   }
 })

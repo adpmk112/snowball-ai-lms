@@ -316,8 +316,7 @@ public class BatchController {
 
     @PostMapping("/setAttendance/{batchId}")
     public String saveAttendance(@RequestBody AttendanceDTO attendanceDTO ,@RequestParam("batchId") int batchId){
-
-       System.out.println(attendanceDTO.getClassId());
+       System.out.println("class id is => "+attendanceDTO.getClassId());
         return "redirect:/admin/batch/batchSeeMore?id="+batchId+"&radio=attendance";
     }
 
