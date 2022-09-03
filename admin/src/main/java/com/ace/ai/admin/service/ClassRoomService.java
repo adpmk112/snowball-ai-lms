@@ -101,7 +101,6 @@ public class ClassRoomService {
             classroomDTO.setId(classroom.getId());
             classroomDTO.setDate(LocalDate.parse(classroom.getDate(),df));
             classroomDTO.setLink(classroom.getLink());
-            classroomDTO.setRecordedVideo(classroom.getRecordVideo());
             classroomDTO.setStatus("");
             classroomDTO.setTeacherName(classroom.getTeacherName());
 
