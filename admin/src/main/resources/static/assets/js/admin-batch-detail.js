@@ -183,7 +183,6 @@ $(document).ready(function () {
         .find('input[name="start-date"')
         .val();
       var endDate = $(this).closest("tr").find('input[name="end-date"').val();
-      console.log(startDate + endDate);
 
       var d1 = new Date(startDate);
       var d2 = new Date(endDate);
