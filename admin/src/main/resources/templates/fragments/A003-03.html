@@ -84,7 +84,7 @@
                                                     class="btn btn-outline-primary btn-chapter-edit btn-floating"
                                                     data-mdb-ripple-color="dark"
                                             >
-                                                <i class="fa-regular fa-pen-to-square" ></i>
+                                                <i class="fa-regular fa-pen-to-square"></i>
                                             </a>
 
                                             <!-- <p>Custom Assignment add button htae pay pr</p> -->
@@ -96,7 +96,7 @@
                             </table>
                         </div>
 
-                        <input type="radio" id="tabstudent" name="mytabs" th:checked = "${radio == student}"/>
+                        <input type="radio" id="tabstudent" name="mytabs" th:checked = "${radio == 'student'}"/>
                         <label for="tabstudent" id="lab">Student</label>
                         <div class="tab">
                             <div class="add-list">
@@ -146,7 +146,7 @@
                             </table>
                         </div>
 
-                        <input type="radio" id="tabteacher" name="mytabs" th:checked = "${radio == teacher}"/>
+                        <input type="radio" id="tabteacher" name="mytabs" th:checked = "${radio == 'teacher'}"/>
                         <label for="tabteacher" id="lab">Teacher</label>
                         <div class="tab">
                             <div class="add-list">
@@ -193,41 +193,40 @@
                                 </tbody>
                             </table>
                         </div>
-
-                        <input type="radio" id="tabexam" name="mytabs" th:checked = "${radio == examSchedule}" />
+                        <input type="radio" id="tabexam" name="mytabs" th:checked = "${radio == 'examSchedule'}" />
                         <label for="tabexam" id="lab">Exam-Schedule</label>
                         <div class="tab">
+                            <input type="hidden" id="batchIdForExamSchedule" th:value="${batch_id}">
                             <div class="add-list">                            
                             </div>
                             <div  class="table-responsive ">
                                 <table id="datatable2" class="hover">
                                     <thead>
                                     <tr>
-                                        <th>Exam Name</th>
-                                        <th>Start-Date</th>
-                                        <th>End-Date</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
+                                        <th style="max-width: 100px !important;">Exam Name</th>
+                                        <th style="max-width: 100px !important;"> Start-Date</th>
+                                        <th style="max-width: 100px !important;">End-Date</th>
+                                        <th style="max-width: 100px !important;">Status</th>
+                                        <th style="max-width: 100px !important;">Action</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <form th:action="@{/}" action="#" method="post" th:object="${examScheduleList}">
+                                    <tbody>                                    
                                     <tr th:each="examSchedule: ${examScheduleList}">
-                                        <td th:text="${examSchedule.examName}"></td>
-                                        <td>
+                                        <td th:text="${examSchedule.examName}" style="max-width: 100px !important;"></td>
+                                        <td style="max-width: 100px !important;">
                                             <input
                                                     type="datetime-local"
-                                                    class="form-control"
+                                                    class="form-control text-start"
                                                     name="start-date"                                                
                                                     th:value = "${examSchedule.startDate != null ? examSchedule.startDate: ''}"
                                                     style="max-width: 200px; padding:6px 15px;"
                                                     disabled
                                             />
                                         </td>
-                                        <td>
+                                        <td style="max-width: 100px !important;">
                                             <input
                                                     type="datetime-local"
-                                                    class="form-control"
+                                                    class="form-control text-start"
                                                     name="end-date"                                                
                                                     th:value = "${examSchedule.endDate != null ? examSchedule.endDate: ''}"
                                                     style="max-width: 200px; padding:6px 15px;"
@@ -236,15 +235,15 @@
                                         <!-- <td th:text = "${examSchedule.status != null ? examSchedule.status : 'No Status'}"
                                              th:class="${examSchedule.status == 'Upcoming'? 'text-info':''}"></td>
                                         <td> -->
-                                        <td th:if = "${examSchedule.status == null}" th:text="'No Status'">
+                                        <td style="max-width: 100px !important;" th:if = "${examSchedule.status == null}" th:text="'No Status'">
                                         </td>
-                                        <td th:if = "${examSchedule.status == 'Upcoming'}" th:text="${examSchedule.status}"
+                                        <td style="max-width: 100px !important;" th:if = "${examSchedule.status == 'Upcoming'}" th:text="${examSchedule.status}"
                                             class="text-danger">
                                         </td>
-                                        <td th:if = "${examSchedule.status == 'In Progress'}" th:text="${examSchedule.status}"
+                                        <td style="max-width: 100px !important;" th:if = "${examSchedule.status == 'In Progress'}" th:text="${examSchedule.status}"
                                             class="text-success">
                                         </td>
-                                        <td th:if = "${examSchedule.status == 'Done'}" th:text="${examSchedule.status}"
+                                        <td style="max-width: 100px !important;" th:if = "${examSchedule.status == 'Done'}" th:text="${examSchedule.status}"
                                             class="text-secondary">
                                         </td>
                                        <td>
@@ -272,62 +271,65 @@
                             
                             
                         </div>
-                        <input type="radio" id="tabattendance" name="mytabs" />
+                        <input type="radio" id="tabattendance" name="mytabs" th:checked="${radio == 'attendance' }"/>
                         <label for="tabattendance" id="lab">Attendance</label>
                         <div class="tab">
                               <!-- Start Attendance Table-->
                             <div class="table-responsive">
-                                <table id="datatable3" class=" hover">
+                                <table id="datatable3" class=" hover attendanceTable">
                                     <thead>
                                     <tr>
                                         <th>Date</th>
                                         <th th:each = "student: ${allStudent}"
-                                        th:text = "${student.name}"></th>
-                                        <th>Actions</th>
+                                        th:text = "${student.name}"
+                                        style="max-width: 150px !important;"></th>
+                                        <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each = "attendance: ${attendanceDTOList}">
-                                        <form class="attendanceForm" th:object = "${attendanceDTO}" th:action="@{/admin/batch/setAttendance/${batch_id}}" method="post">
+                                    <tr th:each = "attendance: ${attendanceDTOList}">                                        
                                             <td>
-                                                <input type="text" th:value="${attendance.classId}" th:name="${attendance.classId}">
+                                                <input type="hidden" th:value="${batch_id}" name="batchId">
+                                                <input type="hidden" th:value="${attendance.classId}" name="classId">
                                                 <input
                                                         type="date"
-                                                        class="form-control"
+                                                        class="form-control text-end"
                                                         name="date"
-                                                        readonly
+                                                        disabled
                                                         th:value = "${attendance.date}"
+                                                        style="max-width: 150px; cursor: default;"
                                                 />
                                             </td>
-                                            <td class="stu-attendance" th:each = "student : ${allStudent}">
+                                            <td class="studentList text-center" th:each = "student : ${allStudent}">
                                                 <!-- Attend for all students -->
                                                 <input
-                                                        type="text"
-                                                        id="student-id"                                                        
-                                                        th:value="${student.id}"
-                                                        name="student-id"
+                                                        type="hidden"
+                                                        class="studentId"                                                        
+                                                        th:value="${student.id}"                                                        
                                                 />
                                                 <select
-                                                        class="form-control attend-type"                                        
+                                                        class="form-control attend-type text-center"                                        
                                                         id="attend-type"
-                                                        th:value="${attendance.studentAndAttend[student.id]}"
-                                                        th:name="${student.id}"
+                                                        th:value="${attendance.studentAndAttend[student.id]}"  
+                                                        name="attend" 
+                                                        disabled      
+                                                        style="max-width: 90px; cursor: pointer;"                                               
                                                 >
-                                                    <option value="present">present</option>
-                                                    <option value="absent">absent</option>
-                                                    <option value="leave">leave</option>
+                                                <option value="" selected></option>
+                                                <option value="Present" th:selected="${attendance.studentAndAttend[student.id] == 'Present'}" class="text-center text-dark">Present</option>
+                                                <option value="Absent" th:selected="${attendance.studentAndAttend[student.id] == 'Absent'}" class="text-center text-dark">Absent</option>
+                                                <option value="Leave" th:selected="${attendance.studentAndAttend[student.id] == 'Leave'}" class="text-center text-dark">Leave</option>
                                                 </select>
                                             </td>                                   
                                             <!-- Action Buttons -->
                                             <td>
-                                                <button                                                   
-                                                    type="submit"
-                                                    class="btn btn-attendance-edit btn-outline-primary btn-floating"                                                   
+                                                <button                                                  
+                                                    class="btn btn-attendance-edit btn-outline-primary btn-floating"      
+
                                                 >
                                                     <i class="fa-regular fa-pen-to-square"></i>
                                                 </button>                                            
-                                            </td>
-                                        </form>                                        
+                                            </td>                                                                              
                                     </tr>
                                     </tbody>
                                 </table>
@@ -335,7 +337,7 @@
                             
                             <!-- End attendance table-->
                         </div>
-                        <input type="radio" id="tabclassroom" name="mytabs" />
+                        <input type="radio" id="tabclassroom" name="mytabs" th:checked="${radio == 'classroom' }" />
                         <label for="tabclassroom" id="lab">Classroom</label>
                         <div class="tab">
                             <div class="add-list">
@@ -431,53 +433,14 @@
                             </select>
                             </div>
                             <div class="modal-footer">
-<!--                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>-->
+                            <!--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>-->
                                 <button  th:disabled="${#lists.isEmpty(teacherList1)}" th:onclick="addTeacherToBatch()" class="btn btn-primary" >Add</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!--Modal for Date Add in attendance-->
-        <!-- <div
-                class="modal fade"
-                id="attendance-date-add"
-                aria-hidden="true"
-                aria-labelledby="Teachareaddmodal"
-                tabindex="-1"
-        >
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalToggleLabel2">Add Date</h5>
-                        <button
-                                type="button"
-                                class="btn-close"
-                                data-bs-dismiss="modal"
-                                aria-label="Close"
-                        ></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="">
-                            <input
-                                    type="date"
-                                    class="form-control text-center mb-3 mx-auto"
-                                    id="attendance-date"
-                                    style="width: 80%; border: 1px solid;"
-                            />
-
-                            <div class="modal-footer">
-                                <button class="btn btn-secondary">Cancel</button>
-                                <button class="btn btn-primary">Add</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
+        </div>        
     </div>
 
 </main>

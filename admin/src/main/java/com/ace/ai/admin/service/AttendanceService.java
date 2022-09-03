@@ -55,8 +55,8 @@ public class AttendanceService {
             for(Student student: allStudent){                
                 Attendance attendance = attendanceRepository.findByStudentIdAndClassroomId(student.getId(), classroomId);
                 if(attendance != null){
-                    System.out.println("studdent pair is => "+ student.getId()+attendance.getAttend());
                     studentAndAttend.put(student.getId(), attendance.getAttend());
+                    System.out.println("Student attend is "+attendance.getAttend());
                 }
                 //add to list
             }
@@ -66,5 +66,10 @@ public class AttendanceService {
 
         return attendanceDTOList;
     }
+
+    public Attendance getByStudentIdAndClassroomId(int studentId,int classroomId){
+        return attendanceRepository.findByStudentIdAndClassroomId(studentId, classroomId);
+    }
+    
 
 }
