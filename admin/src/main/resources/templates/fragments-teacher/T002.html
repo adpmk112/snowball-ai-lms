@@ -12,7 +12,7 @@
             </div>
             <div>
                 <h1>Batches</h1>
-                <h3>Total: 4</h3>
+                <h3>Total:<span th:text="${totalBatch}"></span></h3>
             </div>
         </div>
         <div class="custom-div margin-top-8">
@@ -24,7 +24,7 @@
                         <div class="bread container-fluid ">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a class="text-decoration-none" href="T002.html">Batch List</a></li>
+                                    <li class="breadcrumb-item"><a class="text-decoration-none" th:href="@{/teacher/batch/}">Batch List</a></li>
 
 
                                 </ol>
@@ -47,51 +47,24 @@
                             <table id="datatable1">
                                 <thead>
                                 <tr>
-                                    <th>Id</th>
+                                    <th>No.</th>
                                     <th>Name</th>
                                     <th>Details</th>
-
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>01</td>
-                                    <td>OJT-001</td>
+                                <tr th:each="batch,iterationStatus: ${batchList}">
+                                    <td th:text="${iterationStatus.count}"></td>
+                                    <td th:text="${batch.name}"></td>
                                     <td>
-                                        <a th:href="@{/teacher/batch/batchSeeMore}" class="more-info btn btn-floating" data-mdb-ripple-color="dark">
+                                        <a      th:href="@{/teacher/batch/batchSeeMore}"
+                                                class="more-info btn btn-floating"
+                                                data-mdb-ripple-color="dark"
+                                        >
                                             See More
                                         </a>
                                     </td>
-
                                 </tr>
-                                <td>01</td>
-                                <td>OJT-001</td>
-                                <td>
-                                    <a href="T003.html" class="more-info btn btn-floating" data-mdb-ripple-color="dark">
-                                        See More
-                                    </a>
-                                </td>
-
-                                </tr>
-                                <td>01</td>
-                                <td>OJT-001</td>
-                                <td>
-                                    <a th:href="@{/teacher/batch/batchSeeMore}" class="more-info btn btn-floating" data-mdb-ripple-color="dark">
-                                        See More
-                                    </a>
-                                </td>
-
-                                </tr>
-                                <td>01</td>
-                                <td>OJT-001</td>
-                                <td>
-                                    <a href="T003.html" class="more-info btn btn-floating" data-mdb-ripple-color="dark">
-                                        See More
-                                    </a>
-                                </td>
-
-                                </tr>
-
                                 </tbody>
                             </table>
                         </div>

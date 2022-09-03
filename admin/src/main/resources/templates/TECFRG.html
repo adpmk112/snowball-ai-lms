@@ -151,10 +151,10 @@
                             data-bs-toggle="dropdown"
                             href="#"
                     >
-                        <img id="profile-img" src="/assets/img/profileboy.jpg" />
+                        <img id="profile-img" th:src="@{${#request.userPrincipal.principal.photo}}" />
                     </a>
                     <div class="dropdown-menu dropdown-menu-end">
-                        <a class="dropdown-item name" href="#">Name</a>
+                        <a class="dropdown-item name" href="#">[[${#request.userPrincipal.principal.name}]]</a>
                         <a class="dropdown-item" href="T006.html">
                             <svg
                                     class="dropdown-menu-item"

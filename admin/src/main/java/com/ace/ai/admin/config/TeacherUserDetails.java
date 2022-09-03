@@ -4,6 +4,7 @@ import com.ace.ai.admin.datamodel.Admin;
 import com.ace.ai.admin.datamodel.Teacher;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collection;
 
@@ -47,5 +48,15 @@ public class TeacherUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public String getName(){
+        return teacher.getName();
+    }
+    public String getPhoto(){
+        return teacher.getImagePath();
+    }
+    public String getCode(){
+        return teacher.getCode();
     }
 }
