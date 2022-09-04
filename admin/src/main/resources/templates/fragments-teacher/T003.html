@@ -53,6 +53,7 @@
                             <table id="datatable2">
                                 <thead>
                                 <tr>
+                                    <th>No.</th>
                                     <th>Name</th>
                                     <th>Status</th>
                                     <th>Start Date</th>
@@ -61,6 +62,46 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <form  method="post" th:object="${chapterDTOList}">
+                                    <tr th:each="chapterDTO,iterationStatus: ${chapterDTOList}">
+                                        <input th:id="'batchId_'+${iterationStatus.count}" type="hidden" th:value="${batch_id}"/>
+                                        <td th:text="${iterationStatus.count}"></td>
+                                        <td th:id="'chpName_'+${iterationStatus.count}" th:text="${chapterDTO.name}"></td>
+                                        <td th:id="'chpStatus_'+${iterationStatus.count}" th:text="${chapterDTO.status}"></td>
+
+                                        <td th:id="'chpstartDate_'+${iterationStatus.count}" >
+
+                                            <input  th:id="'startDate_'+${iterationStatus.count}"
+                                                    type="date"
+                                                    class="form-control"
+                                                    name="start-date"
+                                                    th:value="${chapterDTO.start_date}"
+                                                    disabled/>
+                                        </td>
+                                        <td th:id="'chpendDate_'+${iterationStatus.count}" >
+                                            <input   th:id="'endDate_'+${iterationStatus.count}"
+                                                     type="date"
+                                                     class="form-control"
+                                                     name="end-date"
+                                                     th:value="${chapterDTO.end_date}"
+                                                     disabled />
+
+                                        </td>
+                                        <td>
+                                            <a
+                                                    href=""
+                                                    th:id="'img-click_'+${iterationStatus.count}"
+                                                    class="btn btn-outline-primary btn-chapter-edit btn-floating"
+                                                    data-mdb-ripple-color="dark"
+                                            >
+                                                <i class="fa-regular fa-pen-to-square"></i>
+                                            </a>
+
+                                            <!-- <p>Custom Assignment add button htae pay pr</p> -->
+                                        </td>
+                                    </tr>
+
+                                </form>
                                 <tr>
                                     <td>Chapter</td>
                                     <td>Not Added</td>

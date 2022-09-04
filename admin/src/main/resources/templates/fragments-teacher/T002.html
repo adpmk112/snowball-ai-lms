@@ -57,7 +57,7 @@
                                     <td th:text="${iterationStatus.count}"></td>
                                     <td th:text="${batch.name}"></td>
                                     <td>
-                                        <a      th:href="@{/teacher/batch/batchSeeMore}"
+                                        <a      th:href="@{/teacher/batch/batchSeeMore(batchId=${batch.id})}"
                                                 class="more-info btn btn-floating"
                                                 data-mdb-ripple-color="dark"
                                         >

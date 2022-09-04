@@ -337,8 +337,15 @@
           },
           data: JSON.stringify(exam),
           success: function () {
-            alert("Exam save successfully");
-            window.location.replace("/admin/course/courseDetail?radio=exam&courseId="+course_id);
+            $.alert({
+                    title: 'Success!',
+                    content: 'Exam is created successfully!',
+                    buttons: {
+                      ok : function(){
+                        window.location.replace("/admin/course/courseDetail?radio=exam&courseId="+course_id);
+                      }
+                    }
+                    });
           },
         });
 
