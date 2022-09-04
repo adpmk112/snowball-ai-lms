@@ -13,5 +13,9 @@ public class Profile {
 
        return "A005";
     }
+    @GetMapping("teacher/profile/")
+    public String teacherProfile(){
 
+        return "T006";
+    }
 }

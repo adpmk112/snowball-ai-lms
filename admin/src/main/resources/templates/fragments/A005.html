@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layouts/main :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org" xmlns:admin>
+
+<body>
+<main role="main">
+    <div th:fragment="admin-profile">
+        <section class="Form my-4 mx-5" >
+            <div class="container header-margin footer-margin" >
+                <form>
+                    <div class="row no-gutters form-color shodow-div-profile" style="background-color: white;">
+
+                        <div class="col-lg-5">
+
+                            <center>
+
+
+                                <img th:src="${#request.userPrincipal.principal.photo}" alt="" width="180px" class="dot">
+
+                                <!--  <img src="C:/Users/Win Win Khaing/Pictures/Screenshots/Screenshot (4).png" class="img_fluid" alt="">-->
+                                <input type="file"  id="file" class="form-control file-choose" name="news_img"
+                                       placeholder="Choose Image" required="required" style="width: 300px;"/>
+                            </center>
+
+                        </div>
+
+                        <div class="col-lg-7 px-5 pt-5">
+                            <center>
+
+
+                                <h1 class="font-weight-bold py-3">Admin Profile</h1>
+
+
+                                <div class="form-row">
+                                    <div class="col-lg-7">
+                                        <input type="password" placeholder="Old Password" class="form-control mt-3 mb-5">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-lg-7">
+                                        <input type="password" placeholder="New Password" class="form-control mt-3 mb-5">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-lg-7">
+                                        <input type="password" placeholder="Comfirm Password" class="form-control mt-3 mb-5">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-lg-7">
+                                        <button type="button" class="btn1 mt-3 mb-5">Submit</button>
+                                    </div>
+                                </div>
+                            </center>
+                        </div>
+                </form>
+            </div>
+
+
+        </section>
+    </div>
+</main>
+
+</body>
+</html>
