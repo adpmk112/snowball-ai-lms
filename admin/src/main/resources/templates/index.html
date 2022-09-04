@@ -2,15 +2,63 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Welcome</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        a{
+            text-decoration: none;
+        }
+        #admin-card:hover{
+            border: 2px solid #198754; 
+            cursor: pointer;
+            transition: all .2s;
+        }
+        #teacher-card:hover{
+            border: 2px solid #6c757d;
+            cursor: pointer;
+            transition: all .2s;
+        }
+    </style>
 </head>
-<body>
-          <div>
-              <h2>Welcome To AILMS</h2>
-              <p>
-                  <h4><a th:href="@{/admin/login}">Admin Login</a></h4>
-                   <h4><a th:href="@{/teacher/login}">Teacher Login</a></h4>
-              </p>
+<body class="" style="background: rgb(171, 190, 255);">
+          <div class="container">
+              <div class="bg-light rounded shadow p-5 m-auto mt-5" style="max-width: 600px;">
+                <h2 class="text-center text-uppercase mb-4">Please Choose Your Role</h2>
+                <div class="row">
+                    <div class="col col-sm-6" >
+                        <a th:href="@{/admin/login}">
+                            <div class="card border-2 " style="height: 200px;" id="admin-card">
+                                <div class="card-body text-center text-success">
+                                    <div class="p-2 " style="">
+                                        <i class="fa-solid fa-chalkboard-user" style="font-size: 80px;"></i>
+                                    </div>
+                                    <div class="text-uppercase py-3  mt-3">
+                                        <h5>Login As Admin</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        
+                    </div>
+                    <div class="col col-sm-6">
+                        <a th:href="@{/teacher/login}">
+                            <div class="card border-2" style="height: 200px;" id="teacher-card">
+                                <div class="card-body  text-center text-secondary">
+                                    <div class="p-2 " style="">
+                                        <i class="fa-solid fa-person-chalkboard" style="font-size: 80px;"></i>
+                                    </div>
+                                    <div class="text-uppercase py-3  mt-3">
+                                        <h5>Login As Teacher</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>                        
+                    </div>                
+                    
+                </div>
+              </div>
           </div>
+    <script src="https://kit.fontawesome.com/83e4876698.js" crossorigin="anonymous"></script>
 </body>
 </html>

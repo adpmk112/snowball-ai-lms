@@ -480,8 +480,15 @@
           },
           data: JSON.stringify(exam),
           success: function () {
-            alert("Exam update successfully");
-            window.location.replace("/admin/course/courseDetail?radio=exam&courseId="+course_id);            
+            $.alert({
+                    title: 'Success!',
+                    content: 'Exam is updated successfully!',
+                    buttons: {
+                      ok : function(){
+                        window.location.replace("/admin/course/courseDetail?radio=exam&courseId="+course_id);            
+                      }
+                    }
+                    });
           },
         });
       };
