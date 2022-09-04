@@ -61,292 +61,81 @@
         <div class="row">
           <div class="carousel-container">
             <div class="owl-carousel show owl-theme" id="inprogress-show">
-              <a href="S001-01.html" class="unit-a">
+              <a th:each="inProgressChapter : ${inProgressChapterList}" th:href="S001-01.html" class="unit-a" >
                 <div class="chapter">
                   <div style="max-width: 100%;">
-                    <div class="card-header chapter-text">Chapter 1</div>
+                    <div class="card-header chapter-text"><span th:text="${inProgressChapter.name}"></div>
                     <div class="card-body">
-                      <h5 class="card-title chapter-text">Core Java</h5>
+                      <!-- <h5 class="card-title chapter-text">Core Java</h5> -->
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <a th:each="inProgressCustomChapter : ${inProgressCustomChapterList}" th:href="S001-01.html" class="unit-a" >
+                <div class="chapter">
+                  <div style="max-width: 100%;">
+                    <div class="card-header chapter-text"><span th:text="${inProgressCustomChapter.name}"></div>
+                    <div class="card-body">
+                      <!-- <h5 class="card-title chapter-text">Core Java</h5> -->
                     </div>
                   </div>
                 </div>
               </a>
 
-              <a href="S001-01.html" class="unit-a">
-                <div class="chapter">
-                  <div style="max-width: 100%;">
-                    <div class="card-header chapter-text">Unit 2</div>
-                    <div class="card-body">
-                      <h5 class="card-title chapter-text">
-                        Secondary card title
-                      </h5>
-                    </div>
-                  </div>
-                </div>
-              </a>
-              <div class="chapter">
-                <div style="max-width: 100%;">
-                  <div class="card-header">Unit 3</div>
-                  <div class="card-body">
-                    <h5 class="card-title">Secondary card title</h5>
-                  </div>
-                </div>
-              </div>
-              <div class="chapter">
-                <a>
-                  <div style="max-width: 100%;">
-                    <div class="card-header chapter-text">Header</div>
-                    <div class="card-body">
-                      <h5 class="card-title chapter-text">
-                        Secondary card title
-                      </h5>
-                    </div>
-                  </div>
-                </a>
-              </div>
-              <div class="chapter">
-                <div style="max-width: 100%;">
-                  <div class="card-header chapter-text">Unit 3</div>
-                  <div class="card-body">
-                    <h5 class="card-title chapter-text">
-                      Secondary card title
-                    </h5>
-                  </div>
-                </div>
-              </div>
-              <div class="chapter">
-                <div style="max-width: 100%;">
-                  <div class="card-header chapter-text">Header</div>
-                  <div class="card-body">
-                    <h5 class="card-title chapter-text">
-                      Secondary card title
-                    </h5>
-                  </div>
-                </div>
-              </div>
-              <div class="chapter">
-                <div style="max-width: 100%;">
-                  <div class="card-header chapter-text">Header</div>
-                  <div class="card-body">
-                    <h5 class="card-title chapter-text">
-                      Secondary card title
-                    </h5>
-                  </div>
-                </div>
-              </div>
-              <div class="chapter">
-                <div style="max-width: 100%;">
-                  <div class="card-header chapter-text">Header</div>
-                  <div class="card-body">
-                    <h5 class="card-title chapter-text">
-                      Secondary card title
-                    </h5>
-                  </div>
-                </div>
-              </div>
+              
             </div>
             <!--End owl-carousel-->
 
             <div class="owl-carousel owl-theme" id="upcomming-show">
-              <a href="S001-01.html" class="unit-a">
+              <a th:each="upCommingChapter : ${upCommingChapterList}" th:href="S001-01.html" class="unit-a" >
                 <div class="chapter">
                   <div style="max-width: 100%;">
-                    <div class="card-header chapter-text">Unit 1</div>
+                    <div class="card-header chapter-text"><span th:text="${upCommingChapter.name}"></div>
                     <div class="card-body">
-                      <h5 class="card-title chapter-text">
-                        Secondary card title
-                      </h5>
+                      <!-- <h5 class="card-title chapter-text">Core Java</h5> -->
                     </div>
                   </div>
                 </div>
               </a>
 
-              <div class="chapter">
-                <div style="max-width: 100%;">
-                  <div class="card-header chapter-text">Unit 2</div>
-                  <div class="card-body">
-                    <h5 class="card-title chapter-text">
-                      Secondary card title
-                    </h5>
-                  </div>
-                </div>
-              </div>
-              <div class="chapter">
-                <div style="max-width: 100%;">
-                  <div class="card-header chapter-text">Unit 3</div>
-                  <div class="card-body">
-                    <h5 class="card-title chapter-text">
-                      Secondary card title
-                    </h5>
-                  </div>
-                </div>
-              </div>
-              <div class="chapter">
-                <a>
+              <a th:each="upCommingCustomChapter : ${upCommingCustomChapterList}" th:href="S001-01.html" class="unit-a" >
+                <div class="chapter">
                   <div style="max-width: 100%;">
-                    <div class="card-header chapter-text">Header</div>
+                    <div class="card-header chapter-text"><span th:text="${upCommingCustomChapter.name}"></div>
                     <div class="card-body">
-                      <h5 class="card-title chapter-text">
-                        Secondary card title
-                      </h5>
+                      <!-- <h5 class="card-title chapter-text">Core Java</h5> -->
                     </div>
                   </div>
-                </a>
-              </div>
-              <div class="chapter">
-                <div style="max-width: 100%;">
-                  <div class="card-header chapter-text">Unit 3</div>
-                  <div class="card-body">
-                    <h5 class="card-title chapter-text">
-                      Secondary card title
-                    </h5>
-                  </div>
                 </div>
-              </div>
-              <div class="chapter">
-                <div style="max-width: 100%;">
-                  <div class="card-header chapter-text">Header</div>
-                  <div class="card-body">
-                    <h5 class="card-title chapter-text">
-                      Secondary card title
-                    </h5>
-                    <p class="card-text">
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="chapter">
-                <div style="max-width: 100%;">
-                  <div class="card-header chapter-text">Header</div>
-                  <div class="card-body">
-                    <h5 class="card-title chapter-text">
-                      Secondary card title
-                    </h5>
-                    <p class="card-text">
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="chapter">
-                <div style="max-width: 100%;">
-                  <div class="card-header chapter-text">Header</div>
-                  <div class="card-body">
-                    <h5 class="card-title chapter-text">
-                      Secondary card title
-                    </h5>
-                  </div>
-                </div>
-              </div>
+              </a>
+
+              
             </div>
             <!--End owl-carousel-->
 
             <div class="owl-carousel owl-theme" id="done-show">
-              <a href="S001-01.html" class="unit-a">
-                <div class="item">
-                  <div class="card text-white bg-danger m-3" style="max-width: 100%;">
-                    <div class="card-header">Unit 1</div>
+              <a th:each="doneChapter : ${doneChapterList}" th:href="S001-01.html" class="unit-a" >
+                <div class="chapter">
+                  <div style="max-width: 100%;">
+                    <div class="card-header chapter-text"><span th:text="${doneChapter.name}"></div>
                     <div class="card-body">
-                      <h5 class="card-title">Secondary card title</h5>
-                      <p class="card-text">
-                        Some quick example text to build on the card title and
-                        make up the bulk of the card's content.
-                      </p>
+                      <!-- <h5 class="card-title chapter-text">Core Java</h5> -->
                     </div>
                   </div>
                 </div>
               </a>
 
-              <div class="item">
-                <div class="card text-white bg-success m-3" style="max-width: 100%;">
-                  <div class="card-header">Unit 2</div>
-                  <div class="card-body">
-                    <h5 class="card-title">Secondary card title</h5>
-                    <p class="card-text">
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="card text-white bg-secondary m-3" style="max-width: 100%;">
-                  <div class="card-header">Unit 3</div>
-                  <div class="card-body">
-                    <h5 class="card-title">Secondary card title</h5>
-                    <p class="card-text">
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <a>
-                  <div class="card text-white bg-primary m-3" style="max-width: 100%;">
-                    <div class="card-header">Header</div>
+              <a th:each="doneCustomChapter : ${doneCustomChapterList}" th:href="S001-01.html" class="unit-a" >
+                <div class="chapter">
+                  <div style="max-width: 100%;">
+                    <div class="card-header chapter-text"><span th:text="${doneCustomChapter.name}"></div>
                     <div class="card-body">
-                      <h5 class="card-title">Secondary card title</h5>
-                      <p class="card-text">
-                        Some quick example text to build on the card title and
-                        make up the bulk of the card's content.
-                      </p>
+                      <!-- <h5 class="card-title chapter-text">Core Java</h5> -->
                     </div>
                   </div>
-                </a>
-              </div>
-              <div class="item">
-                <div class="card text-white bg-success m-3" style="max-width: 100%;">
-                  <div class="card-header">Unit 3</div>
-                  <div class="card-body">
-                    <h5 class="card-title">Secondary card title</h5>
-                    <p class="card-text">
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </p>
-                  </div>
                 </div>
+              </a>
               </div>
-              <div class="item">
-                <div class="card text-white bg-secondary m-3" style="max-width: 100%;">
-                  <div class="card-header">Header</div>
-                  <div class="card-body">
-                    <h5 class="card-title">Secondary card title</h5>
-                    <p class="card-text">
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="card text-white bg-secondary m-3" style="max-width: 100%;">
-                  <div class="card-header">Header</div>
-                  <div class="card-body">
-                    <h5 class="card-title">Secondary card title</h5>
-                    <p class="card-text">
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="card text-white bg-danger m-3" style="max-width: 100%;">
-                  <div class="card-header">Header</div>
-                  <div class="card-body">
-                    <h5 class="card-title">Secondary card title</h5>
-                    <p class="card-text">
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
           <!--End container-->
         </div>
@@ -368,6 +157,7 @@
                         src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp" alt="avatar" width="65"
                         height="65" />
                       <div class="flex-grow-1 flex-shrink-1">
+                        <!-- COMMENT -->
                         <div>
                           <div class="d-flex justify-content-between align-items-center">
                             <p class="mb-1">
@@ -384,7 +174,7 @@
                             be distracted by the readable content of a page.
                           </p>
                         </div>
-
+                        <!-- reply -->
                         <div class="d-flex flex-start mt-4">
                           <a class="me-3" href="#">
                             <img class="rounded-circle shadow-1-strong"
@@ -407,7 +197,7 @@
                             </div>
                           </div>
                         </div>
-
+                        <!-- reply -->
                         <div class="d-flex flex-start mt-4">
                           <a class="me-3" href="#">
                             <img class="rounded-circle shadow-1-strong"
