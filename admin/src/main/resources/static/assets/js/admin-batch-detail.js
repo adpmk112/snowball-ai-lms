@@ -84,12 +84,11 @@ $(document).ready(function () {
       _start_date.css("border", "1px solid red");
       _end_date.css("border", "1px solid red");
     } else {
-      var id = $(this).attr("id").split("_")[1];
-
-      var chpName = $("#chpName_" + id)[0].innerHTML;
-      var startDate = $("#startDate_" + id)[0].value;
-      var endDate = $("#endDate_" + id)[0].value;
-      var batchId = $("#batchId_" + id)[0].value;
+      let id = $(this).attr("id").split("_")[1];
+      let chpName = $("#chpName_" + id)[0].innerHTML;
+      let startDate = $("#startDate_" + id)[0].value;
+      let endDate = $("#endDate_" + id)[0].value;
+      let batchId = $("#batchId_" + id)[0].value;
       window.state = $("#chpStatus_" + id)[0].innerHTML;
       window.currentDate = new Date();
       window.today = currentDate.toISOString().slice(0, 10);
