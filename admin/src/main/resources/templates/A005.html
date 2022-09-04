@@ -5,19 +5,19 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
         <title>header</title>
-        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="/assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/assets/fonts/font-awesome.min.css">
         
         <!-- carousel-css -->
-        <link rel="stylesheet" href="./assets/owlcarousel/css/owl.carousel.min.css">
+        <link rel="stylesheet" type="text/css" href="./assets/owlcarousel/css/owl.carousel.min.css">
         <link rel="stylesheet" href="./assets/owlcarousel/css/owl.theme.default.min.css">
     
         <!-- subject-css -->
-        <link rel="stylesheet" href="assets/css/styles.css">
-        <link rel="stylesheet" href="./assets/css/subject.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="assets/css/header.css">
-        <link rel="stylesheet" href="assets/css/main.css">
+        <link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
+        <link rel="stylesheet" type="text/css" href="/assets/css/subject.css">
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/header.css">
+        <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
     </head>
 
 <body class="body-color">
@@ -33,10 +33,10 @@
                        <center>
 
                       
-                            <img src="./assets/img/profileboy.jpg" alt="" width="180px" class="dot">
+                            <img th:src="${#request.userPrincipal.principal.photo}" alt="" width="180px" class="dot">
 
                             <!--  <img src="C:/Users/Win Win Khaing/Pictures/Screenshots/Screenshot (4).png" class="img_fluid" alt="">-->
-                            <input type="file" name="" id="file" class="form-control file-choose" name="news_img"
+                            <input type="file"  id="file" class="form-control file-choose" name="news_img"
                                 placeholder="Choose Image" required="required" style="width: 300px;"/>
                             </center>
 

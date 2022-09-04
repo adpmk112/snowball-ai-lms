@@ -48,4 +48,15 @@ public class AdminUserDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public String getName(){
+        return admin.getName();
+    }
+    public String getPhoto(){
+        return admin.getPhoto();
+    }
+    public String getCode(){
+        return admin.getCode();
+    }
 }
+
