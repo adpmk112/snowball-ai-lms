@@ -66,6 +66,8 @@ public class BatchController {
     @ResponseBody
     public String gotoBatchFromBatchLock(Model model) {
         List<Batch> batchList = batchService.findAll();
+        int totalBatch = batchList.size();
+        model.addAttribute("totalBatch", totalBatch);
         model.addAttribute("batchList", batchList);
         return "A003";
     }
@@ -78,6 +80,7 @@ public class BatchController {
         model.addAttribute("teacherList1", batchService.findALlTeacherForAllBatchExcept(id));
         model.addAttribute("batch_id", id);
         model.addAttribute("batchName", batchService.getById(id).getName());
+        model.addAttribute("courseName", batchService.getById(id).getCourse().getName());// for course name in view
         model.addAttribute("examScheduleList", examScheduleService.showExamScheduleTable(id));
         model.addAttribute("attendanceDTOList", attendanceService.getAllAttendanceList(id));// Attendance with bath id
         model.addAttribute("allStudent", attendanceService.getAllStudentByDeleteStatus(id));// for attendance with batch

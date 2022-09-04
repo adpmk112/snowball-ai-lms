@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" th:replace="~{layouts/main :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org">
 
-<body>
-    <main role="main">
-        <div th:fragment="admin-batch-see-more">
-            <div class="semi-circle"></div>
-            <div class="banner">
-                <div class="circle">
-                    <i class="fa-solid fa-people-group"></i>
-                </div>
-                <div>
-                    <h1 th:if="${batchName}" th:text="${batchName}"></h1>
-                    <!-- <h3>Total: 4</h3> -->
-                </div>
+<main role="main">
+    <div th:fragment="admin-batch-see-more">
+        <div class="semi-circle"></div>
+        <div class="banner">
+            <div class="circle">
+                <i class="fa-solid fa-people-group"></i>
+            </div>
+            <div>
+                <h1 th:if="${batchName}" th:text="${batchName}"></h1>
+                <h3>Course: <span th:if="${courseName}" th:text="${courseName}"></span></h3>
+
             </div>
             <div class="custom-div margin-top-8">
                 <div id="courselist" class="width-100">
@@ -148,6 +147,7 @@
                                 </div>
                                 <table id="datatable1">
                                     <thead>
+
                                         <tr>
                                             <th>Teacher Photo</th>
                                             <th>Name</th>
@@ -155,6 +155,15 @@
                                             <th>Password</th>
                                             <th>Action</th>
                                         </tr>
+
+                                    <tr>
+                                        <th style="max-width: 150px !important;">Date</th>
+                                        <th th:each = "student: ${allStudent}"
+                                        th:text = "${student.name}"
+                                        style="max-width: 100px;"></th>
+                                        <th>Action</th>
+                                    </tr>
+
                                     </thead>
                                     <tbody>
                                         <tr th:each="teacher: ${teacherList}">

@@ -29,5 +29,14 @@ public class IndexController {
             public String adminLogout(){
         return "ALGN001";
     }
+           @GetMapping({"/teacher/login"})
+           public String teacherLogin(){
+        return "ALGN002";
+    }
+
+           @GetMapping({"/teacher/logout"})
+            public String teacherLogout(){
+        return "ALGN002";
+    }
 
 }

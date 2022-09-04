@@ -259,4 +259,17 @@ public class BatchService {
     public List<Chapter> findChapterByCourseId(int courseId) {
         return chapterRepository.findByCourseIdAndDeleteStatus(courseId,0);
     }
+
+    public List<Batch> findBatchesByTeacherCode(String loginUser) {
+         Teacher teacher=teacherRepository.findTeacherByCode(loginUser);
+         List<TeacherBatch> teacherBatches=teacher.getTeacherBatches();
+         List<Batch> batchList=new ArrayList<>();
+         for(TeacherBatch tb:teacherBatches){
+             if(!tb.isDeleteStatus()){
+                 batchList.add(tb.getBatch());
+             }
+
+         }
+         return batchList;
+    }
 }

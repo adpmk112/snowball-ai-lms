@@ -147,12 +147,12 @@ $(document).ready(function () {
             }
           },
           error: function () {
-            alert("Error!");
+            $.alert("Error!");
           },
         });
       }
       if (d1.getTime() > d2.getTime()) {
-        alert("Start date can't be bigger!");
+        $.alert("Start date can't be bigger!");
         edit_btn.removeClass("fa-pen-to-square").addClass("fa-solid fa-check");
         _start_date.removeAttr("disabled");
         _end_date.removeAttr("disabled");
@@ -166,9 +166,11 @@ $(document).ready(function () {
     e.preventDefault();
     let _start_date = $(this).closest("tr").find('input[name="start-date"]');
     let _end_date = $(this).closest("tr").find('input[name="end-date"]');
+    $(_start_date).attr("min", today);
+    $(_end_date).attr("min", today);
     let edit_btn = $(this).find(".fa-pen-to-square");
     let batchId = $("input#batchIdForExamSchedule").val();
-    console.log(batchId)
+    //console.log(batchId)
     if (edit_btn.length > 0) {
       edit_btn.removeClass("fa-pen-to-square").addClass("fa-solid fa-check");
       _start_date.removeAttr("disabled");
@@ -183,8 +185,7 @@ $(document).ready(function () {
         .find('input[name="start-date"')
         .val();
       var endDate = $(this).closest("tr").find('input[name="end-date"').val();
-      console.log(startDate + endDate);
-
+      console.log(startDate)
       var d1 = new Date(startDate);
       var d2 = new Date(endDate);
 
@@ -200,7 +201,7 @@ $(document).ready(function () {
         _end_date.attr("disabled", true);
         _start_date.css("border", "none");
         _end_date.css("border", "none");
-      } else if (equal || lessThan) {
+      } else if (!equal || lessThan) {
         $(this)
           .find(".fa-solid.fa-check")
           .removeClass("fa-solid fa-check")
@@ -220,13 +221,37 @@ $(document).ready(function () {
             window.location = "/admin/batch/batchSeeMore?radio=examSchedule&id="+batchId;
           },
           error: function () {
-            alert("Error!");
+            $.alert("Error occurs!");
           },
         });
-      } else {
-        alert("Start date can't be bigger!");
+      } else {        
+        $.alert("Start Time can't be bigger!");
       }
     }
   });
+
+  //Today Date for input
+  function today(){
+      let today = new Date();
+      let dd = today.getDate();
+      let mm = today.getMonth() + 1;
+      let yyyy = today.getFullYear();
+      let hh = today.getHours();
+      let m = today.getMinutes();
+      if (dd < 10) {
+        dd = '0' + dd;
+      }
+      if (mm < 10) {
+        mm = '0' + mm;
+      } 
+      if (hh < 10) {
+        hh = '0' + hh;
+      }  
+      if (m < 10) {
+        m = '0' + m;
+      }               
+      today = yyyy + "-" + mm + "-" + dd + "T" + hh + ":" + m;
+      return today;
+  }
 
 });
