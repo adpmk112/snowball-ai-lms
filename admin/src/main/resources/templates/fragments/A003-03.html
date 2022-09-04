@@ -11,7 +11,7 @@
             </div>
             <div>
                 <h1 th:if="${batchName}" th:text="${batchName}"></h1>
-                <!-- <h3>Total: 4</h3> -->
+                <h3>Course: <span th:if="${courseName}" th:text="${courseName}"></span></h3>
             </div>
         </div>
         <div class="custom-div margin-top-8">
@@ -279,10 +279,10 @@
                                 <table id="datatable3" class=" hover attendanceTable">
                                     <thead>
                                     <tr>
-                                        <th>Date</th>
+                                        <th style="max-width: 150px !important;">Date</th>
                                         <th th:each = "student: ${allStudent}"
                                         th:text = "${student.name}"
-                                        style="max-width: 150px !important;"></th>
+                                        style="max-width: 100px;"></th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
