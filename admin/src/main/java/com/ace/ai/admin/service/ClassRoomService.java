@@ -5,18 +5,16 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.ace.ai.admin.datamodel.Attendance;
+import com.ace.ai.admin.datamodel.Batch;
 import com.ace.ai.admin.datamodel.Classroom;
 import com.ace.ai.admin.datamodel.Student;
 import com.ace.ai.admin.datamodel.TeacherBatch;
@@ -75,34 +73,17 @@ public class ClassRoomService {
 
     public String twelveHourFormat(String time) throws ParseException{
 
-        String format;
-
         final SimpleDateFormat sdf = new SimpleDateFormat("h:mm");
         final Date dateObj = sdf.parse(time);
 
-        // Parsing hours, minutes and seconds in array
-        String[] arr = time.split(":");
- 
-        // Converting hours into integer
-        int hh = Integer.parseInt(arr[0]);
- 
-        if (hh > 12) {
-            hh = hh - 12;
-            format = "PM";
-        }
-        else if (hh == 00) {
-            hh = 12;
-            format = "AM";
-        }
-        else if (hh == 12) {
-            hh = 12;
-            format = "PM";
-        }
-        else {
-            format = "AM";
-        }
         log.info(new SimpleDateFormat("hh:mm a").format(dateObj));
         return new SimpleDateFormat("hh:mm a").format(dateObj);
+    }
+
+    public String convertDateToString(LocalDate date){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedString = date.format(formatter);
+        return formattedString;
     }
 
     public List<ClassroomDTO> showClassroomTable(Integer batchId) throws ParseException{
@@ -114,14 +95,12 @@ public class ClassRoomService {
         DateTimeFormatter dtf
         = DateTimeFormatter.ofPattern(
             "yyyy-MM-dd HH:mm");
-        DateTimeFormatter tf = DateTimeFormatter.ofPattern("hh:mm a");
 
         for(Classroom classroom: classroomList){
             ClassroomDTO classroomDTO = new ClassroomDTO();
             classroomDTO.setId(classroom.getId());
             classroomDTO.setDate(LocalDate.parse(classroom.getDate(),df));
             classroomDTO.setLink(classroom.getLink());
-            classroomDTO.setRecordedVideo(classroom.getRecordVideo());
             classroomDTO.setStatus("");
             classroomDTO.setTeacherName(classroom.getTeacherName());
 
@@ -187,12 +166,11 @@ public class ClassRoomService {
 
     public void createAttendanceByClassroom(Classroom classroom){
 
-        Attendance attendance = new Attendance();
-        attendance.setClassroom(classroom);
-
         List<Student>students = studentRepository.findByBatch(classroom.getBatch());
 
         for(Student student : students){
+            Attendance attendance = new Attendance();
+            attendance.setClassroom(classroom);
             attendance.setStudent(student);
             attendance.setAttend("Present");
             attendanceRepository.save(attendance);
@@ -202,5 +180,21 @@ public class ClassRoomService {
     public Classroom fetchClassroom(ClassroomDTO classroomDTO){
         Classroom classroom = classRoomRepository.findById(classroomDTO.getId()).get();
         return classroom;
+    }
+
+    public void editClassroom(ClassroomDTO classroomDTO) throws ParseException{
+        
+        Batch batch = new Batch();
+        batch.setId(classroomDTO.getBatchId());
+    
+        Classroom classroom = new Classroom();
+        classroom.setId(classroomDTO.getId());
+        classroom.setDate(convertDateToString(classroomDTO.getDate()));
+        classroom.setLink(classroomDTO.getLink());
+        classroom.setTeacherName(classroomDTO.getTeacherName());
+        classroom.setStartTime(englishTime(classroomDTO.getStartTime()));
+        classroom.setEndTime(englishTime(classroomDTO.getEndTime()));
+        classroom.setBatch(batch);
+        classRoomRepository.save(classroom);
     }
 }

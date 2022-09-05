@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layouts/main :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org" xmlns:batch>
+<body>
+<main role="main">
+    <div  th:fragment="teacher-newactivity">
+        <div class="semi-circle"></div>
+        <div class="banner">
+            <div class="circle">
+                <i class="fa-regular fa-folder-open"></i>
+            </div>
+            <div>
+                <h1>Courses</h1>
+                <h3>Total: 4</h3>
+            </div>
+        </div>
+        <div class="custom-div margin-top-8">
+            <div id="chapter-add" class="width-100">
+                <div class="course-add-container" id="course-add">
+                    <div class="bread-crumb d-flex justify-content-between width-90">
+                        <div class="bread container-fluid">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a class="text-decoration-none" href="T002.html">
+                                            Course List
+                                        </a>
+                                    </li>
+                                    <li class="breadcrumb-item">
+                                        <a class="text-decoration-none" href="T003.html">
+                                            Chapter
+                                        </a>
+                                    </li>
+                                    <li class="breadcrumb-item">
+                                        <a class="text-decoration-none" href="">
+                                            Activity Add
+                                        </a>
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="margin-button">
+                        <a href="T003.html" class="text-decoration-none">
+                            &lt; Back
+                        </a>
+                    </div>
+                    <div>
+                        <form
+                                class="form bg-light p-3 rounded m-auto"
+                                style="max-width: 700px;"
+                        >
+                            <h2 class="mt-2 mb-3 text-center">Add New Activity</h2>
+
+                            <!-- <div class="form-group">
+                          <label class="col-sm-2 col-form-label" for="id">Chapter Id:</label>
+                          <div class="col-sm-10 ">
+                            <input type="text" class="form-control  mt-3 mb-5" id="id" placeholder="Enter Id" name="id">
+                          </div>
+                        </div> -->
+                            <div class="row mt-2">
+                                <label class="col-sm-4" for="id">Activity Name</label>
+                                <div class="col-sm-8">
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            id="name"
+                                            placeholder="Enter Name"
+                                            name="name"
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="row mt-3">
+                                <label class="col-sm-4" for="id">Video Files</label>
+                                <div class="col-sm-8">
+                                    <input
+                                            type="file"
+                                            class="form-control"
+                                            id="name"
+                                            placeholder="Files"
+                                            name="files"
+                                            accept="video/mp4,video/x-m4v,video/*"
+                                            multiple
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="row mt-3">
+                                <label class="col-sm-4 form-label" for="id">Pdf Files</label>
+                                <div class="col-sm-8">
+                                    <input
+                                            type="file"
+                                            class="form-control"
+                                            id="name"
+                                            placeholder="Files"
+                                            name="files"
+                                            accept="application/pdf"
+                                            multiple
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="row mt-3">
+                                <label class="col-sm-4 form-label" for="id">
+                                    Assignment Files
+                                </label>
+                                <div class="col-sm-8">
+                                    <input
+                                            type="file"
+                                            class="form-control"
+                                            id="name"
+                                            placeholder="Assignment"
+                                            name="files"
+                                            multiple
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="row mt-3 mb-2">
+                                <div class="col-sm-8"></div>
+                                <div class="col-sm-4">
+                                    <div class="text-end">
+                                        <button type="reset" class="btn col btn-secondary me-2">
+                                            Reset
+                                        </button>
+                                        <button type="submit" class="btn col btn-primary">
+                                            Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+</body>
+</html>

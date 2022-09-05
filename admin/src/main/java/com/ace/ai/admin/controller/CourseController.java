@@ -58,7 +58,6 @@ public class CourseController {
     @PostMapping("/chapter/addpost")
     public String uploadMultipartFile(@ModelAttribute("fileUploadDTO") FileUploadDTO fileUploadDTO, Model modal) {
         try {
-            System.out.println(fileUploadDTO);
             
             Course course = new Course();
             course.setId(fileUploadDTO.getCourseId());
@@ -327,7 +326,6 @@ public class CourseController {
           
             courseService.saveFile(chapterFile);
 
-            ChapterFile saveChapterFile = courseService.getOneChapterFile(chapterFile.getId());
             
             String uploadDir="./assets/img/chapterFiles/"+ chapterFileDTO.getChapterId();
             Path uploadPath = Paths.get(uploadDir);

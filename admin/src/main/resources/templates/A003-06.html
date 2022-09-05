@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
-    <div th:replace="fragments :: head"></div>
+    <div th:replace="ADMFRG :: head"></div>
     <title>Activity-Add</title>
   </head>
 
@@ -9,20 +9,9 @@
     <main role="main">
       <div th:replace="fragments/A003-06 :: classroom-add"></div>
     </main>
-    <footer th:replace="fragments :: footer"></footer>
-    <div th:replace="fragments :: scripts"></div>
+    <footer th:replace="ADMFRG :: footer"></footer>
+    <div th:replace="ADMFRG :: scripts"></div>
   </body>
-   
-    <script>
-      $(function () {
-        $('#header').load('A006.html')
-      })
-    </script>
-    <script>
-      $(function () {
-        $('#footer').load('../F001.html')
-      })
-    </script>
     <script
       type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"

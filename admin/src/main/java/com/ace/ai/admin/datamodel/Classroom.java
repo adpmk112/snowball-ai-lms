@@ -24,7 +24,6 @@ public class Classroom implements Serializable{
     private int id;
     private String date;
     private String link;
-    private String recordVideo;
     private String startTime;
     private String endTime;
     private String teacherName;
@@ -37,5 +36,8 @@ public class Classroom implements Serializable{
 
     @OneToMany(mappedBy = "classroom")
     private List<Attendance> attendances = new ArrayList<>();
+
+    @OneToMany(mappedBy = "classroom")
+    private List<RecordVideo> recordVideo = new ArrayList<>();
     
 }

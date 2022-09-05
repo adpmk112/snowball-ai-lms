@@ -1,6 +1,8 @@
 package com.ace.ai.admin.controller;
 
 import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -65,12 +67,34 @@ public class ClassRoomController {
         reqClassroomDTO.setStartTime(classroom.getStartTime());
         reqClassroomDTO.setEndTime(classroom.getEndTime());
 
+        model.addAttribute("classId", classroomDTO.getId());
         model.addAttribute("teacherList", classRoomService.fetchTeacherListForClassroom(classroom.getBatch().getId()));
         return new ModelAndView("A003-07","reqClassroom",reqClassroomDTO);
     }
 
-    @PostMapping("/editClassroom")
-    public String classroomEdit(){
-        return "";
+    @PostMapping("/editClassroom/{classId}")
+    public String classroomEdit(Model model,@PathVariable("classId") Integer id,
+        @ModelAttribute("reqClassroom")ReqClassroomDTO reqClassroomDTO) throws ParseException{
+
+        ClassroomDTO classroomDTO1 = new ClassroomDTO();
+        classroomDTO1.setId(id);
+        Classroom classroom = classRoomService.fetchClassroom(classroomDTO1);
+
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        ClassroomDTO classroomDTO = new ClassroomDTO();
+        classroomDTO.setId(id);
+        classroomDTO.setDate(LocalDate.parse(reqClassroomDTO.getDate(),df));
+        classroomDTO.setLink(reqClassroomDTO.getLink());
+        classroomDTO.setTeacherName(reqClassroomDTO.getTeacherName());
+        classroomDTO.setStartTime(reqClassroomDTO.getStartTime());
+        classroomDTO.setEndTime(reqClassroomDTO.getEndTime());
+        classroomDTO.setBatchId(classroom.getBatch().getId());
+        
+        classRoomService.editClassroom(classroomDTO);
+        
+        model.addAttribute("msg", "Classroom updated !");
+        return "A003-07";
     }
+
+   
 }

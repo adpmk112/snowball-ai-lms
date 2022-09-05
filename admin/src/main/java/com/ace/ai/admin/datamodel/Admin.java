@@ -2,6 +2,7 @@ package com.ace.ai.admin.datamodel;
 
 import lombok.Data;
 
+import java.beans.Transient;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,5 +22,9 @@ public class Admin implements Serializable {
     @Column(columnDefinition = "tinyint(1) default 0")
     private boolean deleteStatus;
 
-
+    @Transient
+    public String getImagePath(){
+        if(photo == null || code == null)return null;
+        return "/assets/img/" + code + "/" +photo;
+    }
 }

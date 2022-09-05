@@ -38,7 +38,6 @@ public class ExamScheduleService {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         String formattedString = now.format(formatter);
-        System.out.println("Now is => "+ formattedString);
         LocalDateTime formattedNow = LocalDateTime.parse(formattedString, dtf);
         
         for(BatchExamForm batchExamForm:batchExamFormList){

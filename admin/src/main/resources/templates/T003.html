@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <div th:replace="TECFRG :: head"></div>
+    <title>Batch Details</title>
+
+  </head>
+
+  <body style="background-color: rgb(235, 235, 235);">
+  <header th:replace="TECFRG :: header"></header>
+  <main role="main">
+    <div th:replace="fragments-teacher/T003 :: batchdetails"></div>
+  </main>
+  <footer th:replace="TECFRG :: footer"></footer>
+  <div th:replace="TECFRG:: scripts"></div>
+  <script th:src="@{/assets/js/admin-batch-detail.js}"></script>
+
+    <!-- Confirm Box-->
+    <script>
+      $(document).ready(function () {
+        $('a.chapter-remove').confirm({
+          closeIcon: true,
+          theme: 'Material',
+          //icon: 'fa-solid fa-warning',
+
+          title: 'Remove Chapter!',
+          content: 'Are you sure to remove?',
+          animation: 'Scale',
+          buttons: {
+            Yes: function () {},
+            No: function () {},
+          },
+        })
+      })
+    </script>
+
+    <script>
+      $(document).ready(function () {
+        $('a.remove-attendance').confirm({
+          closeIcon: true,
+          theme: 'Material',
+          //icon: 'fa-solid fa-warning',
+
+          title: 'Remove Row!',
+          content: 'Do you want to remove this row?',
+          animation: 'Scale',
+          buttons: {
+            Yes: function () {},
+            No: function () {},
+          },
+        })
+      })
+
+      $(document).ready(function () {
+        $('a.remove-classroom').confirm({
+          closeIcon: true,
+          theme: 'Material',
+          //icon: 'fa-solid fa-warning',
+
+          title: 'Remove Classroom!',
+          content: 'Are you sure to remove this classroom?',
+          animation: 'Scale',
+          buttons: {
+            Yes: function () {},
+            No: function () {},
+          },
+        })
+      })
+    </script>
+  </body>
+</html>
