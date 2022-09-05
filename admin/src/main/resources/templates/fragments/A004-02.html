@@ -17,10 +17,36 @@
             <div class="custom-div margin-top-8">
                 <div id="courselist" class="width-100">
                     <div class="container bg-light">
+                        <div class="bread-crumb1 d-flex justify-content-between m-0 p-0">
+                            <div class="bread container-fluid">
+                              <nav aria-label="breadcrumb m-0 p-0">
+                                <ol class="breadcrumb mt-5">
+                                  <li class="breadcrumb-item">
+                                    <a class="text-decoration-none" th:href="@{/admin/teacher/}">
+                                      Teacher List
+                                    </a>
+                                  </li>
+                                  <li class="breadcrumb-item ">
+                                    <a class="text-decoration-none" th:href="@{/admin/teacher/addTeacher}">
+                                      Teacher Edit
+                                    </a>
+                                  </li>
+                                </ol>
+                              </nav>
+                            </div>
+                          </div>
                         <form action="/admin/teacher/updateTeacherPost" th:object="${teacherDto}" method="post"
                             enctype="multipart/form-data" class="m-4 p-3" style="max-width: 500px;">
-                            <h6 style="color: blue;" th:text="${msg}"></h6>
-                            <h3 class="text-secondary">Edit Teacher's Data</h3>
+                            <div class="row">
+                                <label class="col text-start mb-2 mt-3">
+                                    <h2>Edit Teacher</h2>
+                                </label>
+                            </div>
+                            <div class="row " >
+                                <div class="col">
+                                    <div th:if="${msg}" th:text="${msg}" class=" alert alert-success form-control" style=""></div>
+                                </div>
+                            </div>
                             <input type="hidden" th:field="*{id}" />
                             <div class="form-group mt-2 row">
                                 <label for="inputPassword" class="col-sm-2 col-form-label">
@@ -59,7 +85,7 @@
                                         placeholder="Password" th:field="*{password}" />
                                 </div>
                             </div>
-                            <div class="form-group mt-2 row">
+                            <div class="form-group mt-2 row py-md-3">
                                 <div class="col-sm-2 col-form-label"></div>
                                 <div class="col-sm-10 text-end">
                                     <input type="reset" class="btn btn-secondary" value="Reset" />
