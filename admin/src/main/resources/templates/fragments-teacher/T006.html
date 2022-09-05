@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layouts/main :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<main role="main">
+    <div th:fragment="teacher-profile">
+        <section class="Form my-4 mx-5" >
+            <div class="container header-margin footer-margin" >
+                <form>
+                    <div class="row no-gutters form-color shodow-div-profile" style="background-color: white;">
+
+                        <div class="col-lg-5">
+
+                            <center>
+                                <img th:src="${#request.userPrincipal.principal.photo}" alt="" width="180px" class="dot">
+                                <input type="file"  id="file" class="form-control file-choose" name="news_img"
+                                       placeholder="Choose Image" required="required" style="width: 300px;"/>
+                            </center>
+
+                        </div>
+
+                        <div class="col-lg-7 px-5 pt-5">
+                            <center>
+
+
+                                <h1 class="font-weight-bold py-3">Teacher Profile</h1>
+
+                                <div class="form-row">
+                                    <div class="col-lg-7">
+                                        <input type="password" placeholder="Old Password" class="form-control mt-3 mb-5">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-lg-7">
+                                        <input type="password" placeholder="New Password" class="form-control mt-3 mb-5">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-lg-7">
+                                        <input type="password" placeholder="Comfirm Password" class="form-control mt-3 mb-5">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-lg-7">
+                                        <button type="button" class="btn1 mt-3 mb-5">Submit</button>
+                                    </div>
+                                </div>
+                            </center>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+        </section>
+    </div>
+</main>
+</body>
+</html>
