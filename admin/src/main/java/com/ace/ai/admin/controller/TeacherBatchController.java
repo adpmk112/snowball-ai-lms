@@ -4,6 +4,8 @@ import com.ace.ai.admin.datamodel.Batch;
 import com.ace.ai.admin.service.BatchService;
 import com.ace.ai.admin.service.ChapterViewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
@@ -44,7 +47,16 @@ public class TeacherBatchController {
     @GetMapping({ "/batchSeeMore" })
     public String batchSeeMore(Model model, @RequestParam("batchId")Integer batchId) throws ParseException {
         model.addAttribute("chapterDTOList", chapterViewService.findAllChapterInChapterBatchByBatchId(batchId));
+        model.addAttribute("batchId",batchId);
         return "T003";
+    }
+
+    @GetMapping(path = "/SendData")
+    @ResponseBody
+    public ResponseEntity SendData(@RequestParam("chpName") String chpName, @RequestParam("startDate") String startDate,
+                                   @RequestParam("endDate") String endDate, @RequestParam("batchId") Integer batchId) {
+        chapterViewService.saveDatesForChapter(chpName, startDate, endDate, batchId);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
 }
