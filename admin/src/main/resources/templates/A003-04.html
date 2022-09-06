@@ -51,8 +51,7 @@
       })
 
       //ajax request to insert all form data
-      $('#student-form').submit(function (e) {
-        alert("ok")
+      $('#student-form').submit(function (e) {       
         let batchId = $('#student-form').find('#batchId').val()
 
         e.preventDefault()
@@ -74,8 +73,16 @@
           contentType: 'application/json; charset=utf-8',
           dataType: 'json',
           data: JSON.stringify(students),
-          success: function () {
-            alert('save success')
+          success: function () {            
+            $.alert({
+                    title: 'Success!',
+                    content: 'Students are added successfully!',
+                    buttons: {
+                      ok : function(){
+                        window.location="admin/batch/batchSeeMore?id=" + batchId + "&radio=student";
+                      }
+                    }
+                    });
           },
         })
         $('#student-form').trigger('reset')

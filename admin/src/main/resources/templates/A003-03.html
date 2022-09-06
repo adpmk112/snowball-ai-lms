@@ -143,7 +143,9 @@
           success: function () {
             window.location = '/admin/batch/batchSeeMore?id='+bId+'&radio=teacher'
           },
-          error: function () {},
+          error: function () {
+            $.alert("error"); 
+          },
         })
       }
     </script>
