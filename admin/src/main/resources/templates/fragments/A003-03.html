@@ -192,8 +192,6 @@
                     <label for="tabexam" id="lab">Exam-Schedule</label>
                     <div class="tab">
                         <input type="hidden" id="batchIdForExamSchedule" th:value="${batch_id}">
-                        <div class="add-list">
-                        </div>
                         <div class="table-responsive ">
                             <table id="datatable2" class="hover">
                                 <thead>
@@ -264,9 +262,9 @@
                             <table id="datatable3" class=" hover attendanceTable">
                                 <thead>
                                     <tr>
-                                        <th>Date</th>
+                                        <th style="max-width: 150px !important;">Date</th>
                                         <th th:each="student: ${allStudent}" th:text="${student.name}"
-                                            style="max-width: 150px !important;"></th>
+                                            style="max-width: 150px !important;  min-width: 80px !important;"></th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -386,7 +384,7 @@
                                 </select>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <!--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>-->
                                 <button th:disabled="${#lists.isEmpty(teacherList1)}" th:onclick="addTeacherToBatch()"
                                     class="btn btn-primary">Add</button>
                             </div>
