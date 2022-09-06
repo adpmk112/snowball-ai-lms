@@ -198,8 +198,9 @@ public class BatchController {
 
     @PostMapping("saveStudent")
     @ResponseBody
-    public void saveStudent(@RequestBody ArrayList<StudentDTO> studentList) {
+    public ResponseEntity saveStudent(@RequestBody ArrayList<StudentDTO> studentList) {
         batchService.saveStudent(studentList);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @GetMapping("/editStudent")
