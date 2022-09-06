@@ -33,10 +33,10 @@ public class TeacherDashboardController {
 
     @GetMapping("/home")
     public String teacherDashboard(ModelMap model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String teacherName = authentication.getName();
-        List<Batch> batchList = batchService.findBatchesByTeacherCode(teacherName);
-        model.addAttribute("batchList" , batchList);
+        // Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        // String teacherName = authentication.getName();
+        // List<Batch> batchList = batchService.findBatchesByTeacherCode(teacherName);
+        // model.addAttribute("batchList" , batchList);
         return "T001";
     }
 }
