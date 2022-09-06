@@ -10,8 +10,8 @@
           <i class="fa-solid fa-people-group"></i>
         </div>
         <div>
-          <h1>Batches</h1>
-          <h3>Total: 4</h3>
+          <h1 th:if="${batchName}" th:text="${batchName}"></h1>
+          <h3 th:if="${courseName}" th:text="${courseName}"></h3>
         </div>
       </div>
       <div class="custom-div">
@@ -23,12 +23,12 @@
                   <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                       <li class="breadcrumb-item">
-                        <a class="text-decoration-none" href="A003.html">
+                        <a class="text-decoration-none" th:href="@{/admin/batch/}">
                           Batch List
                         </a>
                       </li>
                       <li class="breadcrumb-item">
-                        <a class="text-decoration-none" href="A003-03.html">
+                        <a class="text-decoration-none" th:href="@{/admin/batch/batchSeeMore(id=${batchId},radio=classroom)}">
                           Batch Details
                         </a>
                       </li>
@@ -38,16 +38,16 @@
               </div>
             </div>
             <div class="">
-              <a class="text-decoration-none text-muted" href="A003-03.html" style="margin-top: 0px;">
+              <a class="text-decoration-none text-muted" th:href="@{/admin/batch/batchSeeMore(id=${batchId},radio=classroom)}" style="margin-top: 0px;">
                 &lt; Back
               </a>
             </div>
 
             <form class="py-3" style="max-width: 500px;" method="POST"
-              th:action="@{/editClassroom/{classId}(classId = ${classId})}" th:object="${reqClassroom}">
+              th:action="@{/admin/batch/editClassroom/{classId}(classId = ${classId})}" th:object="${reqClassroom}">
               <div class="row">
                 <label class="mb-3 text-center" for="id">
-                  <h3 class="text-dark">Add Live Classes</h3>
+                  <h3 class="text-dark">Edit Classroom</h3>
                 </label>
               </div>
               <div class="row mb-3">

@@ -10,8 +10,8 @@
         <i class="fa-solid fa-people-group"></i>
       </div>
       <div>
-        <h1>Batches</h1>
-        <h3>Total: 4</h3>
+        <h1 th:if="${batchName}" th:text="${batchName}"></h1>
+        <h3 th:if="${courseName}" th:text="${courseName}"></h3>
       </div>
     </div>
     <div class="custom-div">
@@ -31,7 +31,7 @@
                       </a>
                     </li>
                     <li class="breadcrumb-item">
-                      <a class="text-decoration-none">
+                      <a class="text-decoration-none" th:href="@{/admin/batch/batchSeeMore(id=${batchId},radio=classroom)}">
                         Batch Details
                       </a>
                     </li>
@@ -43,14 +43,14 @@
           <div class="">
             <a
               class="text-decoration-none text-muted"
-              href="A003-03.html"
+              th:href="@{/admin/batch/batchSeeMore(id=${batchId},radio=classroom)}"
               style="margin-top: 0px;"
             >
               < Back
             </a>
           </div>
 
-          <form class="py-3" style="max-width: 500px;" method="POST" action="/createClassroom" th:object="${reqClassroomDTO}">
+          <form class="py-3" style="max-width: 500px;" method="POST" action="/admin/batch/createClassroom" th:object="${reqClassroomDTO}">
             <div class="row">
               <label class="mb-3 text-center" for="id">
                 <h3 class="text-dark">Add Live Classes</h3>
