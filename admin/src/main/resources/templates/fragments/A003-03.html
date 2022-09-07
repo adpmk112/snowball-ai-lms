@@ -156,7 +156,7 @@
                                             <th>Action</th>
                                         </tr>
 
-                                    <!-- <tr>
+                                        <!-- <tr>
                                         <th style="max-width: 150px !important;">Date</th>
                                         <th th:each = "student: ${allStudent}"
                                         th:text = "${student.name}"
@@ -345,7 +345,13 @@
                                             <td th:text="${classroom.teacherName}"></td>
                                             <td th:text="${classroom.link}"></td>
                                             <td th:text="${classroom.status}"></td>
-                                            <td th:text="${classroom.recordedVideo}"></td>
+                                            <td th:text="${classroom.recordedVideo}">
+                                                <a th:href="@{/setupClassroomEdit/{classId}(classId = ${classroom.id})}"
+                                                    class="btn btn-outline-primary btn-floating"
+                                                    data-mdb-ripple-color="dark">
+                                                    <i class="fa-solid fa-file-video"></i>
+                                                </a>
+                                            </td>
                                             <td>
                                                 <a th:href="@{/setupClassroomEdit/{classId}(classId = ${classroom.id})}"
                                                     class="btn btn-outline-primary btn-floating"
@@ -406,7 +412,7 @@
             </div>
         </div>
 
-    </main>
+</main>
 
 
 
