@@ -3,12 +3,16 @@ package com.ace.ai.admin.controller;
 import com.ace.ai.admin.datamodel.Attendance;
 import com.ace.ai.admin.datamodel.Batch;
 import com.ace.ai.admin.datamodel.BatchExamForm;
+import com.ace.ai.admin.datamodel.StudentExamMark;
 import com.ace.ai.admin.dtomodel.AttendanceRequestDTO;
+import com.ace.ai.admin.dtomodel.ExamMarkDTO;
 import com.ace.ai.admin.dtomodel.StudentAttendDTO;
+import com.ace.ai.admin.dtomodel.StudentIdMarkFilePathDTO;
 import com.ace.ai.admin.service.AttendanceService;
 import com.ace.ai.admin.service.BatchService;
 import com.ace.ai.admin.service.ChapterViewService;
 import com.ace.ai.admin.service.ExamScheduleService;
+import com.ace.ai.admin.service.StudentExamMarkService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,6 +44,8 @@ public class TeacherBatchController {
     AttendanceService attendanceService;
     @Autowired
     ExamScheduleService examScheduleService;
+    @Autowired
+    StudentExamMarkService studentExamMarkService;
 
     @GetMapping({ "/addNewActivity" })
     public String addNewActivity(Model model) {
@@ -68,6 +74,7 @@ public class TeacherBatchController {
         model.addAttribute("attendanceDTOList", attendanceService.getAllAttendanceList(batchId));// Attendance with bath id
         model.addAttribute("allStudent", attendanceService.getAllStudentByDeleteStatus(batchId));// for attendance with batch
         model.addAttribute("examScheduleList", examScheduleService.showExamScheduleTable(batchId)); //For Exam Schedule
+        model.addAttribute("studentExamMarkList", studentExamMarkService.getExamMarkDTOList(batchId));//To mark exam;
 
         return "T003";
     }
@@ -107,6 +114,25 @@ public class TeacherBatchController {
         bef.setStartDate(startDate);
         bef.setEndDate(endDate);
         examScheduleService.saveBathExamFrom(bef); // Update dates
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
+
+    //For Exam Mark
+    @PostMapping("/setExamMark")
+    @ResponseBody
+    public ResponseEntity setExamMark(@RequestBody ExamMarkDTO examMarkDTO){
+        int batchId = examMarkDTO.getBatchId();
+        int examId = examMarkDTO.getExamId();
+        List<StudentIdMarkFilePathDTO> studentDataList = examMarkDTO.getStudentData();
+        System.out.println("All Data "+ batchId+examId+studentDataList.size());
+        for(StudentIdMarkFilePathDTO studentData : studentDataList){
+            int studentId = studentData.getStudentId();
+            int mark = studentData.getMark();
+            StudentExamMark studentExamMark = studentExamMarkService.getByExamIdAndStudentId(examId, studentId);
+            studentExamMark.setStudentMark(mark);
+            studentExamMark.setNotification(false);
+            studentExamMarkService.save(studentExamMark);
+        }
         return ResponseEntity.ok(HttpStatus.OK);
     }
 }

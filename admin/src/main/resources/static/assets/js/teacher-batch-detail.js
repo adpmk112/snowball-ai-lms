@@ -16,6 +16,7 @@ $(document).ready(function () {
     }
   })
 
+  //For Attendance Edit
   $(document).on("click", ".btn.btn-attendance-edit", function (e) {
     e.preventDefault();
     let _input = $(this).closest("tr").find("select");
@@ -67,6 +68,80 @@ $(document).ready(function () {
           window.location.replace("/teacher/batch/batchSeeMore?radio=attendance&batchId="+batchId);
         },
       });
+    }
+  });
+
+  //For mark
+  $(document).on("click", ".btn.btn-mark-edit", function (e) {
+    e.preventDefault();
+    let _input = $(this).closest("tr").find('input[type="number"]');
+    let edit_btn = $(this).find(".fa-pen-to-square");
+    if (edit_btn.length > 0) {
+      edit_btn
+        .removeClass("fa-pen-to-square")
+        .addClass("fa-solid fa-check");
+      _input.removeAttr("readonly");
+      _input.css("border", "1px solid red");
+    } else {
+      
+  
+      _input.attr("readonly", true);
+      _input.css("border", "none");
+      let examMark = {};
+      let tr = $(this).closest("tr");
+
+      let examId = tr.find('input[name="examId"]').val();
+      let batchId = tr.find('input[name="batchId"]').val();
+      let studentDataList = [];
+      
+      let error = "";
+      let studentDataTd = tr.find('td.studentData')
+      $(studentDataTd).each(function () {
+          let studentId = $(this).find('input[name="studentId"').val();
+          let mark = $(this).find('input[name="mark"]').val();
+          let maxMark = $(this).find('input[name="mark"]').attr('max');// Not use
+          if(mark > maxMark || mark < 0){
+            error = "error";
+            return ;
+          }
+          let studentData = {}
+          studentData['studentId'] = studentId;
+          studentData['mark'] = mark;
+          studentDataList.push(studentData);
+      });
+
+      examMark['examId'] = examId;
+      examMark['studentData'] = studentDataList;
+      examMark['batchId'] = batchId;
+      console.log(examMark);
+      if(error != "error"){
+        $(this)
+        .find(".fa-solid.fa-check")
+        .removeClass("fa-solid fa-check")
+        .addClass("fa-pen-to-square");
+        $.ajax({
+          type: "POST",
+          url: "/teacher/batch/setExamMark",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: JSON.stringify(examMark),
+          success: function () {
+            window.location=("/teacher/batch/batchSeeMore?radio=mark&batchId="+batchId);
+          },
+        });
+      }else{
+        $.alert({
+          title : "Error!",
+          content : "Student's mark should be between 0 and maximum mark.",
+        })
+        edit_btn
+        .removeClass("fa-pen-to-square")
+        .addClass("fa-solid fa-check");
+      _input.removeAttr("readonly");
+      _input.css("border", "1px solid red");
+      }
+
     }
   });
 
