@@ -37,7 +37,7 @@
                 <a href="T002.html" class="unit-a">
                     <div class="card-single-teacher">
                         <div>
-                            <h1>Batch 1</h1>
+                            <h1 th:each="batch : ${batchList}" th:value="${batch.id}" th:text="${batch.name}"></h1>
                         </div>
                         <div class="card-link">
                             <i class="fa-solid fa-people-group" style="color: white;"></i>

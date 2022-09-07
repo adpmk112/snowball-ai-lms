@@ -169,7 +169,7 @@ public class TeacherController {
         Teacher teacher = teacherService.getId(id);
         teacher.setDeleteStatus(true);
         teacherService.saveTeacher(teacher);
-        return "redirect:/admin/teacher/teacherList";
+        return "redirect:/admin/teacher/";
       }
       
     }

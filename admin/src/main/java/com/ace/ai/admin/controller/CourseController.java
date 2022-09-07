@@ -32,8 +32,6 @@ import com.ace.ai.admin.dtomodel.ChapterFileDTO;
 import com.ace.ai.admin.dtomodel.ChapterRenameDTO;
 import com.ace.ai.admin.dtomodel.CourseDTO;
 import com.ace.ai.admin.dtomodel.FileUploadDTO;
-import com.ace.ai.admin.repository.ChapterFileRepository;
-import com.ace.ai.admin.repository.CourseRepository;
 import com.ace.ai.admin.service.CourseService;
 import com.ace.ai.admin.service.ExamFormService;
 
