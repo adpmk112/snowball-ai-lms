@@ -1,10 +1,10 @@
 package com.ace.ai.admin.config;
 
-import com.ace.ai.admin.datamodel.Admin;
+
 import com.ace.ai.admin.datamodel.Teacher;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import java.util.Collection;
 
