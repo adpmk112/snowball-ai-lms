@@ -1,8 +1,15 @@
 package com.ace.ai.admin.controller;
 
+import com.ace.ai.admin.datamodel.Attendance;
 import com.ace.ai.admin.datamodel.Batch;
+import com.ace.ai.admin.datamodel.BatchExamForm;
+import com.ace.ai.admin.dtomodel.AttendanceRequestDTO;
+import com.ace.ai.admin.dtomodel.StudentAttendDTO;
+import com.ace.ai.admin.service.AttendanceService;
 import com.ace.ai.admin.service.BatchService;
 import com.ace.ai.admin.service.ChapterViewService;
+import com.ace.ai.admin.service.ExamScheduleService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +18,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,6 +35,11 @@ public class TeacherBatchController {
     BatchService batchService;
     @Autowired
     ChapterViewService chapterViewService;
+
+    @Autowired
+    AttendanceService attendanceService;
+    @Autowired
+    ExamScheduleService examScheduleService;
 
     @GetMapping({ "/addNewActivity" })
     public String addNewActivity(Model model) {
@@ -45,9 +59,16 @@ public class TeacherBatchController {
 }
 
     @GetMapping({ "/batchSeeMore" })
-    public String batchSeeMore(Model model, @RequestParam("batchId")Integer batchId) throws ParseException {
+    public String batchSeeMore(Model model, @RequestParam("batchId")Integer batchId, @RequestParam("radio") String radio) throws ParseException {
         model.addAttribute("chapterDTOList", chapterViewService.findAllChapterInChapterBatchByBatchId(batchId));
         model.addAttribute("batchId",batchId);
+        model.addAttribute("batchName", batchService.getById(batchId).getName());
+        model.addAttribute("courseName", batchService.getById(batchId).getCourse().getName());// for course name in view
+        model.addAttribute("radio", radio);
+        model.addAttribute("attendanceDTOList", attendanceService.getAllAttendanceList(batchId));// Attendance with bath id
+        model.addAttribute("allStudent", attendanceService.getAllStudentByDeleteStatus(batchId));// for attendance with batch
+        model.addAttribute("examScheduleList", examScheduleService.showExamScheduleTable(batchId)); //For Exam Schedule
+
         return "T003";
     }
 
@@ -59,4 +80,33 @@ public class TeacherBatchController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
+    //For attendance
+    @PostMapping("/setAttendance")
+    public String saveAttendance( @RequestBody AttendanceRequestDTO attendance ){
+        int batchId=attendance.getBatchId();
+        int classId = attendance.getClassId();
+        List<StudentAttendDTO> studentAndAttendList = attendance.getStudentAndAttendList();
+        for(StudentAttendDTO studentAndAttend : studentAndAttendList){
+            int studentId = studentAndAttend.getStudentId();
+            String attend = studentAndAttend.getAttend();
+            Attendance attendanceFromDb = attendanceService.getByStudentIdAndClassroomId(studentId, classId);
+            if(attendanceFromDb != null){
+                attendanceFromDb.setAttend(attend);
+                attendanceService.saveAttendance(attendanceFromDb);
+            }
+        }
+        return "redirect:/teacher/batch/batchSeeMore?batchId="+batchId+"&radio=attendance";
+    }
+
+    //For Exam schedule
+    @GetMapping("/addExamSchedule")
+    @ResponseBody
+    public ResponseEntity addDateExamSchedule(@RequestParam("id") int id, @RequestParam("startDate") String startDate,
+            @RequestParam("endDate") String endDate) {
+        BatchExamForm bef = examScheduleService.findById(id);
+        bef.setStartDate(startDate);
+        bef.setEndDate(endDate);
+        examScheduleService.saveBathExamFrom(bef); // Update dates
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
 }
