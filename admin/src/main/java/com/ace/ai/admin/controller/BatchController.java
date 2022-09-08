@@ -208,13 +208,15 @@ public class BatchController {
             @RequestParam("batchId") int batchId) {
         model.addAttribute("edit", "edit");
         StudentDTO studentDTO = batchService.findStudentById(studentId);
+        System.out.println("Student id in student data is:"+studentDTO.getId());
         model.addAttribute("batchName", batchService.getById(batchId).getName());
         return new ModelAndView("A003-05", "studentDTO", studentDTO);
     }
 
     @PostMapping("/updateStudent")
     public String updateStudent(@ModelAttribute("studentDTO") StudentDTO studentDTO) {
-        batchService.updateStudent(studentDTO);
+        System.out.println("id is"+studentDTO.getId());
+       batchService.updateStudent(studentDTO);
         return "redirect:/admin/batch/batchSeeMore?id=" + studentDTO.getBatchId() + "&radio=student";
     }
 
