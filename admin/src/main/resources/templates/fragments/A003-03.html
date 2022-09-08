@@ -106,7 +106,6 @@
                                 <tr>
                                     <th>Student Id</th>
                                     <th>Student Name</th>
-                                    <th>Password</th>
                                     <th>Attendance %</th>
                                     <th>Action</th>
                                 </tr>
@@ -115,7 +114,6 @@
                                 <tr th:each="studentDTO,status: ${studentDTOList}">
                                     <td th:text="${studentDTO.code}"></td>
                                     <td th:text="${studentDTO.name}"></td>
-                                    <td th:text="${studentDTO.password}"></td>
                                     <td th:text="${studentDTO.attendance}"></td>
                                     <td>
                                         <a th:href="@{/admin/batch/editStudent(studentdata=${studentDTO.id}, batchId= ${batch_id})}"
@@ -154,7 +152,6 @@
                                     <th>Teacher Photo</th>
                                     <th>Name</th>
                                     <th>Code</th>
-                                    <th>Password</th>
                                     <th>Action</th>
                                 </tr>
 
@@ -174,7 +171,6 @@
                                     <td th:text="${teacher.name}">
                                     </td>
                                     <td th:text="${teacher.code}"></td>
-                                    <td th:text="${teacher.password}"></td>
                                     <td>
 
                                         <a th:id="${teacher.code}+'_'+${batch_id}" href=""
@@ -377,7 +373,7 @@
                     </div>
                     <div class="modal-body">
 
-                        <form id="teacher-batch">
+                        <form id="teacher-batch" th:action="@{admin/batch/addTeacherToBatch()}">
                             <input type="hidden" id="bId" th:value="${batch_id}">
 
                             <p th:if="${#lists.isEmpty(teacherList1)}">No Teacher To add</p>
@@ -389,9 +385,8 @@
                                 </select>
                             </div>
                             <div class="modal-footer">
-                                <!--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>-->
-                                <button th:disabled="${#lists.isEmpty(teacherList1)}" th:onclick="addTeacherToBatch()"
-                                    class="btn btn-primary">Add</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" th:disabled="${#lists.isEmpty(teacherList1)}" class="btn btn-primary">Add</button>
                             </div>
                         </form>
                     </div>

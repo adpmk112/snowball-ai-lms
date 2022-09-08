@@ -203,8 +203,6 @@ public class BatchService {
     public StudentDTO updateStudent(StudentDTO studentDTO){
         Batch batch= batchRepository.findBatchById(studentDTO.getBatchId());
         Student student= studentRepository.findByBatchAndId(batch,studentDTO.getId());
-        student.setId(studentDTO.getId());
-        System.out.println("id is "+studentDTO.getId());
         student.setPassword(studentDTO.getPassword());
         student.setName(studentDTO.getName());
         student.setCode(studentDTO.getCode());
@@ -236,6 +234,7 @@ public class BatchService {
     public StudentDTO findStudentById(Integer id){
        Student student=studentRepository.findStudentById(id);
        StudentDTO studentDTO=new StudentDTO();
+        System.out.println("student id is :"+ student.getId());
        studentDTO.setId(student.getId());
        studentDTO.setBatchId(student.getBatch().getId());
       // studentDTO.setAttendance();
