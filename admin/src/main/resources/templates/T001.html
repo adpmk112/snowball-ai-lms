@@ -1,120 +1,29 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
   <div th:replace="TECFRG :: head"></div>
   <title>Home Page</title>
 </head>
 
 <body class="body-color">
-<header th:replace="TECFRG :: header"></header>
-<main role="main">
-  <div th:replace="fragments-teacher/T001 :: teacher-home"></div>
-</main>
-<footer th:replace="TECFRG :: footer"></footer>
-<div th:replace="TECFRG:: scripts"></div>
-  <script>
-      var xValues = [
-        'Smith',
-        'Jone',
-        'Stella',
-        'Pkar',
-        'Blake',
-        'Clark',
-        'Mg Mg',
-        'Hla Hla',
-        'Pkar',
-        'Blake',
-        'Clark',
-        'Mg Mg',
-        'Hla Hla',
-      ]
-      var yValues = [55, 73, 84, 45, 93, 69, 34, 70, 80, 90, 100, 70, 80]
-      var barColors = [
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-      ]
+  <header th:replace="TECFRG :: header"></header>
+  <main role="main">
+    <div th:replace="fragments-teacher/T001 :: teacher-home"></div>
+  </main>
+  <footer th:replace="TECFRG :: footer"></footer>
+  <div th:replace="TECFRG:: scripts"></div>
 
-      new Chart('myChart', {
-        type: 'bar',
-        data: {
-          labels: xValues,
-          datasets: [
-            {
-              backgroundColor: barColors,
-              data: yValues,
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-            },
-          ],
-        },
-        options: {
-          responsive: true,
-          // overflow
-          maintainAspectRatio: false,
-          legend: { display: false },
-          title: {
-            display: true,
-            text: 'Attend Count Per Student Data',
+  <script type="text/javascript">
+    $(document).ready(function(){
+      let batchId = document.getElementById("course").value;
+      console.log(bId);
+    })
+  </script>
 
-          },
-        },
-      })
-    </script>
-    <script>
-      var xValues = [
-        'Smith',
-        'Jone',
-        'Stella',
-        'Pkar',
-        'Blake',
-        'Clark',
-        'Mg Mg',
-        'Hla Hla',
-      ]
-      var yValues = [55, 73, 84, 45, 93, 69, 34, 70, 80, 90, 100]
-      var barColors = [
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-      ]
-
-      new Chart('myChart2', {
-        type: 'bar',
-        data: {
-          labels: xValues,
-          datasets: [
-            {
-              backgroundColor: barColors,
-              data: yValues,
-            },
-          ],
-        },
-        options: {
-          legend: { display: false },
-          title: {
-            display: true,
-            text: 'Attend Count Per Student Data',
-          },
-        },
-      })
-    </script>
-
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+ 
 </body>
 
 </html>
