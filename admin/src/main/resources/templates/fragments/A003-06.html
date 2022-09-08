@@ -2,44 +2,76 @@
 <html lang="en" th:replace="~{layouts/main :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org" xmlns:teacher>
 
 <body>
-  <main role="main">
-    <div th:fragment="classroom-add">
-      <div class="semi-circle"></div>
-      <div class="banner">
-        <div class="circle">
-          <i class="fa-solid fa-people-group"></i>
-        </div>
-        <div>
-          <h1>Batches</h1>
-          <h3>Total: 4</h3>
-        </div>
+<main role="main">
+<div th:fragment="classroom-add">
+<div class="semi-circle"></div>
+    <div class="banner">
+      <div class="circle">
+        <i class="fa-solid fa-people-group"></i>
       </div>
-      <div class="custom-div">
-        <div id="courselist" class="width-100">
-          <div class="course-add-container" id="course-add">
-            <div class="bread-crumb d-flex justify-content-between width-90" style="margin-bottom: 0px;">
-              <div class="bread-crumb2 d-flex justify-content-between width-90">
-                <div class="bread container-fluid">
-                  <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                      <li class="breadcrumb-item">
-                        <a class="text-decoration-none" th:href="@{/admin/batch/}">
-                          Batch List
-                        </a>
-                      </li>
-                      <li class="breadcrumb-item">
-                        <a class="text-decoration-none">
-                          Batch Details
-                        </a>
-                      </li>
-                    </ol>
-                  </nav>
-                </div>
+      <div>
+        <h1 th:if="${batchName}" th:text="${batchName}"></h1>
+        <h3 th:if="${courseName}" th:text="${courseName}"></h3>
+      </div>
+    </div>
+    <div class="custom-div">
+      <div id="courselist" class="width-100">
+        <div class="course-add-container" id="course-add">
+          <div
+            class="bread-crumb d-flex justify-content-between width-90"
+            style="margin-bottom: 0px;"
+          >
+            <div class="bread-crumb2 d-flex justify-content-between width-90">
+              <div class="bread container-fluid">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                      <a class="text-decoration-none" th:href="@{/admin/batch/}">
+                        Batch List
+                      </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                      <a class="text-decoration-none" th:href="@{/admin/batch/batchSeeMore(id=${batchId},radio=classroom)}">
+                        Batch Details
+                      </a>
+                    </li>
+                  </ol>
+                </nav>
               </div>
             </div>
-            <div class="">
-              <a class="text-decoration-none text-muted" href="A003-03.html" style="margin-top: 0px;">
-                < Back </a>
+          </div>
+          <div class="">
+            <a
+              class="text-decoration-none text-muted"
+              th:href="@{/admin/batch/batchSeeMore(id=${batchId},radio=classroom)}"
+              style="margin-top: 0px;"
+            >
+              < Back
+            </a>
+          </div>
+
+          <form class="py-3" style="max-width: 500px;" method="POST" action="/admin/batch/createClassroom" th:object="${reqClassroomDTO}">
+            <div class="row">
+              <label class="mb-3 text-center" for="id">
+                <h3 class="text-dark">Add Live Classes</h3>
+              </label>
+            </div>
+            <div class="row mb-3">
+              <h6 style="color: blue;" th:text="${msg}"></h6>
+              <br>
+              <label class="col-sm-4" for="id">Teacher name:</label>
+              <div class="col-sm-8">
+              <select class="form-control" id="teacherNameDropDownList" th:field="*{teacherName}">
+                <option th:value="0">Select Teacher</option>
+                <option th:each="teacher : ${teacherList}" th:value="${teacher.teacherName}"
+                th:text="${teacher.teacherName}"
+                > 
+              </option>
+              <input type="hidden" th:field="*{batchId}"></input>
+                
+              </select>
+            </div>
+
             </div>
 
             <form class="py-3" style="max-width: 500px;" method="POST" action="/createClassroom"

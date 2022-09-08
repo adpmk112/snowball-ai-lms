@@ -312,10 +312,10 @@
         $(fileupload_question_loop).each(function () {
           let question = {};
           let point = $(this).find('input[name="point"]').val();
-          let text = $(this).find('textarea[name="other-question"]').val();
+          let text = $(this).find('textarea[name="other-question"]').val();         
           total_point += parseInt(point);
           question["text"] = text;
-          question["point"] = point;
+          question["point"] = point;         
           questions.push(question);
         });
       }

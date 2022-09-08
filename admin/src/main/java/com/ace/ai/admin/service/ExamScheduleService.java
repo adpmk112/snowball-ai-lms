@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ace.ai.admin.datamodel.BatchExamForm;
+import com.ace.ai.admin.datamodel.ExamForm;
 import com.ace.ai.admin.dtomodel.ExamScheduleDTO;
 import com.ace.ai.admin.repository.BatchExamFormRepository;
 import com.ace.ai.admin.repository.ExamFormRepository;
@@ -67,6 +68,28 @@ public class ExamScheduleService {
         }
 
         return examScheduleDTOList;
+    }
+
+    public List<ExamForm> getFinishedExam(int batchId){
+        List<BatchExamForm> allBef = batchExamFormRepository.findByDeleteStatusAndBatch_IdAndExamForm_DeleteStatus(false, batchId, false);
+        List<ExamForm> finishedExams = new ArrayList<>();
+        //Now Time
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String formattedString = now.format(formatter);
+        LocalDateTime formattedNow = LocalDateTime.parse(formattedString, dtf);
+        for(BatchExamForm bef: allBef){
+            try{
+                LocalDateTime endDate = LocalDateTime.parse(bef.getEndDate().replace("T", " "), dtf);
+                if(formattedNow.isAfter(endDate)){
+                    finishedExams.add(bef.getExamForm());
+                }
+            }catch(Exception e){
+                System.out.println("some errors occur in getFinishedExam "+ e);
+            }
+        }
+        return finishedExams;
     }
 
     public void saveBathExamFrom(BatchExamForm bef){
