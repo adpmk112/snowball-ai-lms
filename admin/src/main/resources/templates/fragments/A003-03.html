@@ -373,12 +373,12 @@
                     </div>
                     <div class="modal-body">
 
-                        <form id="teacher-batch" th:action="@{admin/batch/addTeacherToBatch()}">
-                            <input type="hidden" id="bId" th:value="${batch_id}">
+                        <form id="teacher-batch" th:action="@{/admin/batch/addTeacherToBatch}" method="get">
+                            <input type="hidden" id="bId" name="bId" th:value="${batch_id}">
 
                             <p th:if="${#lists.isEmpty(teacherList1)}">No Teacher To add</p>
                             <div th:unless="${#lists.isEmpty(teacherList1)}">
-                                <select id="tId" class="form-select" aria-label="Default select example" name="code">
+                                <select id="tId" class="form-select" aria-label="Default select example" name="tId">
                                     <option th:each="teacher: ${teacherList1}" th:value="${teacher.id}"
                                         th:text="${teacher.name}">No Teacher To Add
                                     </option>
