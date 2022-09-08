@@ -106,7 +106,6 @@
                                 <tr>
                                     <th>Student Id</th>
                                     <th>Student Name</th>
-                                    <th>Password</th>
                                     <th>Attendance %</th>
                                     <th>Action</th>
                                 </tr>
@@ -115,7 +114,6 @@
                                 <tr th:each="studentDTO,status: ${studentDTOList}">
                                     <td th:text="${studentDTO.code}"></td>
                                     <td th:text="${studentDTO.name}"></td>
-                                    <td th:text="${studentDTO.password}"></td>
                                     <td th:text="${studentDTO.attendance}"></td>
                                     <td>
                                         <a th:href="@{/admin/batch/editStudent(studentdata=${studentDTO.id}, batchId= ${batch_id})}"
@@ -154,7 +152,6 @@
                                     <th>Teacher Photo</th>
                                     <th>Name</th>
                                     <th>Code</th>
-                                    <th>Password</th>
                                     <th>Action</th>
                                 </tr>
 
@@ -174,7 +171,6 @@
                                     <td th:text="${teacher.name}">
                                     </td>
                                     <td th:text="${teacher.code}"></td>
-                                    <td th:text="${teacher.password}"></td>
                                     <td>
 
                                         <a th:id="${teacher.code}+'_'+${batch_id}" href=""
