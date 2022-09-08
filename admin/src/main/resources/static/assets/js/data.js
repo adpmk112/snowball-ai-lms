@@ -42,6 +42,10 @@ $(document).ready(function () {
     "bSort": false,
     "bDestroy": true
   } );
+
+  $('#assignmentDataTable').dataTable({ //For teacher Assignment Data table
+    
+  })
   // $('#datatable6').DataTable({
   //   responsive: true
   // })
