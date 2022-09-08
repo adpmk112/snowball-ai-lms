@@ -32,7 +32,7 @@
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <form id="updateStudent" th:action="@{/admin/batch/updateStudent}" method="POST"
+                            <form id="updateStudent" th:action="@{/admin/batch/updateStudent}" method="post"
                                 th:object="${studentDTO}">
 
                                 <table class="table table-striped table-hover" id="student-table">
@@ -82,7 +82,7 @@
                                                 </button>
                                             </td>
                                             <input type="hidden" class="form-control" id="batchId" placeholder="Name"
-                                                th:value="${studentDTO.batchId}" required />
+                                                th:field="*{batchId}" required />
                                         </div>
                                     </tr>
                                 </table>

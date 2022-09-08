@@ -106,7 +106,6 @@
                                 <tr>
                                     <th>Student Id</th>
                                     <th>Student Name</th>
-                                    <th>Password</th>
                                     <th>Attendance %</th>
                                     <th>Action</th>
                                 </tr>
@@ -115,7 +114,6 @@
                                 <tr th:each="studentDTO,status: ${studentDTOList}">
                                     <td th:text="${studentDTO.code}"></td>
                                     <td th:text="${studentDTO.name}"></td>
-                                    <td th:text="${studentDTO.password}"></td>
                                     <td th:text="${studentDTO.attendance}"></td>
                                     <td>
                                         <a th:href="@{/admin/batch/editStudent(studentdata=${studentDTO.id}, batchId= ${batch_id})}"
@@ -154,11 +152,10 @@
                                     <th>Teacher Photo</th>
                                     <th>Name</th>
                                     <th>Code</th>
-                                    <th>Password</th>
                                     <th>Action</th>
                                 </tr>
 
-                                <!-- <tr>
+                                        <!-- <tr>
                                         <th style="max-width: 150px !important;">Date</th>
                                         <th th:each = "student: ${allStudent}"
                                         th:text = "${student.name}"
@@ -174,7 +171,6 @@
                                     <td th:text="${teacher.name}">
                                     </td>
                                     <td th:text="${teacher.code}"></td>
-                                    <td th:text="${teacher.password}"></td>
                                     <td>
 
                                         <a th:id="${teacher.code}+'_'+${batch_id}" href=""
@@ -192,8 +188,6 @@
                     <label for="tabexam" id="lab">Exam-Schedule</label>
                     <div class="tab">
                         <input type="hidden" id="batchIdForExamSchedule" th:value="${batch_id}">
-                        <div class="add-list">
-                        </div>
                         <div class="table-responsive ">
                             <table id="datatable2" class="hover">
                                 <thead>
@@ -254,7 +248,6 @@
                             </table>
                         </div>
 
-
                     </div>
                     <input type="radio" id="tabattendance" name="mytabs" th:checked="${radio == 'attendance' }" />
                     <label for="tabattendance" id="lab">Attendance</label>
@@ -264,9 +257,9 @@
                             <table id="datatable3" class=" hover attendanceTable">
                                 <thead>
                                     <tr>
-                                        <th>Date</th>
+                                        <th style="max-width: 150px !important;">Date</th>
                                         <th th:each="student: ${allStudent}" th:text="${student.name}"
-                                            style="max-width: 150px !important;"></th>
+                                            style="max-width: 150px !important;  min-width: 80px !important;"></th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -341,7 +334,13 @@
                                     <td th:text="${classroom.teacherName}"></td>
                                     <td th:text="${classroom.link}"></td>
                                     <td th:text="${classroom.status}"></td>
-                                    <td th:text="${classroom.recordedVideo}"></td>
+                                    <td th:text="${classroom.recordedVideo}">
+                                    <a th:href="@{/setupClassroomEdit/{classId}(classId = ${classroom.id})}"
+                                                    class="btn btn-outline-primary btn-floating"
+                                                    data-mdb-ripple-color="dark">
+                                                    <i class="fa-solid fa-file-video"></i>
+                                                </a>
+                                    </td>
                                     <td>
                                         <a th:href="@{/admin/batch/setupClassroomEdit/{classId}(classId = ${classroom.id})}"
                                             class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
@@ -386,7 +385,7 @@
                                 </select>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <!--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>-->
                                 <button th:disabled="${#lists.isEmpty(teacherList1)}" th:onclick="addTeacherToBatch()"
                                     class="btn btn-primary">Add</button>
                             </div>

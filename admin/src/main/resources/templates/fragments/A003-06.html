@@ -71,68 +71,71 @@
                 
               </select>
             </div>
+
             </div>
-            <div class="row mb-3">
-              <label class="col-sm-4" for="id">Date:</label>
-              <div class="col-sm-8">
-                <input
-                  type="date"
-                  class="form-control"
-                  id="name"
-                  placeholder="Enter Date"
-                  name="date"
-                  th:field="*{date}"
-                />
+
+            <form class="py-3" style="max-width: 500px;" method="POST" action="/createClassroom"
+              th:object="${reqClassroomDTO}">
+              <div class="row">
+                <label class="mb-3 text-center" for="id">
+                  <h3 class="text-dark">Add Live Classes</h3>
+                </label>
               </div>
-            </div>
-            <div class="row mb-3">
-              <label class="col-sm-4">Start-Time:</label>
-              <div class="col-sm-8">
-                <input
-                  type="time"
-                  class="form-control"
-                  id="datetime"
-                  th:field="*{startTime}"
-                />
+              <div class="row mb-3">
+                <h6 style="color: blue;" th:text="${msg}"></h6>
+                <br>
+                <label class="col-sm-4" for="id">Teacher name:</label>
+                <div class="col-sm-8">
+                  <select class="form-control" id="teacherNameDropDownList" th:field="*{teacherName}">
+                    <option th:value="0">Select Teacher</option>
+                    <option th:each="teacher : ${teacherList}" th:value="${teacher.teacherName}"
+                      th:text="${teacher.teacherName}">
+                    </option>
+                    <input type="hidden" th:field="*{batchId}"></input>
+
+                  </select>
+                </div>
               </div>
-            </div>
-            <div class="row mb-3">
-              <label class="col-sm-4">End-time:</label>
-              <div class="col-sm-8">
-                <input
-                  type="time"
-                  class="form-control"
-                  id="datetime"
-                  th:field="*{endTime}"
-                />
+              <div class="row mb-3">
+                <label class="col-sm-4" for="id">Date:</label>
+                <div class="col-sm-8">
+                  <input type="date" class="form-control" id="name" placeholder="Enter Date" name="date"
+                    th:field="*{date}" />
+                </div>
               </div>
-            </div>
-            <div class="row mb-3">
-              <label class="col-sm-4 col-form-label" for="id">
-                Classroom link:
-              </label>
-              <div class="col-sm-8">
-                <input
-                  type="url"
-                  class="form-control"
-                  id="name"
-                  placeholder="Enter Link"
-                  name="link"
-                  th:field="*{link}"
-                />
+              <div class="row mb-3">
+                <label class="col-sm-4">Start-Time:</label>
+                <div class="col-sm-8">
+                  <input type="time" class="form-control" id="datetime" th:field="*{startTime}" />
+                </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-4"></div>
-              <div class="col-sm-8 text-end">
-                <button type="reset" class="btn btn-secondary">Reset</button>
-                <button type="submit" class="btn btn-primary">Add</button>
+              <div class="row mb-3">
+                <label class="col-sm-4">End-time:</label>
+                <div class="col-sm-8">
+                  <input type="time" class="form-control" id="datetime" th:field="*{endTime}" />
+                </div>
               </div>
-            </div>
-        </form>
+              <div class="row mb-3">
+                <label class="col-sm-4 col-form-label" for="id">
+                  Classroom link:
+                </label>
+                <div class="col-sm-8">
+                  <input type="url" class="form-control" id="name" placeholder="Enter Link" name="link"
+                    th:field="*{link}" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-8 text-end">
+                  <button type="reset" class="btn btn-secondary">Reset</button>
+                  <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-</main>
+  </main>
 </body>
+
 </html>

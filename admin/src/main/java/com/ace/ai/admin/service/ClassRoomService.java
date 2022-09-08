@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class ClassRoomService {
-    
+
     @Autowired
     ClassRoomRepository classRoomRepository;
 
@@ -48,30 +48,27 @@ public class ClassRoomService {
     AttendanceRepository attendanceRepository;
 
     public static String englishTime(String input)
-    throws ParseException
-{
+            throws ParseException {
 
-    // Format of the date defined in the input String
-    DateFormat dateFormat
-        = new SimpleDateFormat("hh:mm");
-   
-    // Change the pattern into 24 hour format
-    DateFormat format
-        = new SimpleDateFormat("HH:mm");
-    Date time = null;
-    String output = "";
-   
-    // Converting the input String to Date
-    time = dateFormat.parse(input);
-   
-    // Changing the format of date
-    // and storing it in
-    // String
-    output = format.format(time);
-    return output;
-}
+        // Format of the date defined in the input String
+        DateFormat dateFormat = new SimpleDateFormat("hh:mm");
 
-    public String twelveHourFormat(String time) throws ParseException{
+        // Change the pattern into 24 hour format
+        DateFormat format = new SimpleDateFormat("HH:mm");
+        Date time = null;
+        String output = "";
+
+        // Converting the input String to Date
+        time = dateFormat.parse(input);
+
+        // Changing the format of date
+        // and storing it in
+        // String
+        output = format.format(time);
+        return output;
+    }
+
+    public String twelveHourFormat(String time) throws ParseException {
 
         final SimpleDateFormat sdf = new SimpleDateFormat("h:mm");
         final Date dateObj = sdf.parse(time);
@@ -80,66 +77,63 @@ public class ClassRoomService {
         return new SimpleDateFormat("hh:mm a").format(dateObj);
     }
 
-    public String convertDateToString(LocalDate date){
+    public String convertDateToString(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String formattedString = date.format(formatter);
         return formattedString;
     }
 
-    public List<ClassroomDTO> showClassroomTable(Integer batchId) throws ParseException{
+    public List<ClassroomDTO> showClassroomTable(Integer batchId) throws ParseException {
 
         List<ClassroomDTO> classroomDTOList = new ArrayList<>();
-        List<Classroom> classroomList = classRoomRepository.findAllByBatchIdAndDeleteStatus(batchId,false);
+        List<Classroom> classroomList = classRoomRepository.findAllByBatchIdAndDeleteStatus(batchId, false);
 
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        DateTimeFormatter dtf
-        = DateTimeFormatter.ofPattern(
-            "yyyy-MM-dd HH:mm");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-        for(Classroom classroom: classroomList){
+        for (Classroom classroom : classroomList) {
             ClassroomDTO classroomDTO = new ClassroomDTO();
             classroomDTO.setId(classroom.getId());
-            classroomDTO.setDate(LocalDate.parse(classroom.getDate(),df));
+            classroomDTO.setDate(LocalDate.parse(classroom.getDate(), df));
             classroomDTO.setLink(classroom.getLink());
             classroomDTO.setStatus("");
             classroomDTO.setTeacherName(classroom.getTeacherName());
 
             classroomDTO.setStartTime(twelveHourFormat(classroom.getStartTime()));
-            classroomDTO.setEndTime(twelveHourFormat(classroom.getEndTime())); 
+            classroomDTO.setEndTime(twelveHourFormat(classroom.getEndTime()));
 
-            classroomDTO.setStartDateTime(LocalDateTime.parse
-            (classroomDTO.getDate()+" "+classroom.getStartTime(),dtf));
+            classroomDTO.setStartDateTime(
+                    LocalDateTime.parse(classroomDTO.getDate() + " " + classroom.getStartTime(), dtf));
 
-            classroomDTO.setEndDateTime(LocalDateTime.parse
-            (classroomDTO.getDate()+" "+classroom.getEndTime(),dtf));
+            classroomDTO
+                    .setEndDateTime(LocalDateTime.parse(classroomDTO.getDate() + " " + classroom.getEndTime(), dtf));
 
-            if(classroomDTO.getStartDateTime().isAfter(LocalDateTime.now())){
+            if (classroomDTO.getStartDateTime().isAfter(LocalDateTime.now())) {
                 classroomDTO.setStatus("Upcoming");
             }
 
-            else if(LocalDateTime.now().isAfter
-            (classroomDTO.getEndDateTime())){
+            else if (LocalDateTime.now().isAfter(classroomDTO.getEndDateTime())) {
                 classroomDTO.setStatus("Done");
             }
 
-            else if(LocalDateTime.now().isAfter(classroomDTO.getStartDateTime())
-            && LocalDateTime.now().isBefore(classroomDTO.getEndDateTime()) ){
+            else if (LocalDateTime.now().isAfter(classroomDTO.getStartDateTime())
+                    && LocalDateTime.now().isBefore(classroomDTO.getEndDateTime())) {
                 classroomDTO.setStatus("In Progress");
             }
 
             log.info(classroomDTO.getStatus());
-            
+
             classroomDTOList.add(classroomDTO);
         }
-         
-        return classroomDTOList;
-    } 
 
-    public List<ClassroomDTO> fetchTeacherListForClassroom(Integer batchId){
+        return classroomDTOList;
+    }
+
+    public List<ClassroomDTO> fetchTeacherListForClassroom(Integer batchId) {
         List<TeacherBatch> teacherNameList = teacherBatchRepository.findByBatchId(batchId);
         List<ClassroomDTO> classroomDTOforTeacherList = new ArrayList<>();
 
-        for(TeacherBatch teacherBatch : teacherNameList){
+        for (TeacherBatch teacherBatch : teacherNameList) {
             ClassroomDTO classroomDTOforTeacher = new ClassroomDTO();
 
             classroomDTOforTeacher.setTeacherName(teacherBatch.getTeacher().getName());
@@ -151,7 +145,7 @@ public class ClassRoomService {
         return classroomDTOforTeacherList;
     }
 
-    public void createClassroom(ReqClassroomDTO reqClassroomDTO) throws ParseException{
+    public void createClassroom(ReqClassroomDTO reqClassroomDTO) throws ParseException {
         Classroom classroom = new Classroom();
 
         classroom.setDate(reqClassroomDTO.getDate());
@@ -164,11 +158,11 @@ public class ClassRoomService {
         createAttendanceByClassroom(classroom);
     }
 
-    public void createAttendanceByClassroom(Classroom classroom){
+    public void createAttendanceByClassroom(Classroom classroom) {
 
-        List<Student>students = studentRepository.findByBatch(classroom.getBatch());
+        List<Student> students = studentRepository.findByBatch(classroom.getBatch());
 
-        for(Student student : students){
+        for (Student student : students) {
             Attendance attendance = new Attendance();
             attendance.setClassroom(classroom);
             attendance.setStudent(student);
@@ -177,16 +171,16 @@ public class ClassRoomService {
         }
     }
 
-    public Classroom fetchClassroom(ClassroomDTO classroomDTO){
+    public Classroom fetchClassroom(ClassroomDTO classroomDTO) {
         Classroom classroom = classRoomRepository.findById(classroomDTO.getId()).get();
         return classroom;
     }
 
-    public void editClassroom(ClassroomDTO classroomDTO) throws ParseException{
-        
+    public void editClassroom(ClassroomDTO classroomDTO) throws ParseException {
+
         Batch batch = new Batch();
         batch.setId(classroomDTO.getBatchId());
-    
+
         Classroom classroom = new Classroom();
         classroom.setId(classroomDTO.getId());
         classroom.setDate(convertDateToString(classroomDTO.getDate()));

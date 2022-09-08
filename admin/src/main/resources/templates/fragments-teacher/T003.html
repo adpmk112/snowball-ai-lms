@@ -1,148 +1,121 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{layouts/main :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org" >
+<html lang="en" th:replace="~{layouts/main :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org">
 
 <body>
-<main role="main">
-    <div th:fragment="batchdetails">
-        <div class="semi-circle"></div>
-        <div class="banner">
-            <div class="circle">
-                <i class="fa-solid fa-people-group"></i>
+    <main role="main">
+        <div th:fragment="batchdetails">
+            <div class="semi-circle"></div>
+            <div class="banner">
+                <div class="circle">
+                    <i class="fa-solid fa-people-group"></i>
+                </div>
+                <div>
+                    <h1 th:if="${batchName}" th:text="${batchName}"></h1>
+                    <h3 th:if="${courseName}" th:text="${courseName}"></h3>
+                </div>
             </div>
-            <div>
-                <h1>Batches</h1>
-                <h3>Total: 4</h3>
-            </div>
-        </div>
-        <div class="custom-div margin-top-8">
-            <div id="courselist" class="width-100">
-                <div id="courselist">
-                    <div class="bread-crumb d-flex justify-content-between width-90">
-                        <div class="bread container-fluid">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item">
-                                        <a class="text-decoration-none" href="T002.html">
-                                            Batch List
-                                        </a>
-                                    </li>
-                                    <li class="breadcrumb-item">
-                                        <a class="text-decoration-none" href="T003.html">
-                                            Batch Details
-                                        </a>
-                                    </li>
-                                </ol>
-                            </nav>
-                        </div>
-                    </div>
-                    <div class="mytabs">
-                        <input type="radio" id="tabunit" name="mytabs" checked="checked" />
-                        <label for="tabunit" id="lab">Chapter</label>
-                        <div class="tab table-responsive">
-                            <div class="add-list">
-                                <label>Add New Activity</label>
-                                <a
-                                        href="T003-01.html"
-                                        class="btn btn-outline-success btn-floating"
-                                        data-mdb-ripple-color="dark"
-                                >
-                                    <i class="fa-solid fa-circle-plus"></i>
-                                </a>
+            <div class="custom-div margin-top-8">
+                <div id="courselist" class="width-100">
+                    <div id="courselist">
+                        <div class="bread-crumb d-flex justify-content-between width-90">
+                            <div class="bread container-fluid">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item">
+                                            <a class="text-decoration-none" th:href="@{/teacher/batch/}">
+                                                Batch List
+                                            </a>
+                                        </li>
+                                        <li class="breadcrumb-item">
+                                            <a class="text-decoration-none" >
+                                                Batch Details
+                                            </a>
+                                        </li>
+                                    </ol>
+                                </nav>
                             </div>
+                        </div>
+                        <div class="mytabs">
+                            <input type="radio" id="tabunit" name="mytabs" checked="checked" />
+                            <label for="tabunit" id="lab">Chapter</label>
+                            <div class="tab table-responsive">
+                                <div class="add-list">
+                                    <label>Add New Activity</label>
+                                    <a href="T003-01.html" class="btn btn-outline-success btn-floating"
+                                        data-mdb-ripple-color="dark">
+                                        <i class="fa-solid fa-circle-plus"></i>
+                                    </a>
+                                </div>
 
-                            <table id="datatable2">
-                                <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Name</th>
-                                    <th>Status</th>
-                                    <th>Start Date</th>
-                                    <th>End Date</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <form  method="post" th:object="${chapterDTOList}">
-                                    <tr th:each="chapterDTO,iterationStatus: ${chapterDTOList}">
-                                        <input th:id="'batchId_'+${iterationStatus.count}" type="hidden" th:value="${batchId}"/>
-                                        <td th:text="${iterationStatus.count}"></td>
-                                        <td th:id="'chpName_'+${iterationStatus.count}" th:text="${chapterDTO.name}"></td>
-                                        <td th:id="'chpStatus_'+${iterationStatus.count}" th:text="${chapterDTO.status}"></td>
+                                <table id="datatable2">
+                                    <thead>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Name</th>
+                                            <th>Status</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <form method="post" th:object="${chapterDTOList}">
+                                            <tr th:each="chapterDTO,iterationStatus: ${chapterDTOList}">
+                                                <input th:id="'batchId_'+${iterationStatus.count}" type="hidden"
+                                                    th:value="${batchId}" />
+                                                <td th:text="${iterationStatus.count}"></td>
+                                                <td th:id="'chpName_'+${iterationStatus.count}"
+                                                    th:text="${chapterDTO.name}"></td>
+                                                <td th:id="'chpStatus_'+${iterationStatus.count}"
+                                                    th:text="${chapterDTO.status}"></td>
 
-                                        <td th:id="'chpstartDate_'+${iterationStatus.count}" >
+                                                <td th:id="'chpstartDate_'+${iterationStatus.count}">
+                                                    <input th:id="'startDate_'+${iterationStatus.count}" type="date"
+                                                        class="form-control" name="start-date"
+                                                        th:value="${chapterDTO.start_date}" disabled />
+                                                </td>
+                                                <td th:id="'chpendDate_'+${iterationStatus.count}">
+                                                    <input th:id="'endDate_'+${iterationStatus.count}" type="date"
+                                                        class="form-control" name="end-date"
+                                                        th:value="${chapterDTO.end_date}" disabled />
+                                                </td>
+                                                <td>
+                                                    <a href="" th:id="'img-click_'+${iterationStatus.count}"
+                                                        class="btn btn-outline-primary btn-chapter-edit btn-floating"
+                                                        data-mdb-ripple-color="dark">
+                                                        <i class="fa-regular fa-pen-to-square"></i>
+                                                    </a>
+                                                    <a href="" class="btn btn-outline-success btn-floating">
+                                                        <i class="fa-solid fa-folder-plus me-1"></i>
+                                                        Add Assignment
+                                                    </a>
 
-                                            <input  th:id="'startDate_'+${iterationStatus.count}"
-                                                    type="date"
-                                                    class="form-control"
-                                                    name="start-date"
-                                                    th:value="${chapterDTO.start_date}"
-                                                    disabled/>
-                                        </td>
-                                        <td th:id="'chpendDate_'+${iterationStatus.count}" >
-                                            <input   th:id="'endDate_'+${iterationStatus.count}"
-                                                     type="date"
-                                                     class="form-control"
-                                                     name="end-date"
-                                                     th:value="${chapterDTO.end_date}"
-                                                     disabled />
+                                                    <!-- <p>Custom Assignment add button htae pay pr</p> -->
+                                                </td>
+                                            </tr>
+                                        </form>
 
-                                        </td>
-                                        <td>
-                                            <a
-                                                    href=""
-                                                    th:id="'img-click_'+${iterationStatus.count}"
-                                                    class="btn btn-outline-primary btn-chapter-edit btn-floating"
-                                                    data-mdb-ripple-color="dark"
-                                            >
-                                                <i class="fa-regular fa-pen-to-square"></i>
-                                            </a>
-                                            <a href="" class="btn btn-outline-success btn-floating">
-                                                <i class="fa-solid fa-folder-plus me-1"></i>
-                                                Add Assignment
-                                            </a>
-
-                                            <!-- <p>Custom Assignment add button htae pay pr</p> -->
-                                        </td>
-                                    </tr>
-
-                                </form>
-
-                                <tr>
-                                    <td>This is an example row view to look at.</td>
-                                    <td>Activity</td>
-                                    <td>In Progess</td>
-                                    <td>
-                                        <input
-                                                type="date"
-                                                class="form-control"
-                                                name="start-date"
-                                                id="start-date"
-                                        />
-                                    </td>
-                                    <td>
-                                        <input
-                                                type="date"
-                                                class="form-control"
-                                                name="end-date"
-                                                id="end-date"
-                                        />
-                                    </td>
-                                    <td>
-                                        <a
-                                                href=""
-                                                class="btn btn-outline-primary btn-floating btn-chapter-edit"
-                                                data-mdb-ripple-color="dark"
-                                        >
-                                            <i class="fa-regular fa-pen-to-square"></i>
-                                        </a>
-                                        <a
-                                                href=""
-                                                class="btn btn-outline-danger chapter-remove btn-floating"
-                                                data-mdb-ripple-color="dark"
-                                        >
-                                            <i class="fa-solid fa-circle-minus"></i>
-                                        </a>
-                                        <!-- <a
+                                        <tr>
+                                            <td>This is an example row view to look at.</td>
+                                            <td>Activity</td>
+                                            <td>In Progess</td>
+                                            <td>
+                                                <input type="date" class="form-control" name="start-date"
+                                                    id="start-date" />
+                                            </td>
+                                            <td>
+                                                <input type="date" class="form-control" name="end-date" id="end-date" />
+                                            </td>
+                                            <td>
+                                                <a href="" class="btn btn-outline-primary btn-floating btn-chapter-edit"
+                                                    data-mdb-ripple-color="dark">
+                                                    <i class="fa-regular fa-pen-to-square"></i>
+                                                </a>
+                                                <a href="" class="btn btn-outline-danger chapter-remove btn-floating"
+                                                    data-mdb-ripple-color="dark">
+                                                    <i class="fa-solid fa-circle-minus"></i>
+                                                </a>
+                                                <!-- <a
                                           href=""
                                           class="btn btn-outline-success btn-floating"
                                           data-mdb-ripple-color="dark"
@@ -150,583 +123,360 @@
                                           <i class="fa-solid fa-folder-plus me-1"></i>
                                           Assignment
                                         </a> -->
-                                        <a
-                                                href=""
-                                                class="btn btn-outline-success btn-floating btn-chapter-edit"
-                                                data-mdb-ripple-color="dark"
-                                        >
-                                            <i class="fa-regular fa-pen-to-square"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                                                <a href="" class="btn btn-outline-success btn-floating btn-chapter-edit"
+                                                    data-mdb-ripple-color="dark">
+                                                    <i class="fa-regular fa-pen-to-square"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
-                        <input type="radio" id="tabexam" name="mytabs" />
-                        <label for="tabexam" id="lab">Exam-Schedule</label>
-                        <div class="tab">
-                            <div class="add-list">
-                                <!-- <label>Add Exam List</label>
-                              <a href="exam-add-page.html" class="btn btn-outline-success btn-floating" data-mdb-ripple-color="dark">
-                                <i class="fa-solid fa-circle-plus"></i>
-                              </a> -->
-                            </div>
-                            <table id="datatable3">
-                                <thead>
-                                <tr>
-                                    <th>Exam Name</th>
-                                    <th>Start-Date</th>
-                                    <th>End-Date</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>Exam 1</td>
-                                    <td>
-                                        <input
-                                                type="date"
-                                                class="form-control"
-                                                name="start-date"
-                                                id="start-date"
-                                        />
-                                    </td>
-                                    <td>
-                                        <input
-                                                type="date"
-                                                class="form-control"
-                                                name="end-date"
-                                                id="end-date"
-                                        />
-                                    </td>
-                                    <td>Pending</td>
-                                    <td>
-                                        <a
-                                                href=""
-                                                class="btn btn-outline-primary btn-floating btn-exam-schedule-edit"
-                                                data-mdb-ripple-color="dark"
-                                        >
-                                            <i class="fa-regular fa-pen-to-square"></i>
-                                        </a>
-                                        <a
-                                                href=""
-                                                class="btn remove-exam btn-outline-danger b btn-floating"
-                                                data-mdb-ripple-color="dark"
-                                        >
-                                            <i class="fa-solid fa-circle-minus"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <input type="radio" id="tabattendance" name="mytabs" />
-                        <label for="tabattendance" id="lab">Attendance</label>
-                        <div class="tab table-responsive">
-                            <div class="add-list">
-                                <label>Add Date</label>
-                                <a
-                                        href=""
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#attendance-date-add"
-                                        class="btn btn-outline-success btn-floating"
-                                        data-mdb-ripple-color="dark"
-                                >
-                                    <i class="fa-solid fa-circle-plus"></i>
-                                </a>
-                            </div>
-                            <!-- Start Attendance Table-->
-                            <table id="datatable4">
-                                <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Mg Mg</th>
-                                    <th>Ag Hla</th>
-                                    <th>Min Oo</th>
-                                    <th>Win Maw</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>
-                                        <input
-                                                type="date"
-                                                class="form-control"
-                                                name="attend-date"
-                                                id="attend-date"
-                                                value="12-01-2022"
-                                        />
-                                    </td>
-                                    <td class="stu-attendance">
-                                        <input
-                                                type="hidden"
-                                                id="student-id"
-                                                value="student-id"
-                                                name="student-id"
-                                        />
-                                        <select
-                                                class="form-control attend-type"
-                                                name="attend-type"
-                                                id="attend-type"
-                                        >
-                                            <option selected value="present">present</option>
-                                            <option value="absent">absent</option>
-                                            <option value="leave">leave</option>
-                                        </select>
-                                    </td>
-                                    <td class="stu-attendance">
-                                        <input
-                                                type="hidden"
-                                                id="student-id"
-                                                value="student-id"
-                                                name="student-id"
-                                        />
-                                        <select
-                                                class="form-control attend-type"
-                                                name="attend-type"
-
-                                                id="attend-type"
-                                        >
-                                            <option selected value="present">present</option>
-                                            <option value="absent">absent</option>
-                                            <option value="leave">leave</option>
-                                        </select>
-                                    </td>
-                                    <td class="stu-attendance">
-                                        <input
-                                                type="hidden"
-                                                id="student-id"
-                                                value="student-id"
-                                                name="student-id"
-                                        />
-                                        <select
-                                                class="form-control attend-type"
-                                                name="attend-type"
-                                                id="attend-type"
-                                        >
-                                            <option selected value="present">present</option>
-                                            <option value="absent">absent</option>
-                                            <option value="leave">leave</option>
-                                        </select>
-                                    </td>
-                                    <td class="stu-attendance">
-                                        <input
-                                                type="hidden"
-                                                id="student-id"
-                                                value="student-id"
-                                                name="student-id"
-                                        />
-                                        <select
-                                                class="form-control attend-type"
-                                                name="attend-type"
-                                                id="attend-type"
-                                        >
-                                            <option selected value="present">present</option>
-                                            <option value="absent">absent</option>
-                                            <option value="leave">leave</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <a
-                                                href=""
-                                                class="btn btn-attendance-edit btn-outline-primary btn-floating"
-                                                data-mdb-ripple-color="dark"
-                                        >
-                                            <i class="fa-regular fa-pen-to-square"></i>
-                                        </a>
-                                        <a
-                                                href=""
-                                                class="btn btn-outline-danger remove-attendance btn-floating"
-                                                data-mdb-ripple-color="dark"
-                                        >
-                                            <i class="fa-solid fa-circle-minus"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <!-- End attendance table-->
-                        </div>
-                        <input type="radio" id="tabclassroom" name="mytabs" />
-                        <label for="tabclassroom" id="lab">Classroom</label>
-                        <div class="tab">
-                            <div class="add-list">
-                                <label>Add Class</label>
-                                <a
-                                        href="T004.html"
-                                        class="btn btn-outline-success btn-floating"
-                                        data-mdb-ripple-color="dark"
-                                >
-                                    <i class="fa-solid fa-circle-plus"></i>
-                                </a>
-                            </div>
-                            <table id="datatable5">
-                                <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Time</th>
-                                    <th>Teacher</th>
-                                    <th>Classroom Link</th>
-                                    <th>Status</th>
-                                    <th>Record Video</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>12-01-2022</td>
-                                    <td>9:00</td>
-                                    <td>U Hla</td>
-                                    <td>www.zoom.com</td>
-                                    <td>Done</td>
-                                    <td>record.mp4</td>
-                                    <td>
-                                        <a
-                                                href="T004-01.html"
-                                                class="btn btn-outline-primary btn-floating"
-                                                data-mdb-ripple-color="dark"
-                                        >
-                                            <i class="fa-regular fa-pen-to-square"></i>
-                                        </a>
-                                        <a
-                                                href=""
-                                                class="btn btn-outline-danger btn-floating"
-                                                data-mdb-ripple-color="dark"
-                                        >
-                                            <i class="fa-solid fa-circle-minus"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                </tbody>
-                                <tbody>
-                                <tr>
-                                    <td>12-01-2022</td>
-                                    <td>14:00</td>
-                                    <td>U Hla</td>
-                                    <td>www.zoom.com</td>
-                                    <td>In Progess</td>
-                                    <td>record.mp4</td>
-                                    <td>
-                                        <a
-                                                href="T004-01.html"
-                                                class="btn btn-outline-primary btn-floating"
-                                                data-mdb-ripple-color="dark"
-                                        >
-                                            <i class="fa-regular fa-pen-to-square"></i>
-                                        </a>
-                                        <a
-                                                href=""
-                                                class="btn btn-outline-danger btn-floating"
-                                                data-mdb-ripple-color="dark"
-                                        >
-                                            <i class="fa-solid fa-circle-minus"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <input type="radio" id="tabmarks" name="mytabs" />
-                        <label for="tabmarks" id="lab">Marks</label>
-                        <div class="tab">
-                            <div class="mt-3 mb-4 d-flex justify-content-between">
-                                <div>
-                                    <select
-                                            class="form-select"
-                                            aria-label="Default select example"
-                                    >
-                                        <option selected>Exam</option>
-                                        <option value="1">Assignment</option>
-                                    </select>
+                            <input type="radio" id="tabexam" name="mytabs" th:checked="${radio == 'examSchedule'}" />
+                            <label for="tabexam" id="lab">Exam-Schedule</label>
+                            <div class="tab">
+                                <input type="hidden" id="batchIdForExamSchedule" th:value="${batchId}" />
+                                <div class="add-list"></div>
+                                <div class="table-responsive">
+                                    <table id="datatable3" class="hover">
+                                        <thead>
+                                            <tr>
+                                                <th style="max-width: 100px !important">Exam Name</th>
+                                                <th style="max-width: 100px !important">
+                                                    Start-Date
+                                                </th>
+                                                <th style="max-width: 100px !important">End-Date</th>
+                                                <th style="max-width: 100px !important">Status</th>
+                                                <th style="max-width: 100px !important">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="examSchedule: ${examScheduleList}">
+                                                <td th:text="${examSchedule.examName}"
+                                                    style="max-width: 100px !important"></td>
+                                                <td style="max-width: 100px !important">
+                                                    <input type="datetime-local" class="form-control text-start"
+                                                        name="start-date"
+                                                        th:value="${examSchedule.startDate != null ? examSchedule.startDate: ''}"
+                                                        style="max-width: 200px; padding: 6px 15px" disabled />
+                                                </td>
+                                                <td style="max-width: 100px !important">
+                                                    <input type="datetime-local" class="form-control text-start"
+                                                        name="end-date"
+                                                        th:value="${examSchedule.endDate != null ? examSchedule.endDate: ''}"
+                                                        style="max-width: 200px; padding: 6px 15px" disabled />
+                                                </td>
+                                                <!-- <td th:text = "${examSchedule.status != null ? examSchedule.status : 'No Status'}"
+                                             th:class="${examSchedule.status == 'Upcoming'? 'text-info':''}"></td>
+                                        <td> -->
+                                                <td style="max-width: 100px !important"
+                                                    th:if="${examSchedule.status == null}" th:text="'No Status'"></td>
+                                                <td style="max-width: 100px !important"
+                                                    th:if="${examSchedule.status == 'Upcoming'}"
+                                                    th:text="${examSchedule.status}" class="text-danger"></td>
+                                                <td style="max-width: 100px !important"
+                                                    th:if="${examSchedule.status == 'In Progress'}"
+                                                    th:text="${examSchedule.status}" class="text-success"></td>
+                                                <td style="max-width: 100px !important"
+                                                    th:if="${examSchedule.status == 'Done'}"
+                                                    th:text="${examSchedule.status}" class="text-secondary"></td>
+                                                <td>
+                                                    <a href="" th:id="${examSchedule.id}"
+                                                        class="btn btn-outline-primary btn-floating btn-exam-schedule-edit"
+                                                        data-mdb-ripple-color="dark">
+                                                        <i class="fa-regular fa-pen-to-square"></i>
+                                                    </a>
+                                                    <a href="" class="btn remove-exam btn-outline-danger b btn-floating"
+                                                        data-mdb-ripple-color="dark" th:id="${examSchedule.id}">
+                                                        <i class="fa-solid fa-circle-minus"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
+                            </div>
+                            <input type="radio" id="tabattendance" name="mytabs"
+                                th:checked="${radio == 'attendance' }" />
+                            <label for="tabattendance" id="lab">Attendance</label>
+                            <div class="tab">
+                                <!-- Start Attendance Table-->
+                                <div class="table-responsive">
+                                    <table id="datatable4" class="hover attendanceTable">
+                                        <thead>
+                                            <tr>
+                                                <th style="max-width: 150px !important">Date</th>
+                                                <th th:each="student: ${allStudent}" th:text="${student.name}" style="
+                              max-width: 150px !important;
+                              min-width: 80px !important;
+                            "></th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:if="${allStudent!=null}" th:each="attendance: ${attendanceDTOList}">
+                                                <td>
+                                                    <input type="hidden" th:value="${batchId}" name="batchId" />
+                                                    <input type="hidden" th:value="${attendance.classId}"
+                                                        name="classId" />
+                                                    <input type="date" class="form-control text-end" name="date"
+                                                        disabled th:value="${attendance.date}"
+                                                        style="max-width: 150px; cursor: default" />
+                                                </td>
+                                                <td class="studentList text-center" th:each="student : ${allStudent}">
+                                                    <!-- Attend for all students -->
+                                                    <input type="hidden" class="studentId" th:value="${student.id}" />
+                                                    <select class="form-control attend-type text-center"
+                                                        id="attend-type"
+                                                        th:value="${attendance.studentAndAttend[student.id]}"
+                                                        name="attend" disabled style="max-width: 90px; cursor: pointer">
+                                                        <option value="" selected></option>
+                                                        <option value="Present"
+                                                            th:selected="${attendance.studentAndAttend[student.id] == 'Present'}"
+                                                            class="text-center text-dark">
+                                                            Present
+                                                        </option>
+                                                        <option value="Absent"
+                                                            th:selected="${attendance.studentAndAttend[student.id] == 'Absent'}"
+                                                            class="text-center text-dark">
+                                                            Absent
+                                                        </option>
+                                                        <option value="Leave"
+                                                            th:selected="${attendance.studentAndAttend[student.id] == 'Leave'}"
+                                                            class="text-center text-dark">
+                                                            Leave
+                                                        </option>
+                                                    </select>
+                                                </td>
+                                                <!-- Action Buttons -->
+                                                <td>
+                                                    <button
+                                                        class="btn btn-attendance-edit btn-outline-primary btn-floating">
+                                                        <i class="fa-regular fa-pen-to-square"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!-- End attendance table-->
+                            </div>
+
+                            <input type="radio" id="tabclassroom" name="mytabs" />
+                            <label for="tabclassroom" id="lab">Classroom</label>
+                            <div class="tab">
                                 <div class="add-list">
-                                    <!-- <label>Add Class</label>
-                                  <a href="classroom-add-page.html" class="btn btn-outline-success btn-floating" data-mdb-ripple-color="dark">
-                                    <i class="fa-solid fa-circle-plus"></i>
-                                  </a> -->
+                                    <label>Add Class</label>
+                                    <a href="T004.html" class="btn btn-outline-success btn-floating"
+                                        data-mdb-ripple-color="dark">
+                                        <i class="fa-solid fa-circle-plus"></i>
+                                    </a>
                                 </div>
+                                <table id="datatable5">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            <th>Teacher</th>
+                                            <th>Classroom Link</th>
+                                            <th>Status</th>
+                                            <th>Record Video</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>12-01-2022</td>
+                                            <td>9:00</td>
+                                            <td>U Hla</td>
+                                            <td>www.zoom.com</td>
+                                            <td>Done</td>
+                                            <td>record.mp4</td>
+                                            <td>
+                                                <a href="T004-01.html" class="btn btn-outline-primary btn-floating"
+                                                    data-mdb-ripple-color="dark">
+                                                    <i class="fa-regular fa-pen-to-square"></i>
+                                                </a>
+                                                <a href="" class="btn btn-outline-danger btn-floating"
+                                                    data-mdb-ripple-color="dark">
+                                                    <i class="fa-solid fa-circle-minus"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody>
+                                        <tr>
+                                            <td>12-01-2022</td>
+                                            <td>14:00</td>
+                                            <td>U Hla</td>
+                                            <td>www.zoom.com</td>
+                                            <td>In Progess</td>
+                                            <td>record.mp4</td>
+                                            <td>
+                                                <a href="T004-01.html" class="btn btn-outline-primary btn-floating"
+                                                    data-mdb-ripple-color="dark">
+                                                    <i class="fa-regular fa-pen-to-square"></i>
+                                                </a>
+                                                <a href="" class="btn btn-outline-danger btn-floating"
+                                                    data-mdb-ripple-color="dark">
+                                                    <i class="fa-solid fa-circle-minus"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                           
+                            <input type="radio" id="tabmarks" name="mytabs" th:checked="${radio == 'mark'}" />
+                            <label for="tabmarks" id="lab">Marks</label>
+                            <div class="tab">
+                                <div class="mt-3 mb-4 d-flex justify-content-between">
+                                    <div class="">
+                                        <select class="form-control mt-2" aria-label="Default select example">
+                                            <option selected>Exam</option>
+                                            <option value="1">Assignment</option>
+                                        </select>
+                                    </div>                                    
+                                </div>                           
+                                <!-- Mark Table -->
+                                <div class="table-responsive p-2">
+                                    <table id="datatable" class="hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th th:each="student : ${allStudent}" th:text="${student.name}" style="min-width: 100px !important; max-width:150px;"></th>                                            
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:if="${allStudent != null}" th:each=" studentExamMark: ${studentExamMarkList}"> 
+                                                <td th:text="${studentExamMark.exam.name}"></td>                                            
+                                                <input type="hidden" name="examId" class="examId" th:value="${studentExamMark.exam.id}" />
+                                                <input type="hidden" name="batchId" th:value="${batchId}">
+                                                <td th:each="studentData : ${studentExamMark.studentData}" style="min-width: 100px; max-width: 200px;" class="studentData">
+                                                    <input type="hidden" name="studentId" th:value="${studentData.studentId}" />
+                                                    <input type="number" class=""
+                                                        name="mark"
+                                                        th:value="${studentData.mark}"
+                                                        style='border: none; width: 40px; outline: none;text-align: right; margin:0;' min="0" th:max="${studentExamMark.exam.maxMark}"
+                                                        readonly />
+                                                    /<span class="ms-1" th:if="${studentExamMark.exam.maxMark}" th:text="${studentExamMark.exam.maxMark}"></span>
+                                                    <a href="#" class="text-primary p-1"><i class="fa-solid fa-file-arrow-down" th:disabled="${studentData.filePath == ''}"></i></a>
+                                                </td>                                                                                       
+                                                <td>
+                                                    <a href="" class="btn btn-mark-edit btn-outline-primary btn-floating"
+                                                        data-mdb-ripple-color="dark">
+                                                        <i class="fa-regular fa-pen-to-square"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <!-- End mark Table-->
+                                <!-- Assignment Table -->                                
+                                <!-- End Assignment -->
+                            </div>
+                            <input type="radio" id="tabcomment" name="mytabs" />
+                            <label for="tabcomment" id="lab">Comment</label>
+                            <div class="tab">
+                                <div class="mt-3 mb-4 d-flex justify-content-between"></div>
+                                <table id="datatable1">
+                                    <thead>
+                                        <tr>
+                                            <th>Location</th>
+                                            <th>Go To Comment</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Home</td>
+
+                                            <td>
+                                                <a href="T005-04.html" class="more-info btn btn-floating"
+                                                    data-mdb-ripple-color="dark">
+                                                    See More
+                                                </a>
+                                                <ion-icon class="position-absolute" name="notifications-circle-outline">
+                                                </ion-icon>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Chapter</td>
+
+                                            <td>
+                                                <a href="T005-02.html" class="more-info btn btn-floating"
+                                                    data-mdb-ripple-color="dark">
+                                                    See More
+                                                </a>
+                                                <ion-icon class="position-absolute" name="notifications-circle-outline">
+                                                </ion-icon>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Exam</td>
+
+                                            <td>
+                                                <a href="T005-03.html" class="more-info btn btn-floating"
+                                                    data-mdb-ripple-color="dark">
+                                                    See More
+                                                </a>
+                                                <ion-icon class="position-absolute" name="notifications-circle-outline">
+                                                </ion-icon>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Live Session</td>
+
+                                            <td>
+                                                <a href="T005-05.html" class="more-info btn btn-floating"
+                                                    data-mdb-ripple-color="dark">
+                                                    See More
+                                                </a>
+                                                <ion-icon class="position-absolute" name="notifications-circle-outline">
+                                                </ion-icon>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Videos</td>
+
+                                            <td>
+                                                <a href="T005-06.html" class="more-info btn btn-floating"
+                                                    data-mdb-ripple-color="dark">
+                                                    See More
+                                                </a>
+                                                <ion-icon class="position-absolute" name="notifications-circle-outline">
+                                                </ion-icon>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Assignment</td>
+
+                                            <td>
+                                                <a href="T005.html" class="more-info btn btn-floating"
+                                                    data-mdb-ripple-color="dark">
+                                                    See More
+                                                </a>
+                                                <ion-icon class="position-absolute" name="notifications-circle-outline">
+                                                </ion-icon>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
 
-                            <!-- Mark Table -->
-                            <table id="datatable">
-                                <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Mg Mg</th>
-                                    <th>Ag Hla</th>
-                                    <th>Min Oo</th>
-                                    <th>Win Maw</th>
-
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <input
-                                            type="hidden"
-                                            name="exam-id"
-                                            id="exam-id"
-                                            value="1"
-                                    />
-                                    <td>Final Exam</td>
-                                    <td>
-                                        <input
-                                                type="hidden"
-                                                name="student-id"
-                                                id="student-id"
-                                                value="1"
-                                        />
-                                        <input
-                                                type="number"
-                                                class=""
-                                                style="border: none; width: 30px; outline: none;"
-                                                min="0"
-                                                max="100"
-                                                value="0"
-                                                id="mark"
-                                                readonly
-                                        />
-                                        /100
-                                    </td>
-                                    <td>
-                                        <input
-                                                type="hidden"
-                                                id="student-id"
-                                                name="student-id"
-                                                value="2"
-                                        />
-                                        <input
-                                                type="number"
-                                                class=""
-                                                style="border: none; width: 30px; outline: none;"
-                                                min="0"
-                                                max="100"
-                                                value="0"
-                                                id="mark"
-                                                readonly
-                                        />
-                                        /100
-                                    </td>
-                                    <td>
-                                        <input
-                                                type="hidden"
-                                                id="student-id"
-                                                name="student-id"
-                                                value="3"
-                                        />
-                                        <input
-                                                type="number"
-                                                class=""
-                                                style="border: none; width: 30px; outline: none;"
-                                                min="0"
-                                                max="100"
-                                                value="0"
-                                                id="mark"
-                                                readonly
-                                        />
-                                        /100
-                                    </td>
-                                    <td>
-                                        <input
-                                                type="hidden"
-                                                id="student-id"
-                                                name="student-id"
-                                                value="2"
-                                        />
-                                        <input
-                                                type="number"
-                                                class=""
-                                                style="border: none; width: 30px; outline: none;"
-                                                min="0"
-                                                max="100"
-                                                value="0"
-                                                id="mark"
-                                                readonly
-                                        />
-                                        /100
-                                    </td>
-                                    <td>
-                                        <a
-                                                href=""
-                                                class="btn btn-mark-edit btn-outline-primary btn-floating"
-                                                data-mdb-ripple-color="dark"
-                                        >
-                                            <i class="fa-regular fa-pen-to-square"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <!-- End mark Table-->
+                            <div class="plus-icon"></div>
                         </div>
-                        <input type="radio" id="tabcomment" name="mytabs" />
-                        <label for="tabcomment" id="lab">Comment</label>
-                        <div class="tab">
-                            <div class="mt-3 mb-4 d-flex justify-content-between">
-                            </div>
-                            <table id="datatable1">
-                                <thead>
-                                <tr>
-                                    <th>Location</th>
-                                    <th>Go To Comment</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>Home</td>
-
-                                    <td>
-                                        <a
-                                                href="T005-04.html"
-                                                class="more-info btn btn-floating"
-                                                data-mdb-ripple-color="dark"
-                                        >
-                                            See More
-                                        </a>
-                                        <ion-icon
-                                                class="position-absolute"
-                                                name="notifications-circle-outline"
-                                        ></ion-icon>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>Chapter</td>
-
-                                    <td>
-                                        <a
-                                                href="T005-02.html"
-                                                class="more-info btn btn-floating"
-                                                data-mdb-ripple-color="dark"
-                                        >
-                                            See More
-                                        </a>
-                                        <ion-icon
-                                                class="position-absolute"
-                                                name="notifications-circle-outline"
-                                        ></ion-icon>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Exam</td>
-
-                                    <td>
-                                        <a
-                                                href="T005-03.html"
-                                                class="more-info btn btn-floating"
-                                                data-mdb-ripple-color="dark"
-                                        >
-                                            See More
-                                        </a>
-                                        <ion-icon
-                                                class="position-absolute"
-                                                name="notifications-circle-outline"
-                                        ></ion-icon>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Live Session</td>
-
-                                    <td>
-                                        <a
-                                                href="T005-05.html"
-                                                class="more-info btn btn-floating"
-                                                data-mdb-ripple-color="dark"
-                                        >
-                                            See More
-                                        </a>
-                                        <ion-icon
-                                                class="position-absolute"
-                                                name="notifications-circle-outline"
-                                        ></ion-icon>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Videos</td>
-
-                                    <td>
-                                        <a
-                                                href="T005-06.html"
-                                                class="more-info btn btn-floating"
-                                                data-mdb-ripple-color="dark"
-                                        >
-                                            See More
-                                        </a>
-                                        <ion-icon
-                                                class="position-absolute"
-                                                name="notifications-circle-outline"
-                                        ></ion-icon>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Assignment</td>
-
-                                    <td>
-                                        <a
-                                                href="T005.html"
-                                                class="more-info btn btn-floating"
-                                                data-mdb-ripple-color="dark"
-                                        >
-                                            See More
-                                        </a>
-                                        <ion-icon
-                                                class="position-absolute"
-                                                name="notifications-circle-outline"
-                                        ></ion-icon>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="plus-icon"></div>
                     </div>
                 </div>
             </div>
+           
         </div>
-
-        <!--Modal for Date Add in attendance-->
-        <div
-                class="modal fade"
-                id="attendance-date-add"
-                aria-hidden="true"
-                aria-labelledby="Teachareaddmodal"
-                tabindex="-1"
-        >
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalToggleLabel2">Add Date</h5>
-                        <button
-                                type="button"
-                                class="btn-close"
-                                data-bs-dismiss="modal"
-                                aria-label="Close"
-                        ></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="">
-                            <input
-                                    type="date"
-                                    class="form-control text-center mb-3 mx-auto"
-                                    id="attendance-date"
-                                    style="width: 80%; border: 1px solid;"
-                            />
-
-                            <div class="modal-footer">
-                                <button class="btn btn-primary">Add</button>
-                                <button class="btn btn-secondary">Cancel</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</main>
+    </main>
 </body>
+
 </html>
