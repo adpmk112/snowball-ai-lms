@@ -1,15 +1,22 @@
 package com.ace.ai.student.service;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ace.ai.student.datamodel.Batch;
 import com.ace.ai.student.datamodel.Comment;
 import com.ace.ai.student.datamodel.Reply;
+import com.ace.ai.student.dtomodel.StuCommentPostDTO;
 import com.ace.ai.student.dtomodel.StuCommentViewDTO;
+import com.ace.ai.student.dtomodel.StuReplyPostDTO;
 import com.ace.ai.student.dtomodel.StuReplyViewDTO;
+import com.ace.ai.student.repository.BatchRepository;
 import com.ace.ai.student.repository.CommentRepository;
 import com.ace.ai.student.repository.ReplyRepository;
 
@@ -19,6 +26,8 @@ public class StudentCommentService {
     CommentRepository commentRepository;
     @Autowired
     ReplyRepository replyRepository;
+    @Autowired
+    BatchRepository batchRepository;
 
     public List<StuCommentViewDTO> getCommentListByBatchIdAndLocation(int batchId,String location){
         List<StuCommentViewDTO> stuCommentViewDTOList = new ArrayList<>();
@@ -36,12 +45,46 @@ public class StudentCommentService {
                 stuReplyViewDTO.setCommenterCode(reply.getCommenterCode());
                 stuReplyViewDTO.setDeleteStatus(reply.isDeleteStatus());
                 stuReplyViewDTO.setNotification(reply.isNotification());
-
-                /////////////////////////////////////////////
+                stuReplyViewDTOList.add(stuReplyViewDTO);
 
             }
-            // stuCommentViewDTO.setStuReplayViewDTOList();
+            stuCommentViewDTO.setId(comment.getId());
+            stuCommentViewDTO.setText(comment.getText());
+            stuCommentViewDTO.setLocation(comment.getLocation());
+            stuCommentViewDTO.setDateTime(comment.getDateTime());
+            stuCommentViewDTO.setCommenterCode(comment.getCommenterCode());
+            stuCommentViewDTO.setNotification(comment.isNotification());
+            stuCommentViewDTO.setStuReplayViewDTOList(stuReplyViewDTOList);
+            stuCommentViewDTOList.add(stuCommentViewDTO);
         }
         return  stuCommentViewDTOList;
+    }
+
+    public void saveComment(StuCommentPostDTO stuCommentPostDTO){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        Batch batch = batchRepository.findById(stuCommentPostDTO.getBatchId()).get();
+        
+        Comment comment = new Comment();
+        comment.setCommenterCode(stuCommentPostDTO.getCommenterCode());
+        comment.setDateTime(LocalDateTime.now().format(dtf));
+        //location need to set in controller
+        comment.setLocation(stuCommentPostDTO.getLocation());
+        comment.setNotification(true);
+        comment.setText(stuCommentPostDTO.getText());
+        comment.setBatch(batch);
+        commentRepository.save(comment);
+    }
+
+    public void saveReply(StuReplyPostDTO stuReplyPostDTO){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        Comment comment = commentRepository.findById(stuReplyPostDTO.getCommentId()).get();
+        Reply reply = new Reply();
+        reply.setComment(comment);
+        reply.setCommenterCode(stuReplyPostDTO.getCommenterCode());
+        reply.setDateTime(LocalDateTime.now().format(dtf));
+        reply.setNotification(true);
+        reply.setText(stuReplyPostDTO.getText());
+        replyRepository.save(reply);
+    
     }
 }
