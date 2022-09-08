@@ -92,8 +92,8 @@
 
  .owl-carousel .owl-prev,
  .owl-carousel .owl-next{
-    width: 45px; 
-    height: 45px;
+    width: 35px; 
+    height: 35px;
     display: flex;
     background: rgb(110, 156, 241)  !important;
     justify-content: center;
@@ -104,7 +104,7 @@
 
 .owl-carousel .owl-prev span, 
 .owl-carousel .owl-next span{
-    font-size: 3em;
+    font-size: 1.7em;
     color:#fff;
 }
 
