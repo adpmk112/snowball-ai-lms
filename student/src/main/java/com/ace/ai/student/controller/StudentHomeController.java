@@ -16,9 +16,11 @@ import com.ace.ai.student.datamodel.CustomChapter;
 import com.ace.ai.student.datamodel.Student;
 import com.ace.ai.student.dtomodel.ChapterBatchDTO;
 import com.ace.ai.student.dtomodel.StuChapterDTO;
+import com.ace.ai.student.dtomodel.StuCommentPostDTO;
 import com.ace.ai.student.dtomodel.StuCustomChapterDTO;
 import com.ace.ai.student.dtomodel.StuReplyPostDTO;
 import com.ace.ai.student.dtomodel.StuReplyViewDTO;
+import com.ace.ai.student.service.StudentCommentService;
 import com.ace.ai.student.service.StudentCourseService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,6 +32,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class StudentHomeController {
     @Autowired
     StudentCourseService studentCourseService;
+    @Autowired
+    StudentCommentService studentCommentService;
 
     @GetMapping(value="/home")
     public ModelAndView getStudentHome(@RequestParam("stuId")int stuId,ModelMap model) {
@@ -102,9 +106,9 @@ public class StudentHomeController {
         model.addAttribute("upCommingCustomChapterList", upCommingCustomChapterList);
         model.addAttribute("doneCustomChapterList", doneCustomChapterList);
         model.addAttribute("inProgressCustomChapterList", inProgressCustomChapterList);
-       
-        // model.addAttribute("replayList", attributeValue)
-        return new ModelAndView("","StuReplyPostDTO",new StuReplyPostDTO());
+        model.addAttribute("stuReplyPostDTO",new StuReplyPostDTO());
+        model.addAttribute("stuCommentPostDTO", new StuCommentPostDTO());
+        return new ModelAndView("","stuCommentViewDTOList",studentCommentService.getCommentListByBatchIdAndLocation(student.getBatch().getId(), "Home"));
     }
     
     
