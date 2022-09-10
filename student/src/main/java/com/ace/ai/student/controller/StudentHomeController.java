@@ -1,6 +1,7 @@
 package com.ace.ai.student.controller;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ace.ai.student.datamodel.Batch;
 import com.ace.ai.student.datamodel.Chapter;
 import com.ace.ai.student.datamodel.ChapterBatch;
+import com.ace.ai.student.datamodel.Comment;
 import com.ace.ai.student.datamodel.CustomChapter;
 import com.ace.ai.student.datamodel.Student;
 import com.ace.ai.student.dtomodel.ChapterBatchDTO;
@@ -23,6 +26,8 @@ import com.ace.ai.student.dtomodel.StuReplyViewDTO;
 import com.ace.ai.student.service.StudentCommentService;
 import com.ace.ai.student.service.StudentCourseService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -108,8 +113,24 @@ public class StudentHomeController {
         model.addAttribute("inProgressCustomChapterList", inProgressCustomChapterList);
         model.addAttribute("stuReplyPostDTO",new StuReplyPostDTO());
         model.addAttribute("stuCommentPostDTO", new StuCommentPostDTO());
-        return new ModelAndView("","stuCommentViewDTOList",studentCommentService.getCommentListByBatchIdAndLocation(student.getBatch().getId(), "Home"));
+        model.addAttribute("stuCode", student.getCode());
+        model.addAttribute("batchId",student.getBatch().getId());
+        model.addAttribute("stuId",stuId);
+        return new ModelAndView("STU001","stuCommentViewDTOList",studentCommentService.getCommentListByBatchIdAndLocation(student.getBatch().getId(), "home"));
     }
     
+    @PostMapping(value="/home/commentpost")
+    public String postCommment(@ModelAttribute("stuCommentPostDTO") StuCommentPostDTO stuCommentPostDTO,ModelMap model){
+        stuCommentPostDTO.setLocation("home");
+        studentCommentService.saveComment(stuCommentPostDTO);
+        return "redirect:/student/home/?stuId=" + stuCommentPostDTO.getStuId();
+    }
+
+    @PostMapping(value="/home/reply")
+    public String postReply(@ModelAttribute("stuReplyPostDTO") StuReplyPostDTO stuReplyPostDTO,ModelMap model){
+        
+        studentCommentService.saveReply(stuReplyPostDTO);
+        return "redirect:/student/home/?stuId=" + stuReplyPostDTO.getStuId();
+    }
     
 }

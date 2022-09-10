@@ -26,28 +26,28 @@ public class StudentChapterController {
     public ModelAndView getChapterFileList(@RequestParam("chapterId") int chapterId,ModelMap model){
         List<ChapterFileDTO> chapterFileDTOList = studentChapterService.getChapterFileListByChapterId(chapterId);
         model.addAttribute("chapterType", "chapter");
-        return new ModelAndView("","chapterFileDTOList",chapterFileDTOList);
+        return new ModelAndView("S001-01","chapterFileDTOList",chapterFileDTOList);
     }
 
     @GetMapping("/customChapter")
     public ModelAndView getCustomChapterFileList(@RequestParam("customChapterId") int customChapterId,ModelMap model){
         List<ChapterFileDTO> chapterFileDTOList = studentChapterService.getCustomChapterFileListByCustomChapterId(customChapterId);
         model.addAttribute("chapterType", "customChapter");
-        return new ModelAndView("","chapterFileDTOList",chapterFileDTOList);
+        return new ModelAndView("S001-01","chapterFileDTOList",chapterFileDTOList);
     }
 
     @GetMapping("/chapter/chapterFile")
     public ModelAndView getChapterFile(@RequestParam("chapterId") int chapterId,@RequestParam("chapterFileId") int chapterFileId,ModelMap model){
         ChapterFileDTO chapterFileDTO = studentChapterService.getChapterFileById(chapterFileId, chapterId);
         model.addAttribute("chapterType", "chapter");
-        return new ModelAndView("","chapterFileDTO",chapterFileDTO);
+        return new ModelAndView("S001-02","chapterFileDTO",chapterFileDTO);
     }
 
     @GetMapping("/customChapter/customChapterFile")
     public ModelAndView getCustomChapterFile(@RequestParam("customChapterId") int customChapterId,@RequestParam("customChapterFileId") int customChapterFileId,ModelMap model){
         ChapterFileDTO chapterFileDTO = studentChapterService.getCustomChapterFileById(customChapterFileId, customChapterId);
         model.addAttribute("chapterType", "customChapter");
-        return new ModelAndView("","chapterFileDTO",chapterFileDTO);
+        return new ModelAndView("S001-02","chapterFileDTO",chapterFileDTO);
     }
 
 }
