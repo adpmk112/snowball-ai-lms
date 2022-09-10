@@ -131,23 +131,24 @@
         })
       })
 
-      function addTeacherToBatch(e) {
-        window.bId = document.getElementById('bId').value
-        window.tId = $('#tId').val();
-        $.ajax({
-          type: 'GET',
-          url: '/admin/batch/addTeacherToBatch',
-          contentType: 'application/json; charset=utf-8',
-          dataType: 'json',
-          data: { bId: bId, tId: tId },
-          success: function () {
-            window.location = '/admin/batch/batchSeeMore?id='+bId+'&radio=teacher'
-          },
-          error: function () {
-            $.alert("error"); 
-          },
-        })
-      }
+      // function addTeacherToBatch(e) {
+      //   window.bId = document.getElementById('bId').value
+      //   window.tId = $('#tId').val();
+      //   $.ajax({
+      //     type: 'GET',
+      //     url: '/admin/batch/addTeacherToBatch',
+      //     contentType: 'application/json; charset=utf-8',
+      //     dataType: 'json',
+      //     data: { bId: bId, tId: tId },
+      //     success: function () {
+      //       window.location = '/admin/batch/batchSeeMore?id='+bId+'&radio=teacher'
+      //     },
+      //     error: function () {
+      //       $.alert("error"); 
+      //     },
+      //   })
+      // }
+    
     </script>
   </body>
 </html>

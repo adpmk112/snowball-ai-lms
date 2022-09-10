@@ -242,10 +242,9 @@ public class BatchController {
     }
 
     @GetMapping("/addTeacherToBatch")
-    @ResponseBody
-    public ResponseEntity addTeacherToBatch(@RequestParam Integer bId, @RequestParam Integer tId) {
+    public String addTeacherToBatch(@RequestParam("bId") Integer bId, @RequestParam("tId") Integer tId) {
         batchService.addTeacherByCodeAndBatchId(tId, bId);
-        return ResponseEntity.ok(HttpStatus.OK);
+        return "redirect:/admin/batch/batchSeeMore?id=" +bId+ "&radio=teacher";
     }
 
     @GetMapping("/addExamSchedule")
