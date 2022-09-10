@@ -9,6 +9,6 @@ import com.ace.ai.student.datamodel.ChapterFile;
 
 @Repository
 public interface ChapterFileRepository extends JpaRepository<ChapterFile,Integer>{
-    List<ChapterFile> findByChapterId(int chapterId);
+    List<ChapterFile> findByChapterIdAndDeleteStatus(int chapterId,boolean deleteStatus);
     
 }
