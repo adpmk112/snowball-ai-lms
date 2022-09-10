@@ -9,5 +9,6 @@ import com.ace.ai.student.datamodel.CustomChapterFile;
 
 @Repository
 public interface CustomChapterFileRepository extends JpaRepository<CustomChapterFile,Integer> {
+    List<CustomChapterFile> findByCustomChapterId(int customChapterId);
     List<CustomChapterFile> findByCustomChapterIdAndDeleteStatus(int customChapterId,boolean deleteStatus); 
 }
