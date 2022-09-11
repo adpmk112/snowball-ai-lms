@@ -105,7 +105,7 @@ public class TeacherDashboardService {
             TeacherDashboardExamDTO teacherDashboardExamDTO = new TeacherDashboardExamDTO();
             List<Student> studentList = studentRepository.findByDeleteStatusAndBatchId(false, teacherBatch.getBatch().getId());
             for(Student student : studentList){
-                List<StudentExamMark> studentExamMarksList = studentExamMarkRepository.findByStudentIdAndDeleteStatus(student.getId(), false)
+                List<StudentExamMark> studentExamMarksList = studentExamMarkRepository.findByStudentIdAndDeleteStatus(student.getId(), false);
             }
         }
     }
