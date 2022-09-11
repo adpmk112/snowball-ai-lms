@@ -10,7 +10,7 @@ public class StuCommentViewDTO {
     private String text;
     private String location;
     private String dateTime;
-    private String commenterCode;
+    private String commenterName;
     private boolean notification;
-    private List<StuReplyViewDTO> StuReplayViewDTOList;
+    private List<StuReplyViewDTO> stuReplayViewDTOList;
 }
