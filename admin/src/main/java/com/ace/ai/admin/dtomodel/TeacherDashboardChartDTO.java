@@ -6,4 +6,6 @@ import lombok.Data;
 public class TeacherDashboardChartDTO {
     private String studentName;
     private int attendance;
+    private int batchId;
+    
 }

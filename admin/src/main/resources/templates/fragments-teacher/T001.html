@@ -35,7 +35,7 @@
                     </div>
                   </a> -->
           <div th:each=" batch : ${batchStudentList} ">
-            <a th:href="@{/teacher/batchSeeMore}" class="unit-a">
+            <a th:href="@{/teacher/batch/batchSeeMore(batchId=${batch.batchId},radio=1)}" class="unit-a">
               <div class="card-single-teacher">
                 <div>
                   <h1 th:text="${batch.batchName}"></h1>
@@ -100,31 +100,24 @@
 
         <!-- <div class="interface"></div>   -->
         <div class="charts custom-div d-flex flex-column" style="width: 90%;">
-
           <div class="col-sm-4 mt-5 ms-5">
-            <select name="" id="course" class="form-control">
-              <option value="" selected>Current Batch</option>
+            <h3 class="text-muted">Current Batch</h3>
+            <select name="" id="batch" class="form-control">
               <option th:each="batch : ${batchList}" th:value="${batch.id}" th:text="${batch.name}"></option>
             </select>
           </div>
           <div style="margin: 50px;">
-            <div class="container2 " style="display: flex; justify-content: center; ">
-
-              <br />
-
-              <canvas id="myChart" style="height: 300px; width: 80%; "></canvas>
+            <div id="graficoSituacoesPedidos" class="container2 " style="display: flex; justify-content: center; ">
+              <canvas id="myChart" style="height: 400px; width: 80%; "></canvas>
             </div>
           </div>
-
         </div>
+        
         <div class="charts custom-div d-flex flex-column" style="width: 90%;">
           <div class="col-sm-4 mt-5 ms-5">
+            <h3 class="text-muted">Current Batch</h3>
             <select id="course" class="form-control ">
-              <option value="" selected>Current Batch</option>
-              <option value="">Java</option>
-              <option value="">C++</option>
-              <option value="">.Net</option>
-              <option value="">PHP</option>
+              <option th:each="batch : ${batchList}" th:value="${batch.id}" th:text="${batch.name}"></option>
             </select>
           </div>
           <div style="margin: 50px;">
