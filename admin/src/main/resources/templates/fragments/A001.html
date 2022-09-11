@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Title</title>
-  <style>
+  <!-- <style>
     .chartBox {
       width: 128px;
       height: 128px;
@@ -13,7 +13,7 @@
       display: inline-block;
       position: relative;
     }
-  </style>
+  </style> -->
 </head>
 
 <body>
@@ -57,27 +57,31 @@
           </a>
         </div>
 
-        <div class="interface"></div>
+        <!-- <div class="interface"></div> -->
 
-        <div class="charts custom-div d-flex flex-column">
+        <!-- <div class="charts custom-div d-flex flex-column">
 
-          <!-- <div>
+          <div>
             <h3 class="text-muted">Current Batch</h3>
-            <select name="" id="batch">
-              <option value="" selected>Current Batch</option>
-              <option th:each="batch : ${batchList}" th:value="${batch.id}" th:text="${batch.name}"></option>
-            </select>
-          </div> -->
-
-          <div class="col-sm-4 mt-5 ms-5">
             <select name="" id="batch" class="form-control">
-              <option value="" selected>Current Batch</option>
               <option th:each="batch : ${batchList}" th:value="${batch.id}" th:text="${batch.name}"></option>
             </select>
           </div>
-
           <div id="graficoSituacoesPedidos" class="chartBox">
             <canvas id="myChart" style="max-width:70%; width: 40% ; height: 200px;"></canvas>
+          </div>
+        </div> -->
+        <div class="charts custom-div d-flex flex-column" style="width: 90%;">
+          <div class="col-sm-4 mt-5 ms-5">
+            <h3 class="text-muted">Current Batch</h3>
+            <select name="" id="batch" class="form-control">
+              <option th:each="batch : ${batchList}" th:value="${batch.id}" th:text="${batch.name}"></option>
+            </select>
+          </div>
+          <div style="margin: 50px;">
+            <div id="graficoSituacoesPedidos" class="container2 " style="display: flex; justify-content: center; ">
+              <canvas id="myChart" style="height: 400px; width: 80%; "></canvas>
+            </div>
           </div>
         </div>
       </div>
