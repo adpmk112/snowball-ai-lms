@@ -23,6 +23,7 @@ public class Assignment implements Serializable {
     private String name;
     private String filePath;
     private String assignmentChapterName;
+    private int batchId;
     @Column(columnDefinition = "tinyint(1) default 0")
     private boolean deleteStatus;
     private String branch;

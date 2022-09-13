@@ -8,15 +8,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ace.ai.admin.datamodel.Batch;
+import com.ace.ai.admin.datamodel.BatchExamForm;
+import com.ace.ai.admin.datamodel.Comment;
+import com.ace.ai.admin.datamodel.ExamForm;
 import com.ace.ai.admin.datamodel.Student;
 import com.ace.ai.admin.datamodel.StudentExamMark;
 import com.ace.ai.admin.datamodel.Teacher;
 import com.ace.ai.admin.datamodel.TeacherBatch;
+import com.ace.ai.admin.dtomodel.StudentExamMarkDTO;
+import com.ace.ai.admin.dtomodel.TeacherCommentDTO;
 import com.ace.ai.admin.dtomodel.TeacherDashboardChartDTO;
 import com.ace.ai.admin.dtomodel.TeacherDashboardDTO;
 import com.ace.ai.admin.dtomodel.TeacherDashboardExamDTO;
 import com.ace.ai.admin.repository.AttendanceRepository;
+import com.ace.ai.admin.repository.BatchExamFormRepository;
 import com.ace.ai.admin.repository.BatchRepository;
+import com.ace.ai.admin.repository.CommentRepository;
+import com.ace.ai.admin.repository.ExamFormRepository;
 import com.ace.ai.admin.repository.StudentExamMarkRepository;
 import com.ace.ai.admin.repository.StudentRepository;
 import com.ace.ai.admin.repository.TeacherBatchRepository;
@@ -29,7 +37,7 @@ public class TeacherDashboardService {
     @Autowired
     TeacherDashboardRepository teacherDashboardRepository;
     @Autowired
-    BatchRepository batchRepository;
+    CommentRepository commentRepository;
     @Autowired
     StudentRepository studentRepository;
     @Autowired
@@ -40,7 +48,8 @@ public class TeacherDashboardService {
     AttendanceRepository attendanceRepository;
     @Autowired
     StudentExamMarkRepository studentExamMarkRepository;
-  
+    @Autowired
+    BatchExamFormRepository batchExamFormRepository;
 
     public List<Batch> findBatchesByTeacherCode(String teacherCode) {
         Teacher teacher = teacherRepository.findTeacherByCode(teacherCode);
@@ -54,59 +63,117 @@ public class TeacherDashboardService {
         return batchList;
     }
 
-    
-
-    public List<TeacherDashboardDTO> getBatchNameAndStuCountByTeacherCode(String teacherCode){
+    public List<TeacherDashboardDTO> getBatchNameAndStuCountByTeacherCode(String teacherCode) {
         Teacher teacher = teacherRepository.findByCode(teacherCode);
-        List<TeacherBatch> teacherBatchList = teacherBatchRepository.findByTeacherIdAndDeleteStatus(teacher.getId(), false);
+        List<TeacherBatch> teacherBatchList = teacherBatchRepository.findByTeacherIdAndDeleteStatus(teacher.getId(),
+                false);
         List<TeacherDashboardDTO> teacherDashboardDTOList = new ArrayList<>();
-        for(TeacherBatch teacherBatch : teacherBatchList){
+        for (TeacherBatch teacherBatch : teacherBatchList) {
             TeacherDashboardDTO teacherDashboardDTO = new TeacherDashboardDTO();
             teacherDashboardDTO.setBatchId(teacherBatch.getBatch().getId());
             teacherDashboardDTO.setBatchName(teacherBatch.getBatch().getName());
-            int studentCount = studentRepository.findByDeleteStatusAndBatchId(false, teacherBatch.getBatch().getId()).size();
+            int studentCount = studentRepository.findByDeleteStatusAndBatchId(false, teacherBatch.getBatch().getId())
+                    .size();
             teacherDashboardDTO.setStudentCount(studentCount);
             teacherDashboardDTOList.add(teacherDashboardDTO);
         }
         return teacherDashboardDTOList;
     }
 
-   public List<TeacherDashboardChartDTO> findStudentByBatchId(int batchId){
-       List<Student> studentList = studentRepository.findByDeleteStatusAndBatchId(false,batchId);
-       List<TeacherDashboardChartDTO> teacherDashboardChartDTOlist = new ArrayList<>();
-       for(Student student : studentList){
-        TeacherDashboardChartDTO teacherDashboardChartDTO = new TeacherDashboardChartDTO();
+    public List<TeacherDashboardChartDTO> findStudentByBatchId(int batchId) {
+        List<Student> studentList = studentRepository.findByDeleteStatusAndBatchId(false, batchId);
+        List<TeacherDashboardChartDTO> teacherDashboardChartDTOlist = new ArrayList<>();
+        for (Student student : studentList) {
+            TeacherDashboardChartDTO teacherDashboardChartDTO = new TeacherDashboardChartDTO();
             int totalDays = attendanceRepository.findByStudentId(student.getId()).size();
             int attendDays = attendanceRepository.findByAttendAndStudentId("present", student.getId()).size();
             int attendPercentage;
-            if(totalDays == 0){
+            if (totalDays == 0) {
                 attendPercentage = 0;
-            }
-            else{
+            } else {
                 attendPercentage = (totalDays * 100) % attendDays;
             }
             teacherDashboardChartDTO.setBatchId(batchId);
             teacherDashboardChartDTO.setStudentName(student.getName());
             teacherDashboardChartDTO.setAttendance(attendPercentage);
             teacherDashboardChartDTOlist.add(teacherDashboardChartDTO);
-       }
-       return teacherDashboardChartDTOlist;
-    }
-
-    // List<TeacherDashboardExamDTO> getStuNameAndExamMarkByBatchId(int batchId){
-            
-    // }
-
-    public List<TeacherDashboardDTO> getStuNameAndExamMarksByTeacherCode(String teacherCode){
-        Teacher teacher = teacherRepository.findByCode(teacherCode);
-        List<TeacherBatch> teacherBatchList = teacherBatchRepository.findByTeacherIdAndDeleteStatus(teacher.getId(), false);
-        List<TeacherDashboardDTO> teacherDashboardDTOList = new ArrayList<>();
-        for(TeacherBatch teacherBatch : teacherBatchList){
-            TeacherDashboardExamDTO teacherDashboardExamDTO = new TeacherDashboardExamDTO();
-            List<Student> studentList = studentRepository.findByDeleteStatusAndBatchId(false, teacherBatch.getBatch().getId());
-            for(Student student : studentList){
-                List<StudentExamMark> studentExamMarksList = studentExamMarkRepository.findByStudentIdAndDeleteStatus(student.getId(), false)
-            }
         }
+        return teacherDashboardChartDTOlist;
     }
+
+    public List<TeacherDashboardExamDTO> getStudentNameAndExamMarkByBatchId(int batchId) {
+        List<TeacherDashboardExamDTO> teacherDashboardExamDTOList = new ArrayList<>();
+        List<BatchExamForm> batchExamFormList = batchExamFormRepository.findByDeleteStatusAndBatchId(false, batchId);
+
+        for (BatchExamForm batchExamForm : batchExamFormList) {
+            TeacherDashboardExamDTO teacherDashboardExamDTO = new TeacherDashboardExamDTO();
+            teacherDashboardExamDTO.setExamForm_id(batchExamForm.getExamForm().getId());
+            teacherDashboardExamDTO.setExamForm_name(batchExamForm.getExamForm().getName());
+            teacherDashboardExamDTO.setMax_marks(batchExamForm.getExamForm().getMaxMark());
+            List<StudentExamMark> studentExamMarkList = studentExamMarkRepository.findByDeleteStatusAndExamFormId(false,
+                    batchExamForm.getExamForm().getId());
+            List<StudentExamMarkDTO> studentExamMarkDTOList = new ArrayList<>();
+
+            for (StudentExamMark studentExamMark : studentExamMarkList) {
+                StudentExamMarkDTO studentExamMarkDTO = new StudentExamMarkDTO();
+                studentExamMarkDTO.setStudentId(studentExamMark.getStudent().getId());
+
+                studentExamMarkDTO.setStudentMarks(studentExamMark.getStudentMark());
+                ;
+                String studentName = studentRepository
+                        .findByDeleteStatusAndId(false, studentExamMark.getStudent().getId()).getName();
+                studentExamMarkDTO.setStudentName(studentName);
+                studentExamMarkDTOList.add(studentExamMarkDTO);
+            }
+
+            teacherDashboardExamDTO.setStudentExamMarkDTO(studentExamMarkDTOList);
+            teacherDashboardExamDTOList.add(teacherDashboardExamDTO);
+
+        }
+        return teacherDashboardExamDTOList;
+
+    }
+
+    public List<TeacherCommentDTO> getCommentByBatchId(int batchId){
+        List<Comment> commentList =  commentRepository.findByNotificationAndDeleteStatusAndBatchId(true,false,batchId);
+        List<TeacherCommentDTO> teacherCommentDTOList = new ArrayList<>();
+        String commenterName = null;
+        for(Comment comment : commentList){
+            String commenter_Code = comment.getCommenterCode();
+            System.out.println("comment=========="+commenter_Code);
+            TeacherCommentDTO teacherCommentDTO = new TeacherCommentDTO();
+            teacherCommentDTO.setBatchId(batchId);
+            teacherCommentDTO.setLocation(comment.getLocation());
+            teacherCommentDTO.setText(comment.getText());
+            if(!commenter_Code .isBlank()){
+                List<Student> studentList= studentRepository.findByDeleteStatusAndCode(false,commenter_Code);
+                for(Student student : studentList){
+                    if(student.getBatch().getId() == batchId){
+                    commenterName = student.getName();
+                    }
+                }
+                System.out.println("commentTeacher +============"+ commenterName);
+                if(commenterName == null){
+                   List<Teacher> teacherList = teacherRepository.findByDeleteStatusAndCode(false,commenter_Code);
+                    for(Teacher teacher : teacherList){
+                        List<TeacherBatch> teacherBatchList = teacherBatchRepository.findByTeacherIdAndDeleteStatus(teacher.getId(),
+                        false);
+                        for(TeacherBatch teacherBatch : teacherBatchList){
+                            if(teacherBatch.getBatch().getId() == batchId){
+                                commenterName = teacher.getName();
+                            }
+                        }
+                }
+                System.out.println("commentStudent +============"+ commenterName);
+               
+            }
+           
+
+        }
+        teacherCommentDTO.setCommenter_Name(commenterName);
+        teacherCommentDTOList.add(teacherCommentDTO);
+    }
+    return teacherCommentDTOList;
+}
+
 }
