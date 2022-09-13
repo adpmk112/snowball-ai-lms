@@ -25,7 +25,6 @@ public class AdminProfileService {
 
     public boolean checkAdminPassword(String newPassword,String existingPassword){
         BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
-
         if(encoder.matches(newPassword,existingPassword)){
             return true;
         }
@@ -78,7 +77,12 @@ public class AdminProfileService {
 
         adminRepository.save(admin);
 
+    }
 
-
+    public void saveAdminPassword(String password,String code){
+        Admin admin=adminRepository.findByCode(code);
+        BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
+        admin.setPassword(encoder.encode(password));
+        adminRepository.save(admin);
     }
 }

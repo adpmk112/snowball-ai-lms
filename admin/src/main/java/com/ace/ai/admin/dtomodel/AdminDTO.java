@@ -15,7 +15,6 @@ public class AdminDTO {
     private String code;
     @NotEmpty(message = "Password is mandatory!")
     private String password;
-//    private String photoName;
     @NotEmpty(message = "Email is mandatory!")
     @Email
     private String email;
