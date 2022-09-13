@@ -1,6 +1,7 @@
 package com.ace.ai.admin.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -11,4 +12,5 @@ import com.ace.ai.admin.datamodel.Chapter;
 public interface ChapterRepository  extends JpaRepository<Chapter, Integer> {
     Chapter findByName(String chpName);
     List<Chapter> findByCourseIdAndDeleteStatus(int courseId,int deleteStatus);
+    Optional<Chapter> findById(Integer chapterId);
 }
