@@ -43,7 +43,7 @@ public class TeacherNewActivity {
     public ModelAndView addNewActivity(@RequestParam("batchId") int batchId, ModelMap model) {
         NewActivityDTO newActivityDTO = new NewActivityDTO();
         newActivityDTO.setBatchId(batchId);
-        return new ModelAndView("", "newActivityDTO", newActivityDTO);
+        return new ModelAndView("T003-04", "newActivityDTO", newActivityDTO);
     }
 
     @PostMapping("/addActivityPost")
