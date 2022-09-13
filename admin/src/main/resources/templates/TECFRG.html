@@ -151,7 +151,13 @@
                             data-bs-toggle="dropdown"
                             href="#"
                     >
-                        <img id="profile-img" th:src="@{${#request.userPrincipal.principal.photo}}" />
+                        <div th:if="${#request.userPrincipal.principal.photo != null}">
+                            <img id="profile-img"   th:src="@{${#request.userPrincipal.principal.photo}}"/>
+                        </div>
+                        <!--/*@thymesVar id="principal" type="principal"*/-->
+                        <div th:unless="${#request.userPrincipal.principal.photo != null}">
+                            <img id="profile-img" src="../assets/img/profileboy.jpg"/>
+                        </div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end">
                         <a class="dropdown-item name" href="#">[[${#request.userPrincipal.principal.name}]]</a>

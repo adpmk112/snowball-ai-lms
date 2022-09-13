@@ -4,60 +4,95 @@
 <body>
 <main role="main">
     <div th:fragment="admin-profile">
-        <section class="Form my-4 mx-5" >
+
+        <section th:if="${editType == 'update'}" class="Form my-4 mx-5 update-profile" >
             <div class="container header-margin footer-margin" >
-                <form>
+                <form th:object="${adminDTO}" method="post" th:action="@{/admin/profileUpdate/}"  enctype="multipart/form-data">
                     <div class="row no-gutters form-color shodow-div-profile" style="background-color: white;">
 
-                        <div class="col-lg-5">
+                        <div class="col-lg-5 d-flex align-items-center justify-content-center  flex-column ">
+                            <div class="wrapper"  th:if="${#request.userPrincipal.principal.photo != null}">
+                               <div class="image-container">
+<!--                                   <i class="fas fa-user"></i>-->
+                                   <img th:src="@{${'/assets/img/admin/'+photoName}}" />
+<!--                                   <input type="hidden" th:field="*{photoName}">-->
+                               </div>
+                                <label for="img-input" class="camera-icon">
+                                    <i class="fas fa-camera"></i>
+                                </label>
+                                <input type="file" th:field="*{photo}"  id="img-input" accept="image/*" hidden/>
+                            </div>
 
-                            <center>
+                            <!--/*@thymesVar id="principal" type="principal"*/-->
+                            <div class="wrapper" th:unless="${#request.userPrincipal.principal.photo != null}">
+                               <div class="image-container">
+                                   <i class="fas fa-user"></i>
+                                   <img  src=""/>
+                               </div>
+                                <label for="img-input" class="camera-icon">
+                                    <i class="fas fa-camera"></i>
+                                </label>
+                                <input type="file" th:field="*{photo}"  id="img-input" accept="image/*"  hidden/>
 
-
-                                <img th:src="${#request.userPrincipal.principal.photo}" alt="" width="180px" class="dot">
-
-                                <!--  <img src="C:/Users/Win Win Khaing/Pictures/Screenshots/Screenshot (4).png" class="img_fluid" alt="">-->
-                                <input type="file"  id="file" class="form-control file-choose" name="news_img"
-                                       placeholder="Choose Image" required="required" style="width: 300px;"/>
-                            </center>
-
+                            </div>
                         </div>
 
-                        <div class="col-lg-7 px-5 pt-5">
-                            <center>
-
-
-                                <h1 class="font-weight-bold py-3">Admin Profile</h1>
-
-
-                                <div class="form-row">
-                                    <div class="col-lg-7">
-                                        <input type="password" placeholder="Old Password" class="form-control mt-3 mb-5">
-                                    </div>
+                        <div class="col-lg-7 px-5 pt-2">
+                                <h1 class="font-weight-bold py-3">Update Profile</h1>
+                            <div class="alert alert-success" th:if="${success!=null}">Updated Successfully!</div>
+                            <div class="alert alert-warning" th:if="${error!=null}">Wrong Password</div>
+                                <div class="col-md-8 d-flex">
+                              <span class="mt-1 me-3">  Code : </span><input type="text" th:field="*{code}" class="form-control mb-3" disabled>
+                                  </div>
+                                <div class="col-md-8">
+                                    <input type="text" id="name" placeholder="Name" th:field="*{name}" class="form-control mb-3">
+                                <div class="alert alert-warning" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="col-lg-7">
-                                        <input type="password" placeholder="New Password" class="form-control mt-3 mb-5">
-                                    </div>
+                                <div class="col-md-8">
+                                        <input type="email" id="email" placeholder="Email address" th:field="*{email}" class="form-control mb-3">
+                                    <div class="alert alert-warning" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="col-lg-7">
-                                        <input type="password" placeholder="Comfirm Password" class="form-control mt-3 mb-5">
-                                    </div>
+
+                                <div class="col-md-8">
+                                        <input type="password" id="password" placeholder="Password" th:field="*{password}" class="form-control mb-3">
+                                        <div class="alert alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="col-lg-7">
-                                        <button type="button" class="btn1 mt-3 mb-5">Submit</button>
-                                    </div>
-                                </div>
-                            </center>
+
+                                    <button type="submit" class="btn btn-outline-primary  mt-3 mb-5">Submit</button>
+                                    <button type="reset" class="btn btn-outline-secondary  mt-3 mb-5 ms-3">Reset</button>
+                          </div>
                         </div>
                 </form>
             </div>
-
-
         </section>
+        <section th:if="${editType == 'change'}" class="Form my-4 mx-5 change-password" >
+            <div class="container header-margin footer-margin" >
+                <form th:object="${adminDTO}" method="post" th:action="@{/admin/changepassword/}">
+                    <div class="row no-gutters form-color shodow-div-profile d-flex  align-items-center justify-content-center" style="background-color: white;">
+                    <div class="col-lg-7 px-5 pt-2 ">
+                        <h1 class="font-weight-bold py-3">Change Password</h1>
+                        <div class="col-md-8">
+                            <input type="password" id="password" placeholder="Old Password" th:field="*{password}" class="form-control mb-3">
+                            <div class="alert alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="password" id="password" placeholder="New Password" th:field="*{password}" class="form-control mb-3">
+                            <div class="alert alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="password" id="password" placeholder="Confirm Password" th:field="*{password}" class="form-control mb-3">
+                            <div class="alert alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary  mt-3 mb-5">Submit</button>
+                        <button type="reset" class="btn btn-outline-secondary  mt-3 mb-5 ms-3">Reset</button>
+                    </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+
     </div>
+
 </main>
 
 </body>
