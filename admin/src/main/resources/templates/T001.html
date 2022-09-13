@@ -1,120 +1,190 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
   <div th:replace="TECFRG :: head"></div>
   <title>Home Page</title>
 </head>
 
 <body class="body-color">
-<header th:replace="TECFRG :: header"></header>
-<main role="main">
-  <div th:replace="fragments-teacher/T001 :: teacher-home"></div>
-</main>
-<footer th:replace="TECFRG :: footer"></footer>
-<div th:replace="TECFRG:: scripts"></div>
-  <script>
-      var xValues = [
-        'Smith',
-        'Jone',
-        'Stella',
-        'Pkar',
-        'Blake',
-        'Clark',
-        'Mg Mg',
-        'Hla Hla',
-        'Pkar',
-        'Blake',
-        'Clark',
-        'Mg Mg',
-        'Hla Hla',
-      ]
-      var yValues = [55, 73, 84, 45, 93, 69, 34, 70, 80, 90, 100, 70, 80]
-      var barColors = [
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-      ]
+  <header th:replace="TECFRG :: header"></header>
+  <main role="main">
+    <div th:replace="fragments-teacher/T001 :: teacher-home"></div>
+  </main>
+  <footer th:replace="TECFRG :: footer"></footer>
+  <div th:replace="TECFRG:: scripts"></div>
 
-      new Chart('myChart', {
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- <script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: xValues,
-          datasets: [
-            {
-              backgroundColor: barColors,
-              data: yValues,
-
-            },
-          ],
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
         },
         options: {
-          responsive: true,
-          // overflow
-          maintainAspectRatio: false,
-          legend: { display: false },
-          title: {
-            display: true,
-            text: 'Attend Count Per Student Data',
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    </script> -->
 
-          },
-        },
-      })
-    </script>
-    <script>
-      var xValues = [
-        'Smith',
-        'Jone',
-        'Stella',
-        'Pkar',
-        'Blake',
-        'Clark',
-        'Mg Mg',
-        'Hla Hla',
-      ]
-      var yValues = [55, 73, 84, 45, 93, 69, 34, 70, 80, 90, 100]
-      var barColors = [
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-        '#57c2de',
-      ]
-
-      new Chart('myChart2', {
-        type: 'bar',
-        data: {
-          labels: xValues,
-          datasets: [
-            {
-              backgroundColor: barColors,
-              data: yValues,
+    <script type="text/javascript">
+      $(document).ready(function () {
+        let batchId = document.getElementById("batch").value;
+  
+        var studentName = [];
+        var attendence = [];
+        console.log(batchId);
+        document.getElementById("batch").addEventListener("change", () => {
+          // myChart.destroy();
+          batchId = document.getElementById("batch").value;
+          studentName = []
+          attendence = []
+          $('#myChart').remove();
+          $('#graficoSituacoesPedidos').append('<canvas id="myChart" style="max-width:70%; width:40% ; height: 200px;"></canvas>');
+          $.ajax({
+            url: "/admin/grap?batchId=" + batchId,
+            success: function (result) {
+              var batchId = [studentName, attendence, batchId];
+              console.log(result);
+              result.forEach((element) => {
+                studentName.push(element.stuName);
+                attendence.push(element.attendance);
+              });
+              // drawLineChart(studentName,attendence)
+              console.log(batchId);
+              console.log(studentName);
+              console.log(attendence);
+              const ctx = document.getElementById("myChart").getContext("2d");
+              const myChart = new Chart(ctx, {
+                type: "bar",
+                data: {
+                  labels: studentName,
+                  datasets: [
+                    {
+                      label: "Attend Count Per Student Data",
+                      data: attendence,
+                      backgroundColor: [
+                        // "rgba(255, 99, 132, 0.2)",
+                        // "rgba(54, 162, 235, 0.2)",
+                        // "rgba(255, 206, 86, 0.2)",
+                        // "rgba(75, 192, 192, 0.2)",
+                        // "rgba(153, 102, 255, 0.2)",
+                        // "rgba(255, 159, 64, 0.2)",
+                        'rgb(106, 204, 226)',
+                      ],
+                      borderColor: [
+                        // "rgba(255, 99, 132, 1)",
+                        // "rgba(54, 162, 235, 1)",
+                        // "rgba(255, 206, 86, 1)",
+                        // "rgba(75, 192, 192, 1)",
+                        // "rgba(153, 102, 255, 1)",
+                        // "rgba(255, 159, 64, 1)",
+                        'rgb(106, 204, 226)',
+                      ],
+                      borderWidth: 1,
+                    },
+                  ],
+                },
+                options: {
+                  scales: {
+                    y: {
+                      beginAtZero: true,
+                    },
+                  },
+                },
+              });
             },
-          ],
-        },
-        options: {
-          legend: { display: false },
-          title: {
-            display: true,
-            text: 'Attend Count Per Student Data',
-          },
-        },
-      })
+          });
+  
+        });
+        setTimeout(() => {
+          $.ajax({
+            url: "/admin/grap?batchId=" + batchId,
+            success: function (result) {
+              var batchId = [studentName, attendence, batchId];
+              console.log(result);
+              result.forEach((element) => {
+                studentName.push(element.stuName);
+                attendence.push(element.attendance);
+              });
+              // drawLineChart(studentName,attendence)
+              console.log(batchId);
+              console.log(studentName);
+              console.log(attendence);
+              const ctx = document.getElementById("myChart").getContext("2d");
+              const myChart = new Chart(ctx, {
+                type: "bar",
+                data: {
+                  labels: studentName,
+                  datasets: [
+                    {
+                      label: "Attend Count Per Student Data",
+                      data: attendence,
+                      backgroundColor: [
+                        // "rgba(255, 99, 132, 0.2)",
+                        // "rgba(54, 162, 235, 0.2)",
+                        // "rgba(255, 206, 86, 0.2)",
+                        // "rgba(75, 192, 192, 0.2)",
+                        // "rgba(153, 102, 255, 0.2)",
+                        // "rgba(255, 159, 64, 0.2)",
+                        'rgb(106, 204, 226)',
+                      ],
+                      borderColor: [
+                        // "rgba(255, 99, 132, 1)",
+                        // "rgba(54, 162, 235, 1)",
+                        // "rgba(255, 206, 86, 1)",
+                        // "rgba(75, 192, 192, 1)",
+                        // "rgba(153, 102, 255, 1)",
+                        // "rgba(255, 159, 64, 1)",
+                        'rgb(106, 204, 226)',
+                      ],
+                      borderWidth: 1,
+                    },
+                  ],
+                },
+                options: {
+                  scales: {
+                    y: {
+                      beginAtZero: true,
+                    },
+                  },
+                },
+              });
+            },
+          });
+  
+        }, 10);
+      });
     </script>
 
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+ 
 </body>
 
 </html>

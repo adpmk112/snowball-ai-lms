@@ -19,6 +19,8 @@ import com.ace.ai.student.dtomodel.StuReplyViewDTO;
 import com.ace.ai.student.repository.BatchRepository;
 import com.ace.ai.student.repository.CommentRepository;
 import com.ace.ai.student.repository.ReplyRepository;
+import com.ace.ai.student.repository.StudentRepository;
+import com.ace.ai.student.repository.TeacherRepository;
 
 @Service
 public class StudentCommentService {
@@ -28,6 +30,10 @@ public class StudentCommentService {
     ReplyRepository replyRepository;
     @Autowired
     BatchRepository batchRepository;
+    @Autowired
+    StudentRepository studentRepository;
+    @Autowired
+    TeacherRepository teacherRepository;
 
     public List<StuCommentViewDTO> getCommentListByBatchIdAndLocation(int batchId,String location){
         List<StuCommentViewDTO> stuCommentViewDTOList = new ArrayList<>();
@@ -42,7 +48,17 @@ public class StudentCommentService {
                 stuReplyViewDTO.setText(reply.getText());
                 stuReplyViewDTO.setDateTime(reply.getDateTime());
                 stuReplyViewDTO.setCommentId(reply.getComment().getId());
-                stuReplyViewDTO.setCommenterCode(reply.getCommenterCode());
+
+                String stuName = studentRepository.findByCode(reply.getCommenterCode()).getName();
+                String teacherName = teacherRepository.findByCode(reply.getCommenterCode()).getName();
+
+                if(stuName.isBlank()){
+                    stuReplyViewDTO.setCommenterName(teacherName);
+                }else if(teacherName.isBlank()){
+                    stuReplyViewDTO.setCommenterName(stuName);
+                }
+                
+
                 stuReplyViewDTO.setDeleteStatus(reply.isDeleteStatus());
                 stuReplyViewDTO.setNotification(reply.isNotification());
                 stuReplyViewDTOList.add(stuReplyViewDTO);
@@ -52,7 +68,14 @@ public class StudentCommentService {
             stuCommentViewDTO.setText(comment.getText());
             stuCommentViewDTO.setLocation(comment.getLocation());
             stuCommentViewDTO.setDateTime(comment.getDateTime());
-            stuCommentViewDTO.setCommenterCode(comment.getCommenterCode());
+            String stuName = studentRepository.findByCode(comment.getCommenterCode()).getName();
+                String teacherName = teacherRepository.findByCode(comment.getCommenterCode()).getName();
+
+                if(stuName.isBlank()){
+                    stuCommentViewDTO.setCommenterName(teacherName);
+                }else if(teacherName.isBlank()){
+                    stuCommentViewDTO.setCommenterName(stuName);
+                }
             stuCommentViewDTO.setNotification(comment.isNotification());
             stuCommentViewDTO.setStuReplayViewDTOList(stuReplyViewDTOList);
             stuCommentViewDTOList.add(stuCommentViewDTO);
@@ -87,4 +110,8 @@ public class StudentCommentService {
         replyRepository.save(reply);
     
     }
+
+   
+
+    
 }

@@ -8,8 +8,9 @@ public class StuCommentPostDTO {
     private String commenterCode;
     private String location;
     private boolean notification;
-    private String Text;
+    private String text;
     private int batchId;
-    private boolean deleteStatus;
+    private int stuId;
+    
 
 }

@@ -1,7 +1,6 @@
 package com.ace.ai.admin.controller;
 
 import com.ace.ai.admin.datamodel.*;
-import com.ace.ai.admin.dtomodel.AttendanceDTO;
 import com.ace.ai.admin.dtomodel.AttendanceRequestDTO;
 import com.ace.ai.admin.dtomodel.BatchDTO;
 import com.ace.ai.admin.dtomodel.StudentAttendDTO;
@@ -31,7 +30,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
 
 @Controller
 @RequestMapping(value = "/admin/batch")
@@ -243,10 +242,9 @@ public class BatchController {
     }
 
     @GetMapping("/addTeacherToBatch")
-    @ResponseBody
-    public ResponseEntity addTeacherToBatch(@RequestParam Integer bId, @RequestParam Integer tId) {
+    public String addTeacherToBatch(@RequestParam("bId") Integer bId, @RequestParam("tId") Integer tId) {
         batchService.addTeacherByCodeAndBatchId(tId, bId);
-        return ResponseEntity.ok(HttpStatus.OK);
+        return "redirect:/admin/batch/batchSeeMore?id=" +bId+ "&radio=teacher";
     }
 
     @GetMapping("/addExamSchedule")

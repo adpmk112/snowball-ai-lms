@@ -334,7 +334,7 @@
                                     <td th:text="${classroom.teacherName}"></td>
                                     <td th:text="${classroom.link}"></td>
                                     <td th:text="${classroom.status}"></td>
-                                    <td th:text="${classroom.recordedVideo}">
+                                    <td>
                                     <a th:href="@{/setupClassroomEdit/{classId}(classId = ${classroom.id})}"
                                                     class="btn btn-outline-primary btn-floating"
                                                     data-mdb-ripple-color="dark">
@@ -346,7 +346,7 @@
                                             class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </a>
-                                        <a href="" class="btn btn-outline-danger remove-classroom btn-floating"
+                                        <a th:href="@{/admin/batch/deleteClassroom/{classId}(classId = ${classroom.id})}" class="btn btn-outline-danger remove-classroom btn-floating"
                                             data-mdb-ripple-color="dark">
                                             <i class="fa-solid fa-circle-minus"></i>
                                         </a>
@@ -373,21 +373,20 @@
                     </div>
                     <div class="modal-body">
 
-                        <form id="teacher-batch">
-                            <input type="hidden" id="bId" th:value="${batch_id}">
+                        <form id="teacher-batch" th:action="@{/admin/batch/addTeacherToBatch}" method="get">
+                            <input type="hidden" id="bId" name="bId" th:value="${batch_id}">
 
                             <p th:if="${#lists.isEmpty(teacherList1)}">No Teacher To add</p>
                             <div th:unless="${#lists.isEmpty(teacherList1)}">
-                                <select id="tId" class="form-select" aria-label="Default select example" name="code">
+                                <select id="tId" class="form-select" aria-label="Default select example" name="tId">
                                     <option th:each="teacher: ${teacherList1}" th:value="${teacher.id}"
                                         th:text="${teacher.name}">No Teacher To Add
                                     </option>
                                 </select>
                             </div>
                             <div class="modal-footer">
-                                <!--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>-->
-                                <button th:disabled="${#lists.isEmpty(teacherList1)}" th:onclick="addTeacherToBatch()"
-                                    class="btn btn-primary">Add</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" th:disabled="${#lists.isEmpty(teacherList1)}" class="btn btn-primary">Add</button>
                             </div>
                         </form>
                     </div>

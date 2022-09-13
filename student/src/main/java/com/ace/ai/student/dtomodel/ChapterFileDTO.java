@@ -10,8 +10,6 @@ public class ChapterFileDTO {
     private int id;
     private String name;
     private  String fileType;
-    private MultipartFile file;
-    private int deleteStatus;
     private int chapterId;
 
    

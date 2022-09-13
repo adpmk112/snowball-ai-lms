@@ -2,25 +2,25 @@
 <html lang="en" th:replace="~{layouts/main :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org" xmlns:batch>
 
 <body>
-<main role="main">
+  <main role="main">
     <div th:fragment="teacher-home">
-        <div class="semi-circle"></div>
-        <div class="d-flex flex-column">
-            <div class=" form-group " style=" height: auto; width: auto; margin-bottom: 0px ; ">
-                <div class="banner">
-                    <div class="circle">
-                        <i class="fa-solid fa-people-group"></i>
-                    </div>
-                    <div>
-                        <h1>Batches</h1>
-                        <h3>Total: 4</h3>
-                    </div>
-                </div>
+      <div class="semi-circle"></div>
+      <div class="d-flex flex-column">
+        <div class=" form-group " style=" height: auto; width: auto; margin-bottom: 0px ; ">
+          <div class="banner">
+            <div class="circle">
+              <i class="fa-solid fa-people-group"></i>
             </div>
-            <div class="cards form-group custom-div1"
-                 style=" height: auto; width: 90%; justify-content: left; margin-top: 0px;">
+            <div>
+              <h1>Batches</h1>
+              <h3>Total: <span th:text="${totalBatch}"></span></h3>
+            </div>
+          </div>
+        </div>
+        <div class="cards form-group custom-div1"
+          style=" height: auto; width: 90%; justify-content: left; margin-top: 0px;">
 
-                <!-- <a href="admin-student-page.html" class="unit-a">
+          <!-- <a href="admin-student-page.html" class="unit-a">
                     <div class="card-single cs2">
                       <div>
                         <h1>Student</h1>
@@ -34,46 +34,25 @@
                       </div>
                     </div>
                   </a> -->
-                <a href="T002.html" class="unit-a">
-                    <div class="card-single-teacher">
-                        <div>
-                            <h1 th:each="batch : ${batchList}" th:value="${batch.id}" th:text="${batch.name}"></h1>
-                        </div>
-                        <div class="card-link">
-                            <i class="fa-solid fa-people-group" style="color: white;"></i>
-                            <span id="num" style="color:white ;">10</span>
+          <div th:each=" batch : ${batchStudentList} ">
+            <a th:href="@{/teacher/batch/batchSeeMore(batchId=${batch.batchId},radio=1)}" class="unit-a">
+              <div class="card-single-teacher">
+                <div>
+                  <h1 th:text="${batch.batchName}"></h1>
+                </div>
 
-                        </div>
-                    </div>
-                </a>
-                <a href="T002.html" class="unit-a">
-                    <div class="card-single-teacher">
-                        <div>
-                            <h1>Batch 1</h1>
-                        </div>
-                        <div class="card-link">
-                            <i class="fa-solid fa-people-group" style="color: white;"></i>
-                            <span id="num" style="color:white ;">10</span>
+                <div class="card-link">
+                    <i class="fa-solid fa-people-group" style="color: white;"></i>
+                  <span id="num" style="color:white ;" th:text="${batch.studentCount}">10</span>
 
-                        </div>
-                    </div>
-                </a>
-                <a href="T002.html" class="unit-a">
-                    <div class="card-single-teacher">
-                        <div>
-                            <h1>Batch 1</h1>
-                        </div>
-                        <div class="card-link">
-                            <i class="fa-solid fa-people-group" style="color: white;"></i>
-                            <span id="num" style="color:white ;">10</span>
+                </div>
 
-                        </div>
-                    </div>
-                </a>
+              </div>
+            </a>
+          </div>
 
 
-
-                <!-- <a href="admin-exam-page.html" class="unit-a">
+          <!-- <a href="admin-exam-page.html" class="unit-a">
                     <div class="card-single cs5">
                       <div>
                         <h1>Exam</h1>
@@ -89,7 +68,7 @@
                   </a> -->
 
 
-                <!-- <a href="admin-teacher-page.html" class="unit-a">
+          <!-- <a href="admin-teacher-page.html" class="unit-a">
                     <div class="card-single cs1">
                       <div>
                         <h1>Teacher</h1>
@@ -103,7 +82,7 @@
                       </div>
                     </div>
                   </a> -->
-                <!-- <a href="admin-exam-page.html" class="unit-a">
+          <!-- <a href="admin-exam-page.html" class="unit-a">
                     <div class="card-single cs5">
                       <div>
                         <h1>Exam</h1>
@@ -117,146 +96,137 @@
                       </div>
                     </div>
                   </a> -->
+        </div>
+
+        <!-- <div class="interface"></div>   -->
+        <div class="charts custom-div d-flex flex-column" style="width: 90%;">
+          <div class="col-sm-4 mt-5 ms-5">
+            <h3 class="text-muted">Current Batch</h3>
+            <select name="" id="batch" class="form-control">
+              <option th:each="batch : ${batchList}" th:value="${batch.id}" th:text="${batch.name}"></option>
+            </select>
+          </div>
+          <div style="margin: 50px;">
+            <div id="graficoSituacoesPedidos" class="container2 " style="display: flex; justify-content: center; ">
+              <canvas id="myChart" style="height: 400px; width: 80%; "></canvas>
             </div>
-
-            <!-- <div class="interface"></div>   -->
-            <div class="charts custom-div d-flex flex-column" style="width: 90%;">
-
-                <div class="col-sm-4 mt-5 ms-5">
-                    <select name="" id="course" class="form-control">
-                        <option value="" selected>Current Batch</option>
-                        <option value="">Java</option>
-                        <option value="">C++</option>
-                        <option value="">.Net</option>
-                        <option value="">PHP</option>
+          </div>
+        </div>
+        
+        <div class="charts custom-div d-flex flex-column" style="width: 90%;">
+          <div class="col-sm-4 mt-5 ms-5">
+            <h3 class="text-muted">Current Batch</h3>
+            <select id="course" class="form-control ">
+              <option th:each="batch : ${batchList}" th:value="${batch.id}" th:text="${batch.name}"></option>
+            </select>
+          </div>
+          <div style="margin: 50px;">
+            <div class="mytabs">
+              <input type="radio" id="tabmarks" name="mytabs" checked />
+              <label for="tabmarks" id="lab">Marks</label>
+              <div class="tab">
+                <div class="mt-3 mb-4 d-flex justify-content-between">
+                  <div class="col-sm-2">
+                    <select class="form-control" aria-label="Default select example">
+                      <option selected>Exam</option>
+                      <option value="1">Assignment</option>
                     </select>
-                </div>
-                <div style="margin: 50px;">
-                    <div class="container2 " style="display: flex; justify-content: center; ">
-
-                        <br />
-
-                        <canvas id="myChart" style="height: 300px; width: 80%; "></canvas>
-                    </div>
-                </div>
-
-            </div>
-            <div class="charts custom-div d-flex flex-column" style="width: 90%;">
-                <div class="col-sm-4 mt-5 ms-5">
-                    <select id="course" class="form-control ">
-                        <option value="" selected>Current Batch</option>
-                        <option value="">Java</option>
-                        <option value="">C++</option>
-                        <option value="">.Net</option>
-                        <option value="">PHP</option>
-                    </select>
-                </div>
-                <div style="margin: 50px;">
-                    <div class="mytabs">
-                        <input type="radio" id="tabmarks" name="mytabs" checked />
-                        <label for="tabmarks" id="lab">Marks</label>
-                        <div class="tab">
-                            <div class="mt-3 mb-4 d-flex justify-content-between">
-                                <div class="col-sm-2">
-                                    <select class="form-control" aria-label="Default select example">
-                                        <option selected>Exam</option>
-                                        <option value="1">Assignment</option>
-                                    </select>
-                                </div>
-                                <div class="add-list">
-                                    <!-- <label>Add Class</label>
+                  </div>
+                  <div class="add-list">
+                    <!-- <label>Add Class</label>
                                   <a href="classroom-add-page.html" class="btn btn-outline-success btn-floating" data-mdb-ripple-color="dark">
                                     <i class="fa-solid fa-circle-plus"></i>
                                   </a> -->
-                                </div>
-                            </div>
-                            <table id="datatable">
-                                <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Mg Mg</th>
-                                    <th>Ag Hla</th>
-                                    <th>Min Oo</th>
-                                    <th>Win Maw</th>
-
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>Final Exam</td>
-                                    <td>80/100</td>
-                                    <td>80/100</td>
-                                    <td>80/100</td>
-                                    <td>80/100</td>
-                                    <td>
-                                        <a href="" class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
-                                            Go to Marks<ion-icon name="arrow-forward-circle-outline"></ion-icon>
-                                        </a>
-
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                </tbody>
-                                <tbody>
-                                <tr>
-                                    <td>Semi Exam</td>
-                                    <td>80/100</td>
-                                    <td>80/100</td>
-                                    <td>80/100</td>
-                                    <td>80/100</td>
-                                    <td>
-                                        <a href="" class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
-                                            Go to Marks<ion-icon name="arrow-forward-circle-outline"></ion-icon>
-                                        </a>
-
-
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <input type="radio" id="tabcomment" name="mytabs" />
-                        <label for="tabcomment" id="lab">Comment</label>
-                        <div class="tab" >
-                            <div class="card" style="background-color:lavenderblush; border-radius: 18px; margin-bottom: 2rem;">
-                                <h5 class="card-header">Video 1</h5>
-                                <div class="card-body">
-                                    <h5 class="card-title">Htet Wai Aung</h5>
-                                    <p class="card-text">Hi Kya Naw Pr sr mayy ma lo  dr ka di lo shi dl lay</p>
-                                    <a href="" class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
-                                        Go to Comments <ion-icon name="arrow-forward-circle-outline"></ion-icon>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="card" style="background-color: lavenderblush; border-radius: 18px; margin-bottom: 2rem;">
-                                <h5 class="card-header">Assignment 1</h5>
-                                <div class="card-body">
-                                    <h5 class="card-title">Htet Wai Aung</h5>
-                                    <p class="card-text">Hi Kya Naw Pr sr mayy ma lo  dr ka di lo shi dl lay</p>
-                                    <a href="" class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
-                                        Go to Comments <ion-icon name="arrow-forward-circle-outline"></ion-icon>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="card" style="background-color:lavenderblush; border-radius: 18px; margin-bottom: 2rem;">
-                                <h5 class="card-header">Assignment 2</h5>
-                                <div class="card-body">
-                                    <h5 class="card-title">Htet Wai Aung</h5>
-                                    <p class="card-text">Hi Kya Naw Pr sr mayy ma lo  dr ka di lo shi dl lay</p>
-                                    <a href="" class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
-                                        Go to Comments <ion-icon name="arrow-forward-circle-outline"></ion-icon>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                  </div>
                 </div>
-            </div>
+                <table id="datatable">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Mg Mg</th>
+                      <th>Ag Hla</th>
+                      <th>Min Oo</th>
+                      <th>Win Maw</th>
 
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Final Exam</td>
+                      <td>80/100</td>
+                      <td>80/100</td>
+                      <td>80/100</td>
+                      <td>80/100</td>
+                      <td>
+                        <a href="" class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
+                          Go to Marks<ion-icon name="arrow-forward-circle-outline"></ion-icon>
+                        </a>
+
+                      </td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                  <tbody>
+                    <tr>
+                      <td>Semi Exam</td>
+                      <td>80/100</td>
+                      <td>80/100</td>
+                      <td>80/100</td>
+                      <td>80/100</td>
+                      <td>
+                        <a href="" class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
+                          Go to Marks<ion-icon name="arrow-forward-circle-outline"></ion-icon>
+                        </a>
+
+
+                      </td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <input type="radio" id="tabcomment" name="mytabs" />
+              <label for="tabcomment" id="lab">Comment</label>
+              <div class="tab">
+                <div class="card" style="background-color:lavenderblush; border-radius: 18px; margin-bottom: 2rem;">
+                  <h5 class="card-header">Video 1</h5>
+                  <div class="card-body">
+                    <h5 class="card-title">Htet Wai Aung</h5>
+                    <p class="card-text">Hi Kya Naw Pr sr mayy ma lo dr ka di lo shi dl lay</p>
+                    <a href="" class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
+                      Go to Comments <ion-icon name="arrow-forward-circle-outline"></ion-icon>
+                    </a>
+                  </div>
+                </div>
+                <div class="card" style="background-color: lavenderblush; border-radius: 18px; margin-bottom: 2rem;">
+                  <h5 class="card-header">Assignment 1</h5>
+                  <div class="card-body">
+                    <h5 class="card-title">Htet Wai Aung</h5>
+                    <p class="card-text">Hi Kya Naw Pr sr mayy ma lo dr ka di lo shi dl lay</p>
+                    <a href="" class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
+                      Go to Comments <ion-icon name="arrow-forward-circle-outline"></ion-icon>
+                    </a>
+                  </div>
+                </div>
+                <div class="card" style="background-color:lavenderblush; border-radius: 18px; margin-bottom: 2rem;">
+                  <h5 class="card-header">Assignment 2</h5>
+                  <div class="card-body">
+                    <h5 class="card-title">Htet Wai Aung</h5>
+                    <p class="card-text">Hi Kya Naw Pr sr mayy ma lo dr ka di lo shi dl lay</p>
+                    <a href="" class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
+                      Go to Comments <ion-icon name="arrow-forward-circle-outline"></ion-icon>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
+      </div>
     </div>
-</main>
+  </main>
 </body>
+
 </html>
