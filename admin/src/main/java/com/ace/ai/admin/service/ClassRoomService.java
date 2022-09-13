@@ -191,4 +191,21 @@ public class ClassRoomService {
         classroom.setBatch(batch);
         classRoomRepository.save(classroom);
     }
+
+    public void deleteClassroom(ClassroomDTO classroomDTO) throws ParseException {
+    	
+    	Batch batch = new Batch();
+    	batch.setId(classroomDTO.getBatchId());
+    	
+    	Classroom classroom = new Classroom();
+    	classroom.setId(classroomDTO.getId());
+        classroom.setDate(convertDateToString(classroomDTO.getDate()));
+        classroom.setLink(classroomDTO.getLink());
+        classroom.setTeacherName(classroomDTO.getTeacherName());
+        classroom.setStartTime(englishTime(classroomDTO.getStartTime()));
+        classroom.setEndTime(englishTime(classroomDTO.getEndTime()));
+        classroom.setBatch(batch);
+        classroom.setDeleteStatus(true);
+        classRoomRepository.save(classroom);
+    }
 }

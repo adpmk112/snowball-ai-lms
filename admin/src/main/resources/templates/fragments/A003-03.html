@@ -334,7 +334,7 @@
                                     <td th:text="${classroom.teacherName}"></td>
                                     <td th:text="${classroom.link}"></td>
                                     <td th:text="${classroom.status}"></td>
-                                    <td th:text="${classroom.recordedVideo}">
+                                    <td>
                                     <a th:href="@{/setupClassroomEdit/{classId}(classId = ${classroom.id})}"
                                                     class="btn btn-outline-primary btn-floating"
                                                     data-mdb-ripple-color="dark">
@@ -346,7 +346,7 @@
                                             class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </a>
-                                        <a href="" class="btn btn-outline-danger remove-classroom btn-floating"
+                                        <a th:href="@{/admin/batch/deleteClassroom/{classId}(classId = ${classroom.id})}" class="btn btn-outline-danger remove-classroom btn-floating"
                                             data-mdb-ripple-color="dark">
                                             <i class="fa-solid fa-circle-minus"></i>
                                         </a>
