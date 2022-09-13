@@ -32,8 +32,9 @@
                                 </div>
                                 <!--  <form class=""> -->
                                 <div th:if="${param.error}">
-                                    <h4 style="color:red">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</h4>
+                                    <h4 style="color:red" >Invalid Id or Password!</h4>
                                 </div>
+                                <div class="alert alert-success" th:if="${success!=null}" th:text="${success}"></div>
                                 <form th:action="@{/admin/login}" method="post">
                                     <div class="mb-3">
 

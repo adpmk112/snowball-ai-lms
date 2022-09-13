@@ -58,10 +58,16 @@ public class AdminUserDetails implements UserDetails {
     public String getCode(){
         return admin.getCode();
     }
-    public String getEmail(){
-        return admin.getEmail();
-    }public String getImagePath(){
+    public String getEmail(){return admin.getEmail();}
+    public String getImagePath(){
         return admin.getImagePath();
+    }
+
+    public void setName(String name){
+        this.admin.setName(name);
+    }
+    public void setPhoto(String photo){
+        this.admin.setPhoto(photo);
     }
 
 }

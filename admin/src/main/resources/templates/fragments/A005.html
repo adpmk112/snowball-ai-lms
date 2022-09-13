@@ -5,16 +5,29 @@
 <main role="main">
     <div th:fragment="admin-profile">
 
-        <section th:if="${editType == 'update'}" class="Form my-4 mx-5 update-profile" >
+        <section  class="Form my-4 mx-5 update-profile" >
             <div class="container header-margin footer-margin" >
                 <form th:object="${adminDTO}" method="post" th:action="@{/admin/profileUpdate/}"  enctype="multipart/form-data">
                     <div class="row no-gutters form-color shodow-div-profile" style="background-color: white;">
 
                         <div class="col-lg-5 d-flex align-items-center justify-content-center  flex-column ">
-                            <div class="wrapper"  th:if="${#request.userPrincipal.principal.photo != null}">
+                            <div class="wrapper"  th:if="${photoName == null}">
+                                <div class="image-container">
+                                    <!--                                   <i class="fas fa-user"></i>-->
+                                    <img  src="../assets/img/profileboy.jpg"/>
+
+                                    <!--                                   <input type="hidden" th:field="*{photoName}">-->
+                                </div>
+                                <label for="img-input" class="camera-icon">
+                                    <i class="fas fa-camera"></i>
+                                </label>
+                                <input type="file" th:field="*{photo}"  id="img-input" accept="image/*" hidden/>
+                            </div>
+                            <div class="wrapper"  th:if="${photoName == 'default'}">
                                <div class="image-container">
 <!--                                   <i class="fas fa-user"></i>-->
-                                   <img th:src="@{${'/assets/img/admin/'+photoName}}" />
+                                   <img  src="../assets/img/profileboy.jpg"/>
+
 <!--                                   <input type="hidden" th:field="*{photoName}">-->
                                </div>
                                 <label for="img-input" class="camera-icon">
@@ -23,11 +36,11 @@
                                 <input type="file" th:field="*{photo}"  id="img-input" accept="image/*" hidden/>
                             </div>
 
-                            <!--/*@thymesVar id="principal" type="principal"*/-->
-                            <div class="wrapper" th:unless="${#request.userPrincipal.principal.photo != null}">
+<!--                            /*@thymesVar id="principal" type="principal"*/-->
+                            <div class="wrapper" th:unless="${photoName =='default'}">
                                <div class="image-container">
                                    <i class="fas fa-user"></i>
-                                   <img  src=""/>
+                                   <img th:src="@{${'/assets/img/admin/'+photoName}}" />
                                </div>
                                 <label for="img-input" class="camera-icon">
                                     <i class="fas fa-camera"></i>
@@ -65,31 +78,7 @@
                 </form>
             </div>
         </section>
-        <section th:if="${editType == 'change'}" class="Form my-4 mx-5 change-password" >
-            <div class="container header-margin footer-margin" >
-                <form th:object="${adminDTO}" method="post" th:action="@{/admin/changepassword/}">
-                    <div class="row no-gutters form-color shodow-div-profile d-flex  align-items-center justify-content-center" style="background-color: white;">
-                    <div class="col-lg-7 px-5 pt-2 ">
-                        <h1 class="font-weight-bold py-3">Change Password</h1>
-                        <div class="col-md-8">
-                            <input type="password" id="password" placeholder="Old Password" th:field="*{password}" class="form-control mb-3">
-                            <div class="alert alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
-                        </div>
-                        <div class="col-md-8">
-                            <input type="password" id="password" placeholder="New Password" th:field="*{password}" class="form-control mb-3">
-                            <div class="alert alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
-                        </div>
-                        <div class="col-md-8">
-                            <input type="password" id="password" placeholder="Confirm Password" th:field="*{password}" class="form-control mb-3">
-                            <div class="alert alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
-                        </div>
-                        <button type="submit" class="btn btn-outline-primary  mt-3 mb-5">Submit</button>
-                        <button type="reset" class="btn btn-outline-secondary  mt-3 mb-5 ms-3">Reset</button>
-                    </div>
-                    </div>
-                </form>
-            </div>
-        </section>
+
 
     </div>
 

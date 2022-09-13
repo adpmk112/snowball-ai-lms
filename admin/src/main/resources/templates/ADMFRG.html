@@ -171,10 +171,13 @@
                 data-bs-toggle="dropdown"
                 href="#"
               >
-                <div >
+                <div th:if="${#request.userPrincipal.principal.photo != null}">
                   <img id="profile-img"   th:src="@{${'/assets/img/admin/'+#request.userPrincipal.principal.photo}}"/>
                 </div>
-               <!--/*@thymesVar id="principal" type="principal"*/-->
+                <div th:unless="${#request.userPrincipal.principal.photo != null}">
+                  <img id="profile-img"   src="../assets/img/profileboy.jpg"/>
+                </div>
+
 
 
               </a>
@@ -226,7 +229,7 @@
                 <div class="card-body p-4">
                   <div class="d-flex text-black">
                     <div class="flex-shrink-0">
-                      <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
+                      <img th:src="@{${'/assets/img/admin/'+#request.userPrincipal.principal.photo}}"
                            alt="Generic placeholder image" class="img-fluid"
                            style="width: 180px; border-radius: 10px;">
                     </div>
@@ -249,8 +252,8 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <a class="btn btn-primary" th:href="@{/admin/updateProfile/}" role="button">Update Profile</a>
-              <a class="btn btn-primary" th:href="@{/admin/changepassword/}" role="button">Change Password</a>
+              <a class="btn btn-primary" th:href="@{/admin/updateProfileSetUp/}" role="button">Update Profile</a>
+              <a class="btn btn-primary" th:href="@{/admin/changePasswordSetUp/}" role="button">Change Password</a>
             </div>
           </div>
         </div>
