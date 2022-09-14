@@ -1,24 +1,17 @@
 package com.ace.ai.admin.service;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.ace.ai.admin.datamodel.BatchExamForm;
 import com.ace.ai.admin.datamodel.ExamForm;
 import com.ace.ai.admin.dtomodel.ExamScheduleDTO;
 import com.ace.ai.admin.repository.BatchExamFormRepository;
 import com.ace.ai.admin.repository.ExamFormRepository;
-
-import lombok.extern.slf4j.Slf4j;
 
 @Service
 public class ExamScheduleService {
