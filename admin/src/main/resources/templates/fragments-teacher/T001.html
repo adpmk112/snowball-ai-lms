@@ -176,62 +176,50 @@
                                   </a> -->
                     </div>
                   </div>
-                  <!-- <table id="datatable">
-                  <thead>
-                    <tr>
+                <table id="datatable">
+                  <thead >
+                    <tr >
                       <th>Name</th>
-                      <th>Mg Mg</th>
-                      <th>Ag Hla</th>
-                      <th>Min Oo</th>
-                      <th>Win Maw</th>
-
+                      <span th:each="batch : ${teaceherDashboardAssignmentDTOList}">
+                      <th
+                        th:each="student : ${batch.teacherDashboardAssignmentStudentMarksDTO}"
+                        th:text="${student.studentName}"
+                      ></th>
+                      </span> 
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Final Exam</td>
-                      <td>80/100</td>
-                      <td>80/100</td>
-                      <td>80/100</td>
-                      <td>80/100</td>
+                    <tr th:each="batch : ${teaceherDashboardAssignmentDTOList}">
+                      <td th:text="${batch.assignmentName}"></td>
+                      <td
+                      th:each="student : ${batch.teacherDashboardAssignmentStudentMarksDTO}" th:text="${student.studentMarks}"
+                      ></td>
                       <td>
-                        <a href="" class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
-                          Go to Marks<ion-icon name="arrow-forward-circle-outline"></ion-icon>
+                        <a
+                          href=""
+                          class="btn btn-outline-primary btn-floating"
+                          data-mdb-ripple-color="dark"
+                        >
+                          Go to Marks<ion-icon
+                            name="arrow-forward-circle-outline"
+                          ></ion-icon>
                         </a>
-
                       </td>
                       <td></td>
                     </tr>
                   </tbody>
-                  <tbody>
-                    <tr>
-                      <td>Semi Exam</td>
-                      <td>80/100</td>
-                      <td>80/100</td>
-                      <td>80/100</td>
-                      <td>80/100</td>
-                      <td>
-                        <a href="" class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
-                          Go to Marks<ion-icon name="arrow-forward-circle-outline"></ion-icon>
-                        </a>
-
-
-                      </td>
-                      <td></td>
-                    </tr>
-                  </tbody>
-                </table> -->
-                  <table id="datatable">
+                </table>
+                  <!-- <table id="datatable">
                     <thead >
                       <tr >
                         <th>Name</th>
-                        <span th:each="batch : ${teacherDashboardExamDTO}">
+                        
                         <th
-                          th:each="student : ${batch.studentExamMarkDTO}"
-                          th:text="${student.studentName}"
+                          th:each="studentName : ${studentNameList}"
+                          th:text="${studentName.name}"
                         ></th>
-                        </span> 
+                        
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -255,7 +243,7 @@
                         <td></td>
                       </tr>
                     </tbody>
-                  </table>
+                  </table> -->
                 </div>
                 <input type="radio" id="tabcomment" name="mytabs" />
                 <label for="tabcomment" id="lab">Comment</label>
