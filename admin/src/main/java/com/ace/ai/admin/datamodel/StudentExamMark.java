@@ -22,7 +22,8 @@ public class StudentExamMark implements Serializable{
     private int id;
     private int studentMark;
     private String uploadedFile;
-    private Boolean notification;
+    @Column(columnDefinition = "tinyint(1) default 0")
+    private boolean notification;
     @Column(columnDefinition = "tinyint(1) default 0")
     private boolean deleteStatus;
 

@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Column;
 import lombok.Data;
-import javax.persistence.Column;
+
 @Entity
 @Data
 public class Comment implements Serializable {
@@ -22,6 +22,7 @@ public class Comment implements Serializable {
     private String location;
     private String dateTime;
     private String commenterCode;
+    @Column(columnDefinition = "tinyint(1) default 1")
     private boolean notification;
     
     @Column(columnDefinition = "tinyint(1) default 0")
