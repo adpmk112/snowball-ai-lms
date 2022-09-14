@@ -21,7 +21,6 @@ public class Assignment implements Serializable {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
     private String name;
-    private String filePath;
     private String assignmentChapterName;
     @Column(columnDefinition = "tinyint(1) default 0")
     private boolean deleteStatus;
