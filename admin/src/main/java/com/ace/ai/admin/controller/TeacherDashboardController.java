@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ace.ai.admin.datamodel.Batch;
 import com.ace.ai.admin.datamodel.Student;
+import com.ace.ai.admin.dtomodel.TeaceherDashboardAssignmentDTO;
 import com.ace.ai.admin.dtomodel.TeacherCommentDTO;
 import com.ace.ai.admin.dtomodel.TeacherDashboardChartDTO;
 import com.ace.ai.admin.dtomodel.TeacherDashboardChartJsDTO;
@@ -79,12 +80,14 @@ public class TeacherDashboardController {
         List<TeacherDashboardExamDTO> teacherDashboardExamDTO = teacherDashboardService.getStudentNameAndExamMarkByBatchId(batchId);
         List<Student> studentNameList = studentRepository.findByDeleteStatusAndBatchId(false,batchId);
         List<TeacherCommentDTO> teacherCommentDTOList = teacherDashboardService.getCommentByBatchId(batchId);
+        List<TeaceherDashboardAssignmentDTO> teaceherDashboardAssignmentDTOList = teacherDashboardService.getStuNameAndAssignmentMarksByBatchId(batchId);
         model.addAttribute("teacherDashboardExamDTO", teacherDashboardExamDTO);
         model.addAttribute("totalBatch", totalBatch);
         model.addAttribute("batchList", batchList);
         model.addAttribute("batchStudentList", batchStudentList);
         model.addAttribute("studentNameList", studentNameList);
         model.addAttribute("teacherCommentDTOList", teacherCommentDTOList);
+        model.addAttribute("teaceherDashboardAssignmentDTOList",teaceherDashboardAssignmentDTOList);
         return "T001";
     }
 
