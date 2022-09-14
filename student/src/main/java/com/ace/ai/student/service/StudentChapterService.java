@@ -12,10 +12,13 @@ import com.ace.ai.student.datamodel.CustomChapter;
 import com.ace.ai.student.datamodel.CustomChapterFile;
 import com.ace.ai.student.dtomodel.ChapterFileDTO;
 import com.ace.ai.student.repository.ChapterFileRepository;
+import com.ace.ai.student.repository.ChapterRepository;
 import com.ace.ai.student.repository.CustomChapterFileRepository;
 
 @Service
 public class StudentChapterService {
+    @Autowired
+    ChapterRepository chapterRepository;
     @Autowired
     ChapterFileRepository chapterFileRepository;
     @Autowired
@@ -62,6 +65,10 @@ public class StudentChapterService {
         chapterFileDTO.setFileType(chapterFile.getFileType());
 
         return chapterFileDTO;
+    }
+
+    public Chapter findChapterById(int chapterId){
+        return chapterRepository.findById(chapterId).get();
     }
 
     public ChapterFileDTO getCustomChapterFileById(int customChapterFileId, int customChapterId) {
