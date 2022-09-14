@@ -3,12 +3,14 @@ package com.ace.ai.admin.dtomodel;
 import java.time.LocalDate;
 
 public class ChapterDTO {
+    private int id;
     private String name; //chapter table
     private String status;//calculation
     private LocalDate start_date; // chapter batch table
     private LocalDate end_date;// chapter batch table
     private String teacher_code;
 
+    
     public String getTeacher_code() {
         return teacher_code;
     }
@@ -47,5 +49,13 @@ public class ChapterDTO {
 
     public void setEnd_date(LocalDate end_date) {
         this.end_date = end_date;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
