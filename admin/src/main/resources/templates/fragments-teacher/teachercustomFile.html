@@ -3,14 +3,14 @@
 
 <body>
   <main>
-    <div th:fragment="chapterFile-list">
+    <div th:fragment="customChapterFile-list">
       <div class="semi-circle"></div>
       <div class="banner">
         <div class="circle">
           <i class="fa-regular fa-folder-open"></i>
         </div>
         <div>
-          <h1>Courses</h1>
+          <h1>New Activity</h1>
           <h3 th:text="${courseCount}"></h3>
         </div>
       </div>
@@ -22,19 +22,18 @@
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                      <a class="text-decoration-none" href="/admin/course">
-                        Course List
+                      <a class="text-decoration-none" href="">
+                        Batch List
                       </a>
                     </li>
                     <li class="breadcrumb-item">
-                      <a class="text-decoration-none"
-                        th:href="@{/admin/course/courseDetail(courseId=${courseId},radio='chapter')}">
-                        Course Details
+                      <a class="text-decoration-none" th:href="">
+                        Batch Details
                       </a>
                     </li>
                     <li class="breadcrumb-item">
-                      <a class="text-decoration-none" href="A002-03.html">
-                        Chapter File List
+                      <a class="text-decoration-none" href="">
+                        ActivityFile List
                       </a>
                     </li>
                   </ol>
@@ -44,7 +43,7 @@
             </div>
             <div class="mytabs">
               <input type="radio" id="tabunit" name="mytabs" checked="checked" />
-              <label for="tabunit" id="lab">Chapter Name</label>
+              <label for="tabunit" id="lab">Acticity Name</label>
               <div class="tab">
                 <div class="add-list">
                   <label>Add File</label>
@@ -63,20 +62,20 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr th:each="chapterFile : ${chapterFileList}">
-                      <td th:text="${chapterFile.name}"></td>
-                      <td th:text="${chapterFile.fileType}"></td>
-                      <td th:if="${chapterFile.fileType == 'video'}">
+                    <tr th:each="customChapterFile : ${customChapterFileList}">
+                      <td th:text="${customChapterFile.name}"></td>
+                      <td th:text="${customChapterFile.fileType}"></td>
+                      <td th:if="${customChapterFile.fileType == 'video'}">
 
                         <video controls controlsList="nodownload" width="130" height="75">
-                          <source th:src="@{${'/assets/img/chapterFiles/'+chapterId+'/'+chapterFile.name}}" />
+                          <source th:src="@{${'/assets/img/customChapterFiles/'+customChapterId+'/'+customChapterFile.name}}" />
 
                         </video>
 
                       </td>
-                      <td th:unless="${chapterFile.fileType == 'video'}">
+                      <td th:unless="${customChapterFile.fileType == 'video'}">
 
-                        <a th:href="@{${'/assets/img/chapterFiles/'+chapterId+'/'+chapterFile.name}}"
+                        <a th:href="@{${'/assets/img/customChapterFiles/'+customChapterId+'/'+customChapterFile.name}}"
                           class="btn btn-outline-primary btn-floating" data-bs-target="#edit-file"
                           data-mdb-ripple-color="dark" style="margin-left: 30px;">
                           <i class="fa-solid fa-download"></i>
@@ -84,25 +83,25 @@
 
                       </td>
                       <td>
-                        <a th:attr="href='#edit-model'+${chapterFile.id}" class="btn btn-outline-primary btn-floating"
+                        <a th:attr="href='#edit-model'+${customChapterFile.id}" class="btn btn-outline-primary btn-floating"
                           data-bs-toggle="modal" data-mdb-ripple-color="dark">
                           <i class="fa-regular fa-pen-to-square"></i>
                         </a>
 
 
 
-                        <a th:id="${chapterFile.id}" class="btn btn-outline-danger remove-chapterFile btn-floating"
+                        <a th:id="${customChapterFile.id}" class="btn btn-outline-danger remove-customChapterFile btn-floating"
                           data-mdb-ripple-color="dark">
                           <i class="fa-solid fa-circle-minus"></i>
                         </a>
-                        <!-- <a th:href="@{/admin/course/chapter/chapterFile/delete(chapterFileId=${chapterFile.id},chapterId=${chapterId})}"
+                        <!-- <a th:href="@{/admin/course/chapter/customChapterFile/delete(customChapterFileId=${customChapterFile.id},customChapterId=${customChapterId})}"
                           class="btn delete-chapter-file btn-outline-danger btn-floating" data-mdb-ripple-color="dark">
                           <i class="fa-solid fa-circle-minus"></i>
                         </a>  -->
                       </td>
                       <!-- Edit File Modal Box-->
 
-                      <div class="modal fade" th:attr="id='edit-model'+${chapterFile.id}" tabindex="-1"
+                      <div class="modal fade" th:attr="id='edit-model'+${customChapterFile.id}" tabindex="-1"
                         aria-labelledby="Edit File" aria-hidden="true" style="margin-top: 120px;">
                         <div class="modal-dialog">
                           <div class="modal-content">
@@ -112,25 +111,25 @@
                                 aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                              <form th:action="@{chapterFile/editpost}" method="post" th:object="${chapterFileDTO}"
+                              <form th:action="@{activityFile/edit}" method="post" th:object="${customChapterFileDTO}"
                                 enctype="multipart/form-data">
-                                <input type="hidden" class="form-control" name="id" th:value="${chapterFile.id}"
+                                <input type="hidden" class="form-control" name="id" th:value="${customChapterFile.id}"
                                   id="message-text" />
-                                <input type="hidden" class="form-control" name="chapterId" th:value="${chapterId}"
+                                <input type="hidden" class="form-control" name="customChapterId" th:value="${customChapterId}"
                                   id="message-text" />
                                 <div class="mb-3">
-                                  <input type="text" class="form-control" th:value="${chapterFile.fileType}"
+                                  <input type="text" class="form-control" th:value="${customChapterFile.fileType}"
                                     name="fileType" id="message-text" readonly />
                                 </div>
-                                <div class="mb-3" th:if="${chapterFile.fileType == 'video'}">
+                                <div class="mb-3" th:if="${customChapterFile.fileType == 'video'}">
                                   <input type="file" class="form-control" id="name" placeholder="Files"
                                     th:field="*{file}" accept="video/mp4,video/x-m4v,video/*" />
                                 </div>
-                                <div class="mb-3" th:if="${chapterFile.fileType == 'pdf'}">
+                                <div class="mb-3" th:if="${customChapterFile.fileType == 'pdf'}">
                                   <input type="file" class="form-control" id="name" placeholder="Files"
                                     th:field="*{file}" accept="application/pdf" />
                                 </div>
-                                <div class="mb-3" th:if="${chapterFile.fileType == 'assignment'}">
+                                <div class="mb-3" th:if="${customChapterFile.fileType == 'assignment'}">
                                   <input type="file" class="form-control" id="name" placeholder="Assignment"
                                     th:field="*{file}" />
                                 </div>
@@ -167,10 +166,10 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form th:action="@{chapterFile/addpost}" method="post" th:object="${chapterFileDTO}"
+              <form th:action="@{customChapterFile/addpost}" method="post" th:object="${customChapterFileDTO}"
                 enctype="multipart/form-data">
                 <div class="mb-3">
-                  <input type="hidden" class="form-control" name="chapterId" th:value="${chapterId}"
+                  <input type="hidden" class="form-control" name="customChapterId" th:value="${customChapterId}"
                     id="message-text" />
                   <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="fileType">
                     <option value="" disabled selected>Choose File Type</option>

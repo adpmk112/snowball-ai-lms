@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,26 +22,31 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ace.ai.admin.datamodel.Batch;
 import com.ace.ai.admin.datamodel.CustomChapter;
 import com.ace.ai.admin.datamodel.CustomChapterFile;
+import com.ace.ai.admin.dtomodel.ChapterFileDTO;
+import com.ace.ai.admin.dtomodel.ChapterRenameDTO;
+import com.ace.ai.admin.dtomodel.CustomChapterFileDTO;
 import com.ace.ai.admin.dtomodel.NewActivityDTO;
+import com.ace.ai.admin.repository.CustomChapterRepository;
 import com.ace.ai.admin.service.BatchService;
 import com.ace.ai.admin.service.CustomChapterService;
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
 @Controller
-@RequestMapping("teacher/course")
-public class TeacherAddNewActivity {
+@RequestMapping("teacher/batch/course")
+public class TeacherNewActivity {
     @Autowired
     CustomChapterService customChapterService;
     @Autowired
     BatchService batchService;
 
-    @GetMapping("/addNewActivity")
+    @GetMapping("/addActivity")
     public ModelAndView addNewActivity(@RequestParam("batchId") int batchId, ModelMap model) {
         NewActivityDTO newActivityDTO = new NewActivityDTO();
         newActivityDTO.setBatchId(batchId);
-        return new ModelAndView("", "newActivityDTO", newActivityDTO);
+        return new ModelAndView("T003-04", "newActivityDTO", newActivityDTO);
     }
 
-    @PostMapping("/addNewActivity")
+    @PostMapping("/addActivityPost")
     public String addNewActivityPost(@ModelAttribute("newActivityDTO") NewActivityDTO newActivityDTO, ModelMap model) {
         try {
             Batch batch = new Batch();
@@ -64,7 +70,7 @@ public class TeacherAddNewActivity {
                     customChapterFile.setName(fileName);
                     customChapterFile.setFileType(fileType);
                     customChapterFile.setCustomChapter(toSetCustomChapterId);
-                    
+
                     customChapterService.saveCustomChapterFile(customChapterFile);
                 }
             }
@@ -77,7 +83,7 @@ public class TeacherAddNewActivity {
                     customChapterFile.setName(fileName);
                     customChapterFile.setFileType(fileType);
                     customChapterFile.setCustomChapter(toSetCustomChapterId);
-                   
+
                     customChapterService.saveCustomChapterFile(customChapterFile);
                 }
             }
@@ -92,7 +98,7 @@ public class TeacherAddNewActivity {
                     customChapterFile.setName(fileName);
                     customChapterFile.setFileType(fileType);
                     customChapterFile.setCustomChapter(toSetCustomChapterId);
-                    
+
                     customChapterService.saveCustomChapterFile(customChapterFile);
                 }
             }
@@ -143,6 +149,118 @@ public class TeacherAddNewActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "redirect:/teacher/course/addNewActivity?batchId=" + newActivityDTO.getBatchId();
+        return "redirect:/teacher/course/addActivity?batchId=" + newActivityDTO.getBatchId();
     }
+
+    @PostMapping("/activity/edit")
+    public String editCustomChapter(@ModelAttribute("chapterRenameDTO") ChapterRenameDTO chapterRenameDTO,ModelMap model){
+        customChapterService.editCustomChapter(chapterRenameDTO.getId(), chapterRenameDTO.getName());;
+        return "redirect:/";
+    }
+
+    @GetMapping("/activityFile")
+    public ModelAndView getActivityFiles(@RequestParam("customChapterId") int customChapterId, ModelMap model) {
+        List<CustomChapterFile> customChapterFileList = customChapterService
+                .getCustomChapterFileListById(customChapterId);
+        int batchId = customChapterService.getCustomChapterById(customChapterId).getBatch().getId();
+
+        model.addAttribute("batchId", batchId);
+        model.addAttribute("customChapterId", customChapterId);
+        model.addAttribute("customChapterFileDTO", new CustomChapterFileDTO());
+        return new ModelAndView("", "customChapterFileList", customChapterFileList);
+    }
+
+    @PostMapping("/activityFile/add")
+    public String addCustomChapterFile(@ModelAttribute("customChapterFileDTO") CustomChapterFileDTO customChapterFileDTO, ModelMap model)
+            throws IOException {
+        CustomChapter customChapter = customChapterService.getCustomChapterById(customChapterFileDTO.getCustomChapterId());
+
+        CustomChapterFile customChapterFile = new CustomChapterFile();
+        customChapterFile.setCustomChapter(customChapter);
+        customChapterFile.setFileType(customChapterFileDTO.getFileType());
+        customChapterFile.setName(customChapterFileDTO.getFile().getOriginalFilename());
+        customChapterService.saveCustomChapterFile(customChapterFile);
+
+        Path uploadPath = Paths.get("./assets/img/customChapterFiles/" + customChapterFileDTO.getCustomChapterId());
+        if (!Files.exists(uploadPath)) {
+            try {
+                Files.createDirectories(uploadPath);
+            } catch (IOException e) {
+
+                e.printStackTrace();
+            }
+        }
+        try (InputStream inputStream = customChapterFileDTO.getFile().getInputStream()) {
+            Path filePath = uploadPath.resolve(customChapterFileDTO.getFile().getOriginalFilename());
+            System.out.println(filePath.toFile().getAbsolutePath());
+            Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            try {
+                throw new IOException("Could not save upload file: " + customChapterFileDTO.getFile().getOriginalFilename());
+            } catch (IOException e1) {
+
+                e1.printStackTrace();
+            }
+        }
+
+        return "redirect:/teacher/batch/course/activityFile?customChapterId=" + customChapterFileDTO.getCustomChapterId();
+    }
+
+    @PostMapping("/activityFile/edit")
+    public String editCustomChapterFile(@ModelAttribute("customChapterFileDTO") CustomChapterFileDTO customChapterFileDTO, ModelMap model)
+            throws IOException {
+        CustomChapter customChapter = customChapterService.getCustomChapterById(customChapterFileDTO.getCustomChapterId());
+        CustomChapterFile customChapterFile = new CustomChapterFile();
+
+        customChapterFile.setFileType(customChapterFileDTO.getFileType());
+        customChapterFile.setId(customChapterFileDTO.getId());
+        customChapterFile.setName(customChapterFileDTO.getFile().getOriginalFilename());
+        customChapterFile.setCustomChapter(customChapter);
+
+        CustomChapterFile oldCustomChapterFile = customChapterService.getCustomChapterFileById(customChapterFileDTO.getId());
+
+        Path path = Paths
+                .get("./assets/img/customChapterFiles/" + customChapterFileDTO.getCustomChapterId() + "/" + oldCustomChapterFile.getName());
+        Files.delete(path);
+
+        customChapterService.saveCustomChapterFile(customChapterFile);
+
+        String uploadDir = "./assets/img/customChapterFiles/" + customChapterFileDTO.getCustomChapterId();
+        Path uploadPath = Paths.get(uploadDir);
+        if (!Files.exists(uploadPath)) {
+            try {
+                Files.createDirectories(uploadPath);
+            } catch (IOException e) {
+
+                e.printStackTrace();
+            }
+        }
+        try (InputStream inputStream = customChapterFileDTO.getFile().getInputStream()) {
+            Path filePath = uploadPath.resolve(customChapterFileDTO.getFile().getOriginalFilename());
+            System.out.println(filePath.toFile().getAbsolutePath());
+            Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            try {
+                throw new IOException("Could not save upload file: " + customChapterFileDTO.getFile().getOriginalFilename());
+            } catch (IOException e1) {
+
+                e1.printStackTrace();
+            }
+        }
+
+        model.addAttribute("msg", "Update Successfully !!!");
+        return "redirect:/teacher/batch/course/activityFile?customChapterId=" + customChapterFileDTO.getCustomChapterId();
+
+    }
+
+    @GetMapping("/activityFile/delete")
+    public String deleteCustomChapterFile(@RequestParam("customChapterFileId")int customChapterFileId,ModelMap model){
+        int customChapterId = customChapterService.getCustomChapterFileById(customChapterFileId).getCustomChapter().getId();
+        customChapterService.deleteCustomChapterFile(customChapterFileId);
+        
+      
+        
+        return "redirect:/teacher/batch/course/activityFile?customChapterId=" + customChapterId;
+    }
+
 }

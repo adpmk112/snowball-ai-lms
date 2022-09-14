@@ -24,9 +24,9 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@RequestMapping(value = "/teacher/batch")
+public class TeacherClassroomController{
 
-@RequestMapping(value = "/admin/batch")
-public class ClassRoomController {
     @Autowired
     ClassRoomService classRoomService;
 
@@ -41,7 +41,7 @@ public class ClassRoomController {
         model.addAttribute("batchId", id);
         model.addAttribute("batchName", batchService.getById(id).getName());
         model.addAttribute("courseName", batchService.getById(id).getCourse().getName());
-        return new ModelAndView("A003-06", "reqClassroomDTO", reqClassroomDTO);
+        return new ModelAndView("T004", "reqClassroomDTO", reqClassroomDTO);
     }
 
     @PostMapping("/createClassroom")
@@ -62,7 +62,7 @@ public class ClassRoomController {
         model.addAttribute("batchName", batchService.getById(batchId).getName());
         model.addAttribute("courseName", batchService.getById(batchId).getCourse().getName());
         model.addAttribute("teacherList", classRoomService.fetchTeacherListForClassroom(reqClassroomDTO.getBatchId()));
-        return new ModelAndView("A003-06", "reqClassroomDTO", reqClassroomDTO);
+        return new ModelAndView("T004", "reqClassroomDTO", reqClassroomDTO);
     }
 
     @GetMapping("/setupClassroomEdit/{classId}")
@@ -84,7 +84,7 @@ public class ClassRoomController {
         model.addAttribute("batchName", classroom.getBatch().getName());
         model.addAttribute("batchId", classroom.getBatch().getId());
         model.addAttribute("courseName", classroom.getBatch().getCourse().getName());
-        return new ModelAndView("A003-07","reqClassroom",reqClassroomDTO);
+        return new ModelAndView("T004-01","reqClassroom",reqClassroomDTO);
     }
 
     @PostMapping("/editClassroom/{classId}")
@@ -110,7 +110,7 @@ public class ClassRoomController {
         model.addAttribute("batchId", classroom.getBatch().getId());
         model.addAttribute("courseName", classroom.getBatch().getCourse().getName());
         model.addAttribute("msg", "Classroom updated !");
-        return "A003-07";
+        return "T004-01";
     }
 
     @GetMapping("/deleteClassroom/{classId}")
@@ -134,9 +134,7 @@ public class ClassRoomController {
          model.addAttribute("batchName", classroom.getBatch().getName());
          model.addAttribute("batchId", classroom.getBatch().getId());
          model.addAttribute("courseName", classroom.getBatch().getCourse().getName());
-         return "redirect:/admin/batch/batchSeeMore?id=" +classroom.getBatch().getId()+ "&radio=classroom";
+         return "redirect:/teacher/batch/batchSeeMore?batchId=" +classroom.getBatch().getId()+ "&radio=classroom";
 
     }
 }
-
-

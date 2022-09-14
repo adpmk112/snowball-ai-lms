@@ -11,4 +11,5 @@ public class StuReplyPostDTO {
     private boolean notification;
     private int commentId;
     private boolean deleteStatus;
+    private int stuId;
 }

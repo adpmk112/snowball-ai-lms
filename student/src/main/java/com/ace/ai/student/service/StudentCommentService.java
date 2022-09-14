@@ -19,6 +19,8 @@ import com.ace.ai.student.dtomodel.StuReplyViewDTO;
 import com.ace.ai.student.repository.BatchRepository;
 import com.ace.ai.student.repository.CommentRepository;
 import com.ace.ai.student.repository.ReplyRepository;
+import com.ace.ai.student.repository.StudentRepository;
+import com.ace.ai.student.repository.TeacherRepository;
 
 @Service
 public class StudentCommentService {
@@ -28,21 +30,34 @@ public class StudentCommentService {
     ReplyRepository replyRepository;
     @Autowired
     BatchRepository batchRepository;
+    @Autowired
+    StudentRepository studentRepository;
+    @Autowired
+    TeacherRepository teacherRepository;
 
-    public List<StuCommentViewDTO> getCommentListByBatchIdAndLocation(int batchId,String location){
+    public List<StuCommentViewDTO> getCommentListByBatchIdAndLocation(int batchId, String location) {
         List<StuCommentViewDTO> stuCommentViewDTOList = new ArrayList<>();
         List<Comment> commentList = commentRepository.findByBatchIdAndLocation(batchId, location);
-        for(Comment comment : commentList){
+        for (Comment comment : commentList) {
             StuCommentViewDTO stuCommentViewDTO = new StuCommentViewDTO();
-            List<Reply> replyList =replyRepository.findByCommentId(comment.getId());
+            List<Reply> replyList = replyRepository.findByCommentId(comment.getId());
             List<StuReplyViewDTO> stuReplyViewDTOList = new ArrayList<>();
-            for(Reply reply : replyList){
+            for (Reply reply : replyList) {
                 StuReplyViewDTO stuReplyViewDTO = new StuReplyViewDTO();
                 stuReplyViewDTO.setId(reply.getId());
                 stuReplyViewDTO.setText(reply.getText());
                 stuReplyViewDTO.setDateTime(reply.getDateTime());
                 stuReplyViewDTO.setCommentId(reply.getComment().getId());
-                stuReplyViewDTO.setCommenterCode(reply.getCommenterCode());
+
+                String stuName = studentRepository.findByCode(reply.getCommenterCode()).getName();
+                String teacherName = teacherRepository.findByCode(reply.getCommenterCode()).getName();
+
+                if (stuName.isBlank()) {
+                    stuReplyViewDTO.setCommenterName(teacherName);
+                } else if (teacherName.isBlank()) {
+                    stuReplyViewDTO.setCommenterName(stuName);
+                }
+
                 stuReplyViewDTO.setDeleteStatus(reply.isDeleteStatus());
                 stuReplyViewDTO.setNotification(reply.isNotification());
                 stuReplyViewDTOList.add(stuReplyViewDTO);
@@ -52,22 +67,30 @@ public class StudentCommentService {
             stuCommentViewDTO.setText(comment.getText());
             stuCommentViewDTO.setLocation(comment.getLocation());
             stuCommentViewDTO.setDateTime(comment.getDateTime());
-            stuCommentViewDTO.setCommenterCode(comment.getCommenterCode());
+            String stuName = studentRepository.findByCode(comment.getCommenterCode()).getName();
+            String teacherName = teacherRepository.findByCode(comment.getCommenterCode()).getName();
+
+            if (stuName.isBlank()) {
+                stuCommentViewDTO.setCommenterName(teacherName);
+            } else if (teacherName.isBlank()) {
+                stuCommentViewDTO.setCommenterName(stuName);
+                
+            }
             stuCommentViewDTO.setNotification(comment.isNotification());
             stuCommentViewDTO.setStuReplayViewDTOList(stuReplyViewDTOList);
             stuCommentViewDTOList.add(stuCommentViewDTO);
         }
-        return  stuCommentViewDTOList;
+        return stuCommentViewDTOList;
     }
 
-    public void saveComment(StuCommentPostDTO stuCommentPostDTO){
+    public void saveComment(StuCommentPostDTO stuCommentPostDTO) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         Batch batch = batchRepository.findById(stuCommentPostDTO.getBatchId()).get();
-        
+
         Comment comment = new Comment();
         comment.setCommenterCode(stuCommentPostDTO.getCommenterCode());
         comment.setDateTime(LocalDateTime.now().format(dtf));
-        //location need to set in controller
+        // location need to set in controller
         comment.setLocation(stuCommentPostDTO.getLocation());
         comment.setNotification(true);
         comment.setText(stuCommentPostDTO.getText());
@@ -75,7 +98,7 @@ public class StudentCommentService {
         commentRepository.save(comment);
     }
 
-    public void saveReply(StuReplyPostDTO stuReplyPostDTO){
+    public void saveReply(StuReplyPostDTO stuReplyPostDTO) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         Comment comment = commentRepository.findById(stuReplyPostDTO.getCommentId()).get();
         Reply reply = new Reply();
@@ -85,6 +108,7 @@ public class StudentCommentService {
         reply.setNotification(true);
         reply.setText(stuReplyPostDTO.getText());
         replyRepository.save(reply);
-    
+
     }
+
 }

@@ -2,15 +2,11 @@ package com.ace.ai.admin.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.aspectj.apache.bcel.classfile.Code;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.ace.ai.admin.datamodel.Batch;
 import com.ace.ai.admin.datamodel.BatchExamForm;
 import com.ace.ai.admin.datamodel.Comment;
-import com.ace.ai.admin.datamodel.ExamForm;
 import com.ace.ai.admin.datamodel.Student;
 import com.ace.ai.admin.datamodel.StudentExamMark;
 import com.ace.ai.admin.datamodel.Teacher;
@@ -22,9 +18,7 @@ import com.ace.ai.admin.dtomodel.TeacherDashboardDTO;
 import com.ace.ai.admin.dtomodel.TeacherDashboardExamDTO;
 import com.ace.ai.admin.repository.AttendanceRepository;
 import com.ace.ai.admin.repository.BatchExamFormRepository;
-import com.ace.ai.admin.repository.BatchRepository;
 import com.ace.ai.admin.repository.CommentRepository;
-import com.ace.ai.admin.repository.ExamFormRepository;
 import com.ace.ai.admin.repository.StudentExamMarkRepository;
 import com.ace.ai.admin.repository.StudentRepository;
 import com.ace.ai.admin.repository.TeacherBatchRepository;

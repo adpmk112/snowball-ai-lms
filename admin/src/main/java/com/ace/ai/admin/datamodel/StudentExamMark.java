@@ -35,6 +35,10 @@ public class StudentExamMark implements Serializable{
     @JoinColumn(name = "exam_form_id")
     private ExamForm examForm;
 
+    @ManyToOne
+    @JoinColumn(columnDefinition="integer", name = "batch_exam_form_id")
+    private BatchExamForm batchExamForm;
+
     public StudentExamMark(int studentMark, String uploadedFile, Boolean notification, Student student, ExamForm examForm){
         this.studentMark = studentMark;
         this.uploadedFile = uploadedFile;

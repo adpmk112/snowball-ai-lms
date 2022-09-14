@@ -171,11 +171,19 @@
                 data-bs-toggle="dropdown"
                 href="#"
               >
-                <img id="profile-img" th:src="@{${#request.userPrincipal.principal.photo}}" />
+                <div th:if="${#request.userPrincipal.principal.photo != null}">
+                  <img id="profile-img"   th:src="@{${'/assets/img/admin/'+#request.userPrincipal.principal.photo}}"/>
+                </div>
+                <div th:unless="${#request.userPrincipal.principal.photo != null}">
+                  <img id="profile-img"   src="../assets/img/profileboy.jpg"/>
+                </div>
+
+
+
               </a>
               <div class="dropdown-menu dropdown-menu-end">
                 <a class="dropdown-item name" href="#">[[${#request.userPrincipal.principal.name}]]</a>
-                <a class="dropdown-item" th:href="@{/admin/profile/}">
+                <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">
                   <svg
                     class="dropdown-menu-item"
                     xmlns="http://www.w3.org/2000/svg"
@@ -208,6 +216,47 @@
           </div>
           <!--End container fluid-->
         </nav>
+      </div>
+      <div class="modal"  id="exampleModal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Your Profile</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="card" style="border-radius: 15px;">
+                <div class="card-body p-4">
+                  <div class="d-flex text-black">
+                    <div class="flex-shrink-0">
+                      <img th:src="@{${'/assets/img/admin/'+#request.userPrincipal.principal.photo}}"
+                           alt="Generic placeholder image" class="img-fluid"
+                           style="width: 180px; border-radius: 10px;">
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                      <h5 class="mb-1">[[${#request.userPrincipal.principal.name}]]</h5>
+                      <p class="mb-2 pb-1" style="color: #2b2a2a;">Id: [[${#request.userPrincipal.principal.code}]]</p>
+                      <div class="d-flex justify-content-start rounded-3 p-2 mb-2"
+                           style="background-color: #efefef;">
+                        <div>
+                          <p class="small  mb-1">Email Address :[[${#request.userPrincipal.principal.email}]]</p>
+
+                        </div>
+
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <a class="btn btn-primary" th:href="@{/admin/updateProfileSetUp/}" role="button">Update Profile</a>
+              <a class="btn btn-primary" th:href="@{/admin/changePasswordSetUp/}" role="button">Change Password</a>
+            </div>
+          </div>
+        </div>
       </div>
       <!--End header-div-->
     </header>
