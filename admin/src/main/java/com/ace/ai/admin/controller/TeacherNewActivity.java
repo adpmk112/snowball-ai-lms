@@ -43,6 +43,7 @@ public class TeacherNewActivity {
     public ModelAndView addNewActivity(@RequestParam("batchId") int batchId, ModelMap model) {
         NewActivityDTO newActivityDTO = new NewActivityDTO();
         newActivityDTO.setBatchId(batchId);
+        model.addAttribute("batchId", batchId);
         return new ModelAndView("T003-04", "newActivityDTO", newActivityDTO);
     }
 
@@ -149,7 +150,7 @@ public class TeacherNewActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "redirect:/teacher/course/addActivity?batchId=" + newActivityDTO.getBatchId();
+        return "redirect:/teacher/batch/course/addActivity?batchId=" + newActivityDTO.getBatchId();
     }
 
     @PostMapping("/activity/edit")

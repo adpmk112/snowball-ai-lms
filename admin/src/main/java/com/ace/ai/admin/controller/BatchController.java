@@ -137,7 +137,9 @@ public class BatchController {
     public String saveBatch(@ModelAttribute("batchDTO")@Validated BatchDTO batchDTO, BindingResult bs,Model model) {
         if(bs.hasErrors()){
             model.addAttribute("msg","Fill all Details!");
-            return "redirect:admin/batch/goToAddBatch";
+
+            return "redirect:/admin/batch/goToAddBatch";
+
         }else {
             Batch batch = new Batch();
             batch.setDeleteStatus(false);
