@@ -1,10 +1,21 @@
 package com.ace.ai.student.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ace.ai.student.datamodel.Answer;
 import com.ace.ai.student.datamodel.ExamForm;
@@ -76,9 +87,10 @@ public class ExamFormService {
                     question.getTrueAnswer(), question.getPoint(), "");
             questionDTO_list.add(questionDTO);
         }
-        return new ExamDTO(examId,studentId, name, type, duration, questionDTO_list, totalPoint,"no answer");
+        return new ExamDTO(examId,studentId, name, type, duration, questionDTO_list, totalPoint);
     }
     
+    //Save student answers for multiple choice questions
     public void saveAnswerAsMultipleChoice(ExamDTO examDTO){
         int studentId = examDTO.getStudentId();
         int examId = examDTO.getId();
@@ -93,5 +105,34 @@ public class ExamFormService {
         }
         StudentExamMark studentExamMark = new StudentExamMark(studentTotalMark,student,examForm);
         studentExamMarkService.save(studentExamMark);
+    }
+
+    //Save student Asnwers for file upload question
+    public void saveAnswerAsFileUpload(ExamDTO examDTO) throws IOException{
+        int studentId = examDTO.getStudentId();
+        int examId = examDTO.getId();
+        //String batchName = 
+        int studentTotalMark = 0;
+        String uploadDIR = "./StudentExamAnswers/"+examId+"/"+studentId+"/";
+        Student student = studentRepository.getById(studentId);
+        ExamForm examForm = examFormRepo.getById(examId);
+        MultipartFile answerFile = examDTO.getAnswerFile();
+        if(!answerFile.isEmpty()){
+            //File is named with student Name and date
+            String studentName = student.getName().trim().replaceAll("\\s","-");
+            //Get Now Date
+            // LocalDate date = LocalDate.now();
+            // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            // String nowDate = date.format(formatter);
+            String studentData = studentName;
+            String fileName = studentData+"-"+answerFile.getOriginalFilename();
+            //save the file on the local file system
+            Path path = Paths.get(uploadDIR + fileName);
+            if(!Files.exists(path)){
+                Files.createDirectories(path);
+            }
+            Files.copy(answerFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            
+        }
     }
 }

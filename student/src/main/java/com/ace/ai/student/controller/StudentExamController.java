@@ -1,5 +1,6 @@
 package com.ace.ai.student.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,13 +49,15 @@ public class StudentExamController {
     }
 
     @PostMapping("/studentExamAnswer")
-    public String studentExamAnswer(@ModelAttribute("exam") ExamDTO examDTO){
+    public String studentExamAnswer(@ModelAttribute("exam") ExamDTO examDTO) throws IOException{
         int studentId = examDTO.getStudentId();
         String type = examDTO.getType();
         if(type.equalsIgnoreCase("multiple choice")){
             examFormService.saveAnswerAsMultipleChoice(examDTO);
         }
-        System.out.println(examDTO.getAnswerFile());
+        else{
+            examFormService.saveAnswerAsFileUpload(examDTO);
+        }
         return "redirect:/exam?studentId="+studentId;
     }
 }

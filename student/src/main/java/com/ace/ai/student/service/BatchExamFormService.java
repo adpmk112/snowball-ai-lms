@@ -66,7 +66,7 @@ public class BatchExamFormService {
         String formattedString = now.format(formatter);
         LocalDateTime formattedNow = LocalDateTime.parse(formattedString, dtf);
         for(BatchExamForm bef: allBef){
-            if(!bef.getEndDate().isBlank()){
+            if(!bef.getEndDate().isBlank() && bef.getEndDate() != null){
                 LocalDateTime endDate = LocalDateTime.parse(bef.getEndDate().replace("T", " "), dtf);
                 if(formattedNow.isAfter(endDate)){
                     int mark = (studentExamMarkRepository.findByExamForm_IdAndStudent_Id(bef.getExamForm().getId(), studentId) == null)? 0: studentExamMarkRepository.findByExamForm_IdAndStudent_Id(bef.getExamForm().getId(), studentId).getStudentMark();

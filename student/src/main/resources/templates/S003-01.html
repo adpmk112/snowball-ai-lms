@@ -42,7 +42,7 @@
         </div>
       </div>
       <ul class="exam-body">
-        <form th:action="@{/studentExamAnswer}" th:object="${exam}" id="examForm" method="post">       
+        <form th:action="@{/studentExamAnswer}" enctype="multipart/form-data" th:object="${exam}" id="examForm" method="post">       
           <input type="hidden" th:value="${exam.id}" name="id">
           <input type="hidden" th:value="${exam.studentId}" name="studentId">
           <input type="hidden" th:value="${exam.type}" name="type">
