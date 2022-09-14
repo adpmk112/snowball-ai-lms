@@ -20,7 +20,7 @@ public class StudentExamMarkService {
     @Autowired
     AttendanceService attendanceService;
     @Autowired
-    ExamScheduleService examScheduleService;    
+    BatchExamFormService examScheduleService;    
 
     //get all Data and if data doesn't present insert with default values
     public List<ExamMarkDTO> getExamMarkDTOList(int batchId){

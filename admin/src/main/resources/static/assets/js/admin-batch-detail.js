@@ -184,7 +184,7 @@ $(document).ready(function () {
         .find('input[name="start-date"')
         .val();
       var endDate = $(this).closest("tr").find('input[name="end-date"').val();
-      console.log(startDate)
+      
       var d1 = new Date(startDate);
       var d2 = new Date(endDate);
 
@@ -200,7 +200,15 @@ $(document).ready(function () {
         _end_date.attr("disabled", true);
         _start_date.css("border", "none");
         _end_date.css("border", "none");
-      } else if (!equal || lessThan) {
+      }else if(startDate == "" && endDate != ""){
+        $.alert("Start date must be filled!")
+      }else if(startDate != "" && endDate == ""){
+        $.alert("End date must be filled!")
+      }
+      else if(startDate == endDate){
+        $.alert("Start date and end date should not equal!")
+      }
+      else if (!equal || lessThan) {
         $(this)
           .find(".fa-solid.fa-check")
           .removeClass("fa-solid fa-check")

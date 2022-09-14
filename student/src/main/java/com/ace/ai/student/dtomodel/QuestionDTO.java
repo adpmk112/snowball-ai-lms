@@ -15,8 +15,8 @@ import lombok.Setter;
 public class QuestionDTO {
     private int id;
     private String text;
-    private List<String> answer_list;
-    private String correct_answer;
-    private String point;
-
+    private List<String> answerList;
+    private String correctAnswer;
+    private int point;
+    private String studentAnswer="#!$@!NoThing";
 }

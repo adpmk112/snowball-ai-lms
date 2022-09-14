@@ -36,7 +36,7 @@
       if (exam_type == "Multiple Choice") {
         //Disable other radio button
         $('#exam-header input[value="Multiple Choice"]').attr("checked", true);
-        $('#exam-header input[value="File Upload"]').hide();
+        $('#exam-header input[value="Code Test"]').hide();
         $('#exam-header label[for="answer-other"]').hide();
         //Set Contents  For Multiple Choice
         $(exam["questions"]).each(function (index, item) {
@@ -106,7 +106,7 @@
         });
       } else {
         //check radio and disable another
-        $('#exam-header input[value="File Upload"]').attr("checked", true);
+        $('#exam-header input[value="Code Test"]').attr("checked", true);
         $('#exam-header input[value="Multiple Choice"]').hide();
         $('#exam-header label[for="answer-radio"]').hide();
 

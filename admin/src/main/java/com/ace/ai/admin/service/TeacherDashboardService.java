@@ -97,16 +97,16 @@ public class TeacherDashboardService {
             
     // }
 
-    public List<TeacherDashboardDTO> getStuNameAndExamMarksByTeacherCode(String teacherCode){
-        Teacher teacher = teacherRepository.findByCode(teacherCode);
-        List<TeacherBatch> teacherBatchList = teacherBatchRepository.findByTeacherIdAndDeleteStatus(teacher.getId(), false);
-        List<TeacherDashboardDTO> teacherDashboardDTOList = new ArrayList<>();
-        for(TeacherBatch teacherBatch : teacherBatchList){
-            TeacherDashboardExamDTO teacherDashboardExamDTO = new TeacherDashboardExamDTO();
-            List<Student> studentList = studentRepository.findByDeleteStatusAndBatchId(false, teacherBatch.getBatch().getId());
-            for(Student student : studentList){
-                List<StudentExamMark> studentExamMarksList = studentExamMarkRepository.findByStudentIdAndDeleteStatus(student.getId(), false)
-            }
-        }
-    }
+    // public List<TeacherDashboardDTO> getStuNameAndExamMarksByTeacherCode(String teacherCode){
+    //     Teacher teacher = teacherRepository.findByCode(teacherCode);
+    //     List<TeacherBatch> teacherBatchList = teacherBatchRepository.findByTeacherIdAndDeleteStatus(teacher.getId(), false);
+    //     List<TeacherDashboardDTO> teacherDashboardDTOList = new ArrayList<>();
+    //     for(TeacherBatch teacherBatch : teacherBatchList){
+    //         TeacherDashboardExamDTO teacherDashboardExamDTO = new TeacherDashboardExamDTO();
+    //         List<Student> studentList = studentRepository.findByDeleteStatusAndBatchId(false, teacherBatch.getBatch().getId());
+    //         for(Student student : studentList){
+    //             List<StudentExamMark> studentExamMarksList = studentExamMarkRepository.findByStudentIdAndDeleteStatus(student.getId(), false)
+    //         }
+    //     }
+    // }
 }
