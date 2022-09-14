@@ -4,21 +4,28 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.ace.ai.admin.datamodel.Assignment;
 import com.ace.ai.admin.datamodel.Batch;
 import com.ace.ai.admin.datamodel.BatchExamForm;
 import com.ace.ai.admin.datamodel.Comment;
 import com.ace.ai.admin.datamodel.Student;
+import com.ace.ai.admin.datamodel.StudentAssignmentMark;
 import com.ace.ai.admin.datamodel.StudentExamMark;
 import com.ace.ai.admin.datamodel.Teacher;
 import com.ace.ai.admin.datamodel.TeacherBatch;
 import com.ace.ai.admin.dtomodel.StudentExamMarkDTO;
+import com.ace.ai.admin.dtomodel.TeaceherDashboardAssignmentDTO;
 import com.ace.ai.admin.dtomodel.TeacherCommentDTO;
+import com.ace.ai.admin.dtomodel.TeacherDashboardAssignmentStudentMarksDTO;
 import com.ace.ai.admin.dtomodel.TeacherDashboardChartDTO;
 import com.ace.ai.admin.dtomodel.TeacherDashboardDTO;
 import com.ace.ai.admin.dtomodel.TeacherDashboardExamDTO;
+import com.ace.ai.admin.repository.AssignmentRepository;
 import com.ace.ai.admin.repository.AttendanceRepository;
 import com.ace.ai.admin.repository.BatchExamFormRepository;
 import com.ace.ai.admin.repository.CommentRepository;
+import com.ace.ai.admin.repository.StudentAssignmentMarkRepository;
 import com.ace.ai.admin.repository.StudentExamMarkRepository;
 import com.ace.ai.admin.repository.StudentRepository;
 import com.ace.ai.admin.repository.TeacherBatchRepository;
@@ -44,6 +51,10 @@ public class TeacherDashboardService {
     StudentExamMarkRepository studentExamMarkRepository;
     @Autowired
     BatchExamFormRepository batchExamFormRepository;
+    @Autowired
+    AssignmentRepository assignmentRepository;
+    @Autowired
+    StudentAssignmentMarkRepository studentAssignmentMarkRepository;
 
     public List<Batch> findBatchesByTeacherCode(String teacherCode) {
         Teacher teacher = teacherRepository.findTeacherByCode(teacherCode);
@@ -110,13 +121,7 @@ public class TeacherDashboardService {
 
             for (StudentExamMark studentExamMark : studentExamMarkList) {
                 StudentExamMarkDTO studentExamMarkDTO = new StudentExamMarkDTO();
-                studentExamMarkDTO.setStudentId(studentExamMark.getStudent().getId());
-
                 studentExamMarkDTO.setStudentMarks(studentExamMark.getStudentMark());
-                ;
-                String studentName = studentRepository
-                        .findByDeleteStatusAndId(false, studentExamMark.getStudent().getId()).getName();
-                studentExamMarkDTO.setStudentName(studentName);
                 studentExamMarkDTOList.add(studentExamMarkDTO);
             }
 
@@ -128,46 +133,56 @@ public class TeacherDashboardService {
 
     }
 
-    public List<TeacherCommentDTO> getCommentByBatchId(int batchId){
-        List<Comment> commentList =  commentRepository.findByNotificationAndDeleteStatusAndBatchId(true,false,batchId);
+    public List<TeacherCommentDTO> getCommentByBatchId(int batchId) {
+        List<Comment> commentList = commentRepository.findByNotificationAndDeleteStatusAndBatchId(true, false, batchId);
         List<TeacherCommentDTO> teacherCommentDTOList = new ArrayList<>();
-        String commenterName = null;
-        for(Comment comment : commentList){
+        for (Comment comment : commentList) {
             String commenter_Code = comment.getCommenterCode();
-            System.out.println("comment=========="+commenter_Code);
-            TeacherCommentDTO teacherCommentDTO = new TeacherCommentDTO();
-            teacherCommentDTO.setBatchId(batchId);
-            teacherCommentDTO.setLocation(comment.getLocation());
-            teacherCommentDTO.setText(comment.getText());
-            if(!commenter_Code .isBlank()){
-                List<Student> studentList= studentRepository.findByDeleteStatusAndCode(false,commenter_Code);
-                for(Student student : studentList){
-                    if(student.getBatch().getId() == batchId){
-                    commenterName = student.getName();
-                    }
+            if (!commenter_Code.isBlank()) {
+                List<Student> studentList = studentRepository.findByDeleteStatusAndCodeAndBatchId(false, commenter_Code,batchId);
+                for (Student student : studentList) {
+                    
+                    TeacherCommentDTO teacherCommentDTO = new TeacherCommentDTO();
+                    teacherCommentDTO.setBatchId(batchId);
+                    teacherCommentDTO.setLocation(comment.getLocation());
+                    teacherCommentDTO.setText(comment.getText());
+                    teacherCommentDTO.setCommenter_Name(student.getName());
+                    teacherCommentDTOList.add(teacherCommentDTO);
+                   
                 }
-                System.out.println("commentTeacher +============"+ commenterName);
-                if(commenterName == null){
-                   List<Teacher> teacherList = teacherRepository.findByDeleteStatusAndCode(false,commenter_Code);
-                    for(Teacher teacher : teacherList){
-                        List<TeacherBatch> teacherBatchList = teacherBatchRepository.findByTeacherIdAndDeleteStatus(teacher.getId(),
-                        false);
-                        for(TeacherBatch teacherBatch : teacherBatchList){
-                            if(teacherBatch.getBatch().getId() == batchId){
-                                commenterName = teacher.getName();
-                            }
-                        }
-                }
-                System.out.println("commentStudent +============"+ commenterName);
-               
-            }
-           
-
+             }
+           }
+           return teacherCommentDTOList;
         }
-        teacherCommentDTO.setCommenter_Name(commenterName);
-        teacherCommentDTOList.add(teacherCommentDTO);
+    
+
+    public List<TeaceherDashboardAssignmentDTO> getStuNameAndAssignmentMarksByBatchId(int batchId) {
+        List<TeaceherDashboardAssignmentDTO> teaceherDashboardAssignmentDTOList = new ArrayList<>();
+        List<Assignment> assignmentList = assignmentRepository.findByDeleteStatusAndBatchId(false, batchId);
+        for (Assignment assignment : assignmentList) {
+            TeaceherDashboardAssignmentDTO teaceherDashboardAssignmentDTO = new TeaceherDashboardAssignmentDTO();
+            teaceherDashboardAssignmentDTO.setAssignmentId(assignment.getId());
+            teaceherDashboardAssignmentDTO.setAssignmentName(assignment.getName());
+            List<StudentAssignmentMark> studentAssignmentMarkList = studentAssignmentMarkRepository
+                    .findByAssignmentId(assignment.getId());
+            List<TeacherDashboardAssignmentStudentMarksDTO> teacherDashboardAssignmentStudentMarksDTOList = new ArrayList<>();
+            for (StudentAssignmentMark studentAssignmentMark : studentAssignmentMarkList) {
+                TeacherDashboardAssignmentStudentMarksDTO teacherDashboardAssignmentStudentMarksDTO = new TeacherDashboardAssignmentStudentMarksDTO();
+                teacherDashboardAssignmentStudentMarksDTO.setStudentId(studentAssignmentMark.getStudent().getId());
+                teacherDashboardAssignmentStudentMarksDTO.setStudentMarks(studentAssignmentMark.getStudentMark());
+                List<Student> studentList = studentRepository.findByDeleteStatusAndIdAndBatchId(false,
+                        studentAssignmentMark.getStudent().getId(),batchId);
+                for (Student student : studentList) {
+                    
+                    teacherDashboardAssignmentStudentMarksDTO.setStudentName(student.getName());
+                }
+                teacherDashboardAssignmentStudentMarksDTOList.add(teacherDashboardAssignmentStudentMarksDTO);
+            }
+            teaceherDashboardAssignmentDTO
+                    .setTeacherDashboardAssignmentStudentMarksDTO(teacherDashboardAssignmentStudentMarksDTOList);
+            teaceherDashboardAssignmentDTOList.add(teaceherDashboardAssignmentDTO);
+        }
+        return teaceherDashboardAssignmentDTOList;
     }
-    return teacherCommentDTOList;
-}
 
 }

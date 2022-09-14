@@ -125,16 +125,6 @@ public class CourseController {
                 System.out.println(chapterFile);
                 courseService.saveFile(chapterFile);
 
-                // Optional<Chapter> chapterOptional = chapterRepository.findById(chapterId);
-                // log.info("Assignment loading");
-                // Assignment assignment1 = new Assignment();
-                // assignment1.setAssignmentChapterName(chapterOptional.get().getName());
-                // assignment1.setBranch("baseChapter");
-                // assignment1.setName(fileName);
-                
-                // assignmentService.saveAssignment(assignment1);
-                // log.info("assignment added into table");
-
                 }
             }
 
