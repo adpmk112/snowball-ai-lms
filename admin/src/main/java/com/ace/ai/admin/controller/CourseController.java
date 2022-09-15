@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ace.ai.admin.datamodel.Assignment;
 import com.ace.ai.admin.datamodel.Chapter;
 import com.ace.ai.admin.datamodel.ChapterFile;
 import com.ace.ai.admin.datamodel.Course;
@@ -32,17 +34,29 @@ import com.ace.ai.admin.dtomodel.ChapterFileDTO;
 import com.ace.ai.admin.dtomodel.ChapterRenameDTO;
 import com.ace.ai.admin.dtomodel.CourseDTO;
 import com.ace.ai.admin.dtomodel.FileUploadDTO;
+import com.ace.ai.admin.repository.AssignmentRepository;
+import com.ace.ai.admin.repository.ChapterRepository;
+import com.ace.ai.admin.service.AssignmentService;
 import com.ace.ai.admin.service.CourseService;
 import com.ace.ai.admin.service.ExamFormService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
 @RequestMapping(value = "/admin/course")
+@Slf4j
 public class CourseController {
     @Autowired
     CourseService courseService;
 
     @Autowired
     ExamFormService examFormService;
+
+    @Autowired
+    ChapterRepository chapterRepository;
+
+    @Autowired
+    AssignmentService assignmentService;
 
     @GetMapping("/chapter/add")
     public ModelAndView goToChapterAddPage(@RequestParam("courseId") int id, ModelMap model) {
@@ -81,6 +95,7 @@ public class CourseController {
                 chapterFile.setChapter(toSetChapterId);
                 System.out.println(chapterFile);
                 courseService.saveFile(chapterFile);
+
                 }
             }
             for (MultipartFile pdf : fileUploadDTO.getPdf()) {
@@ -109,6 +124,7 @@ public class CourseController {
                 chapterFile.setChapter(toSetChapterId);
                 System.out.println(chapterFile);
                 courseService.saveFile(chapterFile);
+
                 }
             }
 

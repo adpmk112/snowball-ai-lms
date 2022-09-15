@@ -21,6 +21,7 @@ public class Reply implements Serializable{
     private String text;
     private String dateTime;
     private String commenterCode;
+    @Column(columnDefinition = "tinyint(1) default 1")
     private boolean notification;
     @Column(columnDefinition = "tinyint(1) default 0")
     private boolean deleteStatus;

@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +15,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-import lombok.NoArgsConstructor;
+
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 
@@ -39,6 +43,9 @@ public class BatchExamForm {
     @ManyToOne
     @JoinColumn(name="exam_form_id")
     private ExamForm examForm;
+
+    @OneToMany(mappedBy = "batchExamForm")
+    private List<StudentExamMark> studentExamMarks = new ArrayList<>();
 
     public  BatchExamForm(String startDate, String endDate, boolean status, Batch batch, ExamForm examForm){
         this.startDate = startDate;

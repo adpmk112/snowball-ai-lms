@@ -47,6 +47,9 @@ public class Batch implements Serializable {
     @OneToMany(mappedBy = "batch")
     private List<Classroom> classrooms = new ArrayList<>();
 
+    @OneToMany(mappedBy = "batch")
+    private List<Assignment> assignment = new ArrayList<>();
+
     @Override
     public String toString() {
         return "Batch{" +

@@ -50,7 +50,7 @@
             </a>
           </div>
 
-          <form class="py-3" style="max-width: 500px;" method="POST" action="/admin/batch/createClassroom" th:object="${reqClassroomDTO}">
+          <form class="py-3" style="max-width: 500px;" method="POST" th:action="@{/admin/batch/createClassroom}" th:object="${reqClassroomDTO}">
             <div class="row">
               <label class="mb-3 text-center" for="id">
                 <h3 class="text-dark">Add Live Classes</h3>
@@ -74,28 +74,6 @@
 
             </div>
 
-            <form class="py-3" style="max-width: 500px;" method="POST" action="/createClassroom"
-              th:object="${reqClassroomDTO}">
-              <div class="row">
-                <label class="mb-3 text-center" for="id">
-                  <h3 class="text-dark">Add Live Classes</h3>
-                </label>
-              </div>
-              <div class="row mb-3">
-                <h6 style="color: blue;" th:text="${msg}"></h6>
-                <br>
-                <label class="col-sm-4" for="id">Teacher name:</label>
-                <div class="col-sm-8">
-                  <select class="form-control" id="teacherNameDropDownList" th:field="*{teacherName}">
-                    <option th:value="0">Select Teacher</option>
-                    <option th:each="teacher : ${teacherList}" th:value="${teacher.teacherName}"
-                      th:text="${teacher.teacherName}">
-                    </option>
-                    <input type="hidden" th:field="*{batchId}"></input>
-
-                  </select>
-                </div>
-              </div>
               <div class="row mb-3">
                 <label class="col-sm-4" for="id">Date:</label>
                 <div class="col-sm-8">

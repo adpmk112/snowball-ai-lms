@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import lombok.Data;
@@ -21,7 +23,6 @@ public class Assignment implements Serializable {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
     private String name;
-    private String filePath;
     private String assignmentChapterName;
     @Column(columnDefinition = "tinyint(1) default 0")
     private boolean deleteStatus;
@@ -29,4 +30,8 @@ public class Assignment implements Serializable {
 
     @OneToMany(mappedBy = "assignment")
     private List<StudentAssignmentMark> studentAssignmentMarks = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name="batch_id")
+    private Batch batch;
 }

@@ -27,7 +27,7 @@
                                             </a>
                                         </li>
                                         <li class="breadcrumb-item">
-                                            <a class="text-decoration-none" >
+                                            <a class="text-decoration-none">
                                                 Batch Details
                                             </a>
                                         </li>
@@ -41,8 +41,8 @@
                             <div class="tab table-responsive">
                                 <div class="add-list">
                                     <label>Add New Activity</label>
-                                    <a href="T003-01.html" class="btn btn-outline-success btn-floating"
-                                        data-mdb-ripple-color="dark">
+                                    <a th:href="@{/teacher/batch/course/addActivity(batchId=${batchId})}"
+                                        class="btn btn-outline-success btn-floating" data-mdb-ripple-color="dark">
                                         <i class="fa-solid fa-circle-plus"></i>
                                     </a>
                                 </div>
@@ -85,9 +85,88 @@
                                                         data-mdb-ripple-color="dark">
                                                         <i class="fa-regular fa-pen-to-square"></i>
                                                     </a>
-                                                    <a href="" class="btn btn-outline-success btn-floating">
+                                                    <a th:attr="href='#edit-model'+${chapterDTO.id}"
+                                                        data-bs-toggle="modal" data-mdb-ripple-color="dark"
+                                                        class="btn btn-outline-success btn-floating">
                                                         <i class="fa-solid fa-folder-plus me-1"></i>
                                                         Add Assignment
+                                                    </a>
+
+                                                    <!-- <p>Custom Assignment add button htae pay pr</p> -->
+                                                </td>
+                                                <!-- Edit File Modal Box-->
+
+                                                <div class="modal fade" th:attr="id='edit-model'+${chapterDTO.id}"
+                                                    tabindex="-1" aria-labelledby="Edit File" aria-hidden="true"
+                                                    style="margin-top: 120px;">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Edit File</h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form th:action="@{chapterFile/editpost}" method="post"
+                                                                    enctype="multipart/form-data">
+                                                                    <input type="hidden" class="form-control" name="id"
+                                                                        id="message-text" />
+                                                                    <input type="hidden" class="form-control"
+                                                                        name="chapterId" th:value="${chapterId}"
+                                                                        id="message-text" />
+                                                                    <div class="mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                            name="fileType" id="message-text"
+                                                                            readonly />
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <input type="file" class="form-control"
+                                                                            id="name" placeholder="Assignment" />
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-bs-dismiss="modal">
+                                                                            Close
+                                                                        </button>
+                                                                        <button type="submit"
+                                                                            class="btn btn-primary">Update</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </tr>
+                                        </form>
+                                        <form method="post" th:object="${customChapterList}">
+                                            <tr th:each="customChapter,iterationStatus: ${batchCustomChapterDTOList}">
+                                                <input th:id="'batchId_'+${iterationStatus.count}" type="hidden"
+                                                    th:value="${batchId}" />
+                                                <td th:text="${iterationStatus.count}"></td>
+                                                <td th:id="'chpName_'+${iterationStatus.count}"
+                                                    th:text="${customChapter.name}"></td>
+                                                <td th:id="'chpStatus_'+${iterationStatus.count}"
+                                                    th:text="${customChapter.status}"></td>
+
+                                                <td th:id="'chpstartDate_'+${iterationStatus.count}">
+                                                    <input th:id="'startDate_'+${iterationStatus.count}" type="date"
+                                                        class="form-control" name="start-date"
+                                                        th:value="${customChapter.start_date}" disabled />
+                                                </td>
+                                                <td th:id="'chpendDate_'+${iterationStatus.count}">
+                                                    <input th:id="'endDate_'+${iterationStatus.count}" type="date"
+                                                        class="form-control" name="end-date"
+                                                        th:value="${customChapter.end_date}" disabled />
+                                                </td>
+                                                <td>
+                                                    <a href="" th:id="'img-click_'+${iterationStatus.count}"
+                                                        class="btn btn-outline-primary btn-chapter-edit btn-floating"
+                                                        data-mdb-ripple-color="dark">
+                                                        <i class="fa-regular fa-pen-to-square"></i>
+                                                    </a>
+                                                    <a th:href="@{/teacher/batch/course/activityFile(customChapterId=${customChapter.id})}"
+                                                        class="more-info btn btn-floating" data-mdb-ripple-color="dark">
+                                                        See More
                                                     </a>
 
                                                     <!-- <p>Custom Assignment add button htae pay pr</p> -->
@@ -95,40 +174,6 @@
                                             </tr>
                                         </form>
 
-                                        <tr>
-                                            <td>This is an example row view to look at.</td>
-                                            <td>Activity</td>
-                                            <td>In Progess</td>
-                                            <td>
-                                                <input type="date" class="form-control" name="start-date"
-                                                    id="start-date" />
-                                            </td>
-                                            <td>
-                                                <input type="date" class="form-control" name="end-date" id="end-date" />
-                                            </td>
-                                            <td>
-                                                <a href="" class="btn btn-outline-primary btn-floating btn-chapter-edit"
-                                                    data-mdb-ripple-color="dark">
-                                                    <i class="fa-regular fa-pen-to-square"></i>
-                                                </a>
-                                                <a href="" class="btn btn-outline-danger chapter-remove btn-floating"
-                                                    data-mdb-ripple-color="dark">
-                                                    <i class="fa-solid fa-circle-minus"></i>
-                                                </a>
-                                                <!-- <a
-                                          href=""
-                                          class="btn btn-outline-success btn-floating"
-                                          data-mdb-ripple-color="dark"
-                                        >
-                                          <i class="fa-solid fa-folder-plus me-1"></i>
-                                          Assignment
-                                        </a> -->
-                                                <a href="" class="btn btn-outline-success btn-floating btn-chapter-edit"
-                                                    data-mdb-ripple-color="dark">
-                                                    <i class="fa-regular fa-pen-to-square"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -264,13 +309,13 @@
                                 <!-- End attendance table-->
                             </div>
 
-                            <input type="radio" id="tabclassroom" name="mytabs" />
+                            <input type="radio" id="tabclassroom" name="mytabs" th:checked="${radio == 'classroom' }" />
                             <label for="tabclassroom" id="lab">Classroom</label>
                             <div class="tab">
                                 <div class="add-list">
                                     <label>Add Class</label>
-                                    <a href="T004.html" class="btn btn-outline-success btn-floating"
-                                        data-mdb-ripple-color="dark">
+                                    <a th:href="@{/teacher/batch/setupClassroomAdd/{batch_id}(batch_id = ${batchId})}"
+                                        class="btn btn-outline-success btn-floating" data-mdb-ripple-color="dark">
                                         <i class="fa-solid fa-circle-plus"></i>
                                     </a>
                                 </div>
@@ -278,7 +323,8 @@
                                     <thead>
                                         <tr>
                                             <th>Date</th>
-                                            <th>Time</th>
+                                            <th>Start-Time</th>
+                                            <th>End-Time</th>
                                             <th>Teacher</th>
                                             <th>Classroom Link</th>
                                             <th>Status</th>
@@ -287,39 +333,28 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>12-01-2022</td>
-                                            <td>9:00</td>
-                                            <td>U Hla</td>
-                                            <td>www.zoom.com</td>
-                                            <td>Done</td>
-                                            <td>record.mp4</td>
+                                        <tr th:each="classroom : ${classroomList}">
+                                            <td th:text="${classroom.date}"></td>
+                                            <td th:text="${classroom.startTime}"></td>
+                                            <td th:text="${classroom.endTime}"></td>
+                                            <td th:text="${classroom.teacherName}"></td>
+                                            <td th:text="${classroom.link}"></td>
+                                            <td th:text="${classroom.status}"></td>
                                             <td>
-                                                <a href="T004-01.html" class="btn btn-outline-primary btn-floating"
+                                                <a th:href="@{/setupClassroomEdit/{classId}(classId = ${classroom.id})}"
+                                                    class="btn btn-outline-primary btn-floating"
                                                     data-mdb-ripple-color="dark">
-                                                    <i class="fa-regular fa-pen-to-square"></i>
-                                                </a>
-                                                <a href="" class="btn btn-outline-danger btn-floating"
-                                                    data-mdb-ripple-color="dark">
-                                                    <i class="fa-solid fa-circle-minus"></i>
+                                                    <i class="fa-solid fa-file-video"></i>
                                                 </a>
                                             </td>
-                                        </tr>
-                                    </tbody>
-                                    <tbody>
-                                        <tr>
-                                            <td>12-01-2022</td>
-                                            <td>14:00</td>
-                                            <td>U Hla</td>
-                                            <td>www.zoom.com</td>
-                                            <td>In Progess</td>
-                                            <td>record.mp4</td>
                                             <td>
-                                                <a href="T004-01.html" class="btn btn-outline-primary btn-floating"
+                                                <a th:href="@{/teacher/batch/setupClassroomEdit/{classId}(classId = ${classroom.id})}"
+                                                    class="btn btn-outline-primary btn-floating"
                                                     data-mdb-ripple-color="dark">
                                                     <i class="fa-regular fa-pen-to-square"></i>
                                                 </a>
-                                                <a href="" class="btn btn-outline-danger btn-floating"
+                                                <a th:href="@{/teacher/batch/deleteClassroom/{classId}(classId = ${classroom.id})}"
+                                                    class="btn btn-outline-danger remove-classroom btn-floating"
                                                     data-mdb-ripple-color="dark">
                                                     <i class="fa-solid fa-circle-minus"></i>
                                                 </a>
@@ -328,7 +363,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                           
+
                             <input type="radio" id="tabmarks" name="mytabs" th:checked="${radio == 'mark'}" />
                             <label for="tabmarks" id="lab">Marks</label>
                             <div class="tab">
@@ -338,35 +373,43 @@
                                             <option value="0" selected>Exam</option>
                                             <option value="1">Assignment</option>
                                         </select>
-                                    </div>                                    
-                                </div>                           
+                                    </div>
+                                </div>
                                 <!-- Mark Table -->
                                 <div class="table-responsive p-2" id="markTable">
                                     <table id="datatable" class="hover">
                                         <thead>
                                             <tr>
                                                 <th>Name</th>
-                                                <th th:each="student : ${allStudent}" th:text="${student.name}" style="min-width: 100px !important; max-width:150px;"></th>                                            
+                                                <th th:each="student : ${allStudent}" th:text="${student.name}"
+                                                    style="min-width: 100px !important; max-width:150px;"></th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr th:if="${allStudent != null}" th:each=" studentExamMark: ${studentExamMarkList}"> 
-                                                <td th:text="${studentExamMark.exam.name}"></td>                                            
-                                                <input type="hidden" name="examId" class="examId" th:value="${studentExamMark.exam.id}" />
+                                            <tr th:if="${allStudent != null}"
+                                                th:each=" studentExamMark: ${studentExamMarkList}">
+                                                <td th:text="${studentExamMark.exam.name}"></td>
+                                                <input type="hidden" name="examId" class="examId"
+                                                    th:value="${studentExamMark.exam.id}" />
                                                 <input type="hidden" name="batchId" th:value="${batchId}">
-                                                <td th:each="studentData : ${studentExamMark.studentData}" style="min-width: 100px; max-width: 200px;" class="studentData">
-                                                    <input type="hidden" name="studentId" th:value="${studentData.studentId}" />
-                                                    <input type="number" class=""
-                                                        name="mark"
+                                                <td th:each="studentData : ${studentExamMark.studentData}"
+                                                    style="min-width: 100px; max-width: 200px;" class="studentData">
+                                                    <input type="hidden" name="studentId"
+                                                        th:value="${studentData.studentId}" />
+                                                    <input type="number" class="" name="mark"
                                                         th:value="${studentData.mark}"
-                                                        style='border: none; width: 40px; outline: none;text-align: right; margin:0;' min="0" th:max="${studentExamMark.exam.maxMark}"
-                                                        readonly />
-                                                    /<span class="ms-1" th:if="${studentExamMark.exam.maxMark}" th:text="${studentExamMark.exam.maxMark}"></span>
-                                                    <a href="#" class="text-primary p-1"><i class="fa-solid fa-file-arrow-down" th:disabled="${studentData.filePath == ''}"></i></a>
-                                                </td>                                                                                       
+                                                        style='border: none; width: 40px; outline: none;text-align: right; margin:0;'
+                                                        min="0" th:max="${studentExamMark.exam.maxMark}" readonly />
+                                                    /<span class="ms-1" th:if="${studentExamMark.exam.maxMark}"
+                                                        th:text="${studentExamMark.exam.maxMark}"></span>
+                                                    <a href="#" class="text-primary p-1"><i
+                                                            class="fa-solid fa-file-arrow-down"
+                                                            th:disabled="${studentData.filePath == ''}"></i></a>
+                                                </td>
                                                 <td>
-                                                    <a href="" class="btn btn-mark-edit btn-outline-primary btn-floating"
+                                                    <a href=""
+                                                        class="btn btn-mark-edit btn-outline-primary btn-floating"
                                                         data-mdb-ripple-color="dark">
                                                         <i class="fa-regular fa-pen-to-square"></i>
                                                     </a>
@@ -374,35 +417,43 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                </div>                                
+                                </div>
                                 <!-- End mark Table-->
-                                <!-- Assignment Table --> 
+                                <!-- Assignment Table -->
                                 <div class="table-responsive p-2" id="assignmentTable">
                                     <table id="assignmentDataTable" class="hover">
                                         <thead>
                                             <tr>
                                                 <th>Name</th>
-                                                <th th:each="student : ${allStudent}" th:text="${student.name}" style="min-width: 100px !important; max-width:150px;"></th>                                            
+                                                <th th:each="student : ${allStudent}" th:text="${student.name}"
+                                                    style="min-width: 100px !important; max-width:150px;"></th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr th:if="${allStudent != null}" th:each=" studentExamMark: ${studentExamMarkList}"> 
-                                                <td th:text="${studentExamMark.exam.name}"></td>                                            
-                                                <input type="hidden" name="examId" class="examId" th:value="${studentExamMark.exam.id}" />
+                                            <tr th:if="${allStudent != null}"
+                                                th:each=" studentExamMark: ${studentExamMarkList}">
+                                                <td th:text="${studentExamMark.exam.name}"></td>
+                                                <input type="hidden" name="examId" class="examId"
+                                                    th:value="${studentExamMark.exam.id}" />
                                                 <input type="hidden" name="batchId" th:value="${batchId}">
-                                                <td th:each="studentData : ${studentExamMark.studentData}" style="min-width: 100px; max-width: 200px;" class="studentData">
-                                                    <input type="hidden" name="studentId" th:value="${studentData.studentId}" />
-                                                    <input type="number" class=""
-                                                        name="mark"
+                                                <td th:each="studentData : ${studentExamMark.studentData}"
+                                                    style="min-width: 100px; max-width: 200px;" class="studentData">
+                                                    <input type="hidden" name="studentId"
+                                                        th:value="${studentData.studentId}" />
+                                                    <input type="number" class="" name="mark"
                                                         th:value="${studentData.mark}"
-                                                        style='border: none; width: 40px; outline: none;text-align: right; margin:0;' min="0" th:max="${studentExamMark.exam.maxMark}"
-                                                        readonly />
-                                                    /<span class="ms-1" th:if="${studentExamMark.exam.maxMark}" th:text="${studentExamMark.exam.maxMark}"></span>
-                                                    <a href="#" class="text-primary p-1"><i class="fa-solid fa-file-arrow-down" th:disabled="${studentData.filePath == ''}"></i></a>
-                                                </td>                                                                                       
+                                                        style='border: none; width: 40px; outline: none;text-align: right; margin:0;'
+                                                        min="0" th:max="${studentExamMark.exam.maxMark}" readonly />
+                                                    /<span class="ms-1" th:if="${studentExamMark.exam.maxMark}"
+                                                        th:text="${studentExamMark.exam.maxMark}"></span>
+                                                    <a href="#" class="text-primary p-1"><i
+                                                            class="fa-solid fa-file-arrow-down"
+                                                            th:disabled="${studentData.filePath == ''}"></i></a>
+                                                </td>
                                                 <td>
-                                                    <a href="" class="btn btn-mark-edit btn-outline-primary btn-floating"
+                                                    <a href=""
+                                                        class="btn btn-mark-edit btn-outline-primary btn-floating"
                                                         data-mdb-ripple-color="dark">
                                                         <i class="fa-regular fa-pen-to-square"></i>
                                                     </a>
@@ -410,7 +461,7 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                </div>                               
+                                </div>
                                 <!-- End Assignment -->
                             </div>
                             <input type="radio" id="tabcomment" name="mytabs" />
@@ -507,7 +558,7 @@
                     </div>
                 </div>
             </div>
-           
+
         </div>
     </main>
 </body>

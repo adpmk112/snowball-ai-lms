@@ -7,6 +7,8 @@ import com.ace.ai.admin.dtomodel.StudentAttendDTO;
 import com.ace.ai.admin.dtomodel.StudentDTO;
 import com.ace.ai.admin.dtomodel.TeacherDTO;
 import com.ace.ai.admin.repository.ChapterBatchRepository;
+import com.ace.ai.admin.repository.ChapterRepository;
+import com.ace.ai.admin.service.AssignmentService;
 import com.ace.ai.admin.service.AttendanceService;
 import com.ace.ai.admin.service.BatchService;
 import com.ace.ai.admin.service.ChapterViewService;
@@ -31,7 +33,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Controller
 @RequestMapping(value = "/admin/batch")
 public class BatchController {
@@ -51,6 +52,8 @@ public class BatchController {
     TeacherBatchService teacherBatchService;
     @Autowired
     ChapterBatchRepository chapterBatchRepository;
+    @Autowired
+    AssignmentService assignmentService;
 
     @GetMapping({ "/" })
     public String gotoBatch(Model model) {
@@ -134,7 +137,9 @@ public class BatchController {
     public String saveBatch(@ModelAttribute("batchDTO")@Validated BatchDTO batchDTO, BindingResult bs,Model model) {
         if(bs.hasErrors()){
             model.addAttribute("msg","Fill all Details!");
-            return "redirect:/goToAddBatch";
+
+            return "redirect:/admin/batch/goToAddBatch";
+
         }else {
             Batch batch = new Batch();
             batch.setDeleteStatus(false);
@@ -156,6 +161,8 @@ public class BatchController {
                 chapterBatch.setBatch(batch);
                 chapterBatch.setDeleteStatus(0);
                 chapterBatchRepository.save(chapterBatch);
+
+                assignmentService.baseChapterAssignmentFileAdd(chapter, batch.getId());
             }
             for (Teacher teacher : batchDTO.getTeacherList()) {
                 batchService.saveTeacherBatch(teacher.getId(), batch.getId());
@@ -166,6 +173,7 @@ public class BatchController {
                 BatchExamForm bef = new BatchExamForm("", "", false, batch, examForm);
                 examScheduleService.saveBathExamFrom(bef);
             }
+
             return "redirect:/admin/batch/goToAddBatchSuccess";
         }
     }

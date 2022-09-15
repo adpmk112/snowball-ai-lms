@@ -113,5 +113,30 @@ public class ClassRoomController {
         return "A003-07";
     }
 
-   
+    @GetMapping("/deleteClassroom/{classId}")
+    public String classroomDelete(Model model,@PathVariable("classId") Integer id) throws ParseException {
+    	
+    	 ClassroomDTO classroomDTO1 = new ClassroomDTO();
+         classroomDTO1.setId(id);
+         Classroom classroom = classRoomService.fetchClassroom(classroomDTO1);
+
+         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+         ClassroomDTO classroomDTO = new ClassroomDTO();
+         classroomDTO.setId(id);
+         classroomDTO.setDate(LocalDate.parse(classroom.getDate(),df));
+         classroomDTO.setLink(classroom.getLink());
+         classroomDTO.setTeacherName(classroom.getTeacherName());
+         classroomDTO.setStartTime(classroom.getStartTime());
+         classroomDTO.setEndTime(classroom.getEndTime());
+         classroomDTO.setBatchId(classroom.getBatch().getId());
+         
+         classRoomService.deleteClassroom(classroomDTO);;
+         model.addAttribute("batchName", classroom.getBatch().getName());
+         model.addAttribute("batchId", classroom.getBatch().getId());
+         model.addAttribute("courseName", classroom.getBatch().getCourse().getName());
+         return "redirect:/admin/batch/batchSeeMore?id=" +classroom.getBatch().getId()+ "&radio=classroom";
+
+    }
 }
+
+

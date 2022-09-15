@@ -12,6 +12,9 @@ import com.ace.ai.admin.service.AttendanceService;
 import com.ace.ai.admin.service.BatchService;
 import com.ace.ai.admin.service.ChapterViewService;
 import com.ace.ai.admin.service.BatchExamFormService;
+import com.ace.ai.admin.service.ClassRoomService;
+import com.ace.ai.admin.service.CustomChapterService;
+
 import com.ace.ai.admin.service.StudentExamMarkService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +47,10 @@ public class TeacherBatchController {
     BatchExamFormService examScheduleService;
     @Autowired
     StudentExamMarkService studentExamMarkService;
+    @Autowired
+    ClassRoomService classroomService;
+    @Autowired
+    CustomChapterService customChapterService;
 
     @GetMapping({ "/addNewActivity" })
     public String addNewActivity(Model model) {
@@ -73,7 +80,8 @@ public class TeacherBatchController {
         model.addAttribute("allStudent", attendanceService.getAllStudentByDeleteStatus(batchId));// for attendance with batch
         model.addAttribute("examScheduleList", examScheduleService.showExamScheduleTable(batchId)); //For Exam Schedule
         model.addAttribute("studentExamMarkList", studentExamMarkService.getExamMarkDTOList(batchId));//To mark exam;
-
+        model.addAttribute("classroomList", classroomService.showClassroomTable(batchId));
+        model.addAttribute("batchCustomChapterDTOList", customChapterService.getCustomChapterListByBatchId(batchId) );
         return "T003";
     }
 

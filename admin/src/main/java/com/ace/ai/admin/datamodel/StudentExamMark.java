@@ -22,7 +22,8 @@ public class StudentExamMark implements Serializable{
     private int id;
     private int studentMark;
     private String uploadedFile;
-    private Boolean notification;
+    @Column(columnDefinition = "tinyint(1) default 0")
+    private boolean notification;
     @Column(columnDefinition = "tinyint(1) default 0")
     private boolean deleteStatus;
 
@@ -33,6 +34,10 @@ public class StudentExamMark implements Serializable{
     @ManyToOne
     @JoinColumn(name = "exam_form_id")
     private ExamForm examForm;
+
+    @ManyToOne
+    @JoinColumn(columnDefinition="integer", name = "batch_exam_form_id")
+    private BatchExamForm batchExamForm;
 
     public StudentExamMark(int studentMark, String uploadedFile, Boolean notification, Student student, ExamForm examForm){
         this.studentMark = studentMark;
