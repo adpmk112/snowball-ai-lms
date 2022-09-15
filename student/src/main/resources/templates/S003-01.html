@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.min.css" />
   <link rel="stylesheet" href="./assets/css/student-exam.css" />
   <link rel="stylesheet" href="./assets/css/header.css" />
-
+  <link rel="stylesheet" href="assets/jquery-confirm/jquery-confirm.min.css" />
 
 
 </head>
@@ -74,7 +74,7 @@
       </ul>
       <!--End exam body-->
       <div class="exam-button me-5 mb-5 from-control float-end">
-        <button type="submit" form="examForm" id="submit" class="btn btn-primary">Submit Answers</button>
+        <button type="submit" form="examForm" id="submitButton" class="btn btn-primary">Submit Answers</button>
       </div>
     </div>
     <!--End exam content-->
@@ -85,6 +85,7 @@
   <script src="./assets/jquery/jquery.min.js"></script>
   <script src="assets/js/subject-carousel.js"></script>
   <script src="assets/js/header.js"></script>
+  <script src="assets/jquery-confirm/jquery-confirm.min.js"></script>
   <script src="https://kit.fontawesome.com/83e4876698.js" crossorigin="anonymous"></script>
   <script>
     //Exam countdown
@@ -105,6 +106,19 @@
         localStorage.removeItem('countDown')
         totalAmount = 0
         clearTimeout(timeloop)
+        
+        $.confirm({
+          title: 'End Exam',
+            content: 'Your time is out, your answers will be automatically saved',
+            autoClose: 'Ok|5000',
+            buttons: {
+                Ok: {
+                    text: 'Okay',
+                    action: function () {
+                      $('#submitButton').click();
+                    },               
+            }}
+        });
         return
       }
 
@@ -121,21 +135,26 @@
     }
 
     $(document).ready(function () {
-      //var reqVal = $("#request").val();
-      var parAmt = parseInt(3600)
-
+      var reqVal = $("#examDuration").val();
+      var arr = reqVal.split(":")
+      var totalSec = parseInt(arr[0])*3600 + parseInt(arr[1])*60;
+      var parAmt;
+      // count down
+      if(localStorage.getItem('countDown')){
+         parAmt = localStorage.getItem('countDown');
+      }
+      else{
+         parAmt = parseInt(totalSec)
+      }
       if (timeloop) {
         clearTimeout(timeloop)
       }
-
       totalAmount = parAmt
-
-      //$("#request").val(" ");
-
+      $("#examDuration").val("");
       timeSet()
     })
 
-    $('#submit').on('click', function () {
+    $('#examForm').on('submit', function () {
       totalAmount = 0
       clearTimeout(timeloop)
       localStorage.removeItem('countDown')

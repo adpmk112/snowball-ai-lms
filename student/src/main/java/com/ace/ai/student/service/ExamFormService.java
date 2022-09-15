@@ -113,7 +113,7 @@ public class ExamFormService {
         int examId = examDTO.getId();
         //String batchName = 
         int studentTotalMark = 0;
-        String uploadDIR = "./StudentExamAnswers/"+examId+"/"+studentId+"/";
+        String uploadDIR = "./studentExamAnswers/exam"+examId+"/"+studentId+"/";
         Student student = studentRepository.getById(studentId);
         ExamForm examForm = examFormRepo.getById(examId);
         MultipartFile answerFile = examDTO.getAnswerFile();
