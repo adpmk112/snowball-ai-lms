@@ -1,12 +1,13 @@
 package com.ace.ai.admin.dtomodel;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
 public class TeacherDashboardExamDTO {
-    private int examId;
-    private String studentName;
-    private int marks;
-    private int exam_formId;
-    private String examName;
+    private int examForm_id;
+    private String examForm_name;
+    private int max_marks;
+    List<StudentExamMarkDTO> studentExamMarkDTO;
 }

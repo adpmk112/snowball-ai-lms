@@ -43,6 +43,7 @@ public class TeacherNewActivity {
     public ModelAndView addNewActivity(@RequestParam("batchId") int batchId, ModelMap model) {
         NewActivityDTO newActivityDTO = new NewActivityDTO();
         newActivityDTO.setBatchId(batchId);
+        model.addAttribute("batchId", batchId);
         return new ModelAndView("T003-04", "newActivityDTO", newActivityDTO);
     }
 
@@ -149,7 +150,7 @@ public class TeacherNewActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "redirect:/teacher/course/addActivity?batchId=" + newActivityDTO.getBatchId();
+        return "redirect:/teacher/batch/course/addActivity?batchId=" + newActivityDTO.getBatchId();
     }
 
     @PostMapping("/activity/edit")
@@ -167,7 +168,7 @@ public class TeacherNewActivity {
         model.addAttribute("batchId", batchId);
         model.addAttribute("customChapterId", customChapterId);
         model.addAttribute("customChapterFileDTO", new CustomChapterFileDTO());
-        return new ModelAndView("", "customChapterFileList", customChapterFileList);
+        return new ModelAndView("T003-05", "customChapterFileList", customChapterFileList);
     }
 
     @PostMapping("/activityFile/add")
@@ -257,9 +258,6 @@ public class TeacherNewActivity {
     public String deleteCustomChapterFile(@RequestParam("customChapterFileId")int customChapterFileId,ModelMap model){
         int customChapterId = customChapterService.getCustomChapterFileById(customChapterFileId).getCustomChapter().getId();
         customChapterService.deleteCustomChapterFile(customChapterFileId);
-        
-      
-        
         return "redirect:/teacher/batch/course/activityFile?customChapterId=" + customChapterId;
     }
 

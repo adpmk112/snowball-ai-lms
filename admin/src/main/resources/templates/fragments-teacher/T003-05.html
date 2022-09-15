@@ -27,7 +27,7 @@
                       </a>
                     </li>
                     <li class="breadcrumb-item">
-                      <a class="text-decoration-none" th:href="">
+                      <a class="text-decoration-none" href="">
                         Batch Details
                       </a>
                     </li>
@@ -171,8 +171,8 @@
                 <div class="mb-3">
                   <input type="hidden" class="form-control" name="customChapterId" th:value="${customChapterId}"
                     id="message-text" />
-                  <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="fileType">
-                    <option value="" disabled selected>Choose File Type</option>
+                  <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="fileType" required>
+                    <option value="" disabled >Choose File Type</option>
                     <option value="video">Video</option>
                     <option value="pdf">Pdf</option>
                     <option value="assignment">Assignment</option>

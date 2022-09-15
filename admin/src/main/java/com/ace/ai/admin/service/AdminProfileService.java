@@ -49,7 +49,9 @@ public class AdminProfileService {
         if(!adminDTO.getPhoto().isEmpty()){
 
             Path path = Paths.get("./assets/img/admin/"+admin.getPhoto());
+            if(Files.exists(path)){
             Files.delete(path);
+            }
             admin.setPhoto(adminDTO.getPhoto().getOriginalFilename());
 
             String uploadDir="./assets/img/admin/";
