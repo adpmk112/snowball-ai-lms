@@ -12,6 +12,7 @@ import com.ace.ai.admin.service.AttendanceService;
 import com.ace.ai.admin.service.BatchService;
 import com.ace.ai.admin.service.ChapterViewService;
 import com.ace.ai.admin.service.ClassRoomService;
+import com.ace.ai.admin.service.CustomChapterService;
 import com.ace.ai.admin.service.ExamScheduleService;
 import com.ace.ai.admin.service.StudentExamMarkService;
 
@@ -47,6 +48,8 @@ public class TeacherBatchController {
     StudentExamMarkService studentExamMarkService;
     @Autowired
     ClassRoomService classroomService;
+    @Autowired
+    CustomChapterService customChapterService;
 
     @GetMapping({ "/addNewActivity" })
     public String addNewActivity(Model model) {
@@ -77,6 +80,7 @@ public class TeacherBatchController {
         model.addAttribute("examScheduleList", examScheduleService.showExamScheduleTable(batchId)); //For Exam Schedule
         model.addAttribute("studentExamMarkList", studentExamMarkService.getExamMarkDTOList(batchId));//To mark exam;
         model.addAttribute("classroomList", classroomService.showClassroomTable(batchId));
+        model.addAttribute("batchCustomChapterDTOList", customChapterService.getCustomChapterListByBatchId(batchId) );
         return "T003";
     }
 

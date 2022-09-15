@@ -41,8 +41,8 @@
                             <div class="tab table-responsive">
                                 <div class="add-list">
                                     <label>Add New Activity</label>
-                                    <a th:href="@{/teacher/batch/course/addActivity(batchId=${batchId})}" class="btn btn-outline-success btn-floating"
-                                        data-mdb-ripple-color="dark">
+                                    <a th:href="@{/teacher/batch/course/addActivity(batchId=${batchId})}"
+                                        class="btn btn-outline-success btn-floating" data-mdb-ripple-color="dark">
                                         <i class="fa-solid fa-circle-plus"></i>
                                     </a>
                                 </div>
@@ -85,9 +85,88 @@
                                                         data-mdb-ripple-color="dark">
                                                         <i class="fa-regular fa-pen-to-square"></i>
                                                     </a>
-                                                    <a href="" class="btn btn-outline-success btn-floating">
+                                                    <a th:attr="href='#edit-model'+${chapterDTO.id}"
+                                                        data-bs-toggle="modal" data-mdb-ripple-color="dark"
+                                                        class="btn btn-outline-success btn-floating">
                                                         <i class="fa-solid fa-folder-plus me-1"></i>
                                                         Add Assignment
+                                                    </a>
+
+                                                    <!-- <p>Custom Assignment add button htae pay pr</p> -->
+                                                </td>
+                                                <!-- Edit File Modal Box-->
+
+                                                <div class="modal fade" th:attr="id='edit-model'+${chapterDTO.id}"
+                                                    tabindex="-1" aria-labelledby="Edit File" aria-hidden="true"
+                                                    style="margin-top: 120px;">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Edit File</h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form th:action="@{chapterFile/editpost}" method="post"
+                                                                    enctype="multipart/form-data">
+                                                                    <input type="hidden" class="form-control" name="id"
+                                                                        id="message-text" />
+                                                                    <input type="hidden" class="form-control"
+                                                                        name="chapterId" th:value="${chapterId}"
+                                                                        id="message-text" />
+                                                                    <div class="mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                            name="fileType" id="message-text"
+                                                                            readonly />
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <input type="file" class="form-control"
+                                                                            id="name" placeholder="Assignment" />
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-bs-dismiss="modal">
+                                                                            Close
+                                                                        </button>
+                                                                        <button type="submit"
+                                                                            class="btn btn-primary">Update</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </tr>
+                                        </form>
+                                        <form method="post" th:object="${customChapterList}">
+                                            <tr th:each="customChapter,iterationStatus: ${batchCustomChapterDTOList}">
+                                                <input th:id="'batchId_'+${iterationStatus.count}" type="hidden"
+                                                    th:value="${batchId}" />
+                                                <td th:text="${iterationStatus.count}"></td>
+                                                <td th:id="'chpName_'+${iterationStatus.count}"
+                                                    th:text="${customChapter.name}"></td>
+                                                <td th:id="'chpStatus_'+${iterationStatus.count}"
+                                                    th:text="${customChapter.status}"></td>
+
+                                                <td th:id="'chpstartDate_'+${iterationStatus.count}">
+                                                    <input th:id="'startDate_'+${iterationStatus.count}" type="date"
+                                                        class="form-control" name="start-date"
+                                                        th:value="${customChapter.start_date}" disabled />
+                                                </td>
+                                                <td th:id="'chpendDate_'+${iterationStatus.count}">
+                                                    <input th:id="'endDate_'+${iterationStatus.count}" type="date"
+                                                        class="form-control" name="end-date"
+                                                        th:value="${customChapter.end_date}" disabled />
+                                                </td>
+                                                <td>
+                                                    <a href="" th:id="'img-click_'+${iterationStatus.count}"
+                                                        class="btn btn-outline-primary btn-chapter-edit btn-floating"
+                                                        data-mdb-ripple-color="dark">
+                                                        <i class="fa-regular fa-pen-to-square"></i>
+                                                    </a>
+                                                    <a th:href="@{/teacher/batch/course/activityFile(customChapterId=${customChapter.id})}"
+                                                        class="more-info btn btn-floating" data-mdb-ripple-color="dark">
+                                                        See More
                                                     </a>
 
                                                     <!-- <p>Custom Assignment add button htae pay pr</p> -->
@@ -95,40 +174,6 @@
                                             </tr>
                                         </form>
 
-                                        <tr>
-                                            <td>This is an example row view to look at.</td>
-                                            <td>Activity</td>
-                                            <td>In Progess</td>
-                                            <td>
-                                                <input type="date" class="form-control" name="start-date"
-                                                    id="start-date" />
-                                            </td>
-                                            <td>
-                                                <input type="date" class="form-control" name="end-date" id="end-date" />
-                                            </td>
-                                            <td>
-                                                <a href="" class="btn btn-outline-primary btn-floating btn-chapter-edit"
-                                                    data-mdb-ripple-color="dark">
-                                                    <i class="fa-regular fa-pen-to-square"></i>
-                                                </a>
-                                                <a href="" class="btn btn-outline-danger chapter-remove btn-floating"
-                                                    data-mdb-ripple-color="dark">
-                                                    <i class="fa-solid fa-circle-minus"></i>
-                                                </a>
-                                                <!-- <a
-                                          href=""
-                                          class="btn btn-outline-success btn-floating"
-                                          data-mdb-ripple-color="dark"
-                                        >
-                                          <i class="fa-solid fa-folder-plus me-1"></i>
-                                          Assignment
-                                        </a> -->
-                                                <a href="" class="btn btn-outline-success btn-floating btn-chapter-edit"
-                                                    data-mdb-ripple-color="dark">
-                                                    <i class="fa-regular fa-pen-to-square"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -308,7 +353,8 @@
                                                     data-mdb-ripple-color="dark">
                                                     <i class="fa-regular fa-pen-to-square"></i>
                                                 </a>
-                                                <a th:href="@{/teacher/batch/deleteClassroom/{classId}(classId = ${classroom.id})}" class="btn btn-outline-danger remove-classroom btn-floating"
+                                                <a th:href="@{/teacher/batch/deleteClassroom/{classId}(classId = ${classroom.id})}"
+                                                    class="btn btn-outline-danger remove-classroom btn-floating"
                                                     data-mdb-ripple-color="dark">
                                                     <i class="fa-solid fa-circle-minus"></i>
                                                 </a>
@@ -317,7 +363,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            
+
                             <input type="radio" id="tabmarks" name="mytabs" th:checked="${radio == 'mark'}" />
                             <label for="tabmarks" id="lab">Marks</label>
                             <div class="tab">

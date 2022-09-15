@@ -33,6 +33,7 @@ public class ChapterViewService {
 
         for(ChapterBatch chapterBatch:chapterBatches){
             ChapterDTO chapterDTO=new ChapterDTO();
+            chapterDTO.setId(chapterBatch.getChapter().getId());
             chapterDTO.setName( chapterBatch.getChapter().getName());
             if(chapterBatch.getStartDate()!=null && chapterBatch.getEndDate()!=null){
                 LocalDate startDate=LocalDate.parse(chapterBatch.getStartDate());
