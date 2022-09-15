@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8"/>
+  <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+  />
+  <title>Reset Password</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css"/>
+  <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+  />
+  <link rel="stylesheet" href="../assets/css/styles.css"/>
+</head>
+
+<body class="body-color" style="background: rgb(171, 190, 255);">
+<main>
+  <div th:fragment="reset-password">
+    <section  class="Form my-4 mx-5 change-password" >
+      <div class="container header-margin footer-margin" style="width:50%">
+        <form  method="post" th:action="@{/reset_password/}">
+          <div class="row no-gutters form-color shodow-div-profile d-flex  align-items-center justify-content-center" style="background-color: white;">
+            <div class="col px-5 pt-2 ">
+              <h1 class="font-weight-bold py-3">Reset Password</h1>
+              <div class="alert alert-warning" th:if="${message!=null}" th:text="${message}"></div>
+              <div th:unless="${message!=null}">
+                <input  type="hidden" name="token" th:value="${token}">
+              <div class="col-md-8" >
+                <input type="password" id="password" placeholder="New Password" name="newPassword" class="form-control mb-3" required min="8">
+                <div class="alert alert-warning" th:if="${error2!=null}" >You've entered your old password!</div>
+              </div>
+              <div class="col-md-8">
+                <input type="password"  placeholder="Confirm Password" name="confirmPassword" class="form-control mb-3" oninput="checkPasswordMatch(this);" required>
+              </div>
+              <button type="submit" class="btn btn-outline-primary  mt-3 mb-5">Reset Password</button>
+              <button type="reset" class="btn btn-outline-secondary  mt-3 mb-5 ms-3">Reset</button>
+            </div>
+          </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+  <script type="text/javascript">
+    function checkPasswordMatch(fieldConfirmPassword){
+      if(fieldConfirmPassword.value != $("#password").val()){
+        console.log(fieldConfirmPassword.value);
+        fieldConfirmPassword.setCustomValidity("Passwords do not match!");
+      }
+      else{
+        fieldConfirmPassword.setCustomValidity("");
+      }
+    }
+  </script>
+  <script
+          type="text/javascript"
+          th:src="@{/assets/js/jquery.min.js}"
+  ></script>
+</main>
+</body>
+</html>

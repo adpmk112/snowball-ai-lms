@@ -28,62 +28,37 @@
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
-                                   <h4 class="py-2">Ace Inspiration Login</h4>
+                                   <h4 class="py-2">Forgot Password ?</h4>
                                 </div>
                                 <!--  <form class=""> -->
-                                <div th:if="${param.error}">
-                                    <h4 style="color:red" >Invalid Id or Password!</h4>
-                                </div>
-                                <div class="alert alert-success" th:if="${success!=null}" th:text="${success}"></div>
-                                <div class="alert alert-success" th:if="${message!=null}" th:text="${message}"></div>
-                                <form th:action="@{/admin/login}" method="post">
-                                    <div class="mb-3">
 
+                                <div class="alert alert-success" th:if="${error!=null}" th:text="${error}"></div>
+                                <div class="alert alert-success" th:if="${message!=null}" th:text="${message}"></div>
+                                <form th:action="@{/forgot_password}" method="post">
+                                    <div class="mb-3">
+                                         <p>We will be sending a reset password link to your email.</p>
                                         <input
                                                 class="form-control form-control-user"
-                                                type="text"
+                                                type="email"
                                                 id="exampleInputEmail"
                                                 aria-describedby="emailHelp"
-                                                placeholder="User ID"
-                                                name="code"
+                                                placeholder="Enter your email."
+                                                name="email"
+                                                required
+                                                autofocus
                                         />
-                                    </div>
-                                    <div class="mb-3">
-                                        <input
-                                                class="form-control form-control-user"
-                                                type="password"
-                                                id="exampleInputPassword"
-                                                placeholder="User Password"
-                                                name="password"
-                                        />
-                                    </div>
-                                    <div class="mb-4">
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="remember-me"
-                                                   name="remember-me">
-                                            <label for="remember-me" class="form-check-label">Keep me signed in</label>
-                                        </div>
                                     </div>
 
-                                    <div class="mb-3">
-                                        <div class="custom-control custom-checkbox small"></div>
-                                    </div>
-                                    <a href="./A001.html" class="text-decoration-none">
                                         <button
                                                 class="btn btn-primary d-block w-100"
-                                                type=""
+                                                type="submit"
                                                 style="background: rgb(104, 105, 109);"
                                         >
-                                            Login
+                                            Send
                                         </button>
-                                    </a>
                                 </form>
                                 <hr/>
-                                <!-- </form> -->
-                                <div class="text-center">
-                                    <a href="#" class="text-decoration-none" th:href="@{/forgot_password}">Forgot Password?</a>
-                                </div>
-                                <div class="text-center"></div>
+
                             </div>
                         </div>
                     </div>
