@@ -25,6 +25,7 @@ import com.ace.ai.admin.dtomodel.TeacherDashboardChartDTO;
 import com.ace.ai.admin.dtomodel.TeacherDashboardChartJsDTO;
 import com.ace.ai.admin.dtomodel.TeacherDashboardDTO;
 import com.ace.ai.admin.dtomodel.TeacherDashboardExamDTO;
+import com.ace.ai.admin.repository.BatchRepository;
 import com.ace.ai.admin.repository.StudentRepository;
 import com.ace.ai.admin.service.BatchService;
 import com.ace.ai.admin.service.TeacherDashboardService;
@@ -44,7 +45,8 @@ public class TeacherDashboardController {
     BatchService batchService;
     @Autowired
     StudentRepository studentRepository;
-
+    @Autowired
+    BatchRepository batchRepository;
     @GetMapping("/home")
     public String teacherDashboard(ModelMap model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -81,6 +83,7 @@ public class TeacherDashboardController {
         List<Student> studentNameList = studentRepository.findByDeleteStatusAndBatchId(false,batchId);
         List<TeacherCommentDTO> teacherCommentDTOList = teacherDashboardService.getCommentByBatchId(batchId);
         List<TeaceherDashboardAssignmentDTO> teaceherDashboardAssignmentDTOList = teacherDashboardService.getStuNameAndAssignmentMarksByBatchId(batchId);
+        String batchName = batchRepository.findById(batchId).get().getName();
         model.addAttribute("teacherDashboardExamDTO", teacherDashboardExamDTO);
         model.addAttribute("totalBatch", totalBatch);
         model.addAttribute("batchList", batchList);
@@ -88,6 +91,7 @@ public class TeacherDashboardController {
         model.addAttribute("studentNameList", studentNameList);
         model.addAttribute("teacherCommentDTOList", teacherCommentDTOList);
         model.addAttribute("teaceherDashboardAssignmentDTOList",teaceherDashboardAssignmentDTOList);
+        model.addAttribute("batchName", batchName);
         return "T001";
     }
 
