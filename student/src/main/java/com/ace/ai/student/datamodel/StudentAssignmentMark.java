@@ -18,7 +18,7 @@ public class StudentAssignmentMark implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
-    private String studentMark;
+    private int studentMark;
     private String uploadedFile;
     private String date;
     private String time;

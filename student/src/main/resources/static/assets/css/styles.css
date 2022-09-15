@@ -210,30 +210,26 @@ border:1px solid rgb(45, 56, 70);
 
 
 /* exam card design */
-
+.exam-card-container{
+  overflow-x: auto;
+}
 .exam-card{
-  box-shadow: 0 10px 30px -15px  #2d3846;
   justify-content: space-between;
   padding: 1rem 1rem;
-  border-radius: 4px;
-  background:lavender;
-  overflow: auto;
+  border-radius: 4px; 
   margin-top: 1rem;
   margin-left: 1rem;
-  width: 13rem;
-  height: 13rem;
+  width: 15rem;
+  height: 12rem;
 }
 
 .exam-card-container a{
     text-decoration: none;
 }
 
-.exam .exam-text{
-  color:#2d3846;
-}
-
 .exam-card:hover{
 transform: translateY(-7px);
+cursor: pointer;
 }
 
 
