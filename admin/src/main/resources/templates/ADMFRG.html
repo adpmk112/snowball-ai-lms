@@ -182,7 +182,7 @@
 
               </a>
               <div class="dropdown-menu dropdown-menu-end">
-                <a class="dropdown-item name" href="#">[[${#request.userPrincipal.principal.name}]]</a>
+                <a class="dropdown-item name" href="#" th:if="${#request.userPrincipal.principal.name !=null}" th:text="${#request.userPrincipal.principal.name}"></a>
                 <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">
                   <svg
                     class="dropdown-menu-item"

@@ -26,7 +26,7 @@ public class Admin implements Serializable {
     @Column(columnDefinition = "tinyint(1) default 0")
     private boolean deleteStatus;
     private String email;
-    private String reset_password_token;
+    private String resetPasswordToken;
     @Transient
     public String getImagePath(){
         if(photo == null || code == null)return null;
