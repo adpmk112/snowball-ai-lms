@@ -147,6 +147,7 @@ public class TeacherDashboardService {
                     teacherCommentDTO.setLocation(comment.getLocation());
                     teacherCommentDTO.setText(comment.getText());
                     teacherCommentDTO.setCommenter_Name(student.getName());
+                    teacherCommentDTO.setCommentId(comment.getId());
                     teacherCommentDTOList.add(teacherCommentDTO);
                    
                 }
@@ -169,7 +170,7 @@ public class TeacherDashboardService {
             for (StudentAssignmentMark studentAssignmentMark : studentAssignmentMarkList) {
                 TeacherDashboardAssignmentStudentMarksDTO teacherDashboardAssignmentStudentMarksDTO = new TeacherDashboardAssignmentStudentMarksDTO();
                 teacherDashboardAssignmentStudentMarksDTO.setStudentId(studentAssignmentMark.getStudent().getId());
-                teacherDashboardAssignmentStudentMarksDTO.setStudentMarks(studentAssignmentMark.getStudentMark());
+                teacherDashboardAssignmentStudentMarksDTO.setStudentMarks(String.valueOf(studentAssignmentMark.getStudentMark()));
                 List<Student> studentList = studentRepository.findByDeleteStatusAndIdAndBatchId(false,
                         studentAssignmentMark.getStudent().getId(),batchId);
                 for (Student student : studentList) {

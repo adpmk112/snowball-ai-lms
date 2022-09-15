@@ -14,7 +14,7 @@ import com.ace.ai.admin.service.BatchService;
 import com.ace.ai.admin.service.ChapterViewService;
 import com.ace.ai.admin.service.ExamFormService;
 import com.ace.ai.admin.service.ClassRoomService;
-import com.ace.ai.admin.service.ExamScheduleService;
+import com.ace.ai.admin.service.BatchExamFormService;
 import com.ace.ai.admin.service.TeacherBatchService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ public class BatchController {
     @Autowired
     BatchService batchService;
     @Autowired
-    ExamScheduleService examScheduleService;
+    BatchExamFormService examScheduleService;
     @Autowired
     AttendanceService attendanceService;
     @Autowired

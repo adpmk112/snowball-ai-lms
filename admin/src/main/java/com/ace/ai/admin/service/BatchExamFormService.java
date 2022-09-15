@@ -14,7 +14,7 @@ import com.ace.ai.admin.repository.BatchExamFormRepository;
 import com.ace.ai.admin.repository.ExamFormRepository;
 
 @Service
-public class ExamScheduleService {
+public class BatchExamFormService {
     
     @Autowired
     BatchExamFormRepository batchExamFormRepository;
