@@ -123,15 +123,15 @@
                                 </div>
                                 <div class="mb-3" th:if="${customChapterFile.fileType == 'video'}">
                                   <input type="file" class="form-control" id="name" placeholder="Files"
-                                    th:field="*{file}" accept="video/mp4,video/x-m4v,video/*" />
+                                    th:field="*{file}" accept="video/mp4,video/x-m4v,video/*" required/>
                                 </div>
                                 <div class="mb-3" th:if="${customChapterFile.fileType == 'pdf'}">
                                   <input type="file" class="form-control" id="name" placeholder="Files"
-                                    th:field="*{file}" accept="application/pdf" />
+                                    th:field="*{file}" accept="application/pdf" required/>
                                 </div>
                                 <div class="mb-3" th:if="${customChapterFile.fileType == 'assignment'}">
                                   <input type="file" class="form-control" id="name" placeholder="Assignment"
-                                    th:field="*{file}" />
+                                    th:field="*{file}"  required />
                                 </div>
 
                                 <div class="modal-footer">
@@ -172,14 +172,14 @@
                   <input type="hidden" class="form-control" name="customChapterId" th:value="${customChapterId}"
                     id="message-text" />
                   <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="fileType" required>
-                    <option value="" disabled >Choose File Type</option>
+                    <option value="" disabled selected>Choose File Type</option>
                     <option value="video">Video</option>
                     <option value="pdf">Pdf</option>
                     <option value="assignment">Assignment</option>
                   </select>
                 </div>
                 <div class="mb-3">
-                  <input type="file" class="form-control" th:field="*{file}" />
+                  <input type="file" class="form-control" th:field="*{file}" required/>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
