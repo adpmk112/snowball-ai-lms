@@ -5,6 +5,7 @@ import com.ace.ai.admin.datamodel.Admin;
 import com.ace.ai.admin.dtomodel.AdminDTO;
 import com.ace.ai.admin.dtomodel.ChangePasswordDTO;
 import com.ace.ai.admin.service.AdminProfileService;
+import com.ace.ai.admin.service.BatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,8 @@ import java.io.IOException;
 public class ProfileController {
     @Autowired
     AdminProfileService adminProfileService;
+    @Autowired
+    BatchService batchService;
 
     @GetMapping("admin/updateProfileSetUp/")
     public ModelAndView adminProfile(@AuthenticationPrincipal AdminUserDetails userDetails,Model model){
@@ -43,11 +46,6 @@ public class ProfileController {
 
        return new ModelAndView("A005","adminDTO",adminDTO);
     }
-    @GetMapping("teacher/profile/")
-    public String teacherProfile(){
-
-        return "T006";
-    }
 
     @PostMapping("admin/profileUpdate/")
     public ModelAndView adminProfileUpdate( Model model, @ModelAttribute("adminDTO") @Validated AdminDTO adminDTO, BindingResult bs, @AuthenticationPrincipal AdminUserDetails userDetails) throws IOException {
@@ -61,11 +59,15 @@ public class ProfileController {
             if(adminProfileService.checkAdminPassword(adminDTO.getPassword(),userDetails.getPassword())){
                 adminDTO.setCode(admin.getCode());
                 model.addAttribute("success","Success");
+                String capitalizedName=batchService.capitalize(adminDTO.getName());
+                adminDTO.setName(capitalizedName);
                 adminProfileService.saveAdmin(adminDTO);
                 userDetails.setName(adminDTO.getName());
                 if(adminDTO.getPhoto().isEmpty()){
-                    userDetails.setPhoto(admin.getPhoto());
-                    model.addAttribute("photoName",admin.getPhoto());
+                    if(admin.getPhoto()!=null){
+                        userDetails.setPhoto(admin.getPhoto());
+                        model.addAttribute("photoName",admin.getPhoto());
+                    }
                 }
                 else {
                     userDetails.setPhoto(adminDTO.getPhoto().getOriginalFilename());
@@ -114,5 +116,11 @@ public class ProfileController {
            }
         return new ModelAndView("A007","changePassDTO",changePassDTO);
 
+    }
+
+    @GetMapping("teacher/profile/")
+    public String teacherProfile(){
+
+        return "T006";
     }
 }
