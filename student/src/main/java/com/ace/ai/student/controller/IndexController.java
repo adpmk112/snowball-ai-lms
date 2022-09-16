@@ -5,8 +5,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class IndexController {
-    @GetMapping({"/","/home"})
-    public String index(){
-        return "home";
+
+    @GetMapping({"/student/login","/"})
+    public String studentLogin(){
+        return "SLGN001";
     }
+
+    @GetMapping({"/student/logout"})
+    public String studentLogout(){
+        return "SLGN001";
+    }
+
 }

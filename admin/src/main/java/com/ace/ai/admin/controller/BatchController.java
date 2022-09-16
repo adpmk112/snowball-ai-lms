@@ -215,7 +215,7 @@ public class BatchController {
             @RequestParam("batchId") int batchId) {
         model.addAttribute("edit", "edit");
         StudentDTO studentDTO = batchService.findStudentById(studentId);
-        System.out.println("Student id in student data is:"+studentDTO.getId());
+        studentDTO.setPassword("");
         model.addAttribute("batchName", batchService.getById(batchId).getName());
         return new ModelAndView("A003-05", "studentDTO", studentDTO);
     }

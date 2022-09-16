@@ -5,6 +5,7 @@ import com.ace.ai.admin.dtomodel.StudentAttendanceDTO;
 import com.ace.ai.admin.dtomodel.StudentDTO;
 import com.ace.ai.admin.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -117,7 +118,9 @@ public class BatchService {
             Student student1=new Student();
                
             student1.setCode(student.getCode().toUpperCase());
-            student1.setPassword(student.getPassword());
+            BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
+            String encodedPassword=encoder.encode(student.getPassword());
+            student1.setPassword(encodedPassword);
             String outputName=BatchService.capitalize(student.getName());
             student1.setName(outputName);
 
@@ -203,7 +206,9 @@ public class BatchService {
     public StudentDTO updateStudent(StudentDTO studentDTO){
         Batch batch= batchRepository.findBatchById(studentDTO.getBatchId());
         Student student= studentRepository.findByBatchAndId(batch,studentDTO.getId());
-        student.setPassword(studentDTO.getPassword());
+        BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
+        String encodedPassword=encoder.encode(student.getPassword());
+        student.setPassword(encodedPassword);
         student.setName(studentDTO.getName());
         student.setCode(studentDTO.getCode());
         studentRepository.save(student);

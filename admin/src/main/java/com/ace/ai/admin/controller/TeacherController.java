@@ -9,6 +9,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -54,7 +55,9 @@ public class TeacherController {
        Teacher bean=new Teacher();
        bean.setCode(teacherDto.getCode());
        bean.setName(teacherDto.getName());
-       bean.setPassword(teacherDto.getPassword());
+      BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
+      String encodedPassword=encoder.encode(teacherDto.getPassword());
+       bean.setPassword(encodedPassword);
        String fileName=StringUtils.cleanPath(teacherDto.getPhoto().getOriginalFilename());
        bean.setPhoto(fileName);
        boolean code=teacherService.existsByCode(bean.getCode());
@@ -117,7 +120,9 @@ public class TeacherController {
       bean.setId(teacherDto.getId());
       bean.setCode(teacherDto.getCode());
       bean.setName(teacherDto.getName());
-      bean.setPassword(teacherDto.getPassword());
+      BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
+     String encodedPassword =encoder.encode(teacherDto.getPassword());
+      bean.setPassword(encodedPassword);
       
         Teacher teacher = teacherService.getId(bean.getId());
 
