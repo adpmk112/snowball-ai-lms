@@ -12,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ace.ai.student.datamodel.Student;
 import com.ace.ai.student.dtomodel.StudentLoginDTO;
-import com.ace.ai.student.repository.StudentRepository;
 import com.ace.ai.student.service.StudentLoginService;
 
 @Controller

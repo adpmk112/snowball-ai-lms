@@ -18,7 +18,6 @@ public class CustomChapterFile {
     private int id;
     private String name;
     private String fileType;
-    private String filePath;
     @Column(columnDefinition = "tinyint(1) default 0")
     private boolean deleteStatus;
 
