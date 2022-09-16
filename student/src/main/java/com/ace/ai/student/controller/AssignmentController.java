@@ -35,7 +35,7 @@ public class AssignmentController {
     StudentAssignmentMarkRepository studentAssignmentMarkRepository;
 
     @GetMapping("/assignmentView")
-    public ModelAndView assignmentStudent(@RequestParam("assignmentId") int assignmentId,@RequestParam("studentId") int studentId,@RequestParam("chapterId") int chapterId,ModelMap model){
+    public ModelAndView assignmentStudent(@RequestParam("assignmentId") Integer assignmentId,@RequestParam("studentId") Integer studentId,ModelMap model){
         AssignmentDateTimeDTO assignmentDateTimeDTO = assignmentService.getDateTimeByAssignmentId(assignmentId);
         StudentMarkDTO studentMarkDTO = assignmentService.getStudentMarkByAssiIdAndStuId( assignmentId, studentId);
         model.addAttribute("assignmentDateTimeDTO" ,assignmentDateTimeDTO);
