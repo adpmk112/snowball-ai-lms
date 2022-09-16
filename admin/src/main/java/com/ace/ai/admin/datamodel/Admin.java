@@ -22,6 +22,8 @@ public class Admin implements Serializable {
     private String name;
     private String photo;
     private String code;
+    @Lob
+    @Column(length = 8129)
     private String password;
     @Column(columnDefinition = "tinyint(1) default 0")
     private boolean deleteStatus;
