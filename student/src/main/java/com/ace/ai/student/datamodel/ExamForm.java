@@ -44,8 +44,8 @@ public class ExamForm implements Serializable {
     @OneToMany(mappedBy = "examForm")
     private List<BatchExamForm> batchExamForms = new ArrayList<>();
 
-    @OneToMany(mappedBy = "examForm")
-    private List<StudentExamMark> studentExamMarks = new ArrayList<>();
+    // @OneToMany(mappedBy = "examForm")
+    // private List<StudentExamMark> studentExamMarks = new ArrayList<>();
     
     public ExamForm(int id, String name, String type, String duration, int maxMark, Boolean deleteStatus, Course course){
         this.id = id;

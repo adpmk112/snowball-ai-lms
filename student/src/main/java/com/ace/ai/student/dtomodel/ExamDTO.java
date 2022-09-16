@@ -16,7 +16,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Data
 public class ExamDTO {
-    private int id;
+    private int id;//this is batchexamId
     private int studentId;
     private String name;
     private String type;

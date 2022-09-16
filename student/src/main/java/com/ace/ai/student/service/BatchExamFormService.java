@@ -69,7 +69,7 @@ public class BatchExamFormService {
             if(!bef.getEndDate().isBlank() && bef.getEndDate() != null){
                 LocalDateTime endDate = LocalDateTime.parse(bef.getEndDate().replace("T", " "), dtf);
                 if(formattedNow.isAfter(endDate)){
-                    int mark = (studentExamMarkRepository.findByExamForm_IdAndStudent_Id(bef.getExamForm().getId(), studentId) == null)? 0: studentExamMarkRepository.findByExamForm_IdAndStudent_Id(bef.getExamForm().getId(), studentId).getStudentMark();
+                    int mark = (studentExamMarkRepository.findByBatchExamForm_IdAndStudent_Id(bef.getExamForm().getId(), studentId) == null)? 0: studentExamMarkRepository.findByBatchExamForm_IdAndStudent_Id(bef.getExamForm().getId(), studentId).getStudentMark();
                     StudentExamDoneDTO stuDExamDTO = new StudentExamDoneDTO(bef.getExamForm().getName(), 
                                                             bef.getExamForm().getType(),
                                                             mark,

@@ -18,12 +18,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ace.ai.student.datamodel.Answer;
+import com.ace.ai.student.datamodel.BatchExamForm;
 import com.ace.ai.student.datamodel.ExamForm;
 import com.ace.ai.student.datamodel.Question;
 import com.ace.ai.student.datamodel.Student;
 import com.ace.ai.student.datamodel.StudentExamMark;
 import com.ace.ai.student.dtomodel.ExamDTO;
 import com.ace.ai.student.dtomodel.QuestionDTO;
+import com.ace.ai.student.repository.BatchExamFormRepository;
 import com.ace.ai.student.repository.ExamFormRepository;
 import com.ace.ai.student.repository.StudentRepository;
 
@@ -40,6 +42,9 @@ public class ExamFormService {
 
     @Autowired
     AnswerService answerService;
+
+    @Autowired
+    BatchExamFormRepository batchExamFormRepository;
 
     @Autowired
     StudentExamMarkService studentExamMarkService;
@@ -69,8 +74,8 @@ public class ExamFormService {
         return examFormRepo.findByDeleteStatusAndCourse_Id(status, course_id);
     } 
     
-    public ExamDTO getExamDTO(int examId, int studentId) {
-        ExamForm exam = examFormRepo.getById(examId);
+    public ExamDTO getExamDTO(int batchExamId, int studentId) {
+        ExamForm exam = examFormRepo.getById(batchExamId);
         String name = exam.getName();
         String type = exam.getType();
         String duration = exam.getDuration();
@@ -87,38 +92,39 @@ public class ExamFormService {
                     question.getTrueAnswer(), question.getPoint(), "");
             questionDTO_list.add(questionDTO);
         }
-        return new ExamDTO(examId,studentId, name, type, duration, questionDTO_list, totalPoint);
+        return new ExamDTO(batchExamId,studentId, name, type, duration, questionDTO_list, totalPoint);
     }
     
     //Save student answers for multiple choice questions
     public void saveAnswerAsMultipleChoice(ExamDTO examDTO){
         int studentId = examDTO.getStudentId();
-        int examId = examDTO.getId();
+        int batchExamId = examDTO.getId();
         int studentTotalMark = 0;
         Student student = studentRepository.getById(studentId);
-        ExamForm examForm = examFormRepo.getById(examId);
+        BatchExamForm batchExamForm = batchExamFormRepository.getById(batchExamId);
         List<QuestionDTO> questionDTOs = examDTO.getQuestions();
         for(QuestionDTO question: questionDTOs){
             if(question.getStudentAnswer().equals(question.getCorrectAnswer())){
                 studentTotalMark += question.getPoint();
             }
         }
-        StudentExamMark studentExamMark = new StudentExamMark(studentTotalMark,student,examForm);
+        StudentExamMark studentExamMark = new StudentExamMark(studentTotalMark,student,batchExamForm);
+        studentExamMark.setNotification(false);
         studentExamMarkService.save(studentExamMark);
     }
 
     //Save student Asnwers for file upload question
     public void saveAnswerAsFileUpload(ExamDTO examDTO) throws IOException{
         int studentId = examDTO.getStudentId();
-        int examId = examDTO.getId();
+        int batchExamId = examDTO.getId();
         //String batchName = 
         int studentTotalMark = 0;
-        String uploadDIR = "./studentExamAnswers/exam"+examId+"/"+studentId+"/";
+        String uploadDIR = "./studentExamAnswers/"+batchExamId+"/"+studentId+"/";
         Student student = studentRepository.getById(studentId);
-        ExamForm examForm = examFormRepo.getById(examId);
+        BatchExamForm batchExamForm = batchExamFormRepository.getById(batchExamId);
         MultipartFile answerFile = examDTO.getAnswerFile();
         if(!answerFile.isEmpty()){
-            //File is named with student Name and date
+            
             String studentName = student.getName().trim().replaceAll("\\s","-");
             //Get Now Date
             // LocalDate date = LocalDate.now();
@@ -126,12 +132,22 @@ public class ExamFormService {
             // String nowDate = date.format(formatter);
             String studentData = studentName;
             String fileName = studentData+"-"+answerFile.getOriginalFilename();
+
             //save the file on the local file system
             Path path = Paths.get(uploadDIR + fileName);
             if(!Files.exists(path)){
                 Files.createDirectories(path);
             }
             Files.copy(answerFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+
+            //Save filename to database
+            StudentExamMark studentExamMark = new StudentExamMark();
+            studentExamMark.setUploadedFile(fileName);
+            studentExamMark.setNotification(true);
+            studentExamMark.setBatchExamForm(batchExamForm);
+            studentExamMark.setStudent(student);
+            studentExamMark.setStudentMark(studentTotalMark);
+            studentExamMarkService.save(studentExamMark);
             
         }
     }
