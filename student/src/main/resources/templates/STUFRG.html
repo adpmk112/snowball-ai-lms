@@ -7,7 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="assets/fonts/font-awesome.min.css" />
-
+    <link rel="stylesheet" href="assets/jquery-confirm/jquery-confirm.min.css" />
+    <link rel="stylesheet" href="assets/css/datatable.css" />
+    <link rel="stylesheet" href="./assets/css/student-exam.css" />
     <!-- carousel-css -->
     <link rel="stylesheet" href="./assets/owlcarousel/css/owl.carousel.min.css" />
     <link rel="stylesheet" href="./assets/owlcarousel/css/owl.theme.default.min.css" />
@@ -22,13 +24,11 @@
 
 </th:block>
 <th:block th:fragment="scripts">
-    <script
-            type="text/javascript"
-            th:src="@{/assets/js/jquery.min.js}"
-    ></script>
+    <script type="text/javascript" th:src="@{/assets/js/jquery.min.js}"></script>
     <script src="https://kit.fontawesome.com/83e4876698.js" crossorigin="anonymous"></script>
     <script th:src="@{assets/bootstrap/js/bootstrap.min.js}"></script>
     <script th:src="@{assets/owlcarousel/js/owl.carousel.min.js}"></script>
+    <script th:src="@{assets/jquery-confirm/jquery-confirm.min.js}"></script>
     <script th:src="@{assets/js/subject-carousel.js}"></script>
     <script th:src="@{assets/js/header.js}"></script>
 </th:block>

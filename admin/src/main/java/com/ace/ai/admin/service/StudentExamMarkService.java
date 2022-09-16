@@ -45,11 +45,15 @@ public class StudentExamMarkService {
         //get student data
         for(Student student: allStudents){
             StudentExamMark studentExamMark = studentExamMarkRepository.findByBatchExamForm_IdAndStudent_Id(batchExamForm.getId(), student.getId());
+            StudentIdMarkFilePathDTO studentData = new StudentIdMarkFilePathDTO();
+            studentData.setStudentId(student.getId());
             if(studentExamMark != null){//need to check students is not answer
-                System.out.println("studentExam mark is "+studentExamMark.getId());
-                StudentIdMarkFilePathDTO studentData = new StudentIdMarkFilePathDTO(student.getId(),studentExamMark.getStudentMark(),studentExamMark.getUploadedFile());
-                studentDataList.add(studentData); 
+                studentData.setMark(studentExamMark.getStudentMark());
+                studentData.setFilePath(studentExamMark.getUploadedFile());
+            }else{
+                studentData.setMark(0);
             }
+            studentDataList.add(studentData); 
         }
         return new ExamMarkDTO(exam, studentDataList, examId, batchId);
     }

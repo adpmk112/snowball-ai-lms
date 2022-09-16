@@ -410,10 +410,11 @@
                                                         th:text="${studentExamMark.exam.maxMark}"></span>
                                                     <a href="#" class="text-primary p-1"><i
                                                             class="fa-solid fa-file-arrow-down"
-                                                            th:disabled="${studentData.filePath == ''}"></i></a>
+                                                            th:if="${studentData.filePath != null}"></i></a>
                                                 </td>
                                                 <td>
                                                     <a href=""
+                                                        th:style="${(studentExamMark.exam.type == 'Multiple Choice')?'pointer-events: none':''}"
                                                         class="btn btn-mark-edit btn-outline-primary btn-floating"
                                                         data-mdb-ripple-color="dark">
                                                         <i class="fa-regular fa-pen-to-square"></i>
@@ -454,7 +455,7 @@
                                                         th:text="${studentExamMark.exam.maxMark}"></span>
                                                     <a href="#" class="text-primary p-1"><i
                                                             class="fa-solid fa-file-arrow-down"
-                                                            th:disabled="${studentData.filePath == ''}"></i></a>
+                                                            th:if="${studentData.filePath != null}"></i></a>
                                                 </td>
                                                 <td>
                                                     <a href=""
