@@ -147,6 +147,7 @@ public class TeacherDashboardService {
                     teacherCommentDTO.setLocation(comment.getLocation());
                     teacherCommentDTO.setText(comment.getText());
                     teacherCommentDTO.setCommenter_Name(student.getName());
+                    teacherCommentDTO.setCommentId(comment.getId());
                     teacherCommentDTOList.add(teacherCommentDTO);
                    
                 }
