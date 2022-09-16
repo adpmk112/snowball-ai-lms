@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <div th:replace="STUFRG :: head"></div>
+  <title>Student Home</title>
+  <link rel="stylesheet" href="./assets/css/student-home.css" />
+</head>
+<body class="body-color">
+<header th:replace="STUFRG :: header"></header>
+
+    <main role="main">
+      <div th:replace="fragments/S001 :: student-home"></div>
+    </main>
+<footer th:replace="STUFRG :: footer"></footer>
+<div th:replace="STUFRG :: scripts"></div>
+
+  <script>
+    $('#subject .subject .button').click(function () {
+      $('#subject .subject .button').removeClass('active')
+      $(this).addClass('active')
+      //$(".owl-carousel").addClass("d-none");
+      //$("#"+$(this).attr("id")+"-show").removeClass("d-none");
+      $('.owl-carousel').removeClass('show')
+      $('#' + $(this).attr('id') + '-show').addClass('show')
+    })
+  </script>
+</body>
+
+</html>
