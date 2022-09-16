@@ -31,19 +31,19 @@ public class StudentExamMark implements Serializable{
     @JoinColumn(name = "student_id")
     private Student student;
 
-    @ManyToOne
-    @JoinColumn(name = "exam_form_id")
-    private ExamForm examForm;
+    // @ManyToOne
+    // @JoinColumn(name = "exam_form_id")
+    // private ExamForm examForm;
 
     @ManyToOne
     @JoinColumn(columnDefinition="integer", name = "batch_exam_form_id")
     private BatchExamForm batchExamForm;
 
-    public StudentExamMark(int studentMark, String uploadedFile, Boolean notification, Student student, ExamForm examForm){
+    public StudentExamMark(int studentMark, String uploadedFile, Boolean notification, Student student, BatchExamForm batchExamForm){
         this.studentMark = studentMark;
         this.uploadedFile = uploadedFile;
         this.notification = notification;
         this.student = student;
-        this.examForm = examForm;
+        this.batchExamForm = batchExamForm;
     }   
 }

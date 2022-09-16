@@ -30,15 +30,20 @@ public class StudentExamMark implements Serializable{
     @JoinColumn(name = "student_id")
     private Student student;
 
+    // @ManyToOne
+    // @JoinColumn(name = "exam_form_id")
+    // private ExamForm examForm;
+
     @ManyToOne
-    @JoinColumn(name = "exam_form_id")
-    private ExamForm examForm;
+    @JoinColumn(columnDefinition="integer", name = "batch_exam_form_id")
+    private BatchExamForm batchExamForm;
+
 
     public StudentExamMark(int studentMark,
                             Student student,
-                            ExamForm examForm){
+                            BatchExamForm batchExamForm){
         this.studentMark = studentMark;
         this.student = student;
-        this.examForm = examForm; 
+        this.batchExamForm = batchExamForm; 
         }
 }

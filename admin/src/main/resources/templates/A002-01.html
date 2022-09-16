@@ -51,6 +51,7 @@
 
       $(document).on("click",'a.delete-exam',function(){
         window.examId=$(this).attr('id');
+        window.courseId = $("#course-id-unique").val();
       })     
         $("a.delete-exam").confirm({
           closeIcon: true,
@@ -60,11 +61,11 @@
           content: "Are you sure to delete this exam?",
           animation: "Scale",
           buttons: {
+            No: function () {},
             Yes: function () {
               window.location = "/admin/course/exam-delete?id="+examId+"&courseId="+courseId;
-              
             },
-            No: function () {},
+           
           },
         });
         
