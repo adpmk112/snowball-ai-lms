@@ -274,7 +274,14 @@ $(document).ready(function () {
         _end_date.attr("disabled", true);
         _start_date.css("border", "none");
         _end_date.css("border", "none");
-      } else if (!equal || lessThan) {
+      }else if(startDate == "" && endDate != ""){
+        $.alert("Start date must be filled!")
+      }else if(startDate != "" && endDate == ""){
+        $.alert("End date must be filled!")
+      }
+      else if(startDate == endDate){
+        $.alert("Start date and end date should not equal!")
+      }else if (!equal || lessThan) {
         $(this)
           .find(".fa-solid.fa-check")
           .removeClass("fa-solid fa-check")

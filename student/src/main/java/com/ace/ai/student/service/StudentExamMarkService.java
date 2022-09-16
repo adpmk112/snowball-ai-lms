@@ -10,8 +10,8 @@ import com.ace.ai.student.repository.StudentExamMarkRepository;
 public class StudentExamMarkService {
     @Autowired StudentExamMarkRepository studentExamMarkRepository;
     
-    public StudentExamMark findByExamForm_IdAndStudent_Id(int examId, int studentId){
-        return studentExamMarkRepository.findByExamForm_IdAndStudent_Id(examId, studentId);
+    public StudentExamMark findByBatchExamForm_IdAndStudent_Id(int examId, int studentId){
+        return studentExamMarkRepository.findByBatchExamForm_IdAndStudent_Id(examId, studentId);
     }
 
     public void save(StudentExamMark studentExamMark){
