@@ -11,4 +11,6 @@ import com.ace.ai.student.datamodel.Student;
 public interface StudentRepository extends JpaRepository<Student,Integer>{
     List<Student> findByCodeAndPassword(String stuCode,String password);
     Student findByCode(String code);
+    Student findByCodeAndDeleteStatus(String code,Boolean b);
+
 }
