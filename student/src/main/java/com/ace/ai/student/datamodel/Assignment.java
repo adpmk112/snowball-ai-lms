@@ -3,12 +3,13 @@ package com.ace.ai.student.datamodel;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import lombok.Data;
@@ -26,7 +27,13 @@ public class Assignment implements Serializable {
     @Column(columnDefinition = "tinyint(1) default 0")
     private boolean deleteStatus;
     private String branch;
+    private String end_date;
+    private String end_time;
 
     @OneToMany(mappedBy = "assignment")
     private List<StudentAssignmentMark> studentAssignmentMarks = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name="batch_id")
+    private Batch batch;
 }
