@@ -4,15 +4,21 @@ import com.ace.ai.admin.config.AdminUserDetails;
 import com.ace.ai.admin.config.PasswordEncoder;
 import com.ace.ai.admin.datamodel.Admin;
 import com.ace.ai.admin.dtomodel.AdminDTO;
+import com.ace.ai.admin.exception.AdminNotFoundException;
 import com.ace.ai.admin.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -22,6 +28,8 @@ import java.nio.file.StandardCopyOption;
 public class AdminProfileService {
     @Autowired
     AdminRepository adminRepository;
+    @Autowired
+    JavaMailSender javaMailSender;
 
     public boolean checkAdminPassword(String newPassword,String existingPassword){
         BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
@@ -74,9 +82,6 @@ public class AdminProfileService {
         admin.setEmail(adminDTO.getEmail());
         admin.setName(adminDTO.getName());
 
-        //String fileName= StringUtils.cleanPath(admin.getPhoto().getOriginalFilename());
-        //admin.setPhoto(adminDTO.);
-
         adminRepository.save(admin);
 
     }
@@ -87,4 +92,45 @@ public class AdminProfileService {
         admin.setPassword(encoder.encode(password));
         adminRepository.save(admin);
     }
+
+    public void updateResetPassword(String token,String email) throws AdminNotFoundException {
+        Admin admin=adminRepository.findByEmail(email);
+        if(admin!=null){
+            admin.setResetPasswordToken(token);
+            adminRepository.save(admin);
+        }
+        else{
+            throw new AdminNotFoundException("We will be sending an email if we found a matched email. ");
+        }
+    }
+
+    public Admin get(String resetPasswordToken){
+        return adminRepository.findByResetPasswordToken(resetPasswordToken);
+    }
+
+    public void updatePassword(Admin admin,String newPassword){
+        BCryptPasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
+        String encodedPassword=passwordEncoder.encode(newPassword);
+        admin.setPassword(encodedPassword);
+        admin.setResetPasswordToken(null);
+        adminRepository.save(admin);
+    }
+    public void sendEmail(String email, String resetPasswordLink) throws MessagingException, UnsupportedEncodingException {
+        MimeMessage message= javaMailSender.createMimeMessage();
+        MimeMessageHelper helper=new MimeMessageHelper(message);
+        helper.setFrom("sawmonhan71293@gmail.com","Ace Inspiration Support");
+        helper.setTo(email);
+        String subject="Here's the link to reset your password.";
+        String content="<p> Hello,</p>"
+                +"<p>You have requested to reset your password. </p>"
+                +"<p>Click the link below to change your password.</p>"
+                +"<p><b><a href=\""+resetPasswordLink+"\">Change my password.</a></b></p>"
+                +"<p>Ignore this email if you do remember your password, or you have not made the request.</p>";
+        helper.setSubject(subject);
+        helper.setText(content,true);
+        javaMailSender.send(message);
+
+
+    }
+
 }

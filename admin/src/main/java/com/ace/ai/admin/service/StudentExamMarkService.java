@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ace.ai.admin.datamodel.Batch;
+import com.ace.ai.admin.datamodel.BatchExamForm;
 import com.ace.ai.admin.datamodel.ExamForm;
 import com.ace.ai.admin.datamodel.Student;
 import com.ace.ai.admin.datamodel.StudentExamMark;
@@ -20,43 +22,40 @@ public class StudentExamMarkService {
     @Autowired
     AttendanceService attendanceService;
     @Autowired
-    ExamScheduleService examScheduleService;    
+    BatchExamFormService batchExamFormService;    
 
-    //get all Data and if data doesn't present insert with default values
-    public List<ExamMarkDTO> getExamMarkDTOList(int batchId){
-        List<Student> allStudents =  attendanceService.getAllStudentByDeleteStatus(batchId);
-        List<ExamForm> finishedExams =  examScheduleService.getFinishedExam(batchId);
-        List<ExamMarkDTO> examMarkDTOList = new ArrayList<>();
-        for(ExamForm finishedExam : finishedExams){
-            List<StudentExamMark> studentExamMark = studentExamMarkRepository.findByExamForm_Id(finishedExam.getId());
-            
-            if(studentExamMark.size() < 1){    //If it doesn't exit insert as default data
-                for(Student student: allStudents){
-                    StudentExamMark studentExamMarkToInsertDefault = new StudentExamMark(0, "", true, student, finishedExam);
-                    studentExamMarkRepository.save(studentExamMarkToInsertDefault);
-                }
-            } 
-            //get Data
-            ExamMarkDTO examMarkDTO = this.getExamMarkDTO(finishedExam);
-            examMarkDTOList.add(examMarkDTO);      
+    //get all Data 
+    public List<ExamMarkDTO> getExamMarkDTOList(int batchId){        
+        List<BatchExamForm> batchExamFormsByBatchId =  batchExamFormService.findByBatch_Id(batchId);//find by batchId and examform delete status and bef_deletestatus
+        List<ExamMarkDTO> examMarkDTOList = new ArrayList<>();        
+        for(BatchExamForm batchExamForm : batchExamFormsByBatchId){            
+            ExamMarkDTO examMarkDTO = this.getExamMarkDTO(batchExamForm, batchId);
+            if(examMarkDTO.getStudentData().size() > 0){ //add to list only if student list is find
+                examMarkDTOList.add(examMarkDTO);
+            }                    
         }       
         return examMarkDTOList;
     }
 
-    //get student data and exam form form studentexamMark Table
-    public ExamMarkDTO getExamMarkDTO(ExamForm examForm){
-        List<StudentExamMark> studentExamMarkList = studentExamMarkRepository.findByExamForm_IdOrderByStudent_IdAsc(examForm.getId());
-        ExamForm exam = studentExamMarkList.get(0).getExamForm();
+    public ExamMarkDTO getExamMarkDTO(BatchExamForm batchExamForm, int batchId){
+        List<Student> allStudents =  attendanceService.getAllStudentByDeleteStatus(batchId);//students that are ordered by student Id
+        ExamForm exam = batchExamForm.getExamForm();
+        int examId = exam.getId();
         List<StudentIdMarkFilePathDTO> studentDataList = new ArrayList<>();
-        for(StudentExamMark studentExamMark : studentExamMarkList){
-            StudentIdMarkFilePathDTO studentData = new StudentIdMarkFilePathDTO(studentExamMark.getStudent().getId(),studentExamMark.getStudentMark(), studentExamMark.getUploadedFile());
-            studentDataList.add(studentData); 
+        //get student data
+        for(Student student: allStudents){
+            StudentExamMark studentExamMark = studentExamMarkRepository.findByBatchExamForm_IdAndStudent_Id(batchExamForm.getId(), student.getId());
+            if(studentExamMark != null){//need to check students is not answer
+                System.out.println("studentExam mark is "+studentExamMark.getId());
+                StudentIdMarkFilePathDTO studentData = new StudentIdMarkFilePathDTO(student.getId(),studentExamMark.getStudentMark(),studentExamMark.getUploadedFile());
+                studentDataList.add(studentData); 
+            }
         }
-        return new ExamMarkDTO(exam, studentDataList,exam.getId());
+        return new ExamMarkDTO(exam, studentDataList, examId, batchId);
     }
-
+    
     public StudentExamMark getByExamIdAndStudentId(int examId, int studentId){
-        return studentExamMarkRepository.findByExamForm_IdAndStudent_Id(examId, studentId);
+        return studentExamMarkRepository.findByBatchExamForm_IdAndStudent_Id(examId, studentId);
     }
 
     //save

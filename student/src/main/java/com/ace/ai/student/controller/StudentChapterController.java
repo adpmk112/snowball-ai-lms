@@ -26,7 +26,6 @@ public class StudentChapterController {
     StudentChapterService studentChapterService;
     @Autowired
     StudentCommentService studentCommentService;
-    
 
     @GetMapping("/chapter")
     public ModelAndView getChapterFileList(@RequestParam("chapterId") int chapterId,@RequestParam("batchId") int batchId,ModelMap model){

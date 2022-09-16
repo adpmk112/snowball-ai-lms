@@ -164,6 +164,11 @@
                                                         data-mdb-ripple-color="dark">
                                                         <i class="fa-regular fa-pen-to-square"></i>
                                                     </a>
+                                                    <a th:id="${customChapter.id}"
+                                                        class="btn btn-outline-danger remove-customChapter btn-floating"
+                                                        data-mdb-ripple-color="dark">
+                                                        <i class="fa-solid fa-circle-minus"></i>
+                                                    </a>
                                                     <a th:href="@{/teacher/batch/course/activityFile(customChapterId=${customChapter.id})}"
                                                         class="more-info btn btn-floating" data-mdb-ripple-color="dark">
                                                         See More

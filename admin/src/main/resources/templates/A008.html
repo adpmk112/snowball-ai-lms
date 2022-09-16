@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <title>Login - Ace Inspiration</title>
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css"/>
+    <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    />
+    <link rel="stylesheet" href="../assets/css/styles.css"/>
+</head>
+
+<body class="body-color" style="background: rgb(171, 190, 255);">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-sm-12">
+            <div class="card shadow-lg o-hidden border-0 header-unit" style="background-color: lavender;">
+                <div class="card-body p-0">
+                    <div class="row gx-0">
+                        <div class="col-lg-6 d-none d-lg-flex">
+                            <img src="https://aceplussolutions.com/wp-content/uploads/2021/02/AI.jpg" width="100%"/>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="p-5">
+                                <div class="text-center">
+                                   <h4 class="py-2">Forgot Password ?</h4>
+                                </div>
+                                <!--  <form class=""> -->
+
+                                <div class="alert alert-success" th:if="${error!=null}" th:text="${error}"></div>
+                                <div class="alert alert-success" th:if="${message!=null}" th:text="${message}"></div>
+                                <form th:action="@{/forgot_password}" method="post">
+                                    <div class="mb-3">
+                                         <p>We will be sending a reset password link to your email.</p>
+                                        <input
+                                                class="form-control form-control-user"
+                                                type="email"
+                                                id="exampleInputEmail"
+                                                aria-describedby="emailHelp"
+                                                placeholder="Enter your email."
+                                                name="email"
+                                                required
+                                                autofocus
+                                        />
+                                    </div>
+
+                                        <button
+                                                class="btn btn-primary d-block w-100"
+                                                type="submit"
+                                                style="background: rgb(104, 105, 109);"
+                                        >
+                                            Send
+                                        </button>
+                                </form>
+                                <hr/>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

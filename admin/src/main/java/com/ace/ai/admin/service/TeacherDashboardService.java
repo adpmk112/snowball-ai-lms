@@ -115,8 +115,8 @@ public class TeacherDashboardService {
             teacherDashboardExamDTO.setExamForm_id(batchExamForm.getExamForm().getId());
             teacherDashboardExamDTO.setExamForm_name(batchExamForm.getExamForm().getName());
             teacherDashboardExamDTO.setMax_marks(batchExamForm.getExamForm().getMaxMark());
-            List<StudentExamMark> studentExamMarkList = studentExamMarkRepository.findByDeleteStatusAndExamFormId(false,
-                    batchExamForm.getExamForm().getId());
+            List<StudentExamMark> studentExamMarkList = studentExamMarkRepository.findByDeleteStatusAndBatchExamFormId(false,
+                    batchExamForm.getId());
             List<StudentExamMarkDTO> studentExamMarkDTOList = new ArrayList<>();
 
             for (StudentExamMark studentExamMark : studentExamMarkList) {
@@ -170,7 +170,7 @@ public class TeacherDashboardService {
             for (StudentAssignmentMark studentAssignmentMark : studentAssignmentMarkList) {
                 TeacherDashboardAssignmentStudentMarksDTO teacherDashboardAssignmentStudentMarksDTO = new TeacherDashboardAssignmentStudentMarksDTO();
                 teacherDashboardAssignmentStudentMarksDTO.setStudentId(studentAssignmentMark.getStudent().getId());
-                teacherDashboardAssignmentStudentMarksDTO.setStudentMarks(studentAssignmentMark.getStudentMark());
+                teacherDashboardAssignmentStudentMarksDTO.setStudentMarks(String.valueOf(studentAssignmentMark.getStudentMark()));
                 List<Student> studentList = studentRepository.findByDeleteStatusAndIdAndBatchId(false,
                         studentAssignmentMark.getStudent().getId(),batchId);
                 for (Student student : studentList) {

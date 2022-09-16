@@ -10,15 +10,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Column;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor
 @Data
 public class StudentExamMark implements Serializable{
     
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
-    private String studentMark;
+    private int studentMark;
     private String uploadedFile;
     private Boolean notification;
     @Column(columnDefinition = "tinyint(1) default 0")
@@ -28,7 +30,20 @@ public class StudentExamMark implements Serializable{
     @JoinColumn(name = "student_id")
     private Student student;
 
+    // @ManyToOne
+    // @JoinColumn(name = "exam_form_id")
+    // private ExamForm examForm;
+
     @ManyToOne
-    @JoinColumn(name = "exam_form_id")
-    private ExamForm examForm;
+    @JoinColumn(columnDefinition="integer", name = "batch_exam_form_id")
+    private BatchExamForm batchExamForm;
+
+
+    public StudentExamMark(int studentMark,
+                            Student student,
+                            BatchExamForm batchExamForm){
+        this.studentMark = studentMark;
+        this.student = student;
+        this.batchExamForm = batchExamForm; 
+        }
 }

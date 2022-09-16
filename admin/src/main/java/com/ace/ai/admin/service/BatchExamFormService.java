@@ -14,7 +14,7 @@ import com.ace.ai.admin.repository.BatchExamFormRepository;
 import com.ace.ai.admin.repository.ExamFormRepository;
 
 @Service
-public class ExamScheduleService {
+public class BatchExamFormService {
     
     @Autowired
     BatchExamFormRepository batchExamFormRepository;
@@ -23,7 +23,6 @@ public class ExamScheduleService {
     ExamFormRepository examFormRepository;
 
     public List<ExamScheduleDTO> showExamScheduleTable(Integer batchId) throws ParseException{
-
         List<ExamScheduleDTO>examScheduleDTOList = new ArrayList<>();
         List<BatchExamForm>batchExamFormList = batchExamFormRepository.findByDeleteStatusAndBatch_IdAndExamForm_DeleteStatus(false, batchId, false);
 
@@ -35,54 +34,27 @@ public class ExamScheduleService {
         LocalDateTime formattedNow = LocalDateTime.parse(formattedString, dtf);
         
         for(BatchExamForm batchExamForm:batchExamFormList){
-
             ExamScheduleDTO examScheduleDTO = new ExamScheduleDTO();
             examScheduleDTO.setId(batchExamForm.getId());
             examScheduleDTO.setExamName(batchExamForm.getExamForm().getName());
             examScheduleDTO.setStartDate(batchExamForm.getStartDate());
             examScheduleDTO.setEndDate(batchExamForm.getEndDate());
 
-            if(!(examScheduleDTO.getStartDate().equals("")) && 
+            if(!(examScheduleDTO.getStartDate().isBlank()) && 
                 (LocalDateTime.parse( examScheduleDTO.getStartDate().replace("T"," "), dtf)).isAfter(formattedNow)){
                 examScheduleDTO.setStatus("Upcoming");
             }
-
-            else if (!(examScheduleDTO.getEndDate().equals("")) && 
+            else if (!(examScheduleDTO.getEndDate().isBlank()) && 
                     (LocalDateTime.parse( examScheduleDTO.getEndDate().replace("T"," "), dtf)).isAfter(formattedNow)){
                 examScheduleDTO.setStatus("In Progress");
             }
-
-            else if (!(examScheduleDTO.getEndDate().equals("")) && 
+            else if (!(examScheduleDTO.getEndDate().isBlank()) && 
                     formattedNow.isAfter(LocalDateTime.parse( examScheduleDTO.getEndDate().replace("T"," "), dtf))){
                 examScheduleDTO.setStatus("Done");
-            }
-        
+            }        
             examScheduleDTOList.add(examScheduleDTO);
         }
-
         return examScheduleDTOList;
-    }
-
-    public List<ExamForm> getFinishedExam(int batchId){
-        List<BatchExamForm> allBef = batchExamFormRepository.findByDeleteStatusAndBatch_IdAndExamForm_DeleteStatus(false, batchId, false);
-        List<ExamForm> finishedExams = new ArrayList<>();
-        //Now Time
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        String formattedString = now.format(formatter);
-        LocalDateTime formattedNow = LocalDateTime.parse(formattedString, dtf);
-        for(BatchExamForm bef: allBef){
-            try{
-                LocalDateTime endDate = LocalDateTime.parse(bef.getEndDate().replace("T", " "), dtf);
-                if(formattedNow.isAfter(endDate)){
-                    finishedExams.add(bef.getExamForm());
-                }
-            }catch(Exception e){
-                System.out.println("some errors occur in getFinishedExam "+ e);
-            }
-        }
-        return finishedExams;
     }
 
     public void saveBathExamFrom(BatchExamForm bef){
@@ -91,6 +63,10 @@ public class ExamScheduleService {
 
     public BatchExamForm findById(int id){
         return batchExamFormRepository.getById(id);
+    }
+
+    public List<BatchExamForm> findByBatch_Id(int batchId){
+        return batchExamFormRepository.findByDeleteStatusAndBatch_IdAndExamForm_DeleteStatus(false, batchId, false);
     }
 
 }

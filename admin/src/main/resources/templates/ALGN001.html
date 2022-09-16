@@ -6,7 +6,7 @@
             name="viewport"
             content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
     />
-    <title>Login - Brand</title>
+    <title>Login - Ace Inspiration</title>
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css"/>
     <link
             rel="stylesheet"
@@ -35,6 +35,7 @@
                                     <h4 style="color:red" >Invalid Id or Password!</h4>
                                 </div>
                                 <div class="alert alert-success" th:if="${success!=null}" th:text="${success}"></div>
+                                <div class="alert alert-success" th:if="${message!=null}" th:text="${message}"></div>
                                 <form th:action="@{/admin/login}" method="post">
                                     <div class="mb-3">
 
@@ -80,9 +81,7 @@
                                 <hr/>
                                 <!-- </form> -->
                                 <div class="text-center">
-                                    <a class="small" href="forgot-password.html">
-                                        Forgot Password?
-                                    </a>
+                                    <a href="#" class="text-decoration-none" th:href="@{/forgot_password}">Forgot Password?</a>
                                 </div>
                                 <div class="text-center"></div>
                             </div>

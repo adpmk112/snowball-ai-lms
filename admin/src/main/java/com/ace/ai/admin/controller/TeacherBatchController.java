@@ -11,9 +11,10 @@ import com.ace.ai.admin.dtomodel.StudentIdMarkFilePathDTO;
 import com.ace.ai.admin.service.AttendanceService;
 import com.ace.ai.admin.service.BatchService;
 import com.ace.ai.admin.service.ChapterViewService;
+import com.ace.ai.admin.service.BatchExamFormService;
 import com.ace.ai.admin.service.ClassRoomService;
 import com.ace.ai.admin.service.CustomChapterService;
-import com.ace.ai.admin.service.ExamScheduleService;
+
 import com.ace.ai.admin.service.StudentExamMarkService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class TeacherBatchController {
     @Autowired
     AttendanceService attendanceService;
     @Autowired
-    ExamScheduleService examScheduleService;
+    BatchExamFormService examScheduleService;
     @Autowired
     StudentExamMarkService studentExamMarkService;
     @Autowired

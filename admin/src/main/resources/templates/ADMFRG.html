@@ -175,14 +175,14 @@
                   <img id="profile-img"   th:src="@{${'/assets/img/admin/'+#request.userPrincipal.principal.photo}}"/>
                 </div>
                 <div th:unless="${#request.userPrincipal.principal.photo != null}">
-                  <img id="profile-img"   src="../assets/img/profileboy.jpg"/>
+                  <img id="profile-img"   src="/assets/img/profileboy.jpg"/>
                 </div>
 
 
 
               </a>
               <div class="dropdown-menu dropdown-menu-end">
-                <a class="dropdown-item name" href="#">[[${#request.userPrincipal.principal.name}]]</a>
+                <a class="dropdown-item name" href="#" th:if="${#request.userPrincipal.principal.name !=null}" th:text="${#request.userPrincipal.principal.name}"></a>
                 <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">
                   <svg
                     class="dropdown-menu-item"
@@ -228,8 +228,13 @@
               <div class="card" style="border-radius: 15px;">
                 <div class="card-body p-4">
                   <div class="d-flex text-black">
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0" th:if="${#request.userPrincipal.principal.photo != null}">
                       <img th:src="@{${'/assets/img/admin/'+#request.userPrincipal.principal.photo}}"
+                           alt="Generic placeholder image" class="img-fluid"
+                           style="width: 180px; border-radius: 10px;">
+                    </div>
+                    <div class="flex-shrink-0" th:unless="${#request.userPrincipal.principal.photo != null} ">
+                      <img src="/assets/img/profileboy.jpg"
                            alt="Generic placeholder image" class="img-fluid"
                            style="width: 180px; border-radius: 10px;">
                     </div>
