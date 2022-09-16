@@ -32,9 +32,9 @@
         let start_min=start.getHours()*60 +start.getMinutes();
         let end=$("#end-time").timepicker().getTime();
        let end_min=end.getHours()*60 +end.getMinutes();
-       alert(start_min + " "+ end_min);
+
        if (start_min >= end_min) {
-         alert("Start time can't be bigger or equal to the end time");
+         $.alert("Start time can't be bigger or equal to the end time");
         }
         else {
          $('#classroomForm').submit();
