@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.ace.ai.student.datamodel.Chapter;
 import com.ace.ai.student.datamodel.ChapterFile;
-import com.ace.ai.student.datamodel.CustomChapter;
 import com.ace.ai.student.datamodel.CustomChapterFile;
 import com.ace.ai.student.dtomodel.ChapterFileDTO;
 import com.ace.ai.student.repository.ChapterFileRepository;

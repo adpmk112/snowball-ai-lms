@@ -22,4 +22,7 @@ public class Admin implements Serializable {
     private String password;
     @Column(columnDefinition = "tinyint(1) default 0")
     private boolean deleteStatus;
+    private String email;
+    private String resetPasswordToken;
+
 }

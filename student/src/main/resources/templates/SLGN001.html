@@ -6,7 +6,7 @@
             name="viewport"
             content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
     />
-    <title>Login - ACE INSPIRATION</title>
+    <title>Login - Ace Inspiration</title>
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css"/>
     <link
             rel="stylesheet"
@@ -32,9 +32,11 @@
                                 </div>
                                 <!--  <form class=""> -->
                                 <div th:if="${param.error}">
-                                    <h4 style="color:red">Invalid Id or Password!</h4>
+                                    <h4 style="color:red" >Invalid Id or Password!</h4>
                                 </div>
-                                <form th:action="@{/teacher/login}" method="post" >
+                                <div class="alert alert-success" th:if="${success!=null}" th:text="${success}"></div>
+                                <div class="alert alert-success" th:if="${message!=null}" th:text="${message}"></div>
+                                <form th:action="@{/student/login}" method="post">
                                     <div class="mb-3">
 
                                         <input
@@ -44,8 +46,8 @@
                                                 aria-describedby="emailHelp"
                                                 placeholder="User ID"
                                                 name="code"
-                                                style="text-transform:uppercase;"
-                                        />
+                                                style="text-transform:uppercase;" />
+
                                     </div>
                                     <div class="mb-3">
                                         <input
@@ -78,6 +80,7 @@
                                     </a>
                                 </form>
                                 <hr/>
+
                             </div>
                         </div>
                     </div>

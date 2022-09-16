@@ -281,7 +281,7 @@ $(document).ready(function () {
       }
       else if(startDate == endDate){
         $.alert("Start date and end date should not equal!")
-      }else if (!equal || lessThan) {
+      }else if (startDate < endDate) {
         $(this)
           .find(".fa-solid.fa-check")
           .removeClass("fa-solid fa-check")

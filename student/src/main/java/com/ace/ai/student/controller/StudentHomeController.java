@@ -6,7 +6,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ace.ai.student.config.StudentUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,8 +43,8 @@ public class StudentHomeController {
     StudentCommentService studentCommentService;
 
     @GetMapping(value="/home")
-    public ModelAndView getStudentHome(@RequestParam("stuId")int stuId,ModelMap model) {
-        Student student = studentCourseService.getStudentById(stuId);
+    public ModelAndView getStudentHome(@AuthenticationPrincipal StudentUserDetails userDetails, ModelMap model) {
+        Student student = studentCourseService.getStudentById(userDetails.getId());
         List<ChapterBatchDTO> chapterList = studentCourseService.getChapterList(student.getBatch().getId());
         List<CustomChapter> customChapterList = studentCourseService.getCustomChapterList(student.getBatch().getId());
 
@@ -115,8 +117,8 @@ public class StudentHomeController {
         model.addAttribute("stuCommentPostDTO", new StuCommentPostDTO());
         model.addAttribute("stuCode", student.getCode());
         model.addAttribute("batchId",student.getBatch().getId());
-        model.addAttribute("stuId",stuId);
-        return new ModelAndView("STU001","stuCommentViewDTOList",studentCommentService.getCommentListByBatchIdAndLocation(student.getBatch().getId(), "home"));
+        model.addAttribute("stuId",userDetails.getId());
+        return new ModelAndView("S001","stuCommentViewDTOList",studentCommentService.getCommentListByBatchIdAndLocation(student.getBatch().getId(), "home"));
     }
     
     @PostMapping(value="/home/commentpost")

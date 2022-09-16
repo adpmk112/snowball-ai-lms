@@ -24,19 +24,21 @@
                         </div>          
                         </div> 
                         <div th:each="upcomingExam : ${upcomingExamList}" class="exam-card shadow bg-light rounded">
-                        <a th:href="@{showExamForm(examId = ${upcomingExam.id} , studentId = ${studentId})}" class="exam-confirm">
-                            <div style="max-width: 100%;">
-                            <div class="card-body">
-                                <h4 class="my-2" th:text="${upcomingExam.name}"></h4>              
-                                <div class="" th:text="${upcomingExam.type}"></div>
-                                <div>
-                                    Total Mark: <span th:text="${upcomingExam.maxMark}"></span>
-                                    <br /> 
-                                    Time Allowed: <span th:text="${upcomingExam.duration}"></span>
+                            <a th:href="@{/student/showExamForm(examId = ${upcomingExam.exam.id} , studentId = ${studentId})}" th:class="${(upcomingExam.status == 'Now starting...')?'exam-confirm text-primary':'exam-confirm text-secondary pe-none'}">
+                                <div style="max-width: 100%;">
+                                <div class="card-body">
+                                    <h4 class="my-2" th:text="${upcomingExam.exam.name}"></h4>              
+                                    <div class="" th:text="${upcomingExam.exam.type}"></div>
+                                    <div>
+                                        Total Mark: <span th:text="${upcomingExam.exam.maxMark}"></span>
+                                        <br /> 
+                                        Time Allowed: <span th:text="${upcomingExam.exam.duration}"></span>
+                                        <br>                                    
+                                        <span th:text="${upcomingExam.status}" th:class="${(upcomingExam.status == 'Now starting...')?' text-danger':''}"></span>
+                                    </div>
                                 </div>
-                            </div>
-                            </div>
-                        </a>
+                                </div>
+                            </a>
                         </div>              
                     </div>
 
@@ -54,10 +56,11 @@
                         <div th:each="finishedExam : ${finishedExamList}" class="exam-card bg-light shadow rounded">          
                             <div style="max-width: 100%;">
                             <div class="card-body">
-                                <h4 class="my-2" th:text="${finishedExam.name}"></h4>              
-                                <div class="" th:text="${finishedExam.type}"></div>
+                                <h4 class="my-2" th:text="${finishedExam.exam.name}"></h4>              
+                                <div class="" th:text="${finishedExam.exam.type}"></div>
                                 <div>
-                                    <span>Your Mark:</span> <span th:text="${finishedExam.mark}"></span>/<span th:text="${finishedExam.maxMark}"></span>
+                                    <span>Your Mark:</span> <span th:text="${finishedExam.mark}"></span>/<span th:text="${finishedExam.exam.maxMark}"></span>
+                                    <div th:text="${finishedExam.answerDate}"></div>
                                 </div>
                             </div>
                             </div>

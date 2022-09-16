@@ -53,10 +53,9 @@
             <div class="line">
               <h1>Student Management Assignment</h1>
               <div>
-                <p>Teacher's name</p>
                 <div class="assign-p">
-                  <p>100 points</p>
-                  <p>Due Date, Time</p>
+                  <p th:text="${studentMarkDTO}+'/100 point'"></p>
+                  <p th:text="'Due '+${assignmentDateTimeDTO.end_date}+${assignmentDateTimeDTO.end_time}"></p>
                 </div>
               </div>
             </div>
@@ -64,7 +63,7 @@
         </div>
         <div class="part2">
           <div class="upload">
-            <form action="">
+            <form th:action="/assignmentAdd" method="post" th:object="${assignmentFileDTO}" enctype="multipart/form-data" >
               <div class="d-flex justify-content-between">
                 <h5>Your Work</h5>
                 <p>Status</p>
@@ -76,7 +75,7 @@
               <input
                 class="sub form-control"
                 type="file"
-                id="formFileDisabled"
+                id="formFileDisabled" placeholder="Assignment"
               />
               <input id="sub" type="submit" value="submit" />
             </form>
