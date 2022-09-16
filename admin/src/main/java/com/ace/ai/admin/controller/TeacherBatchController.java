@@ -135,9 +135,11 @@ public class TeacherBatchController {
             int studentId = studentData.getStudentId();
             int mark = studentData.getMark();
             StudentExamMark studentExamMark = studentExamMarkService.getByExamIdAndStudentId(examId, studentId);
-            studentExamMark.setStudentMark(mark);
-            studentExamMark.setNotification(false);
-            studentExamMarkService.save(studentExamMark);
+            if(studentExamMark != null){
+                studentExamMark.setStudentMark(mark);
+                studentExamMark.setNotification(false);
+                studentExamMarkService.save(studentExamMark);
+            }
         }
         return ResponseEntity.ok(HttpStatus.OK);
     }

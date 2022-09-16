@@ -408,7 +408,7 @@
                                                         min="0" th:max="${studentExamMark.exam.maxMark}" readonly />
                                                     /<span class="ms-1" th:if="${studentExamMark.exam.maxMark}"
                                                         th:text="${studentExamMark.exam.maxMark}"></span>
-                                                    <a href="#" class="text-primary p-1"><i
+                                                    <a th:href="@{'./studentExamAnswers/'+${studentExamMark.examId}+'/'+${studentData.studentId}+'/'+${studentData.filePath}}" target="_blank" class="text-primary p-2"><i
                                                             class="fa-solid fa-file-arrow-down"
                                                             th:if="${studentData.filePath != null}"></i></a>
                                                 </td>

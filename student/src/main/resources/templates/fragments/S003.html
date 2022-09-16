@@ -53,14 +53,16 @@
                             </div>
                         </div>          
                         </div> 
-                        <div th:each="finishedExam : ${finishedExamList}" class="exam-card bg-light shadow rounded">          
+                        <div th:each="finishedExam : ${finishedExamList}" class="exam-card bg-light text-secondary shadow rounded">          
                             <div style="max-width: 100%;">
                             <div class="card-body">
                                 <h4 class="my-2" th:text="${finishedExam.exam.name}"></h4>              
                                 <div class="" th:text="${finishedExam.exam.type}"></div>
                                 <div>
-                                    <span>Your Mark:</span> <span th:text="${finishedExam.mark}"></span>/<span th:text="${finishedExam.exam.maxMark}"></span>
-                                    <div th:text="${finishedExam.answerDate}"></div>
+                                    <span>Your Mark:</span> <span class="text-dark" th:text="${finishedExam.mark}"></span>/<span th:text="${finishedExam.exam.maxMark}"></span>
+                                    <div class="text-primary">
+                                        <span >Answered Date: </span><span th:text="${finishedExam.answerDate}"></span>
+                                    </div>
                                 </div>
                             </div>
                             </div>
