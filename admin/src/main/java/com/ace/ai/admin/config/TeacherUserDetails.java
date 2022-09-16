@@ -54,9 +54,15 @@ public class TeacherUserDetails implements UserDetails {
         return teacher.getName();
     }
     public String getPhoto(){
-        return teacher.getImagePath();
+        return teacher.getPhoto();
     }
     public String getCode(){
         return teacher.getCode();
+    }
+    public void setName(String name){
+        this.teacher.setName(name);
+    }
+    public void setPhoto(String photo){
+        this.teacher.setPhoto(photo);
     }
 }

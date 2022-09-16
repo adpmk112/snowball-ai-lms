@@ -59,9 +59,6 @@ public class AdminUserDetails implements UserDetails {
         return admin.getCode();
     }
     public String getEmail(){return admin.getEmail();}
-    public String getImagePath(){
-        return admin.getImagePath();
-    }
 
     public void setName(String name){
         this.admin.setName(name);
