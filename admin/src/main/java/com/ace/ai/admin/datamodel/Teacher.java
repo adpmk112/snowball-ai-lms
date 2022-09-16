@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import lombok.Data;
 
@@ -23,6 +24,8 @@ public class Teacher {
     private String name;
     private String photo;
     private String code;
+    @Lob
+    @Column(length = 8129)
     private String password;
     @Column(columnDefinition = "tinyint(1) default 0")
     private boolean deleteStatus;
