@@ -1,20 +1,24 @@
 package com.ace.ai.admin.controller;
 
+import com.ace.ai.admin.datamodel.Assignment;
 import com.ace.ai.admin.datamodel.Attendance;
 import com.ace.ai.admin.datamodel.Batch;
 import com.ace.ai.admin.datamodel.BatchExamForm;
+import com.ace.ai.admin.datamodel.StudentAssignmentMark;
 import com.ace.ai.admin.datamodel.StudentExamMark;
+import com.ace.ai.admin.dtomodel.AssignmentMarkDTO;
 import com.ace.ai.admin.dtomodel.AttendanceRequestDTO;
 import com.ace.ai.admin.dtomodel.ExamMarkDTO;
 import com.ace.ai.admin.dtomodel.StudentAttendDTO;
 import com.ace.ai.admin.dtomodel.StudentIdMarkFilePathDTO;
+import com.ace.ai.admin.service.AssignmentService;
 import com.ace.ai.admin.service.AttendanceService;
 import com.ace.ai.admin.service.BatchService;
 import com.ace.ai.admin.service.ChapterViewService;
 import com.ace.ai.admin.service.BatchExamFormService;
 import com.ace.ai.admin.service.ClassRoomService;
 import com.ace.ai.admin.service.CustomChapterService;
-
+import com.ace.ai.admin.service.StudentAssignmentMarkService;
 import com.ace.ai.admin.service.StudentExamMarkService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +52,11 @@ public class TeacherBatchController {
     @Autowired
     StudentExamMarkService studentExamMarkService;
     @Autowired
+    StudentAssignmentMarkService studentAssignmentMarkService;
+    @Autowired
     ClassRoomService classroomService;
+    @Autowired
+    AssignmentService assignmentService;
     @Autowired
     CustomChapterService customChapterService;
 
@@ -80,6 +88,7 @@ public class TeacherBatchController {
         model.addAttribute("allStudent", attendanceService.getAllStudentByDeleteStatus(batchId));// for attendance with batch
         model.addAttribute("examScheduleList", examScheduleService.showExamScheduleTable(batchId)); //For Exam Schedule
         model.addAttribute("studentExamMarkList", studentExamMarkService.getExamMarkDTOList(batchId));//To mark exam;
+        model.addAttribute("studentAssignmentMarkList", studentAssignmentMarkService.getAssignmentMarkDTOList(batchId));//To mark Assignment
         model.addAttribute("classroomList", classroomService.showClassroomTable(batchId));
         model.addAttribute("batchCustomChapterDTOList", customChapterService.getCustomChapterListByBatchId(batchId) );
         return "T003";
@@ -130,14 +139,35 @@ public class TeacherBatchController {
         int batchId = examMarkDTO.getBatchId();
         int examId = examMarkDTO.getExamId();
         List<StudentIdMarkFilePathDTO> studentDataList = examMarkDTO.getStudentData();
-        System.out.println("All Data "+ batchId+examId+studentDataList.size());
         for(StudentIdMarkFilePathDTO studentData : studentDataList){
             int studentId = studentData.getStudentId();
             int mark = studentData.getMark();
             StudentExamMark studentExamMark = studentExamMarkService.getByExamIdAndStudentId(examId, studentId);
-            studentExamMark.setStudentMark(mark);
-            studentExamMark.setNotification(false);
-            studentExamMarkService.save(studentExamMark);
+            if(studentExamMark != null){
+                studentExamMark.setStudentMark(mark);
+                studentExamMark.setNotification(false);
+                studentExamMarkService.save(studentExamMark);
+            }
+        }
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
+
+    //For Assignment Mark
+    @PostMapping("/setAssignmentMark")
+    @ResponseBody
+    public ResponseEntity setAssignmentMark(@RequestBody AssignmentMarkDTO assignmentMarkDTO){
+        int batchId =  assignmentMarkDTO.getBatchId();
+        int assignmentId = assignmentMarkDTO.getAssignmentId();
+        List<StudentIdMarkFilePathDTO> studentDataList = assignmentMarkDTO.getStudentData();
+        for(StudentIdMarkFilePathDTO studentData : studentDataList){
+            int studentId = studentData.getStudentId();
+            int mark = studentData.getMark();
+            StudentAssignmentMark studentAssignmentMark = studentAssignmentMarkService.getByAssignmentIdAndStudentAssignmentMark(assignmentId, studentId);
+            if(studentAssignmentMark != null){
+                studentAssignmentMark.setStudentMark(mark);
+                studentAssignmentMark.setNotification(false);
+                studentAssignmentMarkService.save(studentAssignmentMark);
+            }
         }
         return ResponseEntity.ok(HttpStatus.OK);
     }

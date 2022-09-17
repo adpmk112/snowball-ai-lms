@@ -11,4 +11,9 @@ public class StudentIdMarkFilePathDTO {
     private int studentId;
     private int mark;
     private String filePath;
+
+    public StudentIdMarkFilePathDTO(int studentId, int mark){
+        this.studentId = studentId; 
+        this.mark = mark;
+    }
 }
