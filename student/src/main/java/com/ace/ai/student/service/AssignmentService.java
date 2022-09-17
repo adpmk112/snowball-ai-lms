@@ -35,7 +35,7 @@ public class AssignmentService {
     public StudentMarkDTO getStudentMarkByAssiIdAndStuId(int assignmentId, int studentId){
         StudentAssignmentMark studentAssignmentMark =studentAssignmentMarkRepository.findByAssignmentIdAndStudentId(assignmentId , studentId);
         StudentMarkDTO studentMarkDTO = new StudentMarkDTO();
-        studentMarkDTO.setStudentMark(String.valueOf(studentAssignmentMark.getStudentMark()));
+        studentMarkDTO.setStudentMark(studentAssignmentMark.getStudentMark());
         return studentMarkDTO;
     }
 

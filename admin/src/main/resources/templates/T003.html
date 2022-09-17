@@ -51,6 +51,21 @@
             No: function () {},
           },
         })
+
+        showExamTable();//selected by default
+        $('#selectBoxForExamAnsAssignment').on('change',function(){
+          (this.value == 0)? showExamTable() : showAssignmentTable();
+        })
+
+        function showExamTable(){
+          $('#examMarkTable').show();
+          $('#assignmentMarkTable').hide();
+        }
+        function showAssignmentTable(){
+          $('#assignmentMarkTable').show();
+          $('#examMarkTable').hide();
+        }
+        
       })
     </script>
   </body>
