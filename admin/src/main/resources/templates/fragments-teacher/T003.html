@@ -359,7 +359,7 @@
                                                     <i class="fa-regular fa-pen-to-square"></i>
                                                 </a>
                                                 <a th:href="@{/teacher/batch/deleteClassroom/{classId}(classId = ${classroom.id})}"
-                                                    class="btn btn-outline-danger remove-classroom btn-floating"
+                                                   th:id="${classroom.id}" class="btn btn-outline-danger remove-classroom btn-floating"
                                                     data-mdb-ripple-color="dark">
                                                     <i class="fa-solid fa-circle-minus"></i>
                                                 </a>
