@@ -51,7 +51,27 @@
             No: function () {},
           },
         })
+        // For Classroom Delete confirm
+        $('a.remove-classroom').on('click', function () {
+          window.class_id = $(this).attr('id')
+        });
+        $('a.remove-classroom').confirm({
+          closeIcon: true,
+          theme: 'Material',
+          //icon: 'fa-solid fa-warning',
+
+          title: 'Remove Classroom!',
+          content: 'Are you sure to remove this classroom?',
+          animation: 'Scale',
+          buttons: {
+            Yes: function () {
+              window.location='/teacher/batch/deleteClassroom/'+class_id;
+            },
+            No: function () {},
+          },
+        });
       })
+
     </script>
   </body>
 </html>
