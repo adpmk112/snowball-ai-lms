@@ -237,10 +237,10 @@
                                                         data-mdb-ripple-color="dark">
                                                         <i class="fa-regular fa-pen-to-square"></i>
                                                     </a>
-                                                    <a href="" class="btn remove-exam btn-outline-danger b btn-floating"
+                                                    <!-- <a href="" class="btn remove-exam btn-outline-danger b btn-floating"
                                                         data-mdb-ripple-color="dark" th:id="${examSchedule.id}">
                                                         <i class="fa-solid fa-circle-minus"></i>
-                                                    </a>
+                                                    </a> -->
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -359,7 +359,7 @@
                                                     <i class="fa-regular fa-pen-to-square"></i>
                                                 </a>
                                                 <a th:href="@{/teacher/batch/deleteClassroom/{classId}(classId = ${classroom.id})}"
-                                                    class="btn btn-outline-danger remove-classroom btn-floating"
+                                                   th:id="${classroom.id}" class="btn btn-outline-danger remove-classroom btn-floating"
                                                     data-mdb-ripple-color="dark">
                                                     <i class="fa-solid fa-circle-minus"></i>
                                                 </a>
