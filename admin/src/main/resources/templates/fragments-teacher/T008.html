@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layouts/main :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org" xmlns:admin>
+<body>
+<main role="main">
+  <div th:fragment="change-password">
+    <section  class="Form my-4 mx-5 change-password" >
+      <div class="container header-margin footer-margin" >
+        <form th:object="${changePassDTO}" method="post" th:action="@{/teacher/changePassword/}">
+          <div class="row no-gutters form-color shodow-div-profile d-flex  align-items-center justify-content-center" style="background-color: white;">
+            <div class="col-lg-7 px-5 pt-2 ">
+              <h1 class="font-weight-bold py-3">Change Password</h1>
+              <div class="alert alert-warning" th:if="${msg!=null}" >Wrong Password!</div>
+              <div class="col-md-8">
+                <input type="password" id="password" placeholder="Old Password" th:field="*{oldPassword}" class="form-control mb-3">
+                <div class="alert alert-warning" th:if="${#fields.hasErrors('oldPassword')}" th:errors="*{oldPassword}"></div>
+              </div>
+              <div class="col-md-8">
+                <input type="password" id="password" placeholder="New Password" th:field="*{newPassword}" class="form-control mb-3">
+                <div class="alert alert-warning" th:if="${#fields.hasErrors('newPassword')}" th:errors="*{newPassword}"></div>
+                <div class="alert alert-warning" th:if="${error!=null}" >Passwords Must Be Equal!</div>
+                <div class="alert alert-warning" th:if="${newPass!=null}" th:text="${newPass}"></div>
+              </div>
+              <div class="col-md-8">
+                <input type="password" id="password" placeholder="Confirm Password" th:field="*{confirmPassword}" class="form-control mb-3">
+                <div class="alert alert-warning" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></div>
+              </div>
+              <button type="submit" class="btn btn-outline-primary  mt-3 mb-5">Submit</button>
+              <button type="reset" class="btn btn-outline-secondary  mt-3 mb-5 ms-3">Reset</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+</main>
+
+</body>
+</html>

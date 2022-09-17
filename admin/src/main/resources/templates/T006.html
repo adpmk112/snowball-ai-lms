@@ -6,6 +6,7 @@
         <!-- carousel-css -->
         <link rel="stylesheet" href="../assets/owlcarousel/css/owl.carousel.min.css">
         <link rel="stylesheet" href="../assets/owlcarousel/css/owl.theme.default.min.css">
+        <link rel="stylesheet" type="text/css" href="/assets/css/profile.css">
         <div th:replace="TECFRG :: head"></div>
     </head>
 
@@ -18,5 +19,16 @@
 
     <footer th:replace="TECFRG :: footer"></footer>
     <div th:replace="TECFRG :: scripts"></div>
+    <script>
+        img_input =document.querySelector("#img-input");
+        img_input.onchange=function (e){
+            if(e.target.files.length >0){
+                src= URL.createObjectURL(e.target.files[0]);
+                image=document.querySelector(".image-container img");
+                image.src=src;
+
+            }
+        }
+    </script>
 </body>
 </html>

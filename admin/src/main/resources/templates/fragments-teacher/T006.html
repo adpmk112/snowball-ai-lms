@@ -4,56 +4,67 @@
 <body>
 <main role="main">
     <div th:fragment="teacher-profile">
-        <section class="Form my-4 mx-5" >
+
+        <section  class="Form my-4 mx-5 update-profile" >
             <div class="container header-margin footer-margin" >
-                <form>
+                <form th:object="${teacherDTO}" method="post" th:action="@{/teacher/profileUpdate/}"  enctype="multipart/form-data">
                     <div class="row no-gutters form-color shodow-div-profile" style="background-color: white;">
 
-                        <div class="col-lg-5">
+                        <div class="col-lg-5 d-flex align-items-center justify-content-center  flex-column ">
 
-                            <center>
-                                <img th:src="${#request.userPrincipal.principal.photo}" alt="" width="180px" class="dot">
-                                <input type="file"  id="file" class="form-control file-choose" name="news_img"
-                                       placeholder="Choose Image" required="required" style="width: 300px;"/>
-                            </center>
+                            <div class="wrapper"  th:if="${photoName == 'default' || photoName== null}">
+                                <div class="image-container">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <label for="img-input" class="camera-icon">
+                                    <i class="fas fa-camera"></i>
+                                </label>
+                                <input type="file" th:field="*{photo}"  id="img-input" accept="image/*" hidden/>
+                            </div>
 
+                            <!--                            /*@thymesVar id="principal" type="principal"*/-->
+                            <div class="wrapper" th:unless="${photoName == null || photoName == 'default'}">
+                                <div class="image-container">
+                                    <i class="fas fa-user"></i>
+                                    <img th:src="@{${'/assets/img/admin/'+photoName}}" />
+                                </div>
+                                <label for="img-input" class="camera-icon">
+                                    <i class="fas fa-camera"></i>
+                                </label>
+                                <input type="file" th:field="*{photo}"  id="img-input" accept="image/*"  hidden/>
+
+                            </div>
                         </div>
 
-                        <div class="col-lg-7 px-5 pt-5">
-                            <center>
+                        <div class="col-lg-7 px-5 pt-2">
+                            <h1 class="font-weight-bold py-3">Update Profile</h1>
+                            <div class="alert alert-success" th:if="${success!=null}">Updated Successfully!</div>
+                            <div class="alert alert-warning" th:if="${error!=null}">Wrong Password</div>
+                            <div class="col-md-8 d-flex">
+                                <span class="mt-1 me-3">  Code : </span><input type="text" th:field="*{code}" class="form-control mb-3" disabled>
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" id="name" placeholder="Name" th:field="*{name}" class="form-control mb-3" style="text-transform: capitalize;">
+                                <div class="alert alert-warning" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                            </div>
 
 
-                                <h1 class="font-weight-bold py-3">Teacher Profile</h1>
+                            <div class="col-md-8">
+                                <input type="password" id="password" placeholder="Enter your password" th:field="*{password}" class="form-control mb-3">
+                                <div class="alert alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                            </div>
 
-                                <div class="form-row">
-                                    <div class="col-lg-7">
-                                        <input type="password" placeholder="Old Password" class="form-control mt-3 mb-5">
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="col-lg-7">
-                                        <input type="password" placeholder="New Password" class="form-control mt-3 mb-5">
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="col-lg-7">
-                                        <input type="password" placeholder="Comfirm Password" class="form-control mt-3 mb-5">
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="col-lg-7">
-                                        <button type="button" class="btn1 mt-3 mb-5">Submit</button>
-                                    </div>
-                                </div>
-                            </center>
+                            <button type="submit" class="btn btn-outline-primary  mt-3 mb-5">Submit</button>
+                            <button type="reset" class="btn btn-outline-secondary  mt-3 mb-5 ms-3">Reset</button>
                         </div>
                     </div>
                 </form>
             </div>
-
-
         </section>
+
+
     </div>
+
 </main>
 </body>
 </html>
