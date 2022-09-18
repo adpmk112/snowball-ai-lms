@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
     <link rel="stylesheet" type="text/css" href="/assets/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="/assets/fonts/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/jquery-confirm/jquery-confirm.min.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/datatable.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/student-exam.css" />
 
     <!-- carousel-css -->
     <link rel="stylesheet" type="text/css" href="/assets/owlcarousel/css/owl.carousel.min.css" />
@@ -22,22 +25,20 @@
 
 </th:block>
 <th:block th:fragment="scripts">
-    <script
-            type="text/javascript"
-            th:src="@{/assets/js/jquery.min.js}"
-    ></script>
-    <script src="https://kit.fontawesome.com/83e4876698.js" crossorigin="anonymous"></script>
-    <script th:src="@{assets/bootstrap/js/bootstrap.min.js}"></script>
-    <script th:src="@{assets/owlcarousel/js/owl.carousel.min.js}"></script>
-    <script th:src="@{assets/js/subject-carousel.js}"></script>
-    <script th:src="@{assets/js/header.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/jquery.min.js}"></script>
+    <script type="text/javascript" src="https://kit.fontawesome.com/83e4876698.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/owlcarousel/js/owl.carousel.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/jquery-confirm/jquery-confirm.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/subject-carousel.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/header.js}"></script>
 </th:block>
 <header th:fragment="header" id="header" style="background-color: Lavender;">
     <div id="header-div">
         <nav class="navbar navbar-light navbar-expand-md">
             <div class="container-fluid">
                 <a class="navbar-brand" id="navbar-brand" href="#">
-                    <img src="./assets/img/ace-logo-long.png" alt="" width="180px" />
+                    <img src="/assets/img/ace-logo-long.png" alt="" width="180px" />
                 </a>
 
                 <button
@@ -75,7 +76,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="student-exam1.html"  th:href="@{/exam}">Exam</a>
+                            <a class="nav-link"   th:href="@{/student/exam}">Exam</a>
                         </li>
                     </ul>
                 </div>

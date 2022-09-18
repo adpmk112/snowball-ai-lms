@@ -29,7 +29,6 @@ public class ExamFormService {
 
     public void saveExam(ExamDTO examDTO) {
         try {
-            System.out.println("exam id is "+ examDTO.getId());
             String exam_id = examDTO.getId();
             String name = examDTO.getName();
             String course_id = examDTO.getCourse_id();
@@ -50,7 +49,7 @@ public class ExamFormService {
                 examForm.setDeleteStatus(false);
                 examForm.setCourse(course);                 
                      
-            }else{// This is fo update
+            }else{// This is for update
              
                 examForm.setId(Integer.valueOf(exam_id));                         
                 examForm.setName(name);

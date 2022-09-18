@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -110,6 +111,11 @@ public class ExamFormService {
         }
         StudentExamMark studentExamMark = new StudentExamMark(studentTotalMark,student,batchExamForm);
         studentExamMark.setNotification(false);
+        //For Now Date
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String formattedString = now.format(formatter);
+        studentExamMark.setAnswerDate(formattedString);
         studentExamMarkService.save(studentExamMark);
     }
 
@@ -117,14 +123,23 @@ public class ExamFormService {
     public void saveAnswerAsFileUpload(ExamDTO examDTO) throws IOException{
         int studentId = examDTO.getStudentId();
         int batchExamId = examDTO.getId();
-        //String batchName = 
         int studentTotalMark = 0;
-        String uploadDIR = "./studentExamAnswers/"+batchExamId+"/"+studentId+"/";
+        String uploadDIR = "studentExamAnswers/"+batchExamId+"/"+studentId+"/";
         Student student = studentRepository.getById(studentId);
         BatchExamForm batchExamForm = batchExamFormRepository.getById(batchExamId);
         MultipartFile answerFile = examDTO.getAnswerFile();
+         //Save filename to database
+        StudentExamMark studentExamMark = new StudentExamMark();       
+        studentExamMark.setBatchExamForm(batchExamForm);
+        studentExamMark.setStudent(student);
+        studentExamMark.setStudentMark(studentTotalMark); 
+         //For Now Date
+         LocalDateTime now = LocalDateTime.now();
+         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+         String formattedString = now.format(formatter);
+         studentExamMark.setAnswerDate(formattedString);       
         if(!answerFile.isEmpty()){
-            
+                        
             String studentName = student.getName().trim().replaceAll("\\s","-");
             //Get Now Date
             // LocalDate date = LocalDate.now();
@@ -140,15 +155,10 @@ public class ExamFormService {
             }
             Files.copy(answerFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 
-            //Save filename to database
-            StudentExamMark studentExamMark = new StudentExamMark();
-            studentExamMark.setUploadedFile(fileName);
-            studentExamMark.setNotification(true);
-            studentExamMark.setBatchExamForm(batchExamForm);
-            studentExamMark.setStudent(student);
-            studentExamMark.setStudentMark(studentTotalMark);
-            studentExamMarkService.save(studentExamMark);
+            studentExamMark.setNotification(true);// set notification if exists
+            studentExamMark.setUploadedFile(fileName);//Set file if exists          
             
         }
+        studentExamMarkService.save(studentExamMark);
     }
 }

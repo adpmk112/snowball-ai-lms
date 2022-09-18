@@ -28,11 +28,13 @@ public class StudentExamMarkService {
     public List<ExamMarkDTO> getExamMarkDTOList(int batchId){        
         List<BatchExamForm> batchExamFormsByBatchId =  batchExamFormService.findByBatch_Id(batchId);//find by batchId and examform delete status and bef_deletestatus
         List<ExamMarkDTO> examMarkDTOList = new ArrayList<>();        
-        for(BatchExamForm batchExamForm : batchExamFormsByBatchId){            
-            ExamMarkDTO examMarkDTO = this.getExamMarkDTO(batchExamForm, batchId);
-            if(examMarkDTO.getStudentData().size() > 0){ //add to list only if student list is find
-                examMarkDTOList.add(examMarkDTO);
-            }                    
+        for(BatchExamForm batchExamForm : batchExamFormsByBatchId){  
+            if(batchExamForm.getStartDate()!=null && !batchExamForm.getStartDate().isBlank() && batchExamForm.getEndDate()!=null && !batchExamForm.getEndDate().isBlank()) { //filters that are only scheduled
+                ExamMarkDTO examMarkDTO = this.getExamMarkDTO(batchExamForm, batchId);
+                if(examMarkDTO.getStudentData().size() > 0){ //add to list only if student list is find
+                    examMarkDTOList.add(examMarkDTO);
+                }                  
+            }         
         }       
         return examMarkDTOList;
     }
@@ -45,11 +47,15 @@ public class StudentExamMarkService {
         //get student data
         for(Student student: allStudents){
             StudentExamMark studentExamMark = studentExamMarkRepository.findByBatchExamForm_IdAndStudent_Id(batchExamForm.getId(), student.getId());
+            StudentIdMarkFilePathDTO studentData = new StudentIdMarkFilePathDTO();
+            studentData.setStudentId(student.getId());
             if(studentExamMark != null){//need to check students is not answer
-                System.out.println("studentExam mark is "+studentExamMark.getId());
-                StudentIdMarkFilePathDTO studentData = new StudentIdMarkFilePathDTO(student.getId(),studentExamMark.getStudentMark(),studentExamMark.getUploadedFile());
-                studentDataList.add(studentData); 
+                studentData.setMark(studentExamMark.getStudentMark());
+                studentData.setFilePath(studentExamMark.getUploadedFile());
+            }else{
+                studentData.setMark(0);
             }
+            studentDataList.add(studentData); 
         }
         return new ExamMarkDTO(exam, studentDataList, examId, batchId);
     }
