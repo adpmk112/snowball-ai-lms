@@ -15,7 +15,8 @@ import org.springframework.stereotype.Service;
 import com.ace.ai.student.datamodel.Batch;
 import com.ace.ai.student.datamodel.BatchExamForm;
 import com.ace.ai.student.datamodel.ExamForm;
-import com.ace.ai.student.dtomodel.StudentExamDoneDTO;
+import com.ace.ai.student.datamodel.StudentExamMark;
+import com.ace.ai.student.dtomodel.StudentExamDTO;
 import com.ace.ai.student.repository.BatchExamFormRepository;
 import com.ace.ai.student.repository.ExamFormRepository;
 import com.ace.ai.student.repository.StudentExamMarkRepository;
@@ -34,9 +35,9 @@ public class BatchExamFormService {
     @Autowired
     StudentExamMarkRepository studentExamMarkRepository;
 
-    public List<ExamForm> getUpcomingExamList(int batchId){
+    public List<StudentExamDTO> getUpcomingExamList(int batchId, int studentId){
         List<BatchExamForm> allBef = batchExamFormRepository.findByDeleteStatusAndBatch_IdAndExamForm_DeleteStatus(false, batchId, false);
-        List<ExamForm> upcomingExams = new ArrayList<>();
+        List<StudentExamDTO> upcomingStudentExamDTOList = new ArrayList<>();
          //Now Time
          DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
          LocalDateTime now = LocalDateTime.now();
@@ -44,38 +45,52 @@ public class BatchExamFormService {
          String formattedString = now.format(formatter);
          LocalDateTime formattedNow = LocalDateTime.parse(formattedString, dtf);
          for(BatchExamForm bef: allBef){
-            try{
+            StudentExamMark studentExamMark = studentExamMarkRepository.findByBatchExamForm_IdAndStudent_Id(bef.getId(), studentId);
+            if(bef.getStartDate()!=null && !bef.getStartDate().isBlank() && bef.getEndDate()!=null && !bef.getEndDate().isBlank() && studentExamMark == null){// all that are scheduled                
+                StudentExamDTO studentExamDTO = new StudentExamDTO();
                 LocalDateTime startDate = LocalDateTime.parse(bef.getStartDate().replace("T", " "), dtf);
-                if(formattedNow.isBefore(startDate)){
-                    upcomingExams.add(bef.getExamForm());
+                LocalDateTime endDate = LocalDateTime.parse(bef.getEndDate().replace("T", " "), dtf);
+                if(formattedNow.isAfter(startDate) && formattedNow.isBefore(endDate)){//Current open Exam
+                    studentExamDTO.setStatus("Now starting...");
+                    studentExamDTO.setStartDate(bef.getStartDate().replace("T", " "));
+                    studentExamDTO.setEndDate(bef.getEndDate().replace("T", " "));
+                    studentExamDTO.setExam(bef.getExamForm());
+                    upcomingStudentExamDTOList.add(studentExamDTO);
                 }
-            }catch(Exception e){
-                System.out.println("some errors occur in getFinishedExam "+ e);
+                else if(formattedNow.isBefore(startDate)){
+                    studentExamDTO.setStartDate(bef.getStartDate());
+                    studentExamDTO.setEndDate(bef.getEndDate());
+                    studentExamDTO.setExam(bef.getExamForm());
+                    studentExamDTO.setStatus("Will start at "+bef.getStartDate().replace("T"," "));
+                    upcomingStudentExamDTOList.add(studentExamDTO);           
+                } 
             }
         }
-        return upcomingExams;
+        return upcomingStudentExamDTOList;
     }
     
-    public List<StudentExamDoneDTO> getFinishedExamList(int batchId, int studentId){
+    public List<StudentExamDTO> getFinishedExamList(int batchId, int studentId){
         List<BatchExamForm> allBef = batchExamFormRepository.findByDeleteStatusAndBatch_IdAndExamForm_DeleteStatus(false, batchId, false);
-        List<StudentExamDoneDTO> finishedDoneDTO = new ArrayList<>();
+        List<StudentExamDTO> finishedDoneDTO = new ArrayList<>();
         //Now Time
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         String formattedString = now.format(formatter);
         LocalDateTime formattedNow = LocalDateTime.parse(formattedString, dtf);
+        
         for(BatchExamForm bef: allBef){
             if(!bef.getEndDate().isBlank() && bef.getEndDate() != null){
                 LocalDateTime endDate = LocalDateTime.parse(bef.getEndDate().replace("T", " "), dtf);
-                if(formattedNow.isAfter(endDate)){
-                    int mark = (studentExamMarkRepository.findByBatchExamForm_IdAndStudent_Id(bef.getExamForm().getId(), studentId) == null)? 0: studentExamMarkRepository.findByBatchExamForm_IdAndStudent_Id(bef.getExamForm().getId(), studentId).getStudentMark();
-                    StudentExamDoneDTO stuDExamDTO = new StudentExamDoneDTO(bef.getExamForm().getName(), 
-                                                            bef.getExamForm().getType(),
-                                                            mark,
-                                                            bef.getExamForm().getMaxMark());
-                    finishedDoneDTO.add(stuDExamDTO);
+                if(formattedNow.isAfter(endDate) || studentExamMarkRepository.findByBatchExamForm_IdAndStudent_Id(bef.getId(), studentId) != null){
+                    int mark = (studentExamMarkRepository.findByBatchExamForm_IdAndStudent_Id(bef.getId(), studentId) == null)? 0: studentExamMarkRepository.findByBatchExamForm_IdAndStudent_Id(bef.getExamForm().getId(), studentId).getStudentMark();
+                    StudentExamDTO studentExamDTO = new StudentExamDTO();
+                    studentExamDTO.setExam(bef.getExamForm());
+                    studentExamDTO.setMark(mark);
+                    studentExamDTO.setAnswerDate((studentExamMarkRepository.findByBatchExamForm_IdAndStudent_Id(bef.getId(), studentId) == null)?"Your haven't answer": studentExamMarkRepository.findByBatchExamForm_IdAndStudent_Id(bef.getId(), studentId).getAnswerDate());
+                    finishedDoneDTO.add(studentExamDTO);
                 }
+                
             }
         }
 

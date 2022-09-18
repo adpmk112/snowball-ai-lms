@@ -43,15 +43,50 @@
           title: 'Remove Teacher',
           content: 'Are you sure?',
           animation: 'Scale',
-          buttons: {
+          buttons: {           
+            No: function () {},
             Yes: function () {        
               // /admin/course/chapter/chapterFile/delete(customChapter=${chapterFile.id},chapterId=${chapterId})      
               window.location = `/teacher/batch/course/activity/delete?customChapter=`+chapterFileId;
             },
-            No: function () {},
           },
         })
+
+        showExamTable();//selected by default
+        $('#selectBoxForExamAnsAssignment').on('change',function(){
+          (this.value == 0)? showExamTable() : showAssignmentTable();
+        })
+
+        function showExamTable(){
+          $('#examMarkTable').show();
+          $('#assignmentMarkTable').hide();
+        }
+        function showAssignmentTable(){
+          $('#assignmentMarkTable').show();
+          $('#examMarkTable').hide();
+        }
+        
+        // For Classroom Delete confirm
+        $('a.remove-classroom').on('click', function () {
+          window.class_id = $(this).attr('id')
+        });
+        $('a.remove-classroom').confirm({
+          closeIcon: true,
+          theme: 'Material',
+          //icon: 'fa-solid fa-warning',
+
+          title: 'Remove Classroom!',
+          content: 'Are you sure to remove this classroom?',
+          animation: 'Scale',
+          buttons: {            
+            No: function () {},
+            Yes: function () {
+              window.location='/teacher/batch/deleteClassroom/'+class_id;
+            },
+          },
+        });
       })
+
     </script>
   </body>
 </html>

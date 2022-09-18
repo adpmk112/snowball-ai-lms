@@ -5,25 +5,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ace.ai.student.config.StudentUserDetails;
 import com.ace.ai.student.datamodel.Batch;
 import com.ace.ai.student.datamodel.BatchExamForm;
 import com.ace.ai.student.datamodel.ExamForm;
 import com.ace.ai.student.datamodel.Student;
 import com.ace.ai.student.dtomodel.ExamDTO;
 import com.ace.ai.student.dtomodel.QuestionDTO;
-import com.ace.ai.student.dtomodel.StudentExamDoneDTO;
+import com.ace.ai.student.dtomodel.StudentExamDTO;
 import com.ace.ai.student.repository.StudentRepository;
 import com.ace.ai.student.service.BatchExamFormService;
 import com.ace.ai.student.service.ExamFormService;
 
 @Controller
+@RequestMapping("/student")
 public class StudentExamController {
     @Autowired BatchExamFormService batchExamFormService;
     @Autowired StudentRepository studentRepository;
@@ -31,10 +35,11 @@ public class StudentExamController {
      
 
     @GetMapping("/exam")
-    public String showExamPage(Model model, @RequestParam("studentId") int studentId){
+    public String showExamPage(Model model,@AuthenticationPrincipal StudentUserDetails userDetails){
+        int studentId =userDetails.getId();
         int batchId = studentRepository.getById(studentId).getBatch().getId();
-        List<ExamForm> upcomingExamList = batchExamFormService.getUpcomingExamList(batchId);
-        List<StudentExamDoneDTO> finishedExamList = batchExamFormService.getFinishedExamList(batchId, studentId);
+        List<StudentExamDTO> upcomingExamList = batchExamFormService.getUpcomingExamList(batchId, studentId);
+        List<StudentExamDTO> finishedExamList = batchExamFormService.getFinishedExamList(batchId, studentId);
         model.addAttribute("upcomingExamList", upcomingExamList);
         model.addAttribute("finishedExamList",finishedExamList );
         model.addAttribute("studentId", studentId);
@@ -58,6 +63,6 @@ public class StudentExamController {
         else{
             examFormService.saveAnswerAsFileUpload(examDTO);
         }
-        return "redirect:/exam?studentId="+studentId;
+        return "redirect:/student/exam";
     }
 }

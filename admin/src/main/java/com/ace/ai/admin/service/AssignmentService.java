@@ -45,4 +45,8 @@ public class AssignmentService {
             log.info("assignment added into table");
         }
     }
+
+    public Assignment getById(int id){
+        return assignmentRepository.getById(id);
+    }
 }

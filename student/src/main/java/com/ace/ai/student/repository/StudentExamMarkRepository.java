@@ -8,5 +8,5 @@ import com.ace.ai.student.*;
 import com.ace.ai.student.datamodel.StudentExamMark;
 
 public interface StudentExamMarkRepository extends JpaRepository<StudentExamMark,Integer>{   
-    public StudentExamMark findByBatchExamForm_IdAndStudent_Id(int examId, int studentId);
+    public StudentExamMark findByBatchExamForm_IdAndStudent_Id(int batchExamFormId, int studentId);
 }
