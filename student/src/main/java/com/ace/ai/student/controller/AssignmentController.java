@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.ace.ai.student.datamodel.Assignment;
+import com.ace.ai.student.datamodel.Student;
 import com.ace.ai.student.datamodel.StudentAssignmentMark;
 import com.ace.ai.student.dtomodel.AssignmentDateTimeDTO;
 import com.ace.ai.student.dtomodel.AssignmentFileDTO;
@@ -25,8 +28,11 @@ import com.ace.ai.student.dtomodel.StudentMarkDTO;
 import com.ace.ai.student.repository.StudentAssignmentMarkRepository;
 import com.ace.ai.student.service.AssignmentService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
 @RequestMapping("/student")
+@Slf4j
 public class AssignmentController {
 
     @Autowired
@@ -40,11 +46,15 @@ public class AssignmentController {
         StudentMarkDTO studentMarkDTO = assignmentService.getStudentMarkByAssiIdAndStuId( assignmentId, studentId);
         model.addAttribute("assignmentDateTimeDTO" ,assignmentDateTimeDTO);
         model.addAttribute("studentMarkDTO", studentMarkDTO);
-        return new ModelAndView("S001-03","assignmentFileDTO",new AssignmentFileDTO());
+       AssignmentFileDTO assignmentFileDTO = new AssignmentFileDTO();
+       assignmentFileDTO.setAssignmentId(assignmentId);
+       assignmentFileDTO.setStudentId(studentId);
+        return new ModelAndView("S001-03","assignmentFileDTO",assignmentFileDTO);
     }
 
     @PostMapping("/assignmentAdd")
     public String assignmentAdd(@ModelAttribute("assignmentFileDTO") AssignmentFileDTO assignmentFileDTO, ModelMap model){
+      System.out.println("Assignment DTO______________________"+ assignmentFileDTO);
         LocalDate localDate = LocalDate.now();
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String localDateString = localDate.format(dateTimeFormatter);
@@ -55,7 +65,14 @@ public class AssignmentController {
         String fileName=assignmentFileDTO.getAssignmentFile().getOriginalFilename();
         studentAssignmentMark.setUploadedFile(fileName);
         studentAssignmentMark.setDate(localDateString);
-        studentAssignmentMark.setTime(currentTime );
+        studentAssignmentMark.setTime(currentTime);
+        Assignment assignment = new Assignment();
+        log.info("assignmentid -->"+assignmentFileDTO.getAssignmentId());
+        assignment.setId(assignmentFileDTO.getAssignmentId());
+        studentAssignmentMark.setAssignment(assignment);
+        Student student =  new Student();
+        student.setId(assignmentFileDTO.getStudentId());
+        studentAssignmentMark.setStudent(student);
         StudentAssignmentMark studentAssignmentMarkSaved = studentAssignmentMarkRepository.save(studentAssignmentMark);
         
         Path uploadPath = Paths.get("./assets/img/assignmentFiles/"+studentAssignmentMarkSaved.getId());
@@ -79,7 +96,8 @@ public class AssignmentController {
                 e1.printStackTrace();
               }
           } 
-          return "redirect:/teacher/assignmentView";
+          return "redirect:/student/assignmentAdd/successfulAdd";
     }
+
     
 }
