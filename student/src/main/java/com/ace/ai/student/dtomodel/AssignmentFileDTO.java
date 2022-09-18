@@ -6,7 +6,8 @@ import lombok.Data;
 
 @Data
 public class AssignmentFileDTO {
-
+    private int assignmentId;
+    private int studentId;
     private MultipartFile assignmentFile;
     
 }
