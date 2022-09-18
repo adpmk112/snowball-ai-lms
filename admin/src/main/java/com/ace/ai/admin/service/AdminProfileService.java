@@ -31,7 +31,7 @@ public class AdminProfileService {
     @Autowired
     JavaMailSender javaMailSender;
 
-    public boolean checkAdminPassword(String newPassword,String existingPassword){
+    public boolean checkPassword(String newPassword,String existingPassword){
         BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
         if(encoder.matches(newPassword,existingPassword)){
             return true;

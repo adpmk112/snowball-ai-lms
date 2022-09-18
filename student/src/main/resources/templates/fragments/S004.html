@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{layouts/main :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" th:replace="~{layouts/main :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org" xmlns:admin>
 
 <body>
 <main role="main">
-    <div th:fragment="teacher-profile">
+    <div th:fragment="student-profile">
 
         <section  class="Form my-4 mx-5 update-profile" >
             <div class="container header-margin footer-margin" >
-                <form th:object="${teacherDTO}" method="post" th:action="@{/teacher/profileUpdate/}"  enctype="multipart/form-data">
+                <form th:object="${studentDTO}" method="post" th:action="@{/student/profileUpdate/}"  enctype="multipart/form-data">
                     <div class="row no-gutters form-color shodow-div-profile" style="background-color: white;">
 
                         <div class="col-lg-5 d-flex align-items-center justify-content-center  flex-column ">
@@ -26,13 +26,12 @@
                             <div class="wrapper" th:unless="${photoName == null || photoName == 'default'}">
                                 <div class="image-container">
                                     <i class="fas fa-user"></i>
-                                    <img th:src="@{${'/assets/img/'+teacherDTO.code+'/'+photoName}}" />
+                                    <img th:src="@{${'./assets/img/'+studentDTO.code+'/'+photoName}}" />
                                 </div>
                                 <label for="img-input" class="camera-icon">
                                     <i class="fas fa-camera"></i>
                                 </label>
                                 <input type="file" th:field="*{photo}"  id="img-input" accept="image/*"  hidden/>
-
                             </div>
                         </div>
 
@@ -41,14 +40,12 @@
                             <div class="alert alert-success" th:if="${success!=null}">Updated Successfully!</div>
                             <div class="alert alert-warning" th:if="${error!=null}">Wrong Password</div>
                             <div class="col-md-8 d-flex">
-                                <span class="mt-1 me-3">  Code : </span><input type="text" th:field="*{code}" class="form-control mb-3" disabled>
+                                <span class="mt-1 me-3">  Code: </span><input type="text" th:field="*{code}" class="form-control mb-3" disabled>
                             </div>
                             <div class="col-md-8">
                                 <input type="text" id="name" placeholder="Name" th:field="*{name}" class="form-control mb-3" style="text-transform: capitalize;">
                                 <div class="alert alert-warning" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
                             </div>
-
-
                             <div class="col-md-8">
                                 <input type="password" id="password" placeholder="Enter your password" th:field="*{password}" class="form-control mb-3">
                                 <div class="alert alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
@@ -66,5 +63,6 @@
     </div>
 
 </main>
+
 </body>
 </html>
