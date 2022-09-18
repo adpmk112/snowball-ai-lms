@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layouts/main :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org">
+    <body>
+        <main>
+            <div th:fragment="studentExamForm">
+                <div class="semi-circle"></div>
+                <div class="banner">
+                    <div class="circle"><i class="fa-solid fa-paintbrush"></i></div>
+                    <div>
+                    <h1>Answer all questions.</h1>     
+                    </div>
+                </div>
+                <section id="exam" style="margin-top: 8px;" class="custom-div">
+                    <div class="container rounded" id="exam-content" style="background-color: white;">
+                    <div class="exam-header">
+                        <div class="exam-title">
+                        <h4 class="text-center" th:text="${exam.name}">Final Exam</h4>
+                        <div class="row">
+                            <div class="col-10">
+                            Total Marks:
+                            <span th:text="${exam.totalPoint}" class="ms-1 mark" style="background: transparent;" id="mark">
+                            </span>
+                            </div>
+                            <input type="hidden" id="examDuration" th:value="${exam.duration}">
+                            <div  class="col-2 text-end count-time">Duration : <span class="ms-1"  id="count-time"></span></div>
+                        </div>
+                        </div>
+                    </div>
+                    <ul class="exam-body">
+                        <form th:action="@{/student/studentExamAnswer}" enctype="multipart/form-data" th:object="${exam}" id="examForm" method="post">       
+                        <input type="hidden" th:value="${exam.id}" name="id">
+                        <input type="hidden" th:value="${exam.studentId}" name="studentId">
+                        <input type="hidden" th:value="${exam.type}" name="type">
+                        <ol class="exam-list">
+                            <li class="exam-question" th:each="question , qStatus : ${exam.questions}">
+                            <div class="row">
+                                <div class="col-10" th:text="${question.text}"></div>
+                                <div class="col-2 text-end">
+                                <span th:text="${question.point}"></span> <span class="ms-1" th:text="${(question.point > 1)?'Marks': 'Mark'}"></span>
+                                </div>
+                            </div>
+                            <ul class="exam-answer">
+                                <input type="hidden" th:field="*{questions[__${qStatus.index}__].correctAnswer}">
+                                <input type="hidden" th:field="*{questions[__${qStatus.index}__].point}">
+                                <li class="list-item" th:each="answer : ${question.answerList}">
+                                <input type="radio" th:name="${question.id}" th:field="*{questions[__${qStatus.index}__].studentAnswer}" th:value="${answer}" class="form-check-input answer mx-2 p-2"  th:text="${answer}"/>
+                                </li>              
+                            </ul>
+                            <!-- End exam answer -->
+                            </li>
+                            <!--End exam question-->         
+
+                            <div th:if="${exam.type == 'Code Test'}" class="exam-question text-primary">
+                            <div class="mb-2">Upload your answer here.</div>
+                            <input type="file" name="studentAnswer" th:field="*{answerFile}" class="form-control text-primary" style="max-width: 400px;">
+                        </ol>
+                        </form>
+                        <!--End exam list-->
+                    </ul>
+                    <!--End exam body-->
+                    <div class="exam-button me-5 mb-5 from-control float-end">
+                        <button type="submit" form="examForm" id="submitButton" class="btn btn-primary">Submit Answers</button>
+                    </div>
+                    </div>
+                    <!--End exam content-->
+                </section>
+            </div>
+        </main>
+    </body>
+</html>

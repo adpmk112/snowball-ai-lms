@@ -71,7 +71,7 @@ $(document).ready(function () {
     }
   });
 
-  //For mark
+  //For Exam mark
   $(document).on("click", ".btn.btn-mark-edit", function (e) {
     e.preventDefault();
     let _input = $(this).closest("tr").find('input[type="number"]');
@@ -97,7 +97,7 @@ $(document).ready(function () {
       let error = "";
       let studentDataTd = tr.find('td.studentData')
       $(studentDataTd).each(function () {
-          let studentId = $(this).find('input[name="studentId"').val();
+          let studentId = $(this).find('input[name="studentId"]').val();
           let mark = $(this).find('input[name="mark"]').val();
           let maxMark = $(this).find('input[name="mark"]').attr('max');// Not use
           if(mark > maxMark || mark < 0){
@@ -128,6 +128,79 @@ $(document).ready(function () {
           data: JSON.stringify(examMark),
           success: function () {
             window.location=("/teacher/batch/batchSeeMore?radio=mark&batchId="+batchId);
+          },
+        });
+      }else{
+        $.alert({
+          title : "Error!",
+          content : "Student's mark should be between 0 and maximum mark.",
+        })
+        edit_btn
+        .removeClass("fa-pen-to-square")
+        .addClass("fa-solid fa-check");
+      _input.removeAttr("readonly");
+      _input.css("border", "1px solid red");
+      }
+
+    }
+  });
+
+  //For Assignment Mark
+  $(document).on("click", ".btn.btn-assignment-edit", function (e) {
+    e.preventDefault();
+    let _input = $(this).closest("tr").find('input[type="number"]');
+    let edit_btn = $(this).find(".fa-pen-to-square");
+    if (edit_btn.length > 0) {
+      edit_btn
+        .removeClass("fa-pen-to-square")
+        .addClass("fa-solid fa-check");
+      _input.removeAttr("readonly");
+      _input.css("border", "1px solid red");
+    } else {      
+  
+      _input.attr("readonly", true);
+      _input.css("border", "none");
+      let assignmentMark = {};
+      let tr = $(this).closest("tr");
+
+      let assignmentId = tr.find('input[name="assignmentId"]').val();
+      let batchId = tr.find('input[name="batchId"]').val();
+      let studentDataList = [];
+      
+      let error = "";
+      let studentDataTd = tr.find('td.studentData')
+      $(studentDataTd).each(function () {
+          let studentId = $(this).find('input[name="studentId"]').val();
+          let mark = $(this).find('input[name="mark"]').val();
+          // let maxMark = $(this).find('input[name="mark"]').attr('max');// Not use
+          // if(mark > maxMark || mark < 0){
+          //   error = "error";
+          //   return ;
+          // }
+          let studentData = {}
+          studentData['studentId'] = studentId;
+          studentData['mark'] = mark;
+          studentDataList.push(studentData);
+      });
+
+      assignmentMark['assignmentId'] = assignmentId;
+      assignmentMark['studentData'] = studentDataList;
+      assignmentMark['batchId'] = batchId;
+      console.log(assignmentMark);
+      if(error != "error"){
+        $(this)
+        .find(".fa-solid.fa-check")
+        .removeClass("fa-solid fa-check")
+        .addClass("fa-pen-to-square");
+        $.ajax({
+          type: "POST",
+          url: "/teacher/batch/setAssignmentMark",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: JSON.stringify(assignmentMark),
+          success: function () {
+            //window.location=("/teacher/batch/batchSeeMore?radio=mark&batchId="+batchId);
           },
         });
       }else{
@@ -255,9 +328,9 @@ $(document).ready(function () {
       //console.log(id)
       var startDate = $(this)
         .closest("tr")
-        .find('input[name="start-date"')
+        .find('input[name="start-date"]')
         .val();
-      var endDate = $(this).closest("tr").find('input[name="end-date"').val();
+      var endDate = $(this).closest("tr").find('input[name="end-date"]').val();
       console.log(startDate)
       var d1 = new Date(startDate);
       var d2 = new Date(endDate);
@@ -281,7 +354,7 @@ $(document).ready(function () {
       }
       else if(startDate == endDate){
         $.alert("Start date and end date should not equal!")
-      }else if (!equal || lessThan) {
+      }else if (startDate < endDate) {
         $(this)
           .find(".fa-solid.fa-check")
           .removeClass("fa-solid fa-check")
