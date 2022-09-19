@@ -1,5 +1,6 @@
 package com.ace.ai.student.datamodel;
 
+import java.beans.Transient;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,4 +40,9 @@ public class Student implements Serializable{
 
     @OneToMany(mappedBy = "student")
     private List<StudentAssignmentMark> studentAssignmentMarks = new ArrayList<>();
+    @Transient
+    public String getImagePath(){
+        if(photo == null || code == null)return null;
+        return "/assets/img/" + code + "/" +photo;
+    }
 }
