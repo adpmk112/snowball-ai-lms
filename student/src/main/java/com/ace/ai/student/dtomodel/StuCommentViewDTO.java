@@ -11,6 +11,8 @@ public class StuCommentViewDTO {
     private String location;
     private String dateTime;
     private String commenterName;
+    private String commenterCode;
     private boolean notification;
+    private String commenterPhoto;
     private List<StuReplyViewDTO> stuReplayViewDTOList;
 }

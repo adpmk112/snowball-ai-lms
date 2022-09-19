@@ -11,6 +11,9 @@ public class StuCommentPostDTO {
     private String text;
     private int batchId;
     private int stuId;
+    //chapterId or customchapterId or exam id or assignment id
+    private int locationId;
+    private int chapterFileId;
     
 
 }
