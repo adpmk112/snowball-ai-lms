@@ -2,7 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <meta charset="utf-8" />
+  <div th:replace="STUFRG :: head"></div>
+  <title>Student Video</title>
+  <link rel="stylesheet" type="text/css" href="/assets/css/student-home.css" />
+  <!-- <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
   <title>header</title>
   <link rel="stylesheet" href="assets/css/html5-video.css" />
@@ -12,145 +15,28 @@
   <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
   <link rel="stylesheet" href="assets/fonts/font-awesome.min.css" />
 
-  <!-- subject-css -->
+ 
   <link rel="stylesheet" href="./assets/css/subject.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
     integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="assets/css/header.css" />
-  <link rel="stylesheet" href="assets/css/main.css" />
-  <script src="./assets/jquery/jquery.min.js"></script>
-  <script>
-    $(function () {
-      $('#header').load('S005.html')
-    })
-  </script>
-  <script>
-    $(function () {
-      $('#footer').load('F001.html')
-    })
-  </script>
+  <link rel="stylesheet" href="assets/css/main.css" /> -->
+  
 </head>
 
 <body class="body-color">
-  <div id="header"></div>
+  <header th:replace="STUFRG :: header"></header>
 
-  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label header-unit">
-    <div style="margin-left: auto; width: 80%; margin-right: auto;">
-      <h3 >
-      <span th:text="${name}">
-      </h3>
-    </div>
-  </div>
-  <div class="embed-responsive embed-responsive-16by9" th:if="${chapterType == 'chapter'}">
-    <video class="video-fluid z-depth-1" autoplay controls controlsList="nodownload">
-      <source th:src="@{${'/assets/img/chapterFiles/'+chapterId+'/'+name}}"  />
-    </video>
-    
-  </div>
-  <div class="embed-responsive embed-responsive-16by9" th:if="${chapterType == 'customChapter'}">
-    <video class="video-fluid z-depth-1" autoplay controls controlsList="nodownload">
-      <source th:src="@{${'/assets/img/customChapterFiles/'+chapterId+'/'+chapterFileDTO.name}}"  />
-    </video>
-    
-  </div>
-  <section class="gradient-custom custom-comment-box" style="background-color: rgb(255, 255, 255);">
-    <div class="container my-5 py-5">
-      <div class="row d-flex justify-content-center">
-        <div class="col-md-12 col-lg-10 col-xl-8">
-          <div class="">
-            <div class="card-body p-4">
-              <div class="row">
-                <div class="col">
-                  <div class="d-flex flex-start" th:each="comment : ${stuCommentViewDTOList}">
-                    <img class="rounded-circle shadow-1-strong me-3"
-                      src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp" alt="avatar" width="65"
-                      height="65" />
-                    <div class="flex-grow-1 flex-shrink-1">
-                      <!-- COMMENT -->
-                      <div>
-                        <div class="d-flex justify-content-between align-items-center">
-                          <p class="mb-1" th:text="${comment.commenterName}">
-                            <!-- Maria Smantha -->
-                            <span class="small" th:text="${comment.dateTime}"></span>
-                          </p>
-                          <a href="#!">
-                            <i class="fas fa-reply fa-xs"></i>
-                            <span class="small">reply</span>
-                          </a>
-                        </div>
-                        <p class="small mb-0" th:text="${comment.text}">
-                          <!-- It is a long established fact that a reader will
-                          be distracted by the readable content of a page. -->
-                        </p>
-                      </div>
-                      <!-- reply -->
-                      <div class="d-flex flex-start mt-4" th:each="reply : ${comment.stuReplayViewDTOList}">
-                        <a class="me-3" href="#">
-                          <img class="rounded-circle shadow-1-strong" th:src="" alt="avatar" width="65" height="65" />
-                        </a>
-                        <div class="flex-grow-1 flex-shrink-1">
-                          <div>
-                            <div class="d-flex justify-content-between align-items-center">
-                              <p class="mb-1" th:text="${reply.commenterName}">
-                                Simona Disa
-                                <span class="small" th:text="${reply.dateTime}"></span>
-                              </p>
-                            </div>
-                            <p class="small mb-0" th:text="${reply.text}">
-                              <!-- letters, as opposed to using 'Content here,
-                              content here', making it look like readable
-                              English. -->
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- reply -->
-
-                    </div>
-                  </div>
+    <main role="main">
+      <div th:replace="fragments/S001-02 :: student-video"></div>
+    </main>
+  <footer th:replace="STUFRG :: footer"></footer>
+  <div th:replace="STUFRG :: scripts"></div>
 
 
-
-                  <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
-                    <form th:action="@{student/commentpost}" th:object="${stuCommentPostDTO}">
-                      <div class="d-flex flex-start w-100">
-                        <img class="rounded-circle shadow-1-strong me-3"
-                          src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="40"
-                          height="40" />
-                        <input type="hidden" name="batchId" th:value="${batchId}">
-                        <input type="hidden" name="commenterCode" th:value="${stuCode}">
-                        <input type="hidden" name="stuId" th:value="${stuId}">
-                        <div class="form-outline w-100">
-                          <textarea class="form-control" id="textAreaExample" rows="4" style="background: #ffff;"
-                            th:field="*{text}"></textarea>
-                          <!-- <label class="form-label" for="textAreaExample">
-                          Message
-                        </label> -->
-                        </div>
-                      </div>
-                      <div class="float-end mt-2 pt-1">
-                        <button type="submit" class="btn btn-primary btn-sm">
-                          Post comment
-                        </button>
-                        <button type="reset" class="btn btn-outline-primary btn-sm">
-                          Cancel
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <div id="footer"></div>
-
-  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-  <script src="assets/js/Material-Text-Input.js"></script>
+  <!-- <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/js/Material-Text-Input.js"></script> -->
   <script src="assets/js/ml-video.js"></script>
 </body>
 

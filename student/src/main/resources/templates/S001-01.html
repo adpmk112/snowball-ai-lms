@@ -2,25 +2,23 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-  <title>header</title>
-  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+  <div th:replace="STUFRG :: head"></div>
+  <title>Student ChapterFiles</title>
+  <link rel="stylesheet" type="text/css" href="/assets/css/student-home.css" />
 
   <!-- carousel-css -->
-  <link rel="stylesheet" href="./assets/owlcarousel/css/owl.carousel.min.css">
-  <link rel="stylesheet" href="./assets/owlcarousel/css/owl.theme.default.min.css">
+  <!-- <link rel="stylesheet" href="./assets/owlcarousel/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="./assets/owlcarousel/css/owl.theme.default.min.css"> -->
 
   <!-- subject-css -->
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <!-- <link rel="stylesheet" href="assets/css/styles.css">
   <link rel="stylesheet" href="./assets/css/subject.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
     integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="assets/css/header.css">
-  <link rel="stylesheet" href="assets/css/main.css">
-  <script src="./assets/jquery/jquery.min.js"></script>
+  <link rel="stylesheet" href="assets/css/main.css"> -->
+  <!-- <script src="./assets/jquery/jquery.min.js"></script>
   <script>
     $(function () {
       $("#header").load("S005.html");
@@ -31,181 +29,22 @@
       $("#footer").load("footer.html");
     });
   </script>
-  <script src="https://kit.fontawesome.com/83e4876698.js" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/83e4876698.js" crossorigin="anonymous"></script> -->
 
 </head>
 
 <body class="body-color">
-  <div id="header"></div>
-  <div class="semi-circle"></div>
-  <div class="banner">
-    <div class="circle">
-      <i class="fa-regular fa-folder-open"></i>
-    </div>
-    <div>
-      <h1>Advanced Java</h1>
-      <h3>Batch 01</h3>
-    </div>
-  </div>
-  <div th:if="${chapterType == 'chapter'}" th:each="chapterFile : ${chapterFileDTOList}">
-    <div class="card custom-div" style="margin-bottom: 10px; margin-top: 10px; ">
-      <div class="card-body ">
-        <h4 class="card-title " style="margin-left: 40px;">Videos Links</h4>
-        <p class="card-text" style="margin-left: 80px; margin-bottom: 0px;" th:if="${chapterFile.fileType == 'video'}"
-          th:text="${chapterFile.name}"><a th:href="@{/student/chapter/chapterFile/(chapterId=${chapterFile.id})}"></a>
-        </p>
+  <header th:replace="STUFRG :: header"></header>
 
-      </div>
-    </div>
+    <main role="main">
+      <div th:replace="fragments/S001-01 :: student-chapterFiles"></div>
+    </main>
+  <footer th:replace="STUFRG :: footer"></footer>
+  <div th:replace="STUFRG :: scripts"></div>
 
-    <div class="card custom-div" style="margin-bottom: 10px;">
-      <div class="card-body">
-        <h4 class="card-title" style="margin-left: 40px;">PDF Links</h4>
-        <p class="card-text" style="margin-left: 80px; margin-bottom: 0px;" th:if="${chapterFile.fileType == 'pdf'}"
-          th:text="${chapterFile.name}"><a th:src="@{${'/assets/img/chapterFiles/'+chapterFile.chapterId+'/'+chapterFile.name}}"></a></p>
-      </div>
-    </div>
-    <div class="card custom-div" style="margin-bottom: 10px;">
-      <div class="card-body">
-        <h4 class="card-title" style="margin-left: 40px;">Assignment Links</h4>
-        <p class="card-text" style="margin-left: 80px; margin-bottom: 0px;"
-          th:if="${chapterFile.fileType == 'assignment'}" th:text="${chapterFile.name}"><a th:href=""></a></p>
-      </div>
-    </div>
-
-  </div>
-
-  <div th:if="${chapterType == 'customChapter'}" th:each="chapterFile : ${chapterFileDTOList}">
-    <div class="card custom-div" style="margin-bottom: 10px; margin-top: 10px; ">
-      <div class="card-body ">
-        <h4 class="card-title " style="margin-left: 40px;">Videos Links</h4>
-        <p class="card-text" style="margin-left: 80px; margin-bottom: 0px;" th:if="${chapterFile.fileType == 'video'}"
-          th:text="${chapterFile.name}"><a th:href="@{/student/customChapter/customChapterFile/(customChapterId=${chapterFile.id})}"></a></p>
-
-      </div>
-    </div>
-
-    <div class="card custom-div" style="margin-bottom: 10px;">
-      <div class="card-body">
-        <h4 class="card-title" style="margin-left: 40px;">PDF Links</h4>
-        <p class="card-text" style="margin-left: 80px; margin-bottom: 0px;" th:if="${chapterFile.fileType == 'pdf'}"
-          th:text="${chapterFile.name}"><a th:src="@{${'/assets/img/customChapterFiles/'+chapterFile.chapterId+'/'+chapterFile.name}}"></a></p>
-      </div>
-    </div>
-    <div class="card custom-div" style="margin-bottom: 10px;">
-      <div class="card-body">
-        <h4 class="card-title" style="margin-left: 40px;">Assignment Links</h4>
-        <p class="card-text" style="margin-left: 80px; margin-bottom: 0px;"
-          th:if="${chapterFile.fileType == 'assignment'}" th:text="${chapterFile.name}"><a th:href=""></a></p>
-      </div>
-    </div>
-
-  </div>
-
-
-
-  <section class="gradient-custom custom-comment-box" style="background-color: rgb(255, 255, 255);">
-    <div class="container my-5 py-5">
-      <div class="row d-flex justify-content-center">
-        <div class="col-md-12 col-lg-10 col-xl-8">
-          <div class="">
-            <div class="card-body p-4">
-              <div class="row">
-                <div class="col">
-                  <div class="d-flex flex-start" th:each="comment : ${stuCommentViewDTOList}">
-                    <img class="rounded-circle shadow-1-strong me-3"
-                      src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp" alt="avatar" width="65"
-                      height="65" />
-                    <div class="flex-grow-1 flex-shrink-1">
-                      <!-- COMMENT -->
-                      <div>
-                        <div class="d-flex justify-content-between align-items-center">
-                          <p class="mb-1" th:text="${comment.commenterName}">
-                            <!-- Maria Smantha -->
-                            <span class="small" th:text="${comment.dateTime}"></span>
-                          </p>
-                          <a href="#!">
-                            <i class="fas fa-reply fa-xs"></i>
-                            <span class="small">reply</span>
-                          </a>
-                        </div>
-                        <p class="small mb-0" th:text="${comment.text}">
-                          <!-- It is a long established fact that a reader will
-                          be distracted by the readable content of a page. -->
-                        </p>
-                      </div>
-                      <!-- reply -->
-                      <div class="d-flex flex-start mt-4" th:each="reply : ${comment.stuReplayViewDTOList}">
-                        <a class="me-3" href="#">
-                          <img class="rounded-circle shadow-1-strong" th:src="" alt="avatar" width="65" height="65" />
-                        </a>
-                        <div class="flex-grow-1 flex-shrink-1">
-                          <div>
-                            <div class="d-flex justify-content-between align-items-center">
-                              <p class="mb-1" th:text="${reply.commenterName}">
-                                Simona Disa
-                                <span class="small" th:text="${reply.dateTime}"></span>
-                              </p>
-                            </div>
-                            <p class="small mb-0" th:text="${reply.text}">
-                              <!-- letters, as opposed to using 'Content here,
-                              content here', making it look like readable
-                              English. -->
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- reply -->
-
-                    </div>
-                  </div>
-
-
-
-                  <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
-                    <form th:action="@{student/commentpost}" th:object="${stuCommentPostDTO}">
-                      <div class="d-flex flex-start w-100">
-                        <img class="rounded-circle shadow-1-strong me-3"
-                          src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="40"
-                          height="40" />
-                        <input type="hidden" name="batchId" th:value="${batchId}">
-                        <input type="hidden" name="commenterCode" th:value="${stuCode}">
-                        <input type="hidden" name="stuId" th:value="${stuId}">
-                        <div class="form-outline w-100">
-                          <textarea class="form-control" id="textAreaExample" rows="4" style="background: #ffff;"
-                            th:field="*{text}"></textarea>
-                          <!-- <label class="form-label" for="textAreaExample">
-                          Message
-                        </label> -->
-                        </div>
-                      </div>
-                      <div class="float-end mt-2 pt-1">
-                        <button type="submit" class="btn btn-primary btn-sm">
-                          Post comment
-                        </button>
-                        <button type="reset" class="btn btn-outline-primary btn-sm">
-                          Cancel
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- Footer -->
-  <div id="footer"></div>
-  <!-- Footer -->
-
-  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+  <!-- <script src="assets/bootstrap/js/bootstrap.min.js"></script>
   <script src="assets/js/jquery.min.js"></script>
-  <script src="assets/js/header.js"></script>
+  <script src="assets/js/header.js"></script> -->
 </body>
 
 </html>

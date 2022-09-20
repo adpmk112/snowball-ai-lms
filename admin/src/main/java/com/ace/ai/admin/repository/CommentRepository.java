@@ -8,4 +8,7 @@ import com.ace.ai.admin.datamodel.Comment;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment , Integer> {
    List<Comment> findByNotificationAndDeleteStatusAndBatchId(boolean notification,boolean deleteStatus,int batchId);
+   List<Comment> findByDeleteStatusAndBatchId(boolean deleteStatus,int batchId);
+   List<Comment> findByBatchIdAndLocation(int batchId,String location);
+   List<Comment> findByBatchIdAndLocationAndCommenterCode(int batchId,String location,String code);
 }
