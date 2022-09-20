@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layouts/main :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org">
+
+<body class="body-color">
+  <main role="main">
+    <div th:fragment="student-chapterFiles">
+      <div class="semi-circle"></div>
+      <div class="banner">
+        <div class="circle">
+          <i class="fa-regular fa-folder-open"></i>
+        </div>
+        <div>
+          <h1 th:text="${chapterName}"></h1>
+          <h3 th:text="${batchName}"></h3>
+        </div>
+      </div>
+      <div th:if="${chapterType == 'chapter'}">
+        <div class="card custom-div" style="margin-bottom: 10px; margin-top: 10px; ">
+          <div class="card-body ">
+            <h4 class="card-title " style="margin-left: 40px;">Videos Links</h4>
+            <a th:each="chapterFile : ${chapterFileDTOList}"
+              th:href="@{/student/chapter/video/(chapterId=${chapterId},batchId=${batchId},chapterFileId=${chapterFile.id})}">
+              <p class="card-text" style="margin-left: 80px; margin-bottom: 0px;"
+                th:if="${chapterFile.fileType == 'video'}" th:text="${chapterFile.name}">
+              </p>
+            </a>
+          </div>
+        </div>
+
+        <div class="card custom-div" style="margin-bottom: 10px;">
+          <div class="card-body">
+            <h4 class="card-title" style="margin-left: 40px;">PDF Links</h4>
+            <a th:each="chapterFile : ${chapterFileDTOList}"
+              th:href="@{${'/assets/img/chapterFiles/'+chapterFile.chapterId+'/'+chapterFile.name}}">
+              <p class="card-text" style="margin-left: 80px; margin-bottom: 0px;"
+                th:if="${chapterFile.fileType == 'pdf'}" th:text="${chapterFile.name}"></p>
+            </a>
+          </div>
+        </div>
+        <div class="card custom-div" style="margin-bottom: 10px;">
+          <div class="card-body">
+            <h4 class="card-title" style="margin-left: 40px;">Assignment Links</h4>
+            <a th:each="chapterFile : ${chapterFileDTOList}" href="">
+              <p class="card-text" style="margin-left: 80px; margin-bottom: 0px;"
+                th:if="${chapterFile.fileType == 'assignment'}" th:text="${chapterFile.name}"></p>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <div th:if="${chapterType == 'customChapter'}">
+        <div class="card custom-div" style="margin-bottom: 10px; margin-top: 10px; ">
+          <div class="card-body ">
+            <h4 class="card-title " style="margin-left: 40px;">Videos Links</h4>
+            <a th:each="chapterFile : ${chapterFileDTOList}"
+              th:href="@{/student/customChapter/video/(chapterId=${chapterId},batchId=${batchId},chapterFileId=${chapterFile.id})}">
+              <p class="card-text" style="margin-left: 80px; margin-bottom: 0px;"
+                th:if="${chapterFile.fileType == 'video'}" th:text="${chapterFile.name}"></p>
+            </a>
+
+          </div>
+        </div>
+
+        <div class="card custom-div" style="margin-bottom: 10px;">
+          <div class="card-body">
+            <h4 class="card-title" style="margin-left: 40px;">PDF Links</h4>
+            <a th:each="chapterFile : ${chapterFileDTOList}"
+              th:src="@{${'/assets/img/customChapterFiles/'+chapterFile.chapterId+'/'+chapterFile.name}}">
+              <p class="card-text" style="margin-left: 80px; margin-bottom: 0px;"
+                th:if="${chapterFile.fileType == 'pdf'}" th:text="${chapterFile.name}"></p>
+            </a>
+          </div>
+        </div>
+        <div class="card custom-div" style="margin-bottom: 10px;">
+          <div class="card-body">
+            <h4 class="card-title" style="margin-left: 40px;">Assignment Links</h4>
+            <a th:each="chapterFile : ${chapterFileDTOList}" th:href="">
+              <p class="card-text" style="margin-left: 80px; margin-bottom: 0px;"
+                th:if="${chapterFile.fileType == 'assignment'}" th:text="${chapterFile.name}"></p>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+
+
+      <section th:if="${chapterType == 'chapter'}" class="gradient-custom custom-comment-box" style="background-color: rgb(255, 255, 255);">
+        <div class="container my-5 py-5">
+          <div class="row d-flex justify-content-center">
+            <div class="col-md-12 col-lg-10 col-xl-8">
+              <div class="">
+                <div class="card-body p-4">
+                  <div class="row">
+                    <div class="col">
+                      <div class="d-flex flex-start" th:each="comment : ${stuCommentViewDTOList}">
+                        <img class="rounded-circle shadow-1-strong me-3"
+                          th:src="@{${'/assets/img/'+comment.commenterCode+'/'+comment.commenterPhoto}}" 
+                          width="65" height="65" />
+                        <div class="flex-grow-1 flex-shrink-1">
+                          <!-- COMMENT -->
+                          <div>
+                            <div class="d-flex justify-content-between align-items-center">
+                              <p class="mb-1" th:text="${comment.commenterName}">
+                                <!-- Maria Smantha -->
+                                <span class="small" th:text="${comment.dateTime}"></span>
+                              </p>
+                              <a th:attr="href='#reply-comment'+${comment.id}"
+                                class="btn btn-outline-primary btn-floating" data-bs-toggle="modal"
+                                data-mdb-ripple-color="dark">
+                                <i class="fas fa-reply fa-xs"></i>
+                                <span class="small">reply</span>
+                              </a>
+                            </div>
+                            <p class="small mb-0" th:text="${comment.text}">
+                              <!-- It is a long established fact that a reader will
+                              be distracted by the readable content of a page. -->
+                            </p>
+                          </div>
+                          <!-- reply -->
+                          <div class="d-flex flex-start mt-4" th:each="reply : ${comment.stuReplayViewDTOList}">
+                            
+                              <img class="rounded-circle shadow-1-strong"
+                                th:src="@{${'/assets/img/'+reply.commenterCode+'/'+reply.commenterPhoto}}" 
+                                width="65" height="65" />
+                            
+                            <div class="flex-grow-1 flex-shrink-1">
+                              <div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <p class="mb-1" th:text="${reply.commenterName}">
+                                    Simona Disa
+                                    <span class="small" th:text="${reply.dateTime}"></span>
+                                  </p>
+                                </div>
+                                <p class="small mb-0" th:text="${reply.text}">
+                                  <!-- letters, as opposed to using 'Content here,
+                                  content here', making it look like readable
+                                  English. -->
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- reply -->
+
+                        </div>
+                        <!-- Edit File Modal Box-->
+
+                        <div class="modal fade" th:attr="id='reply-comment'+${comment.id}" tabindex="-1"
+                          aria-labelledby="Edit File" aria-hidden="true" style="margin-top: 120px;">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title">Reply</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                  aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                <form th:action="@{/student/chapter/replypost}" th:object="${stuReplyPostDTO}"
+                                  method="post">
+                                  <div class="d-flex flex-start w-100">
+                                    <img class="rounded-circle shadow-1-strong me-3"
+                                      src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" 
+                                      width="40" height="40" />
+                                    <input type="hidden" name="commentId" th:value="${comment.id}">
+                                    <input type="hidden" name="commenterCode" th:value="${stuCode}">
+                                    <input type="hidden" name="stuId" th:value="${stuId}">
+                                    <input type="hidden" name="batchId" th:value="${batchId}">
+                                    <input type="hidden" name="locationId" th:value="${chapterId}">
+                                    <div class="form-outline w-100">
+                                      <textarea class="form-control" id="textAreaExample" rows="4"
+                                        style="background: rgb(255, 250, 250);" th:field="*{text}"></textarea>
+                                      <!-- <label class="form-label" for="textAreaExample">
+                                      Message
+                                    </label> -->
+                                    </div>
+                                  </div>
+                                  <div class="float-end mt-2 pt-1">
+                                    <button type="submit" class="btn btn-primary btn-sm">
+                                      Post comment
+                                    </button>
+                                    <button type="reset" class="btn btn-outline-primary btn-sm">
+                                      Cancel
+                                    </button>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+
+                      <div class="card-footer py-3 border-0" style="background-color: #ffffff;">
+                        <form th:action="@{/student/chapter/commentpost}" th:object="${stuCommentPostDTO}"
+                          method="post">
+                          <!-- C:\Users\Admin\Desktop\AILMS PC\Design-Prototype\assets\img\chainsaw.jpg
+                          C:\Users\Admin\Desktop\AILMS PC\Design-Prototype\assets\img\profileboy.jpg -->
+                          <div class="d-flex flex-start w-100">
+                            <img class="rounded-circle shadow-1-strong me-3"
+                              src="/assets/img/wallpapersden.com_hollow-knight-art_1920x1080.jpg" width="40"
+                              height="40" />
+                            <input type="hidden" name="batchId" th:value="${batchId}">
+                            <input type="hidden" name="commenterCode" th:value="${stuCode}">
+                            <input type="hidden" name="stuId" th:value="${stuId}">
+                            <input type="hidden" name="locationId" th:value="${chapterId}">
+                            <input type="hidden" th:field="*{location}">
+                            <div class="form-outline w-100">
+                              <textarea class="form-control" id="textAreaExample" rows="4"
+                                style="background: rgb(255, 250, 250);" th:field="*{text}"></textarea>
+                              <!-- <label class="form-label" for="textAreaExample">
+                              Message
+                            </label> -->
+                            </div>
+                          </div>
+                          <div class="float-end mt-2 pt-1">
+                            <button type="submit" class="btn btn-primary btn-sm">
+                              Post comment
+                            </button>
+                            <button type="reset" class="btn btn-outline-primary btn-sm">
+                              Cancel
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section th:if="${chapterType == 'customChapter'}" class="gradient-custom custom-comment-box" style="background-color: rgb(255, 255, 255);">
+        <div class="container my-5 py-5">
+          <div class="row d-flex justify-content-center">
+            <div class="col-md-12 col-lg-10 col-xl-8">
+              <div class="">
+                <div class="card-body p-4">
+                  <div class="row">
+                    <div class="col">
+                      <div class="d-flex flex-start" th:each="comment : ${stuCommentViewDTOList}">
+                        <img class="rounded-circle shadow-1-strong me-3"
+                          th:src="@{${'/assets/img/'+comment.commenterCode+'/'+comment.commenterPhoto}}" 
+                          width="65" height="65" />
+                        <div class="flex-grow-1 flex-shrink-1">
+                          <!-- COMMENT -->
+                          <div>
+                            <div class="d-flex justify-content-between align-items-center">
+                              <p class="mb-1" th:text="${comment.commenterName}">
+                                <!-- Maria Smantha -->
+                                <span class="small" th:text="${comment.dateTime}"></span>
+                              </p>
+                              <a th:attr="href='#reply-comment'+${comment.id}"
+                                class="btn btn-outline-primary btn-floating" data-bs-toggle="modal"
+                                data-mdb-ripple-color="dark">
+                                <i class="fas fa-reply fa-xs"></i>
+                                <span class="small">reply</span>
+                              </a>
+                            </div>
+                            <p class="small mb-0" th:text="${comment.text}">
+                              <!-- It is a long established fact that a reader will
+                              be distracted by the readable content of a page. -->
+                            </p>
+                          </div>
+                          <!-- reply -->
+                          <div class="d-flex flex-start mt-4" th:each="reply : ${comment.stuReplayViewDTOList}">
+                           
+                              <img class="rounded-circle shadow-1-strong"
+                                th:src="@{${'/assets/img/'+reply.commenterCode+'/'+reply.commenterPhoto}}" 
+                                width="65" height="65" />
+                            
+                            <div class="flex-grow-1 flex-shrink-1">
+                              <div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <p class="mb-1" th:text="${reply.commenterName}">
+                                    Simona Disa
+                                    <span class="small" th:text="${reply.dateTime}"></span>
+                                  </p>
+                                </div>
+                                <p class="small mb-0" th:text="${reply.text}">
+                                  <!-- letters, as opposed to using 'Content here,
+                                  content here', making it look like readable
+                                  English. -->
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- reply -->
+
+                        </div>
+                        <!-- Reply File Modal Box-->
+
+                        <div class="modal fade" th:attr="id='reply-comment'+${comment.id}" tabindex="-1"
+                          aria-labelledby="Edit File" aria-hidden="true" style="margin-top: 120px;">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title">Reply</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                  aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                <form th:action="@{/student/customChapter/replypost}" th:object="${stuReplyPostDTO}"
+                                  method="post">
+                                  <div class="d-flex flex-start w-100">
+                                    <img class="rounded-circle shadow-1-strong me-3"
+                                      src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" 
+                                      width="40" height="40" />
+                                    <input type="hidden" name="commentId" th:value="${comment.id}">
+                                    <input type="hidden" name="commenterCode" th:value="${stuCode}">
+                                    <input type="hidden" name="stuId" th:value="${stuId}">
+                                    <input type="hidden" name="batchId" th:value="${batchId}">
+                                    <input type="hidden" name="locationId" th:value="${chapterId}">
+                                    <div class="form-outline w-100">
+                                      <textarea class="form-control" id="textAreaExample" rows="4"
+                                        style="background: rgb(255, 250, 250);" th:field="*{text}"></textarea>
+                                      <!-- <label class="form-label" for="textAreaExample">
+                                      Message
+                                    </label> -->
+                                    </div>
+                                  </div>
+                                  <div class="float-end mt-2 pt-1">
+                                    <button type="submit" class="btn btn-primary btn-sm">
+                                      Post comment
+                                    </button>
+                                    <button type="reset" class="btn btn-outline-primary btn-sm">
+                                      Cancel
+                                    </button>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+
+                      <div class="card-footer py-3 border-0" style="background-color: #ffffff;">
+                        <form th:action="@{/student/customChapter/commentpost}" th:object="${stuCommentPostDTO}"
+                          method="post">
+                          <!-- C:\Users\Admin\Desktop\AILMS PC\Design-Prototype\assets\img\chainsaw.jpg
+                          C:\Users\Admin\Desktop\AILMS PC\Design-Prototype\assets\img\profileboy.jpg -->
+                          <div class="d-flex flex-start w-100">
+                            <img class="rounded-circle shadow-1-strong me-3"
+                              src="/assets/img/wallpapersden.com_hollow-knight-art_1920x1080.jpg" width="40"
+                              height="40" />
+                            <input type="hidden" name="batchId" th:value="${batchId}">
+                            <input type="hidden" name="commenterCode" th:value="${stuCode}">
+                            <input type="hidden" name="stuId" th:value="${stuId}">
+                            <input type="hidden" name="locationId" th:value="${chapterId}">
+                            <input type="hidden" th:field="*{location}">
+                            <div class="form-outline w-100">
+                              <textarea class="form-control" id="textAreaExample" rows="4"
+                                style="background: rgb(255, 250, 250);" th:field="*{text}"></textarea>
+                              <!-- <label class="form-label" for="textAreaExample">
+                              Message
+                            </label> -->
+                            </div>
+                          </div>
+                          <div class="float-end mt-2 pt-1">
+                            <button type="submit" class="btn btn-primary btn-sm">
+                              Post comment
+                            </button>
+                            <button type="reset" class="btn btn-outline-primary btn-sm">
+                              Cancel
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</body>
+
+</html>

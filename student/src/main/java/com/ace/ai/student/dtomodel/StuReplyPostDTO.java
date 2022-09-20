@@ -12,4 +12,9 @@ public class StuReplyPostDTO {
     private int commentId;
     private boolean deleteStatus;
     private int stuId;
+    private int batchId;
+    //chapterId or customchapterId or exam id or assignment id
+    private int locationId;
+    private int chapterFileId;
+    
 }
