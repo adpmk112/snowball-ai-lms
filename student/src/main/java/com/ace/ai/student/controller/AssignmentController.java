@@ -46,11 +46,13 @@ public class AssignmentController {
     public ModelAndView assignmentStudent(@RequestParam("assignmentId") Integer assignmentId,@RequestParam("studentId") Integer studentId,ModelMap model) throws ParseException{
         AssignmentDateTimeDTO assignmentDateTimeDTO = assignmentService.getDateTimeByAssignmentId(assignmentId);
         AssignmentMarkDTO assignmentMarkDTO= assignmentService.getStudentMarkByAssiIdAndStuId(assignmentId,studentId);
+        String status = assignmentService.getStatusAssignment(assignmentId);
         model.addAttribute("assignmentDateTimeDTO" ,assignmentDateTimeDTO);
         model.addAttribute("assignmentMarkDTO", assignmentMarkDTO);
         AssignmentFileDTO assignmentFileDTO = new AssignmentFileDTO();
         assignmentFileDTO.setAssignmentId(assignmentId);
         assignmentFileDTO.setStudentId(studentId);
+        model.addAttribute("status", status);
         return new ModelAndView("S001-03","assignmentFileDTO",assignmentFileDTO);
     }
 
@@ -67,7 +69,6 @@ public class AssignmentController {
         studentAssignmentMark.setUploadedFile(fileName);
         studentAssignmentMark.setDate(currentDate);
         studentAssignmentMark.setTime(currentTime);
-        String submitTime = assignmentService.twelveHourFormat(currentTime);
         Assignment assignment = new Assignment();
         // log.info("assignmentid -->"+assignmentFileDTO.getAssignmentId());
         assignment.setId(assignmentFileDTO.getAssignmentId());
@@ -101,7 +102,7 @@ public class AssignmentController {
           AssignmentDateTimeDTO assignmentDateTimeDTO = assignmentService.getDateTimeByAssignmentId(assignmentFileDTO.getAssignmentId());
           AssignmentMarkDTO assignmentMarkDTO= assignmentService.getStudentMarkByAssiIdAndStuId(assignmentFileDTO.getAssignmentId(),assignmentFileDTO.getStudentId());
           assignmentMarkDTO.setSubmitDate(currentDate);
-          assignmentMarkDTO.setSubmitTime(submitTime);
+          assignmentMarkDTO.setSubmitTime(currentTime);
           String status = assignmentService.getStatusAssignment(assignmentFileDTO.getAssignmentId());
           model.addAttribute("assignmentDateTimeDTO" ,assignmentDateTimeDTO);
           model.addAttribute("assignmentMarkDTO", assignmentMarkDTO);

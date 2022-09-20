@@ -3,6 +3,7 @@ package com.ace.ai.student.service;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.text.ParseException;
 import java.util.Date;
@@ -45,7 +46,7 @@ public class AssignmentService {
         AssignmentMarkDTO assignmentMarkDTO = new AssignmentMarkDTO();
         StudentAssignmentMark studentAssignmentMark =studentAssignmentMarkRepository.findByAssignment_IdAndStudent_Id(assignmentId , studentId);
         if(studentAssignmentMark != null){
-            if(studentAssignmentMark.getStudentMark() == 0 || studentAssignmentMark.getDate().isBlank() || studentAssignmentMark.getTime().isBlank()){
+            if(studentAssignmentMark.getStudentMark() == 0 && studentAssignmentMark.getDate().isBlank() && studentAssignmentMark.getTime().isBlank()){
                 studentMark = 100;
                 submitDate="SubmitDate";
                 submitTime="SubmitTime";
@@ -72,15 +73,16 @@ public class AssignmentService {
         final Date dateObj = sdf.parse(time);
         return new SimpleDateFormat("hh:mm a").format(dateObj);
     }
-
           
     public String getStatusAssignment(int assignmentId){
         Assignment assignment = assignmentRepository.findById(assignmentId);
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         LocalDate localDueDate = LocalDate.parse(assignment.getEnd_date(), dateFormatter);
+        LocalTime localDueTime = LocalTime.parse(assignment.getEnd_time(), timeFormatter);
         String status =null;
         if(assignment!=null){
-            if(localDueDate.isEqual(LocalDate.now())){
+            if(localDueDate.isAfter(LocalDate.now()) && localDueTime.isAfter(LocalTime.now())){
                 status = "eailer";
             }
             else{
