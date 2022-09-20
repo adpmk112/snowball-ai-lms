@@ -9,5 +9,6 @@ import com.ace.ai.student.datamodel.StudentAssignmentMark;
 
 @Repository
 public interface StudentAssignmentMarkRepository extends JpaRepository<StudentAssignmentMark , Integer>{
-    StudentAssignmentMark findByAssignmentIdAndStudentId(int assignmentId,int studentId);
+    public StudentAssignmentMark findByAssignment_IdAndStudent_Id(int assignmentId,int studentId);
+    
 }
