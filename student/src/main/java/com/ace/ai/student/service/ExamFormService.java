@@ -124,7 +124,7 @@ public class ExamFormService {
         int studentId = examDTO.getStudentId();
         int batchExamId = examDTO.getId();
         int studentTotalMark = 0;
-        String uploadDIR = "studentExamAnswers/"+batchExamId+"/"+studentId+"/";
+        String uploadDIR = "./assets/examAnswers"+batchExamId+"/"+studentId+"/";
         Student student = studentRepository.getById(studentId);
         BatchExamForm batchExamForm = batchExamFormRepository.getById(batchExamId);
         MultipartFile answerFile = examDTO.getAnswerFile();

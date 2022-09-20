@@ -60,50 +60,56 @@ public class StudentHomeController {
         for(ChapterBatchDTO chapter : chapterList){
             
             StuChapterDTO stuChapterDTO = new StuChapterDTO();
-            LocalDate startDate = LocalDate.parse(chapter.getStartDate(),df);
-            LocalDate endDate = LocalDate.parse(chapter.getEndDate(),df);
-            if(startDate.isBefore(LocalDate.now())){
-                if((startDate.isEqual(LocalDate.now())||startDate.isAfter(LocalDate.now()))&&endDate.isBefore(LocalDate.now())){
+            if(chapter.getStartDate() != null && !chapter.getStartDate().isBlank() && chapter.getEndDate() != null && !chapter.getEndDate().isBlank()){
+                
+                LocalDate startDate = LocalDate.parse(chapter.getStartDate(),df);
+                LocalDate endDate = LocalDate.parse(chapter.getEndDate(),df);
+                if(startDate.isBefore(LocalDate.now())){
+                    if((startDate.isEqual(LocalDate.now())||startDate.isAfter(LocalDate.now()))&&endDate.isBefore(LocalDate.now())){
+                        stuChapterDTO.setId(chapter.getChapterId());
+                        stuChapterDTO.setName(chapter.getName());
+                        stuChapterDTO.setStatus("inProgress");
+                        inProgressChapterList.add(stuChapterDTO);
+                    }else if(endDate.isEqual(LocalDate.now())||endDate.isAfter(LocalDate.now())){
+                        stuChapterDTO.setId(chapter.getChapterId());
+                        stuChapterDTO.setName(chapter.getName());
+                        stuChapterDTO.setStatus("done");
+                        doneChapterList.add(stuChapterDTO);
+                    }
+                }else{
                     stuChapterDTO.setId(chapter.getChapterId());
                     stuChapterDTO.setName(chapter.getName());
-                    stuChapterDTO.setStatus("inProgress");
-                    inProgressChapterList.add(stuChapterDTO);
-                }else if(endDate.isEqual(LocalDate.now())||endDate.isAfter(LocalDate.now())){
-                    stuChapterDTO.setId(chapter.getChapterId());
-                    stuChapterDTO.setName(chapter.getName());
-                    stuChapterDTO.setStatus("done");
-                    doneChapterList.add(stuChapterDTO);
+                    stuChapterDTO.setStatus("upComming");
+                    upCommingChapterList.add(stuChapterDTO);
                 }
-            }else{
-                stuChapterDTO.setId(chapter.getChapterId());
-                stuChapterDTO.setName(chapter.getName());
-                stuChapterDTO.setStatus("upComming");
-                upCommingChapterList.add(stuChapterDTO);
             }
         }
         for(CustomChapter customChapter : customChapterList){
             StuCustomChapterDTO stuCustomChapterDTO = new StuCustomChapterDTO();
-            LocalDate startDate = LocalDate.parse(customChapter.getStartDate(),df);
-            LocalDate endDate = LocalDate.parse(customChapter.getEndDate(),df);
-
-            if(startDate.isBefore(LocalDate.now())){
-                if((startDate.isEqual(LocalDate.now())||startDate.isAfter(LocalDate.now()))&&endDate.isBefore(LocalDate.now())){
+            if(customChapter.getStartDate() != null && !customChapter.getStartDate().isBlank() && customChapter.getEndDate() != null && !customChapter.getEndDate().isBlank()){
+                
+                LocalDate startDate = LocalDate.parse(customChapter.getStartDate(),df);
+                LocalDate endDate = LocalDate.parse(customChapter.getEndDate(),df);
+    
+                if(startDate.isBefore(LocalDate.now())){
+                    if((startDate.isEqual(LocalDate.now())||startDate.isAfter(LocalDate.now()))&&endDate.isBefore(LocalDate.now())){
+                        stuCustomChapterDTO.setId(customChapter.getId());
+                        stuCustomChapterDTO.setName(customChapter.getName());
+                        stuCustomChapterDTO.setStatus("inProgress");
+                        inProgressCustomChapterList.add(stuCustomChapterDTO);
+                    }else if(endDate.isEqual(LocalDate.now())||endDate.isAfter(LocalDate.now())){
+                        stuCustomChapterDTO.setId(customChapter.getId());
+                        stuCustomChapterDTO.setName(customChapter.getName());
+                        stuCustomChapterDTO.setStatus("done");
+                        doneCustomChapterList.add(stuCustomChapterDTO);
+                    }
+                }else{
                     stuCustomChapterDTO.setId(customChapter.getId());
                     stuCustomChapterDTO.setName(customChapter.getName());
-                    stuCustomChapterDTO.setStatus("inProgress");
-                    inProgressCustomChapterList.add(stuCustomChapterDTO);
-                }else if(endDate.isEqual(LocalDate.now())||endDate.isAfter(LocalDate.now())){
-                    stuCustomChapterDTO.setId(customChapter.getId());
-                    stuCustomChapterDTO.setName(customChapter.getName());
-                    stuCustomChapterDTO.setStatus("done");
-                    doneCustomChapterList.add(stuCustomChapterDTO);
+                    stuCustomChapterDTO.setStatus("upComming");
+                    upCommingCustomChapterList.add(stuCustomChapterDTO);
                 }
-            }else{
-                stuCustomChapterDTO.setId(customChapter.getId());
-                stuCustomChapterDTO.setName(customChapter.getName());
-                stuCustomChapterDTO.setStatus("upComming");
-                upCommingCustomChapterList.add(stuCustomChapterDTO);
-            }
+            }          
 
         }
 
