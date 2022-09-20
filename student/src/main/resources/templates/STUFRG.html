@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="/assets/jquery-confirm/jquery-confirm.min.css" />
     <link rel="stylesheet" type="text/css" href="/assets/css/datatable.css" />
     <link rel="stylesheet" type="text/css" href="/assets/css/student-exam.css" />
-
+    <link rel="stylesheet" type="text/css" href="/assets/css/profile.css">
     <!-- carousel-css -->
     <link rel="stylesheet" type="text/css" href="/assets/owlcarousel/css/owl.carousel.min.css" />
     <link rel="stylesheet" type="text/css" href="/assets/owlcarousel/css/owl.theme.default.min.css" />
@@ -68,10 +68,10 @@
                 <div class="collapse navbar-collapse" id="navcol-1">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="home.html"  th:href="@{/home}" select>Home</a>
+                            <a class="nav-link" href="home.html"  th:href="@{/student/home}" select>Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="student-classroom.html"  th:href="@{/livesession}">
+                            <a class="nav-link" href="student-classroom.html"  th:href="@{/student/livesession}">
                                 Live Sessions
                             </a>
                         </li>
@@ -89,11 +89,17 @@
                             data-bs-toggle="dropdown"
                             href="#"
                     >
-                        <img id="profile-img" src="/assets/img/profileboy.jpg" />
+                        <div th:if="${#request.userPrincipal.principal.photo != null}">
+                            <img id="profile-img"   th:src="@{${'/assets/img/'+#request.userPrincipal.principal.code+'/'+#request.userPrincipal.principal.photo}}"/>
+                        </div>
+                        <!--/*@thymesVar id="principal" type="principal"*/-->
+                        <div th:unless="${#request.userPrincipal.principal.photo != null}">
+                            <img id="profile-img" src="/assets/img/profileboy.jpg"/>
+                        </div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end">
-                        <a class="dropdown-item name" href="#">Name</a>
-                        <a class="dropdown-item" href="student-profile.html">
+                        <a class="dropdown-item name" href="#">[[${#request.userPrincipal.principal.name}]]</a>
+                        <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <svg
                                     class="dropdown-menu-item"
                                     xmlns="http://www.w3.org/2000/svg"
@@ -126,6 +132,43 @@
             </div>
             <!--End container fluid-->
         </nav>
+    </div>
+    <div class="modal"  id="exampleModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Your Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="card" style="border-radius: 15px;">
+                        <div class="card-body p-4">
+                            <div class="d-flex text-black">
+                                <div class="flex-shrink-0" th:if="${#request.userPrincipal.principal.photo != null}">
+                                    <img th:src="@{${'/assets/img/'+#request.userPrincipal.principal.code+'/'+#request.userPrincipal.principal.photo}}"
+                                         alt="Generic placeholder image" class="img-fluid"
+                                         style="width: 180px; border-radius: 10px;">
+                                </div>
+                                <div class="flex-shrink-0" th:unless="${#request.userPrincipal.principal.photo != null} ">
+                                    <img src="/assets/img/profileboy.jpg"
+                                         alt="Generic placeholder image" class="img-fluid"
+                                         style="width: 180px; border-radius: 10px;">
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h5 class="mb-1">[[${#request.userPrincipal.principal.name}]]</h5>
+                                    <p class="mb-2 pb-1" style="color: #2b2a2a;">Id: [[${#request.userPrincipal.principal.code}]]</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a class="btn btn-primary" th:href="@{/student/updateProfileSetUp/}" role="button">Update Profile</a>
+                    <a class="btn btn-primary" th:href="@{/student/changePasswordSetUp/}" role="button">Change Password</a>
+                </div>
+            </div>
+        </div>
     </div>
     <!--End header-div-->
 </header>

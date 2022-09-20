@@ -327,12 +327,6 @@ public class BatchController {
         Batch batch = batchService.findBatchById(batchId);
         System.out.print("batch info" + batchId + batchDTO.getName() + batch.getName());
         batch.setName(batchDTO.getName());
-        // LocalDate localDate = LocalDate.now();
-        // DateTimeFormatter dateTimeFormatter =
-        // DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        // String localDateString = localDate.format(dateTimeFormatter);
-        // batch.setCreatedDate(localDateString);//This will be updated Date
-
         batchService.saveBatch(batch);
         // Delete All Teacher
         teacherBatchService.deleteByBatchId(batchId);

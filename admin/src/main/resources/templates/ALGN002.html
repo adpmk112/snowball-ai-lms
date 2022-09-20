@@ -34,6 +34,8 @@
                                 <div th:if="${param.error}">
                                     <h4 style="color:red">Invalid Id or Password!</h4>
                                 </div>
+                                <div class="alert alert-success" th:if="${success!=null}" th:text="${success}"></div>
+                                <div class="alert alert-success" th:if="${message!=null}" th:text="${message}"></div>
                                 <form th:action="@{/teacher/login}" method="post" >
                                     <div class="mb-3">
 
