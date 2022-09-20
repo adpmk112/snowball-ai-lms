@@ -87,7 +87,7 @@ public class BatchExamFormService {
                     StudentExamDTO studentExamDTO = new StudentExamDTO();
                     studentExamDTO.setExam(bef.getExamForm());
                     studentExamDTO.setMark(mark);
-                    studentExamDTO.setAnswerDate((studentExamMarkRepository.findByBatchExamForm_IdAndStudent_Id(bef.getId(), studentId) == null)?"Your haven't answer": studentExamMarkRepository.findByBatchExamForm_IdAndStudent_Id(bef.getId(), studentId).getAnswerDate());
+                    studentExamDTO.setAnswerDate((studentExamMarkRepository.findByBatchExamForm_IdAndStudent_Id(bef.getId(), studentId) == null)?"You haven't answered yet.": studentExamMarkRepository.findByBatchExamForm_IdAndStudent_Id(bef.getId(), studentId).getAnswerDate());
                     finishedDoneDTO.add(studentExamDTO);
                 }
                 

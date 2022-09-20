@@ -94,11 +94,11 @@
           title: 'Remove Exam!',
           content: 'Are you sure to remove this exam?',
           animation: 'Scale',
-          buttons: {
+          buttons: {           
+            No: function () {},
             Yes: function () {
               window.location = '/admin/batch/removeExamSchedule/'+exam_schedule_id
             },
-            No: function () {},
           },
         })
         //<!-- For Remove Attencance confirm -->
@@ -127,11 +127,11 @@
           title: 'Remove Classroom!',
           content: 'Are you sure to remove this classroom?',
           animation: 'Scale',
-          buttons: {
+          buttons: {           
+            No: function () {},
             Yes: function () {
              window.location='/admin/batch/deleteClassroom/'+class_id;
             },
-            No: function () {},
           },
         })
       })
