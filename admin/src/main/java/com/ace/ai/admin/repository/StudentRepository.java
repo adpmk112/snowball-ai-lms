@@ -17,5 +17,6 @@ public interface StudentRepository extends JpaRepository<Student,Integer> {
     List<Student> findByDeleteStatusAndBatchIdOrderByIdAsc(boolean status, int batchId);
     List<Student> findByDeleteStatusAndCodeAndBatchId(boolean deleteStatus , String code,int batchId);
     List<Student> findByDeleteStatusAndIdAndBatchId(boolean deleteStatus , int id,int batchId);
+    Student findByCodeAndDeleteStatus(String code,boolean deleteStatus);
 
 }

@@ -6,25 +6,33 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ace.ai.student.datamodel.Batch;
 import com.ace.ai.student.datamodel.Chapter;
 import com.ace.ai.student.datamodel.ChapterFile;
+import com.ace.ai.student.datamodel.CustomChapter;
 import com.ace.ai.student.datamodel.CustomChapterFile;
 import com.ace.ai.student.dtomodel.ChapterFileDTO;
+import com.ace.ai.student.repository.BatchRepository;
 import com.ace.ai.student.repository.ChapterFileRepository;
 import com.ace.ai.student.repository.ChapterRepository;
 import com.ace.ai.student.repository.CustomChapterFileRepository;
+import com.ace.ai.student.repository.CustomChapterRepository;
 
 @Service
 public class StudentChapterService {
     @Autowired
     ChapterRepository chapterRepository;
     @Autowired
+    CustomChapterRepository customChapterRepository;
+    @Autowired
     ChapterFileRepository chapterFileRepository;
     @Autowired
     CustomChapterFileRepository customChapterFileRepository;
+    @Autowired
+    BatchRepository batchRepository;
 
     public List<ChapterFileDTO> getChapterFileListByChapterId(int chapterId) {
-        List<ChapterFile> chapterFileList = chapterFileRepository.findByChapterIdAndDeleteStatus(chapterId, false);
+        List<ChapterFile> chapterFileList = chapterFileRepository.findByChapterIdAndDeleteStatus(chapterId, 0);
 
         List<ChapterFileDTO> chapterFileDTOList = new ArrayList<>();
         for (ChapterFile chapterFile : chapterFileList) {
@@ -68,6 +76,13 @@ public class StudentChapterService {
 
     public Chapter findChapterById(int chapterId){
         return chapterRepository.findById(chapterId).get();
+    }
+
+    public Batch findBatchById(int batchId){
+        return batchRepository.findById(batchId).get();
+    }
+    public CustomChapter findCustomChapterById(int customChapterId){
+        return customChapterRepository.findById(customChapterId).get();
     }
 
     public ChapterFileDTO getCustomChapterFileById(int customChapterFileId, int customChapterId) {

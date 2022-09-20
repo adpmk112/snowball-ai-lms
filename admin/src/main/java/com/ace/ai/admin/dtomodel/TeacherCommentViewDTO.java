@@ -1,11 +1,11 @@
-package com.ace.ai.student.dtomodel;
+package com.ace.ai.admin.dtomodel;
 
 import java.util.List;
 
 import lombok.Data;
 
 @Data
-public class StuCommentViewDTO {
+public class TeacherCommentViewDTO {
     private int id;
     private String text;
     private String location;
@@ -14,5 +14,5 @@ public class StuCommentViewDTO {
     private String commenterCode;
     private boolean notification;
     private String commenterPhoto;
-    private List<StuReplyViewDTO> stuReplayViewDTOList;
+    private List<TeacherReplyViewDTO> stuReplayViewDTOList;
 }

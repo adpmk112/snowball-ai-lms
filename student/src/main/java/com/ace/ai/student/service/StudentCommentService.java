@@ -48,16 +48,31 @@ public class StudentCommentService {
                 stuReplyViewDTO.setText(reply.getText());
                 stuReplyViewDTO.setDateTime(reply.getDateTime());
                 stuReplyViewDTO.setCommentId(reply.getComment().getId());
+                String stuName = "";
+                String teacherName ="";
+                String stuPhoto = "";
+                String  teacherPhoto = "";
+                
 
-                String stuName = studentRepository.findByCode(reply.getCommenterCode()).getName();
-                String teacherName = teacherRepository.findByCode(reply.getCommenterCode()).getName();
+                if(studentRepository.findByCodeAndDeleteStatus(reply.getCommenterCode(),false)!=null){
+                    stuName = studentRepository.findByCodeAndDeleteStatus(reply.getCommenterCode(),false).getName();
+                    stuPhoto = studentRepository.findByCodeAndDeleteStatus(reply.getCommenterCode(),false).getPhoto();
+                }
+                else if(teacherRepository.findByCode(reply.getCommenterCode())!=null){
+                    teacherName = teacherRepository.findByCode(reply.getCommenterCode()).getName();
+                  teacherPhoto = teacherRepository.findByCode(reply.getCommenterCode()).getPhoto();
+                }
+                
 
                 if (stuName.isBlank()) {
                     stuReplyViewDTO.setCommenterName(teacherName);
+                    stuReplyViewDTO.setCommenterPhoto(teacherPhoto);
                 } else if (teacherName.isBlank()) {
                     stuReplyViewDTO.setCommenterName(stuName);
+                    stuReplyViewDTO.setCommenterPhoto(stuPhoto);
                 }
 
+                stuReplyViewDTO.setCommenterCode(reply.getCommenterCode());
                 stuReplyViewDTO.setDeleteStatus(reply.isDeleteStatus());
                 stuReplyViewDTO.setNotification(reply.isNotification());
                 stuReplyViewDTOList.add(stuReplyViewDTO);
@@ -67,15 +82,29 @@ public class StudentCommentService {
             stuCommentViewDTO.setText(comment.getText());
             stuCommentViewDTO.setLocation(comment.getLocation());
             stuCommentViewDTO.setDateTime(comment.getDateTime());
-            String stuName = studentRepository.findByCode(comment.getCommenterCode()).getName();
-            String teacherName = teacherRepository.findByCode(comment.getCommenterCode()).getName();
+            String stuName = "";
+            String teacherName = "";
+            String stuPhoto = "";
+            String  teacherPhoto = "";
+            if(studentRepository.findByCodeAndDeleteStatus(comment.getCommenterCode(),false)!=null){
+                stuName = studentRepository.findByCodeAndDeleteStatus(comment.getCommenterCode(),false).getName();
+                stuPhoto = studentRepository.findByCodeAndDeleteStatus(comment.getCommenterCode(),false).getPhoto();
+            }
+            else if(teacherRepository.findByCode(comment.getCommenterCode())!=null){
+                teacherName = teacherRepository.findByCode(comment.getCommenterCode()).getName();
+                teacherPhoto = teacherRepository.findByCode(comment.getCommenterCode()).getPhoto();
+            }
+            
 
             if (stuName.isBlank()) {
                 stuCommentViewDTO.setCommenterName(teacherName);
+                stuCommentViewDTO.setCommenterPhoto(teacherPhoto);
             } else if (teacherName.isBlank()) {
                 stuCommentViewDTO.setCommenterName(stuName);
+                stuCommentViewDTO.setCommenterPhoto(stuPhoto);
                 
             }
+            stuCommentViewDTO.setCommenterCode(comment.getCommenterCode());
             stuCommentViewDTO.setNotification(comment.isNotification());
             stuCommentViewDTO.setStuReplayViewDTOList(stuReplyViewDTOList);
             stuCommentViewDTOList.add(stuCommentViewDTO);
@@ -109,6 +138,10 @@ public class StudentCommentService {
         reply.setText(stuReplyPostDTO.getText());
         replyRepository.save(reply);
 
+    }
+
+    public Comment getCommentById(int commentId){
+        return commentRepository.findById(commentId).get();
     }
 
 }
