@@ -172,36 +172,84 @@
     </div>
     <!--End header-div-->
 </header>
-<footer th:fragment="footer" class="bg-danger text-center text-white" id="footer" >
-    <!-- Grid container -->
-    <div class="container " >
-        <!-- Section: Social media -->
 
-        <!-- Section: Form -->
-
-        <!-- Section: Text -->
-        <section class="mb-2">
+<!-- Footer -->
+<footer class="text-center text-lg-start text-muted" th:fragment="footer" style="background: white;">
+      
+    <!-- Section: Links  -->
+    <section class="pt-3">
+      <div class="container text-center text-md-start mt-5">
+        <!-- Grid row -->
+        <div class="row mt-3">
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-4 col-xl-3 mx-auto mb-4">
+            <!-- Content -->
+            <a href="http://aceinspiration.com/" target="_blank" class="text-decoration-none text-secondary">
+                <h6 class="text-uppercase fw-bold mb-4">
+                  Ace Inspiration
+                </h6>
+            </a>
             <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum
-                repellat quaerat voluptatibus placeat nam, commodi optio pariatur est quia magnam
-                eum harum corrupti dicta, aliquam sequi voluptate quas.
+                ACE Inspiration is the place to build up ICT professionals. 
+                From fundamental to advanced courses, the desired courses can be chose to learn.
             </p>
-        </section>
-        <!-- Section: Text -->
-
-        <!-- Section: Links -->
-
-        <!-- Section: Links -->
-    </div>
-    <!-- Grid container -->
-
+          </div>
+          <!-- Grid column -->
+  
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-4 col-xl-2 mx-auto mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">
+              Your Links
+            </h6>
+            <p>
+              <a th:href="@{/student/home}" class="text-reset text-decoration-none">Home</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset text-decoration-none">Live Sessions</a>
+            </p>
+            <p>
+              <a th:href="@{/student/exam}" class="text-reset text-decoration-none">Exam</a>
+            </p>
+           
+          </div>
+          <!-- Grid column --> 
+  
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-4 col-xl-3 mx-auto mb-md-0">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+            
+            <p>
+                <a href="http://aceinspiration.com/" target="_blank" class="text-secondary text-decoration-none">
+                    <i class="fa-solid fa-globe me-3"></i>                 
+                    http://aceinspiration.com
+                </a>
+            </p>           
+            <p>
+                <a href="https://www.facebook.com/aceinspiration" target="_blank" class="text-decoration-none text-secondary">
+                    <i class="fa-brands fa-facebook me-3"></i>
+                    facebook.com/aceinspiration
+                </a>
+            </p>
+            <p><i class="fas fa-phone me-3 text-secondary"></i> 09-795519692, 09-253257742</p>            
+          </div>
+          <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
+      </div>
+    </section>
+    <!-- Section: Links  -->
+  
     <!-- Copyright -->
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-        © 2020 Copyright:
-        <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.025);">
+      © 2022 Copyright:
+      <a class="text-reset text-decoration-none text-secondary fw-bold" href="https://mdbootstrap.com/">Ace Inspiration</a>
     </div>
     <!-- Copyright -->
-</footer>
+  </footer>
+  <!-- Footer -->
+
 
 </body>
 </html>
