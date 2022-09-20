@@ -27,7 +27,8 @@ public class Assignment implements Serializable {
     @Column(columnDefinition = "tinyint(1) default 0")
     private boolean deleteStatus;
     private String branch;
-
+    private String end_date;
+    private String end_time;
     @OneToMany(mappedBy = "assignment")
     private List<StudentAssignmentMark> studentAssignmentMarks = new ArrayList<>();
 
