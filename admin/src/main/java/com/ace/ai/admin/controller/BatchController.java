@@ -335,7 +335,7 @@ public class BatchController {
         for (Teacher teacher : batchDTO.getTeacherList()) {
             batchService.saveTeacherBatch(teacher.getId(), batch.getId());
         }
-        return "redirect:/admin/batch/goToBatch";
+        return "redirect:/admin/batch/";
         // return "redirect:/updateBatchSuccess/"+batchId;
     }
 

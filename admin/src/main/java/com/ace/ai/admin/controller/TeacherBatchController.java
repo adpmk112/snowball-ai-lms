@@ -17,6 +17,7 @@ import com.ace.ai.admin.dtomodel.TeacherAssignmentViewDTO;
 import com.ace.ai.admin.dtomodel.TeacherCommentPostDTO;
 import com.ace.ai.admin.dtomodel.TeacherCommentViewDTO;
 import com.ace.ai.admin.dtomodel.TeacherReplyPostDTO;
+import com.ace.ai.admin.repository.BatchExamFormRepository;
 import com.ace.ai.admin.service.AssignmentService;
 import com.ace.ai.admin.service.AttendanceService;
 import com.ace.ai.admin.service.BatchService;
@@ -37,6 +38,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.SystemPropertyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -72,6 +74,8 @@ public class TeacherBatchController {
     CustomChapterService customChapterService;
     @Autowired
     TeacherCommentService teacherCommentService;
+    @Autowired
+    BatchExamFormRepository batchExamFormRepository;
 
     @GetMapping({ "/addNewActivity" })
     public String addNewActivity(Model model) {
@@ -102,6 +106,7 @@ public class TeacherBatchController {
         model.addAttribute("examScheduleList", examScheduleService.showExamScheduleTable(batchId)); //For Exam Schedule
         model.addAttribute("studentExamMarkList", studentExamMarkService.getExamMarkDTOList(batchId));//To mark exam;
         model.addAttribute("studentAssignmentMarkList", studentAssignmentMarkService.getAssignmentMarkDTOList(batchId));//To mark Assignment
+        System.out.println("size is "+ studentAssignmentMarkService.getAssignmentMarkDTOList(batchId).size());
         model.addAttribute("classroomList", classroomService.showClassroomTable(batchId));
         model.addAttribute("batchCustomChapterDTOList", customChapterService.getCustomChapterListByBatchId(batchId) );
         
@@ -152,12 +157,14 @@ public class TeacherBatchController {
     public ResponseEntity setExamMark(@RequestBody ExamMarkDTO examMarkDTO){
         int batchId = examMarkDTO.getBatchId();
         int examId = examMarkDTO.getExamId();
+        BatchExamForm batchExamForm = batchExamFormRepository.findByDeleteStatusAndBatchIdAndExamFormId(false, batchId, examId);
+        int batchExamFormId = (batchExamForm == null)? 0 : batchExamForm.getId();
         List<StudentIdMarkFilePathDTO> studentDataList = examMarkDTO.getStudentData();
         for(StudentIdMarkFilePathDTO studentData : studentDataList){
             int studentId = studentData.getStudentId();
             int mark = studentData.getMark();
-            StudentExamMark studentExamMark = studentExamMarkService.getByExamIdAndStudentId(examId, studentId);
-            if(studentExamMark != null){
+            StudentExamMark studentExamMark = studentExamMarkService.getByBatchExamFormIdAndStudentId(batchExamFormId, studentId);
+            if(studentExamMark != null){  
                 studentExamMark.setStudentMark(mark);
                 studentExamMark.setNotification(false);
                 studentExamMarkService.save(studentExamMark);

@@ -129,6 +129,9 @@ $(document).ready(function () {
           success: function () {
             window.location=("/teacher/batch/batchSeeMore?radio=mark&batchId="+batchId);
           },
+          error: function(){
+            $.alert("Error!");
+          }
         });
       }else{
         $.alert({
@@ -200,8 +203,11 @@ $(document).ready(function () {
           },
           data: JSON.stringify(assignmentMark),
           success: function () {
-            //window.location=("/teacher/batch/batchSeeMore?radio=mark&batchId="+batchId);
+            window.location=("/teacher/batch/batchSeeMore?radio=mark&batchId="+batchId);
           },
+          error: function(){
+            $.alert("Error")
+          }
         });
       }else{
         $.alert({

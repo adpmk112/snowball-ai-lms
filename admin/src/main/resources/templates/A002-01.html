@@ -39,12 +39,12 @@
           title: 'Remove Chapter',
           content: 'Are you sure?',
           animation: 'Scale',
-          buttons: {
+          buttons: {          
+            No: function () {},
             Yes: function () {        
               // /admin/course/chapter/chapterFile/delete(chapterFileId=${chapterFile.id},chapterId=${chapterId})      
               window.location = `/admin/course/chapter/delete?chapterId=`+chapterId;
             },
-            No: function () {},
           },
         });
     //<!-- Confirm for exam delete -->

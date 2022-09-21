@@ -1,7 +1,6 @@
 package com.ace.ai.student.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.ace.ai.student.config.StudentUserDetails;
-import com.ace.ai.student.datamodel.Batch;
-import com.ace.ai.student.datamodel.BatchExamForm;
-import com.ace.ai.student.datamodel.ExamForm;
-import com.ace.ai.student.datamodel.Student;
 import com.ace.ai.student.dtomodel.ExamDTO;
-import com.ace.ai.student.dtomodel.QuestionDTO;
 import com.ace.ai.student.dtomodel.StudentExamDTO;
 import com.ace.ai.student.repository.StudentRepository;
 import com.ace.ai.student.service.BatchExamFormService;
