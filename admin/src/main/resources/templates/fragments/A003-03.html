@@ -252,15 +252,15 @@
                     <input type="radio" id="tabattendance" name="mytabs" th:checked="${radio == 'attendance' }" />
                     <label for="tabattendance" id="lab">Attendance</label>
 
-                    <div class="tab">
-                        <div class="add-list pb-3">
-                            <a  id="pdf" th:href="@{/admin/exportToPDF{batch_id}(batch_id=${batch_id})}"
-                                class="btn btn-outline-success btn-floating" data-mdb-ripple-color="dark">
-                                <i class="fa-regular fa-file-pdf"></i>
+                    <div class="tab position-relative">
+                        <div class="add-list pb-3 position-absolute">
+                            <a  id="pdf" th:href="@{/admin/exportToExcel{batch_id}(batch_id=${batch_id})}"
+                                class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
+                                <i class="fa-solid fa-file-excel"></i>
                             </a>
                         </div>
                         <!-- Start Attendance Table-->
-                        <div class="table-responsive">
+                        <div class="table-responsive pt-5">
                             <table id="datatable3" class=" hover attendanceTable">
                                 <thead>
                                     <tr>

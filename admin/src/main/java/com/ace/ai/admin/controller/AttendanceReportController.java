@@ -23,7 +23,7 @@ public class AttendanceReportController {
     @Autowired
     StudentRepository studentRepository;
 
-    @GetMapping("/admin/exportToPDF{batch_id}")
+    @GetMapping("/admin/exportToExcel{batch_id}")
     public void exportPDF(@PathVariable("batch_id") Integer batchId, HttpServletResponse response) throws IOException {
         response.setContentType("application/octet-stream");
         String headerKey="Content-Disposition";

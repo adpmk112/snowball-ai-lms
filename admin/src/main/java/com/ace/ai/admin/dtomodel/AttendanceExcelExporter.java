@@ -51,14 +51,14 @@ public class AttendanceExcelExporter {
         cell.setCellStyle(style);
         sheet.autoSizeColumn(0);
         HashMap<Integer, String> map = attendanceReportDTO.getStudentNames();
-        int cellCount = 0;
+        int cellCount = 1;
         if (map != null) {
             for (Integer key : map.keySet()) {
-                cell = row.createCell(++cellCount);
-                System.out.println(key.toString() + " ==> " + map.get(key));
+                cell = row.createCell(cellCount);
                 cell.setCellValue(map.get(key));
                 cell.setCellStyle(style);
-                sheet.autoSizeColumn(++cellCount);
+                sheet.autoSizeColumn(cellCount);
+                cellCount++;
             }
         }
     }
@@ -68,7 +68,6 @@ public class AttendanceExcelExporter {
         HashMap<Integer, String> map = attendanceReportDTO.getStudentAndAttend();
         if (attendanceReportDTO.getDateList().size() != 0) {
             int rowCount = 2;
-
             for (String s : dateList) {
                 int cellCount = 0;
                 Row row = sheet.createRow(rowCount++);
