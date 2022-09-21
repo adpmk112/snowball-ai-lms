@@ -27,6 +27,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -54,6 +55,7 @@ public class BatchController {
     ChapterBatchRepository chapterBatchRepository;
     @Autowired
     AssignmentService assignmentService;
+
 
     @GetMapping({ "/" })
     public String gotoBatch(Model model) {
@@ -354,5 +356,7 @@ public class BatchController {
         }
         return "redirect:/admin/batch/batchSeeMore?id="+batchId+"&radio=attendance";
     }
+
+
 
 }

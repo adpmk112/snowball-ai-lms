@@ -108,7 +108,7 @@ public class ProfileController {
             else{
                 studentProfileService.saveStudentPassword(changePassDTO.getNewPassword(),userDetails.getCode());
                 redirect.addFlashAttribute("success","You have reset your password successfully! You may now login.");
-                return new ModelAndView("redirect:/student/login","",null);
+                return new ModelAndView("redirect:/student/login/","",null);
             }
         }
         return new ModelAndView("S006","changePassDTO",changePassDTO);
