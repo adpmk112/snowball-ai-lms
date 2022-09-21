@@ -75,7 +75,7 @@ public class AssignmentController {
         studentAssignmentMark.setStudent(student);
         StudentAssignmentMark studentAssignmentMarkSaved = studentAssignmentMarkRepository.save(studentAssignmentMark);
         
-        Path uploadPath = Paths.get("./assets/img/assignmentFiles/"+studentAssignmentMarkSaved.getId());
+        Path uploadPath = Paths.get("./assets/img/assignmentFiles/"+assignment.getId()+"/"+student.getCode());
         if(!Files.exists(uploadPath)){
             try {
               Files.createDirectories(uploadPath);

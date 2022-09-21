@@ -75,10 +75,13 @@ public class ExamFormService {
         return examFormRepo.findByDeleteStatusAndCourse_Id(status, course_id);
     } 
     
-    public ExamDTO getExamDTO(int batchExamId, int studentId) {
-        ExamForm exam = examFormRepo.getById(batchExamId);
+    public ExamDTO getExamDTO(int examId, int studentId) {
+        ExamForm exam = examFormRepo.getById(examId);
         String name = exam.getName();
         String type = exam.getType();
+        int batchId = studentRepository.getById(studentId).getBatch().getId();//get batch id 
+        BatchExamForm bef = batchExamFormRepository.findByBatch_IdAndExamForm_Id(batchId, examId);
+        int batchExamId = bef.getId();
         String duration = exam.getDuration();
         int totalPoint = exam.getMaxMark();
         List<Question> question_list = questionService.findByExam_form_id(exam.getId());
@@ -124,9 +127,9 @@ public class ExamFormService {
         int studentId = examDTO.getStudentId();
         int batchExamId = examDTO.getId();
         int studentTotalMark = 0;
-        String uploadDIR = "./assets/examAnswers"+batchExamId+"/"+studentId+"/";
         Student student = studentRepository.getById(studentId);
         BatchExamForm batchExamForm = batchExamFormRepository.getById(batchExamId);
+        String uploadDIR = "./assets/img/examAnswers/"+batchExamForm.getExamForm().getId()+"/"+studentId+"/";// path is assets/examAnswers/examId/studentId/name
         MultipartFile answerFile = examDTO.getAnswerFile();
          //Save filename to database
         StudentExamMark studentExamMark = new StudentExamMark();       

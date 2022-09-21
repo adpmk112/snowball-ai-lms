@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.plaf.synth.SynthToggleButtonUI;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,7 +48,8 @@ public class BatchExamFormService {
          LocalDateTime formattedNow = LocalDateTime.parse(formattedString, dtf);
          for(BatchExamForm bef: allBef){
             StudentExamMark studentExamMark = studentExamMarkRepository.findByBatchExamForm_IdAndStudent_Id(bef.getId(), studentId);
-            if(bef.getStartDate()!=null && !bef.getStartDate().isBlank() && bef.getEndDate()!=null && !bef.getEndDate().isBlank() && studentExamMark == null){// all that are scheduled                
+            if(bef.getStartDate()!=null && !bef.getStartDate().isBlank() && bef.getEndDate()!=null && !bef.getEndDate().isBlank() && studentExamMark == null){// all that are scheduled and student is not answered               
+                System.out.println("in progress");
                 StudentExamDTO studentExamDTO = new StudentExamDTO();
                 LocalDateTime startDate = LocalDateTime.parse(bef.getStartDate().replace("T", " "), dtf);
                 LocalDateTime endDate = LocalDateTime.parse(bef.getEndDate().replace("T", " "), dtf);
@@ -83,7 +86,7 @@ public class BatchExamFormService {
             if(!bef.getEndDate().isBlank() && bef.getEndDate() != null){
                 LocalDateTime endDate = LocalDateTime.parse(bef.getEndDate().replace("T", " "), dtf);
                 if(formattedNow.isAfter(endDate) || studentExamMarkRepository.findByBatchExamForm_IdAndStudent_Id(bef.getId(), studentId) != null){
-                    int mark = (studentExamMarkRepository.findByBatchExamForm_IdAndStudent_Id(bef.getId(), studentId) == null)? 0: studentExamMarkRepository.findByBatchExamForm_IdAndStudent_Id(bef.getExamForm().getId(), studentId).getStudentMark();
+                    int mark = (studentExamMarkRepository.findByBatchExamForm_IdAndStudent_Id(bef.getId(), studentId) == null)? 0: studentExamMarkRepository.findByBatchExamForm_IdAndStudent_Id(bef.getId(), studentId).getStudentMark();
                     StudentExamDTO studentExamDTO = new StudentExamDTO();
                     studentExamDTO.setExam(bef.getExamForm());
                     studentExamDTO.setMark(mark);
