@@ -42,8 +42,10 @@ public class ReportService {
            List<Attendance> attendances= c.getAttendances();
            if(attendances!=null){
                for(Attendance a:attendances){
-                    studentAttendance.put(a.getStudent().getId(),a.getAttend());
-                   studentNames.put(a.getStudent().getId(),a.getStudent().getName());
+                  if(!a.getStudent().isDeleteStatus()) {
+                      studentAttendance.put(a.getStudent().getId(), a.getAttend());
+                      studentNames.put(a.getStudent().getId(), a.getStudent().getName());
+                  }
                }
 
            }
