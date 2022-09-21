@@ -16,9 +16,9 @@
                                 <h1>Student Management Assignment</h1>
                                 <div>
                                     <div class="assign-p">
-                                        <p th:text="${studentMarkDTO.studentMark}+'/100 point'"></p>
+                                        <p th:text="${assignmentMarkDTO.studentMark}+'/100 point'"></p>
                                         <p
-                                            th:text="'Due '+${assignmentDateTimeDTO.end_date}+${assignmentDateTimeDTO.end_time}">
+                                            th:text="'Due '+${assignmentDateTimeDTO.end_date}+' '+${assignmentDateTimeDTO.end_time}">
                                         </p>
                                     </div>
                                 </div>
@@ -31,11 +31,11 @@
                                 enctype="multipart/form-data">
                                 <div class="d-flex justify-content-between">
                                     <h5>Your Work</h5>
-                                    <p>Status</p>
+                                    <p th:text = "${status}"></p>
                                 </div>
                                 <div class="d-flex justify-content-between">
-                                    <p>Submitted Date</p>
-                                    <p>Submitted Time</p>
+                                    <p th:text = "${assignmentMarkDTO.submitDate}"></p>
+                                    <p th:text = "${assignmentMarkDTO.submitTime}"></p>
                                 </div>
                                 <input type="hidden" th:field="*{assignmentId}" >
                                 <input type="hidden" th:field="*{studentId}" >
