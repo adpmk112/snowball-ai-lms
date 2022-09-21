@@ -52,7 +52,7 @@
 
                             <div th:if="${exam.type == 'Code Test'}" class="exam-question text-primary">
                             <div class="mb-2">Upload your answer here.</div>
-                            <input type="file" name="studentAnswer" th:field="*{answerFile}" class="form-control text-primary" style="max-width: 400px;">
+                            <input type="file" name="studentAnswer" th:field="*{answerFile}" class="form-control text-primary" style="max-width: 400px;" required>
                         </ol>
                         </form>
                         <!--End exam list-->

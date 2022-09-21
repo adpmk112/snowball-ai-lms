@@ -140,8 +140,9 @@ public class ClassRoomService {
             classroomDTOforTeacher.setBatchId(batchId);
             classroomDTOforTeacherList.add(classroomDTOforTeacher);
         }
-
-        log.info(classroomDTOforTeacherList.get(0).getTeacherName());
+//            if(classroomDTOforTeacherList!=null) {
+//                log.info(classroomDTOforTeacherList.get(0).getTeacherName());
+//            }
         return classroomDTOforTeacherList;
     }
 
