@@ -43,7 +43,7 @@
             </a>
           </div>
 
-            <form class="py-3" style="max-width: 500px;" method="POST" th:action="@{/teacher/batch/createClassroom}"
+            <form id="classroomForm" class="py-3" style="max-width: 500px;" method="POST" th:action="@{/teacher/batch/createClassroom}"
               th:object="${reqClassroomDTO}">
               <div class="row">
                 <label class="mb-3 text-center" for="id">
@@ -55,7 +55,7 @@
                 <br>
                 <label class="col-sm-4" for="id">Teacher name:</label>
                 <div class="col-sm-8">
-                  <select class="form-control" id="teacherNameDropDownList" th:field="*{teacherName}">
+                  <select class="form-control" id="teacherId" th:field="*{teacherName}">
                     <option th:value="0">Select Teacher</option>
                     <option th:each="teacher : ${teacherList}" th:value="${teacher.teacherName}"
                       th:text="${teacher.teacherName}">
@@ -68,20 +68,20 @@
               <div class="row mb-3">
                 <label class="col-sm-4" for="id">Date:</label>
                 <div class="col-sm-8">
-                  <input type="date" class="form-control" id="name" placeholder="Enter Date" name="date"
+                  <input type="date" class="form-control" id="date" placeholder="Enter Date" name="date"
                     th:field="*{date}" />
                 </div>
               </div>
               <div class="row mb-3">
                 <label class="col-sm-4">Start-Time:</label>
                 <div class="col-sm-8">
-                  <input type="time" class="form-control" id="datetime" th:field="*{startTime}" />
+                  <input type="text" class="form-control" id="start-time" th:field="*{startTime}" />
                 </div>
               </div>
               <div class="row mb-3">
                 <label class="col-sm-4">End-time:</label>
                 <div class="col-sm-8">
-                  <input type="time" class="form-control" id="datetime" th:field="*{endTime}" />
+                  <input type="text" class="form-control" id="end-time" th:field="*{endTime}" />
                 </div>
               </div>
               <div class="row mb-3">
@@ -89,7 +89,7 @@
                   Classroom link:
                 </label>
                 <div class="col-sm-8">
-                  <input type="url" class="form-control" id="name" placeholder="Enter Link" name="link"
+                  <input type="url" class="form-control" id="link" placeholder="Enter Link" name="link"
                     th:field="*{link}" />
                 </div>
               </div>
@@ -97,7 +97,7 @@
                 <div class="col-sm-4"></div>
                 <div class="col-sm-8 text-end">
                   <button type="reset" class="btn btn-secondary">Reset</button>
-                  <button type="submit" class="btn btn-primary">Add</button>
+                  <button type="button" id="submit-btn" class="btn btn-primary" onclick="changeTime();">Add</button>
                 </div>
               </div>
             </form>
