@@ -1,16 +1,22 @@
 package com.ace.ai.admin.controller;
 
+import com.ace.ai.admin.config.AdminUserDetails;
 import com.ace.ai.admin.datamodel.Assignment;
 import com.ace.ai.admin.datamodel.Attendance;
 import com.ace.ai.admin.datamodel.Batch;
 import com.ace.ai.admin.datamodel.BatchExamForm;
 import com.ace.ai.admin.datamodel.StudentAssignmentMark;
 import com.ace.ai.admin.datamodel.StudentExamMark;
+import com.ace.ai.admin.datamodel.Teacher;
 import com.ace.ai.admin.dtomodel.AssignmentMarkDTO;
 import com.ace.ai.admin.dtomodel.AttendanceRequestDTO;
 import com.ace.ai.admin.dtomodel.ExamMarkDTO;
 import com.ace.ai.admin.dtomodel.StudentAttendDTO;
 import com.ace.ai.admin.dtomodel.StudentIdMarkFilePathDTO;
+import com.ace.ai.admin.dtomodel.TeacherAssignmentViewDTO;
+import com.ace.ai.admin.dtomodel.TeacherCommentPostDTO;
+import com.ace.ai.admin.dtomodel.TeacherCommentViewDTO;
+import com.ace.ai.admin.dtomodel.TeacherReplyPostDTO;
 import com.ace.ai.admin.service.AssignmentService;
 import com.ace.ai.admin.service.AttendanceService;
 import com.ace.ai.admin.service.BatchService;
@@ -20,20 +26,25 @@ import com.ace.ai.admin.service.ClassRoomService;
 import com.ace.ai.admin.service.CustomChapterService;
 import com.ace.ai.admin.service.StudentAssignmentMarkService;
 import com.ace.ai.admin.service.StudentExamMarkService;
+import com.ace.ai.admin.service.TeacherCommentService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
 import java.text.ParseException;
 import java.util.List;
 
@@ -59,6 +70,8 @@ public class TeacherBatchController {
     AssignmentService assignmentService;
     @Autowired
     CustomChapterService customChapterService;
+    @Autowired
+    TeacherCommentService teacherCommentService;
 
     @GetMapping({ "/addNewActivity" })
     public String addNewActivity(Model model) {
@@ -91,6 +104,7 @@ public class TeacherBatchController {
         model.addAttribute("studentAssignmentMarkList", studentAssignmentMarkService.getAssignmentMarkDTOList(batchId));//To mark Assignment
         model.addAttribute("classroomList", classroomService.showClassroomTable(batchId));
         model.addAttribute("batchCustomChapterDTOList", customChapterService.getCustomChapterListByBatchId(batchId) );
+        
         return "T003";
     }
 
@@ -170,5 +184,34 @@ public class TeacherBatchController {
             }
         }
         return ResponseEntity.ok(HttpStatus.OK);
+    }
+
+    @GetMapping("/comment/home")
+    public ModelAndView getCommetHome(@AuthenticationPrincipal AdminUserDetails userDetails,@RequestParam("batchId")int batchId,ModelMap model){
+        List<TeacherCommentViewDTO>  teacherCommentViewDTOList=teacherCommentService.getCommentListByBatchIdAndLocation(batchId, "home");
+        Teacher teacher = teacherCommentService.getTeacherByCode(userDetails.getCode());
+        model.addAttribute("teacherReplyPostDTO",new TeacherReplyPostDTO());
+        model.addAttribute("studentCommentPostDTO", new TeacherCommentPostDTO());
+        model.addAttribute("stuCode", teacher.getCode());
+        model.addAttribute("batchId",batchId);
+        model.addAttribute("stuId",teacher.getId());
+        return new ModelAndView("","teacherCommentViewDTOList",teacherCommentViewDTOList);
+    }
+
+    @GetMapping("/comment/assignmentList/student")
+    public ModelAndView getCommetHome(@AuthenticationPrincipal AdminUserDetails userDetails,@RequestParam("batchId")int batchId,@RequestParam("assignmentId") int assignmentId,@RequestParam("stuCode") String stuCode,ModelMap model){
+        TeacherAssignmentViewDTO teacherAssignmentViewDTO = new TeacherAssignmentViewDTO();
+        teacherAssignmentViewDTO.setAssignmentId(assignmentId);
+        teacherAssignmentViewDTO.setBatchId(batchId);
+        teacherAssignmentViewDTO.setStuCode(stuCode);
+        teacherAssignmentViewDTO.setTeacherCode(teacherCommentService.getTeacherCodeListByBatchId(batchId));
+        List<TeacherCommentViewDTO>  teacherCommentViewDTOList=teacherCommentService.getCommentListByBatchIdAndLocationAndCommenterCode(teacherAssignmentViewDTO);
+        Teacher teacher = teacherCommentService.getTeacherByCode(userDetails.getCode());
+        model.addAttribute("teacherReplyPostDTO",new TeacherReplyPostDTO());
+        model.addAttribute("studentCommentPostDTO", new TeacherCommentPostDTO());
+        model.addAttribute("stuCode", teacher.getCode());
+        model.addAttribute("batchId",batchId);
+        model.addAttribute("stuId",teacher.getId());
+        return new ModelAndView("","teacherCommentViewDTOList",teacherCommentViewDTOList);
     }
 }

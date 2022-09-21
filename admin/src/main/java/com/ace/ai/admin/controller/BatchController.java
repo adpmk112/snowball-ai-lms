@@ -56,6 +56,7 @@ public class BatchController {
     @Autowired
     AssignmentService assignmentService;
 
+
     @GetMapping({ "/" })
     public String gotoBatch(Model model) {
         List<Batch> batchList = batchService.findAll();
@@ -356,14 +357,6 @@ public class BatchController {
         return "redirect:/admin/batch/batchSeeMore?id="+batchId+"&radio=attendance";
     }
 
-    @GetMapping("/admin/exportToPDF/")
-    public void exportPDF(HttpServletResponse response){
-        response.setContentType("application/pdf");
-        String headerKey="Content-Disposition";
-        String headerValue="attachment; filename=attendance.pdf";
-        response.setHeader(headerKey,headerValue);
 
-
-    }
 
 }

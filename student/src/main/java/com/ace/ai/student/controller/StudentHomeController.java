@@ -64,18 +64,18 @@ public class StudentHomeController {
             LocalDate endDate = LocalDate.parse(chapter.getEndDate(),df);
             if(startDate.isBefore(LocalDate.now())){
                 if((startDate.isEqual(LocalDate.now())||startDate.isAfter(LocalDate.now()))&&endDate.isBefore(LocalDate.now())){
-                    stuChapterDTO.setId(chapter.getId());
+                    stuChapterDTO.setId(chapter.getChapterId());
                     stuChapterDTO.setName(chapter.getName());
                     stuChapterDTO.setStatus("inProgress");
                     inProgressChapterList.add(stuChapterDTO);
                 }else if(endDate.isEqual(LocalDate.now())||endDate.isAfter(LocalDate.now())){
-                    stuChapterDTO.setId(chapter.getId());
+                    stuChapterDTO.setId(chapter.getChapterId());
                     stuChapterDTO.setName(chapter.getName());
                     stuChapterDTO.setStatus("done");
                     doneChapterList.add(stuChapterDTO);
                 }
             }else{
-                stuChapterDTO.setId(chapter.getId());
+                stuChapterDTO.setId(chapter.getChapterId());
                 stuChapterDTO.setName(chapter.getName());
                 stuChapterDTO.setStatus("upComming");
                 upCommingChapterList.add(stuChapterDTO);
@@ -125,14 +125,14 @@ public class StudentHomeController {
     public String postCommment(@ModelAttribute("stuCommentPostDTO") StuCommentPostDTO stuCommentPostDTO,ModelMap model){
         stuCommentPostDTO.setLocation("home");
         studentCommentService.saveComment(stuCommentPostDTO);
-        return "redirect:/student/home/?stuId=" + stuCommentPostDTO.getStuId();
+        return "redirect:/student/home";
     }
 
-    @PostMapping(value="/home/reply")
+    @PostMapping(value="/home/replypost")
     public String postReply(@ModelAttribute("stuReplyPostDTO") StuReplyPostDTO stuReplyPostDTO,ModelMap model){
         
         studentCommentService.saveReply(stuReplyPostDTO);
-        return "redirect:/student/home/?stuId=" + stuReplyPostDTO.getStuId();
+        return "redirect:/student/home";
     }
     
 }

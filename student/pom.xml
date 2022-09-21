@@ -83,7 +83,6 @@
             <artifactId>validation-api</artifactId>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>

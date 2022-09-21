@@ -27,6 +27,7 @@ import com.ace.ai.admin.dtomodel.ChapterRenameDTO;
 import com.ace.ai.admin.dtomodel.CustomChapterFileDTO;
 import com.ace.ai.admin.dtomodel.NewActivityDTO;
 import com.ace.ai.admin.repository.CustomChapterRepository;
+import com.ace.ai.admin.service.AssignmentService;
 import com.ace.ai.admin.service.BatchService;
 import com.ace.ai.admin.service.CustomChapterService;
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
@@ -38,6 +39,8 @@ public class TeacherNewActivity {
     CustomChapterService customChapterService;
     @Autowired
     BatchService batchService;
+    @Autowired
+    AssignmentService assignmentService;
 
     @GetMapping("/addActivity")
     public ModelAndView addNewActivity(@RequestParam("batchId") int batchId, ModelMap model) {
@@ -101,6 +104,7 @@ public class TeacherNewActivity {
                     customChapterFile.setCustomChapter(toSetCustomChapterId);
 
                     customChapterService.saveCustomChapterFile(customChapterFile);
+                    assignmentService.customChapterAssignmentFileAdd(toSetCustomChapterId, batch.getId());
                 }
             }
 

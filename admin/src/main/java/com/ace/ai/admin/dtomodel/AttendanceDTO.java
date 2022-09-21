@@ -13,5 +13,5 @@ import lombok.NoArgsConstructor;
 public class AttendanceDTO {
     private String date;
     private int classId;
-    private HashMap<Integer, String> studentAndAtten1d;
+    private HashMap<Integer, String> studentAndAttend;
 }
