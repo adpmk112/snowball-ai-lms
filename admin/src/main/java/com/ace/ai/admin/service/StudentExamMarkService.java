@@ -60,8 +60,8 @@ public class StudentExamMarkService {
         return new ExamMarkDTO(exam, studentDataList, examId, batchId);
     }
     
-    public StudentExamMark getByExamIdAndStudentId(int examId, int studentId){
-        return studentExamMarkRepository.findByBatchExamForm_IdAndStudent_Id(examId, studentId);
+    public StudentExamMark getByBatchExamFormIdAndStudentId(int batchExamFormId, int studentId){
+        return studentExamMarkRepository.findByBatchExamForm_IdAndStudent_Id(batchExamFormId, studentId);
     }
 
     //save

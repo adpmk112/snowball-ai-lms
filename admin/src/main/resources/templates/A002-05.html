@@ -214,7 +214,7 @@
       $.ajax({
         type: "GET",
         url: "/admin/course/checkExamName",
-        data: { examName: examName, courseId: course_id },
+        data: { examName: examName.trim(), courseId: course_id },
         success: function () {
           $("#exam_name_error").text("Exam name already exists.");
           $('#add_exam').attr("disabled", true);

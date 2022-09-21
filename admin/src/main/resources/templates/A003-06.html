@@ -5,8 +5,8 @@
     <title>Add a class.</title>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
   </head>
-
   <body style="background-color: rgb(235, 235, 235);">
+    <header th:replace="ADMFRG :: header"></header>
     <main role="main">
       <div th:replace="fragments/A003-06 :: classroom-add"></div>
     </main>
@@ -22,9 +22,11 @@
       $(document).ready(function (){
         $('#start-time').timepicker({
           format: 'h:mm p',
+          defaultTime:'12'
         })
         $('#end-time').timepicker({
           format: 'h:mm p',
+          defaultTime:'12'
         })
       })
      function changeTime(){
@@ -32,12 +34,24 @@
         let start_min=start.getHours()*60 +start.getMinutes();
         let end=$("#end-time").timepicker().getTime();
        let end_min=end.getHours()*60 +end.getMinutes();
-
+       let teacherId=$('#teacherId').val();
+       let date=$('#date').val();
+       let link=$('#link').val();
+       console.log("teacher id:"+teacherId +":date:" +date +":link:"+ link );
        if (start_min >= end_min) {
          $.alert("Start time can't be bigger or equal to the end time");
         }
-        else {
+       else if( date==""|| link==""){
+         $.alert("Fill out all the fields!");
+       }
+       else if(teacherId==0){
+         $.alert("Add teacher to this batch first!");
+       }
+       else if(link.indexOf("http://") == 0 ||link.indexOf("https://") == 0){
          $('#classroomForm').submit();
+       }
+        else {
+         $.alert("Enter a valid URL!");
        }
      }
 

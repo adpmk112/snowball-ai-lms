@@ -26,7 +26,7 @@
           '<td class="tdInput"><input type="text" class="form-control codes " name="code" placeholder="Id" required autofocus oninput="checkId(this);" style="text-transform: uppercase;">' +
           '<span id="same-name" class="same-name" hidden="hidden" style="color: red;"></span>' +
           '<span id="diff-name" class="diff-name" hidden="hidden" style="color: green;"> Id Available! </span>' +
-          '<span class="id-repeat text-danger ms-1"></span></td>' +
+          '<span class="id-repeat  ms-1" style="color: red;"></span></td>' +
           '<td class="tdInput"><input type="text" class="form-control codes" name="password" placeholder="Password" required></td>' +
           '<td class="tdInput"><input type="text" class="form-control codes" name="name" placeholder="Name" required  style="text-transform: capitalize;"></td>' +
           '<td class="btn-td">' +
@@ -91,18 +91,18 @@
       function checkId(e) {
         let id = $('#student-form').find('#batchId').val()
         let enterId = $(e).val()
+        let idRepeatError = false;
         if (minRow > 1) {
           let currentId = e.closest('.codes')
           let siblingIds = $(currentId).siblings('.codes ,span #same-name')
 
           let currentrow = e.closest('.student-row')
           let siblingrows = $(currentrow).siblings('.student-row')
-          console.log(siblingrows.length)
-
           $(siblingrows).each(function () {
             if ($(e).val() == $(this).find('input.codes').val()) {
               console.log('equals')
-              $(currentrow).find('.id-repeat').text(' Ids must not be equal!')
+              $(currentrow).find('.id-repeat').text('Id should not be same with other!')
+              idRepeatError = true;
               return false
             } else {
               $(currentrow).find('.id-repeat').text('')
@@ -114,15 +114,18 @@
           url: '/admin/batch/CheckStudentId',
           contentType: 'application/json; charset=utf-8',
           dataType: 'json',
-          data: { id: id, enterId: enterId },
+          data: { id: id, enterId: enterId.trim() },
           success: function () {
             let currentrow = e.closest('.student-row')
             let span = $(currentrow).find('.same-name')
             let span1 = $(currentrow).find('.diff-name')
-            $(span).removeAttr('hidden')
+            //$(span).removeAttr('hidden')
             $(span).text('Id is already taken!')
             $(span1).attr('hidden', 'hidden')
             document.getElementById('saveStudent').disabled = true
+            if(!idRepeatError){
+              $(span).removeAttr('hidden', 'hidden')
+            }           
           },
           error: function () {
             let currentrow = e.closest('.student-row')
@@ -130,17 +133,20 @@
             let span1 = $(currentrow).find('.diff-name')
             // span1.removeAttribute('hidden')
             $(span).attr('hidden', 'hidden')
-            $(span).text('')
-            $(span1).removeAttr('hidden')
+            $(span).text('')           
+            $(span1).removeAttr('hidden')          
             if ($('.id-repeat').text() == '' && $('.same-name').text() == '')
               document.getElementById('saveStudent').disabled = false
+              if(idRepeatError){
+              $(span1).attr('hidden', 'hidden')
+            }  
           },
-        })
+        })       
         if ($('.id-repeat').text() != '' || $('.same-name').text() != '') {
           $('#saveStudent').attr('disabled', 'disabled')
         } else {
           $('#saveStudent').removeAttr('disabled')
-        }
+        }        
       }
     </script>
   </body>

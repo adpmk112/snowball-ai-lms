@@ -408,11 +408,11 @@
                                                         min="0" th:max="${studentExamMark.exam.maxMark}" readonly />
                                                     /<span class="ms-1" th:if="${studentExamMark.exam.maxMark}"
                                                         th:text="${studentExamMark.exam.maxMark}"></span>
-                                                    <a th:href="@{'./studentExamAnswers/'+${studentExamMark.examId}+'/'+${studentData.studentId}+'/'+${studentData.filePath}}"
+                                                    <a th:href="@{'/assets/img/examAnswers/'+${studentExamMark.examId}+'/'+${studentData.studentId}+'/'+${studentData.filePath}}"
                                                         target="_blank" th:if="${studentData.filePath != null}"
                                                         class="text-primary p-2">
                                                         <i class="fa-solid fa-file-arrow-down"></i></a>
-                                                </td>
+                                                </td> 
                                                 <td>
                                                     <a href=""
                                                         th:style="${(studentExamMark.exam.type == 'Multiple Choice')?'pointer-events: none':''}"
@@ -451,9 +451,10 @@
                                                         th:value="${studentData.mark}"
                                                         style='border: none; width: 40px; outline: none;text-align: right; margin:0;'
                                                         min="0" readonly />
-                                                    <a href="#" class="text-primary p-1"
-                                                        th:if="${studentData.filePath != null}"><i
-                                                            class="fa-solid fa-file-arrow-down"></i></a>
+                                                    <a th:href="@{'/assets/img/assignmentFiles/'+${studentAssignmentMark.assignment.id}+'/'+${studentData.studentId}+'/'+${studentData.filePath}}" class="text-primary p-1"
+                                                        th:if="${studentData.filePath != null}">
+                                                        <i class="fa-solid fa-file-arrow-down"></i>
+                                                    </a>
                                                 </td>
                                                 <td>
                                                     <a href=""

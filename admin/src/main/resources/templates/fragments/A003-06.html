@@ -59,9 +59,9 @@
             <div class="row mb-3">
               <h6 style="color: blue;" th:text="${msg}"></h6>
               <br>
-              <label class="col-sm-4" for="teacherNameDropDownList">Teacher name:</label>
+              <label class="col-sm-4" for="teacherId">Teacher name:</label>
               <div class="col-sm-8">
-              <select class="form-control" id="teacherNameDropDownList" th:field="*{teacherName}">
+              <select id="teacherId" class="form-control"  th:field="*{teacherName}">
                 <option th:value="0">Select Teacher</option>
                 <option th:each="teacher : ${teacherList}" th:value="${teacher.teacherName}"
                 th:text="${teacher.teacherName}"
