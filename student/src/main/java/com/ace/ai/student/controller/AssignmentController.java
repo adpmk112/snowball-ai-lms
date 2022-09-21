@@ -7,9 +7,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -59,16 +62,17 @@ public class AssignmentController {
     @PostMapping("/assignmentAdd")
     public String assignmentAdd(@ModelAttribute("assignmentFileDTO") AssignmentFileDTO assignmentFileDTO, ModelMap model) throws ParseException{
         LocalDate localDate = LocalDate.now();
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String currentDate = localDate.format(dateTimeFormatter);
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String currentDate = localDate.format(dateFormatter);
         LocalTime localTime = LocalTime.now();
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
         String currentTime = localTime.format(timeFormatter);
+        String submitTime = assignmentService.englishTime(currentTime);
         StudentAssignmentMark  studentAssignmentMark = new StudentAssignmentMark();
         String fileName=StringUtils.cleanPath(assignmentFileDTO.getAssignmentFile().getOriginalFilename());
         studentAssignmentMark.setUploadedFile(fileName);
         studentAssignmentMark.setDate(currentDate);
-        studentAssignmentMark.setTime(currentTime);
+        studentAssignmentMark.setTime(submitTime);
         Assignment assignment = new Assignment();
         // log.info("assignmentid -->"+assignmentFileDTO.getAssignmentId());
         assignment.setId(assignmentFileDTO.getAssignmentId());
