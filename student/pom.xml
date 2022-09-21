@@ -78,7 +78,7 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- <dependency>
+         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
 

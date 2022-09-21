@@ -16,5 +16,6 @@ public class TeacherReplyPostDTO {
     //chapterId or customchapterId or exam id or assignment id
     private int locationId;
     private int chapterFileId;
+    private String stuCodeForAssignment;
     
 }

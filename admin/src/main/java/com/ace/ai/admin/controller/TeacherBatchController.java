@@ -5,6 +5,10 @@ import com.ace.ai.admin.datamodel.Assignment;
 import com.ace.ai.admin.datamodel.Attendance;
 import com.ace.ai.admin.datamodel.Batch;
 import com.ace.ai.admin.datamodel.BatchExamForm;
+import com.ace.ai.admin.datamodel.Chapter;
+import com.ace.ai.admin.datamodel.ChapterFile;
+import com.ace.ai.admin.datamodel.CustomChapter;
+import com.ace.ai.admin.datamodel.CustomChapterFile;
 import com.ace.ai.admin.datamodel.StudentAssignmentMark;
 import com.ace.ai.admin.datamodel.StudentExamMark;
 import com.ace.ai.admin.datamodel.Teacher;
@@ -38,6 +42,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -191,15 +196,27 @@ public class TeacherBatchController {
         List<TeacherCommentViewDTO>  teacherCommentViewDTOList=teacherCommentService.getCommentListByBatchIdAndLocation(batchId, "home");
         Teacher teacher = teacherCommentService.getTeacherByCode(userDetails.getCode());
         model.addAttribute("teacherReplyPostDTO",new TeacherReplyPostDTO());
-        model.addAttribute("studentCommentPostDTO", new TeacherCommentPostDTO());
-        model.addAttribute("stuCode", teacher.getCode());
+        model.addAttribute("teacherCommentPostDTO", new TeacherCommentPostDTO());
+        model.addAttribute("teacherCode", teacher.getCode());
         model.addAttribute("batchId",batchId);
-        model.addAttribute("stuId",teacher.getId());
+        model.addAttribute("teacherId",teacher.getId());
+        return new ModelAndView("","teacherCommentViewDTOList",teacherCommentViewDTOList);
+    }
+
+    @GetMapping("/comment/exam")
+    public ModelAndView getCommetExam(@AuthenticationPrincipal AdminUserDetails userDetails,@RequestParam("batchId")int batchId,ModelMap model){
+        List<TeacherCommentViewDTO>  teacherCommentViewDTOList=teacherCommentService.getCommentListByBatchIdAndLocation(batchId, "exam");
+        Teacher teacher = teacherCommentService.getTeacherByCode(userDetails.getCode());
+        model.addAttribute("teacherReplyPostDTO",new TeacherReplyPostDTO());
+        model.addAttribute("teacherCommentPostDTO", new TeacherCommentPostDTO());
+        model.addAttribute("teacherCode", teacher.getCode());
+        model.addAttribute("batchId",batchId);
+        model.addAttribute("teacherId",teacher.getId());
         return new ModelAndView("","teacherCommentViewDTOList",teacherCommentViewDTOList);
     }
 
     @GetMapping("/comment/assignmentList/student")
-    public ModelAndView getCommetHome(@AuthenticationPrincipal AdminUserDetails userDetails,@RequestParam("batchId")int batchId,@RequestParam("assignmentId") int assignmentId,@RequestParam("stuCode") String stuCode,ModelMap model){
+    public ModelAndView getAssignmentComment(@AuthenticationPrincipal AdminUserDetails userDetails,@RequestParam("batchId")int batchId,@RequestParam("assignmentId") int assignmentId,@RequestParam("stuCode") String stuCode,ModelMap model){
         TeacherAssignmentViewDTO teacherAssignmentViewDTO = new TeacherAssignmentViewDTO();
         teacherAssignmentViewDTO.setAssignmentId(assignmentId);
         teacherAssignmentViewDTO.setBatchId(batchId);
@@ -208,10 +225,183 @@ public class TeacherBatchController {
         List<TeacherCommentViewDTO>  teacherCommentViewDTOList=teacherCommentService.getCommentListByBatchIdAndLocationAndCommenterCode(teacherAssignmentViewDTO);
         Teacher teacher = teacherCommentService.getTeacherByCode(userDetails.getCode());
         model.addAttribute("teacherReplyPostDTO",new TeacherReplyPostDTO());
-        model.addAttribute("studentCommentPostDTO", new TeacherCommentPostDTO());
-        model.addAttribute("stuCode", teacher.getCode());
+        model.addAttribute("teacherCommentPostDTO", new TeacherCommentPostDTO());
+        model.addAttribute("teacherCode", teacher.getCode());
         model.addAttribute("batchId",batchId);
-        model.addAttribute("stuId",teacher.getId());
+        model.addAttribute("teacherId",teacher.getId());
         return new ModelAndView("","teacherCommentViewDTOList",teacherCommentViewDTOList);
     }
+
+    @GetMapping("/comment/assignmnetList")
+    public ModelAndView getAssignemntCommentList(@RequestParam("batchId") int batchId,ModelMap model){
+        
+        
+        model.addAttribute("batchId", batchId);
+        return new ModelAndView("T005","assignemntList",teacherCommentService.getAssignmentListByBatchId(batchId));
+    }
+
+    @GetMapping("/comment/chapterList")
+    public ModelAndView getChpaterCommentList(@RequestParam("batchId") int batchId,ModelMap model){
+        model.addAttribute("batchId", batchId);
+        
+        return new ModelAndView("","chapterAndCustomChapterList",teacherCommentService.getChapterListAndCustomChapterListByBatchId(batchId));
+    }
+
+    @GetMapping("/comment/chapterList/chapter")
+    public ModelAndView getChapterComment(@AuthenticationPrincipal AdminUserDetails userDetails,@RequestParam("batchId")int batchId,@RequestParam("chapterId")int chapterId,ModelMap model){
+        Chapter chapter = teacherCommentService.findChapterById(chapterId);
+    
+        List<TeacherCommentViewDTO>  teacherCommentViewDTOList=teacherCommentService.getCommentListByBatchIdAndLocation(batchId, chapter.getName());
+        Teacher teacher = teacherCommentService.getTeacherByCode(userDetails.getCode());
+        model.addAttribute("teacherReplyPostDTO",new TeacherReplyPostDTO());
+        model.addAttribute("teacherCommentPostDTO", new TeacherCommentPostDTO());
+        model.addAttribute("teacherCode", teacher.getCode());
+        model.addAttribute("batchId",batchId);
+        model.addAttribute("teacherId",teacher.getId());
+        model.addAttribute("chapterId",chapter.getId());
+        model.addAttribute("chapterFileName",chapter.getName());
+        model.addAttribute("chapterType","chapter");
+        return new ModelAndView("","teacherCommentViewDTOList",teacherCommentViewDTOList);
+    }
+
+    @GetMapping("/comment/chapterList/chapter")
+    public ModelAndView getCustomChapterComment(@AuthenticationPrincipal AdminUserDetails userDetails,@RequestParam("batchId")int batchId,@RequestParam("chapterId")int chapterId,ModelMap model){
+        CustomChapter customChapter = teacherCommentService.findCustomChapterById(chapterId);
+    
+        List<TeacherCommentViewDTO>  teacherCommentViewDTOList=teacherCommentService.getCommentListByBatchIdAndLocation(batchId, customChapter.getName());
+        Teacher teacher = teacherCommentService.getTeacherByCode(userDetails.getCode());
+        model.addAttribute("teacherReplyPostDTO",new TeacherReplyPostDTO());
+        model.addAttribute("teacherCommentPostDTO", new TeacherCommentPostDTO());
+        model.addAttribute("teacherCode", teacher.getCode());
+        model.addAttribute("batchId",batchId);
+        model.addAttribute("teacherId",teacher.getId());
+        model.addAttribute("chapterId",customChapter.getId());
+        model.addAttribute("chapterFileName",customChapter.getName());
+        model.addAttribute("chapterType","chapter");
+        return new ModelAndView("","teacherCommentViewDTOList",teacherCommentViewDTOList);
+    }
+
+    @GetMapping("/comment/videoList")
+    public ModelAndView getVideoCommentList(@RequestParam("batchId") int batchId,ModelMap model){
+        model.addAttribute("batchId", batchId);
+        return new ModelAndView("T005-06","videoList",teacherCommentService.getVideoListByBatchId(batchId));
+    }
+
+    @GetMapping("/comment/videoList/chapterVideo")
+    public ModelAndView getChapterVideoComment(@AuthenticationPrincipal AdminUserDetails userDetails,@RequestParam("batchId")int batchId,@RequestParam("videoid")int videoId,ModelMap model){
+        ChapterFile chapterFile = teacherCommentService.findChapterFileById(videoId);
+    
+        List<TeacherCommentViewDTO>  teacherCommentViewDTOList=teacherCommentService.getCommentListByBatchIdAndLocation(batchId, chapterFile.getName());
+        Teacher teacher = teacherCommentService.getTeacherByCode(userDetails.getCode());
+        model.addAttribute("teacherReplyPostDTO",new TeacherReplyPostDTO());
+        model.addAttribute("teacherCommentPostDTO", new TeacherCommentPostDTO());
+        model.addAttribute("teacherCode", teacher.getCode());
+        model.addAttribute("batchId",batchId);
+        model.addAttribute("teacherId",teacher.getId());
+        model.addAttribute("chapterId",chapterFile.getChapter().getId());
+        model.addAttribute("chapterFileName",chapterFile.getName());
+        model.addAttribute("chapterType","chapter");
+        return new ModelAndView("T005-07","teacherCommentViewDTOList",teacherCommentViewDTOList);
+    }
+
+    @GetMapping("/comment/videoList/customChapterVideo")
+    public ModelAndView getChaperVideoComment(@AuthenticationPrincipal AdminUserDetails userDetails,@RequestParam("batchId")int batchId,@RequestParam("videoid")int videoId,ModelMap model){
+        CustomChapterFile customChapterFile = teacherCommentService.findCustomChapterFileById(videoId);
+    
+        List<TeacherCommentViewDTO>  teacherCommentViewDTOList=teacherCommentService.getCommentListByBatchIdAndLocation(batchId, customChapterFile.getName());
+        Teacher teacher = teacherCommentService.getTeacherByCode(userDetails.getCode());
+        model.addAttribute("teacherReplyPostDTO",new TeacherReplyPostDTO());
+        model.addAttribute("teacherCommentPostDTO", new TeacherCommentPostDTO());
+        model.addAttribute("teacherCode", teacher.getCode());
+        model.addAttribute("batchId",batchId);
+        model.addAttribute("teacherId",teacher.getId());
+        model.addAttribute("chapterId",customChapterFile.getCustomChapter().getId());
+        model.addAttribute("chapterFileName",customChapterFile.getName());
+        model.addAttribute("chapterType","customChapter");
+        return new ModelAndView("","teacherCommentViewDTOList",teacherCommentViewDTOList);
+    }
+
+    @PostMapping(value="/chapter/commentpost")
+    public String postChapterCommment(@ModelAttribute("teacherCommentPostDTO") TeacherCommentPostDTO teacherCommentPostDTO,ModelMap model){
+        // stuCommentPostDTO.setLocation("home");
+        teacherCommentService.saveComment(teacherCommentPostDTO);
+        return "redirect:/teacher/batch/comment/chapterList/chapter?batchId="+teacherCommentPostDTO.getBatchId()+"&chapterId="+teacherCommentPostDTO.getLocationId();
+    }
+
+    @PostMapping(value="/chapter/replypost")
+    public String postChapterReply(@ModelAttribute("teacherReplyPostDTO") TeacherReplyPostDTO teacherReplyPostDTO,ModelMap model){
+        
+        teacherCommentService.saveReply(teacherReplyPostDTO);
+        return "redirect:/teacher/batch/comment/chapterList/chapter?batchId="+teacherReplyPostDTO.getBatchId()+"&chapterId="+teacherReplyPostDTO.getLocationId();
+    }
+    @PostMapping(value="/customChapter/commentpost")
+    public String postCustomChapterCommment(@ModelAttribute("teacherCommentPostDTO") TeacherCommentPostDTO teacherCommentPostDTO,ModelMap model){
+        // stuCommentPostDTO.setLocation("home");
+        teacherCommentService.saveComment(teacherCommentPostDTO);
+        return "redirect:/teacher/batch/comment/customChapterList/chapter?batchId="+teacherCommentPostDTO.getBatchId()+"&chapterId="+teacherCommentPostDTO.getLocationId();
+    }
+
+    @PostMapping(value="/customChapter/replypost")
+    public String postCustomChapterReply(@ModelAttribute("teacherReplyPostDTO") TeacherReplyPostDTO teacherReplyPostDTO,ModelMap model){
+        
+        teacherCommentService.saveReply(teacherReplyPostDTO);
+        return "redirect:/teacher/batch/comment/customChapterList/chapter?batchId="+teacherReplyPostDTO.getBatchId()+"&chapterId="+teacherReplyPostDTO.getLocationId();
+    }
+
+    @PostMapping(value="/exam/commentpost")
+    public String postExamCommment(@ModelAttribute("teacherCommentPostDTO") TeacherCommentPostDTO teacherCommentPostDTO,ModelMap model){
+        // stuCommentPostDTO.setLocation("home");
+        teacherCommentService.saveComment(teacherCommentPostDTO);
+        return "redirect:/teacher/batch/comment/exam?batchId="+teacherCommentPostDTO.getBatchId();
+    }
+
+    @PostMapping(value="/exam/replypost")
+    public String postExamReply(@ModelAttribute("teacherReplyPostDTO") TeacherReplyPostDTO teacherReplyPostDTO,ModelMap model){
+        
+        teacherCommentService.saveReply(teacherReplyPostDTO);
+        return "redirect:/teacher/batch/comment/exam?batchId="+teacherReplyPostDTO.getBatchId();
+    }
+
+    @PostMapping(value="/home/commentpost")
+    public String postHomeCommment(@ModelAttribute("teacherCommentPostDTO") TeacherCommentPostDTO teacherCommentPostDTO,ModelMap model){
+        // stuCommentPostDTO.setLocation("home");
+        teacherCommentService.saveComment(teacherCommentPostDTO);
+        return "redirect:/teacher/batch/comment/home?batchId="+teacherCommentPostDTO.getBatchId();
+    }
+
+    @PostMapping(value="/home/replypost")
+    public String postHomeReply(@ModelAttribute("teacherReplyPostDTO") TeacherReplyPostDTO teacherReplyPostDTO,ModelMap model){
+        
+        teacherCommentService.saveReply(teacherReplyPostDTO);
+        return "redirect:/teacher/batch/comment/home?batchId="+teacherReplyPostDTO.getBatchId();
+    }
+
+    @PostMapping(value="/assignment/commentpost")
+    public String postAssignmentCommment(@ModelAttribute("teacherCommentPostDTO") TeacherCommentPostDTO teacherCommentPostDTO,ModelMap model){
+        // stuCommentPostDTO.setLocation("home");
+        teacherCommentService.saveComment(teacherCommentPostDTO);
+        return "redirect:/teacher/batch/comment/assignmentList/student?batchId="+teacherCommentPostDTO.getBatchId()+"&assignmentId="+teacherCommentPostDTO.getLocationId()+"&stuCode="+teacherCommentPostDTO.getStuCodeForAssignment();
+    }
+
+    @PostMapping(value="/assignment/replypost")
+    public String postAssignmentReply(@ModelAttribute("teacherReplyPostDTO") TeacherReplyPostDTO teacherReplyPostDTO,ModelMap model){
+        
+        teacherCommentService.saveReply(teacherReplyPostDTO);
+        return "redirect:/teacher/batch/comment/assignmentList/student?batchId="+teacherReplyPostDTO.getBatchId()+"&assignmentId="+teacherReplyPostDTO.getLocationId()+"&stuCode="+teacherReplyPostDTO.getStuCodeForAssignment();
+    }
+
+    @PostMapping(value="/chapterVideo/commentpost")
+    public String postVideoCommment(@ModelAttribute("teacherCommentPostDTO") TeacherCommentPostDTO teacherCommentPostDTO,ModelMap model){
+        // stuCommentPostDTO.setLocation("home");
+        teacherCommentService.saveComment(teacherCommentPostDTO);
+        return "redirect:/teacher/batch/comment/videoList/chapterVideo?batchId="+teacherCommentPostDTO.getBatchId()+"&videoid="+teacherCommentPostDTO.getLocationId();
+    }
+
+    @PostMapping(value="/customChapterVideo/replypost")
+    public String postVideoReply(@ModelAttribute("teacherReplyPostDTO") TeacherReplyPostDTO teacherReplyPostDTO,ModelMap model){
+        
+        teacherCommentService.saveReply(teacherReplyPostDTO);
+        return "redirect:/teacher/batch/comment/videoList/chapterVideo?batchId="+teacherReplyPostDTO.getBatchId()+"&videoId="+teacherReplyPostDTO.getLocationId();
+    }
+
 }

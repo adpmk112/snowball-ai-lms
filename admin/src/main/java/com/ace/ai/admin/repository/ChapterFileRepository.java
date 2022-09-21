@@ -10,5 +10,6 @@ public interface ChapterFileRepository extends JpaRepository<ChapterFile,Integer
     List<ChapterFile> findByChapterIdAndDeleteStatus(int chapterId,int deleteStatus);
     ChapterFile findById(int chapterFileId);
     List<ChapterFile> findByChapterIdAndFileTypeAndDeleteStatus(int chapterId,String fileType,int deleteStatus);
+   
     
 }
