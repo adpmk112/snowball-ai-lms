@@ -252,6 +252,13 @@
                     <input type="radio" id="tabattendance" name="mytabs" th:checked="${radio == 'attendance' }" />
                     <label for="tabattendance" id="lab">Attendance</label>
                     <div class="tab">
+                        <div class="add-list">
+                            <label for="pdf">Export to PDF</label>
+                            <a  id="pdf" th:href="@{/admin/exportToPDF/{batch_id}(batch_id=${batch_id})}"
+                               class="btn btn-outline-success btn-floating" data-mdb-ripple-color="dark">
+                                <i class="fa-regular fa-file-pdf"></i>
+                            </a>
+                        </div>
                         <!-- Start Attendance Table-->
                         <div class="table-responsive">
                             <table id="datatable3" class=" hover attendanceTable">
