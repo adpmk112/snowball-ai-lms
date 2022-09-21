@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.ace.ai.student.datamodel.Batch;
 import com.ace.ai.student.datamodel.Chapter;
 import com.ace.ai.student.datamodel.ChapterBatch;
+import com.ace.ai.student.datamodel.Comment;
 import com.ace.ai.student.datamodel.CustomChapter;
 import com.ace.ai.student.datamodel.Reply;
 import com.ace.ai.student.datamodel.Student;
@@ -17,6 +18,7 @@ import com.ace.ai.student.dtomodel.StuCommentViewDTO;
 import com.ace.ai.student.repository.BatchRepository;
 import com.ace.ai.student.repository.ChapterBatchRepository;
 import com.ace.ai.student.repository.ChapterRepository;
+import com.ace.ai.student.repository.CommentRepository;
 import com.ace.ai.student.repository.CourseRepository;
 import com.ace.ai.student.repository.CustomChapterRepository;
 import com.ace.ai.student.repository.StudentRepository;
@@ -35,6 +37,7 @@ public class StudentCourseService {
     ChapterRepository chapterRepository;
     @Autowired
     StudentRepository studentRepository;
+    
 
 
     public List<ChapterBatchDTO> getChapterList(int batchId){
@@ -63,6 +66,8 @@ public class StudentCourseService {
     public Student getStudentById(int stuId){
         return studentRepository.findById(stuId).get();
     }
+
+    
 
    
 }

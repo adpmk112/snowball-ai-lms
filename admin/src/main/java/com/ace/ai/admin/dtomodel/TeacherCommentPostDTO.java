@@ -1,9 +1,9 @@
-package com.ace.ai.student.dtomodel;
+package com.ace.ai.admin.dtomodel;
 
 import lombok.Data;
 
 @Data
-public class StuCommentPostDTO {
+public class TeacherCommentPostDTO {
     private int id;
     private String commenterCode;
     private String location;
