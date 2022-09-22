@@ -301,9 +301,75 @@ $(document).ready(function () {
   });
 
   //For activity schedule edit
-  $(document).on("click","", function(e)){
-    
-  }
+  $(document).on("click",".btn.btn-custom-chapter-edit", function(e){
+    e.preventDefault();
+    let _start_date = $(this).closest("tr").find('input[name="start-date"]');
+    let _end_date = $(this).closest("tr").find('input[name="end-date"]');
+    let edit_btn = $(this).find(".fa-pen-to-square");
+    if (edit_btn.length > 0) {
+      edit_btn.removeClass("fa-pen-to-square").addClass("fa-solid fa-check");
+      _start_date.removeAttr("disabled");
+      _end_date.removeAttr("disabled");
+      _start_date.css("border", "1px solid red");
+      _end_date.css("border", "1px solid red");
+    }
+    else {      
+        let batchId = $(this).closest('tr').find('input[name="batchId"]').val()
+        let customChapterId = $(this).closest('tr').find('input[name="customChapterId"]').val()
+        let startDate = _start_date.val();
+        let endDate = _end_date.val();
+
+        if(startDate == "" && endDate == ""){
+          $(this)
+            .find(".fa-solid.fa-check")
+            .removeClass("fa-solid fa-check")
+            .addClass("fa-pen-to-square");
+            _start_date.attr("disabled", true);
+            _end_date.attr("disabled", true);
+            _start_date.css("border", "none");
+            _end_date.css("border", "none"); 
+        }
+        else if((startDate == "" && endDate != "") || (startDate != "" && endDate == "")){
+          $.alert("Start date or end date can't be blank!");
+        }
+        else if(startDate > endDate){
+          $.alert("Start date should not be greater than end date!");
+        }
+        else{  
+          
+        $.ajax({
+          type: "GET",
+          url: "/teacher/batch/scheduleCustomChapter",
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+          data: {
+            customChapterId:customChapterId,     
+            startDate: startDate,
+            endDate: endDate,
+            batchId: batchId,
+          },
+          success: function () {
+            window.location = "/teacher/batch/batchSeeMore?radio=&batchId="+batchId;
+          },
+          error: function () {
+            $.alert("Error!");
+          },
+        });
+           
+
+          $(this)
+            .find(".fa-solid.fa-check")
+            .removeClass("fa-solid fa-check")
+            .addClass("fa-pen-to-square");
+            _start_date.attr("disabled", true);
+            _end_date.attr("disabled", true);
+            _start_date.css("border", "none");
+            _end_date.css("border", "none");   
+        }
+        
+      }      
+     
+  })
   // For exam-schedule edit
   $(document).on("click", ".btn.btn-exam-schedule-edit", function (e) {
     e.preventDefault();

@@ -2,44 +2,38 @@ $(document).ready(function () {
   if ( $.fn.DataTable.isDataTable( '#datatable' ) ) {
     $( '#datatable' ).DataTable().destroy();
   }
-  $( '#datatable' ).dataTable( {
-    "bSort": false,
+  $( '#datatable' ).dataTable( {    
     "bDestroy": true
   } );
 
   if ( $.fn.DataTable.isDataTable( '#datatable1' ) ) {
     $( '#datatable1' ).DataTable().destroy();
   }
-  $( '#datatable1' ).dataTable( {
-    "bSort": false,
+  $( '#datatable1' ).dataTable( {   
     "bDestroy": true
   } );
   if ( $.fn.DataTable.isDataTable( '#datatable2' ) ) {
     $( '#datatable2' ).DataTable().destroy();
   }
-  $( '#datatable2' ).dataTable( {
-    "bSort": false,
+  $( '#datatable2' ).dataTable( {    
     "bDestroy": true
   } );
   if ( $.fn.DataTable.isDataTable( '#datatable3' ) ) {
     $( '#datatable3' ).DataTable().destroy();
   }
-  $( '#datatable3' ).dataTable( {
-    "bSort": false,
+  $( '#datatable3' ).dataTable( {    
     "bDestroy": true
   } );
   if ( $.fn.DataTable.isDataTable( '#datatable4' ) ) {
     $( '#datatable4' ).DataTable().destroy();
   }
   $( '#datatable4' ).dataTable( {
-    "bSort": false,
-    "bDestroy": true
+      "bDestroy": true
   } );
   if ( $.fn.DataTable.isDataTable( '#datatable5' ) ) {
     $( '#datatable5' ).DataTable().destroy();
   }
-  $( '#datatable5' ).dataTable( {
-    "bSort": false,
+  $( '#datatable5' ).dataTable( {    
     "bDestroy": true
   } );
 

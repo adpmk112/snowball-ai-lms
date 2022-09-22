@@ -412,4 +412,23 @@ public class TeacherBatchController {
         return "redirect:/teacher/batch/comment/videoList/chapterVideo?batchId="+teacherReplyPostDTO.getBatchId()+"&videoId="+teacherReplyPostDTO.getLocationId();
     }
 
+    //Add custom chapter date schedule
+    @GetMapping("/scheduleCustomChapter")
+    public ResponseEntity scheduleCustomChapter(@RequestParam("customChapterId")Integer customChapterId,@RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate, @RequestParam("batchId") Integer batchId) {
+        CustomChapter customChapter = customChapterService.getCustomChapterById(customChapterId);
+        customChapter.setStartDate(startDate);
+        customChapter.setEndDate(endDate);
+        customChapterService.save(customChapter);
+        return ResponseEntity.ok(HttpStatus.OK);
+    } 
+
+    //Remove custom chapter that is delete status false
+    @GetMapping("/deleteCustomChapter")
+    public String deleteCustomChapter(@RequestParam("customChapterId") int customChapterId, @RequestParam("batchId") int batchId){
+        CustomChapter customChapter = customChapterService.getCustomChapterById(customChapterId);
+        customChapter.setDeleteStatus(true);
+        customChapterService.save(customChapter);
+        return "redirect:/teacher/batch/batchSeeMore?batchId="+batchId+"&radio=";
+    }
+
 }

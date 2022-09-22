@@ -98,6 +98,10 @@ public class CustomChapterService {
         return BatchCustomChapterDTOList;
     }
 
+    public void save(CustomChapter customChapter){
+        customChapterRepository.save(customChapter);
+    }
+
    
 
 }
