@@ -42,7 +42,7 @@ public class AssignmentController {
     public ModelAndView assignmentStudent(@RequestParam("assignmentId") Integer assignmentId,@RequestParam("studentId") Integer studentId,ModelMap model) throws ParseException{
         AssignmentDateTimeDTO assignmentDateTimeDTO = assignmentService.getDateTimeByAssignmentId(assignmentId);
         AssignmentMarkDTO assignmentMarkDTO= assignmentService.getStudentMarkByAssiIdAndStuId(assignmentId,studentId);
-        String status = assignmentService.getStatusAssignment(assignmentId);
+        String status = assignmentService.getStatusAssignmentId(assignmentId,studentId);
         model.addAttribute("assignmentDateTimeDTO" ,assignmentDateTimeDTO);
         model.addAttribute("assignmentMarkDTO", assignmentMarkDTO);
         AssignmentFileDTO assignmentFileDTO = new AssignmentFileDTO();
@@ -67,15 +67,15 @@ public class AssignmentController {
         studentAssignmentMark.setDate(currentDate);
         studentAssignmentMark.setTime(submitTime);
         Assignment assignment = new Assignment();
-        // log.info("assignmentid -->"+assignmentFileDTO.getAssignmentId());
         assignment.setId(assignmentFileDTO.getAssignmentId());
         studentAssignmentMark.setAssignment(assignment);
         Student student =  new Student();
         student.setId(assignmentFileDTO.getStudentId());
         studentAssignmentMark.setStudent(student);
-        StudentAssignmentMark studentAssignmentMarkSaved = studentAssignmentMarkRepository.save(studentAssignmentMark);
+        studentAssignmentMark.setNotification(true);
+        studentAssignmentMarkRepository.save(studentAssignmentMark);
         
-        Path uploadPath = Paths.get("./assets/img/assignmentFiles/"+assignment.getId()+"/"+student.getCode());
+        Path uploadPath = Paths.get("./assets/img/assignmentFiles/"+assignment.getId()+"/"+student.getId());
 
         if(!Files.exists(uploadPath)){
             try {
