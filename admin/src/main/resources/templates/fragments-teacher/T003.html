@@ -113,7 +113,7 @@
                                                                     <input type="hidden" class="form-control" name="id"
                                                                         id="message-text" />
                                                                     <input type="hidden" class="form-control"
-                                                                        name="chapterId" th:value="${chapterId}"
+                                                                        name="chapterId" th:value="${chapterDTO.id}"
                                                                         id="message-text" />
                                                                     <div class="mb-3">
                                                                         <input type="text" class="form-control"
@@ -124,7 +124,7 @@
                                                                     <div class="mb-3">
                                                                         <input type="file" class="form-control"
                                                                             id="name" placeholder="Assignment"
-                                                                            th:field="*{assignment}" />
+                                                                            th:field="*{assignment}" required/>
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-secondary"
@@ -132,7 +132,7 @@
                                                                             Close
                                                                         </button>
                                                                         <button type="submit"
-                                                                            class="btn btn-primary">Update</button>
+                                                                            class="btn btn-primary">Add</button>
                                                                     </div>
                                                                 </form>
                                                             </div>
