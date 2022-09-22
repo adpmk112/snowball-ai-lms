@@ -236,21 +236,19 @@ $(document).ready(function () {
       _end_date.removeAttr("disabled");
       _start_date.css("border", "1px solid red");
       _end_date.css("border", "1px solid red");
-    } else {
+    }
+    else {
       let id = $(this).attr("id").split("_")[1];
+      let chpId=$("#chapId_"+id)[0].value;
       let chpName = $("#chpName_" + id)[0].innerHTML;
       let startDate = $("#startDate_" + id)[0].value;
       let endDate = $("#endDate_" + id)[0].value;
       let batchId = $("#batchId_" + id)[0].value;
       window.state = $("#chpStatus_" + id)[0].innerHTML;
       window.currentDate = new Date();
-      window.today = currentDate.toISOString().slice(0, 10);
-      let d1 = new Date(startDate);
-      window.startDay = d1.toISOString().slice(0, 10);
-      let d2 = new Date(endDate);
-      window.endDay = d2.toISOString().slice(0, 10);
-      window.lessThan = d1.getTime() < d2.getTime();
-      window.equal = startDay == endDay;
+      if(startDate!= ""&& endDate!=""){
+        window.lessThan = startDate< endDate;
+        window.equal = startDate==endDate;
       if (equal || lessThan) {
         $(this)
           .find(".fa-solid.fa-check")
@@ -266,44 +264,32 @@ $(document).ready(function () {
           contentType: "application/json; charset=utf-8",
           dataType: "json",
           data: {
+            chpId:chpId,
             chpName: chpName,
             startDate: startDate,
             endDate: endDate,
             batchId: batchId,
           },
           success: function (responce) {
-            if (d1 === null || d2 === null) {
-              $("#chpStatus_" + id)[0].innerHTML = "Not Added";
-            } else {
-              if (
-                (d1.getTime() < currentDate.getTime() &&
-                  d2.getTime() > currentDate.getTime()) ||
-                (lessThan &&
-                  startDay == today &&
-                  d2.getTime() > currentDate.getTime()) ||
-                (lessThan &&
-                  d1.getTime() < currentDate.getTime() &&
-                  d2.getTime() > currentDate.getTime()) ||
-                (equal && endDay == today) ||
-                (lessThan && endDay == today)
-              ) {
-                $("#chpStatus_" + id)[0].innerHTML = "In progress";
-              } else if (
-                (lessThan && d2.getTime() < currentDate.getTime()) ||
-                (equal && d2.getTime() < currentDate.getTime())
-              ) {
-                $("#chpStatus_" + id)[0].innerHTML = "Done";
-              } else {
-                $("#chpStatus_" + id)[0].innerHTML = "Not Started";
-              }
-            }
+            location.reload();
           },
           error: function () {
             $.alert("Error!");
           },
         });
       }
-      if (d1.getTime() > d2.getTime()) {
+      }else{
+        $(this)
+            .find(".fa-solid.fa-check")
+            .removeClass("fa-solid fa-check")
+            .addClass("fa-pen-to-square");
+        _start_date.attr("disabled", true);
+        _end_date.attr("disabled", true);
+        _start_date.css("border", "none");
+        _end_date.css("border", "none");
+      }
+
+      if (startDate > endDate) {
         $.alert("Start date can't be bigger!");
         edit_btn.removeClass("fa-pen-to-square").addClass("fa-solid fa-check");
         _start_date.removeAttr("disabled");

@@ -59,10 +59,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <form method="post" th:object="${chapterDTOList}">
+                                        <!-- <form method="post" th:object="${chapterDTOList}"> -->
                                             <tr th:each="chapterDTO,iterationStatus: ${chapterDTOList}">
                                                 <input th:id="'batchId_'+${iterationStatus.count}" type="hidden"
                                                     th:value="${batchId}" />
+                                                <input th:id="'chapId_'+${iterationStatus.count}" type="hidden" th:value="${chapterDTO.id}"/>
                                                 <td th:text="${iterationStatus.count}"></td>
                                                 <td th:id="'chpName_'+${iterationStatus.count}"
                                                     th:text="${chapterDTO.name}"></td>
@@ -137,7 +138,7 @@
                                                     </div>
                                                 </div>
                                             </tr>
-                                        </form>
+                                        <!-- </form> -->
                                         <form method="post" th:object="${customChapterList}">
                                             <tr th:each="customChapter,iterationStatus: ${batchCustomChapterDTOList}">
                                                 <input th:id="'batchId_'+${iterationStatus.count}" type="hidden"
@@ -485,7 +486,7 @@
                                             <td>Home</td>
 
                                             <td>
-                                                <a href="T005-04.html" class="more-info btn btn-floating"
+                                                <a th:href="@{/teacher/batch/comment/home(batchId=${batchId})}" class="more-info btn btn-floating"
                                                     data-mdb-ripple-color="dark">
                                                     See More
                                                 </a>
@@ -498,7 +499,7 @@
                                             <td>Chapter</td>
 
                                             <td>
-                                                <a href="T005-02.html" class="more-info btn btn-floating"
+                                                <a th:href="@{/teacher/batch/comment/chapterList(batchId=${batchId})}" class="more-info btn btn-floating"
                                                     data-mdb-ripple-color="dark">
                                                     See More
                                                 </a>
@@ -510,7 +511,7 @@
                                             <td>Exam</td>
 
                                             <td>
-                                                <a href="T005-03.html" class="more-info btn btn-floating"
+                                                <a th:href="@{/teacher/batch/comment/exam(batchId=${batchId})}" class="more-info btn btn-floating"
                                                     data-mdb-ripple-color="dark">
                                                     See More
                                                 </a>
@@ -518,7 +519,7 @@
                                                 </ion-icon>
                                             </td>
                                         </tr>
-                                        <tr>
+                                        <!-- <tr>
                                             <td>Live Session</td>
 
                                             <td>
@@ -529,12 +530,12 @@
                                                 <ion-icon class="position-absolute" name="notifications-circle-outline">
                                                 </ion-icon>
                                             </td>
-                                        </tr>
+                                        </tr> -->
                                         <tr>
                                             <td>Videos</td>
 
                                             <td>
-                                                <a href="T005-06.html" class="more-info btn btn-floating"
+                                                <a th:href="@{/teacher/batch/comment/videoList(batchId=${batchId})}" class="more-info btn btn-floating"
                                                     data-mdb-ripple-color="dark">
                                                     See More
                                                 </a>
@@ -546,7 +547,7 @@
                                             <td>Assignment</td>
 
                                             <td>
-                                                <a href="T005.html" class="more-info btn btn-floating"
+                                                <a th:href="@{/teacher/batch/comment/assignmentList(batchId=${batchId})}" class="more-info btn btn-floating"
                                                     data-mdb-ripple-color="dark">
                                                     See More
                                                 </a>

@@ -7,12 +7,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,7 +20,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.ace.ai.student.datamodel.Assignment;
 import com.ace.ai.student.datamodel.Student;
 import com.ace.ai.student.datamodel.StudentAssignmentMark;
@@ -33,11 +29,8 @@ import com.ace.ai.student.dtomodel.AssignmentMarkDTO;
 import com.ace.ai.student.repository.StudentAssignmentMarkRepository;
 import com.ace.ai.student.service.AssignmentService;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Controller
 @RequestMapping("/student")
-@Slf4j
 public class AssignmentController {
 
     @Autowired
@@ -49,7 +42,7 @@ public class AssignmentController {
     public ModelAndView assignmentStudent(@RequestParam("assignmentId") Integer assignmentId,@RequestParam("studentId") Integer studentId,ModelMap model) throws ParseException{
         AssignmentDateTimeDTO assignmentDateTimeDTO = assignmentService.getDateTimeByAssignmentId(assignmentId);
         AssignmentMarkDTO assignmentMarkDTO= assignmentService.getStudentMarkByAssiIdAndStuId(assignmentId,studentId);
-        String status = assignmentService.getStatusAssignment(assignmentId);
+        String status = assignmentService.getStatusAssignmentId(assignmentId,studentId);
         model.addAttribute("assignmentDateTimeDTO" ,assignmentDateTimeDTO);
         model.addAttribute("assignmentMarkDTO", assignmentMarkDTO);
         AssignmentFileDTO assignmentFileDTO = new AssignmentFileDTO();
@@ -60,7 +53,7 @@ public class AssignmentController {
     }
 
     @PostMapping("/assignmentAdd")
-    public String assignmentAdd(@ModelAttribute("assignmentFileDTO") AssignmentFileDTO assignmentFileDTO, ModelMap model) throws ParseException{
+    public String assignmentAdd(@ModelAttribute("assignmentFileDTO") AssignmentFileDTO assignmentFileDTO, ModelMap model) throws ParseException, IOException{
         LocalDate localDate = LocalDate.now();
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String currentDate = localDate.format(dateFormatter);
@@ -68,21 +61,36 @@ public class AssignmentController {
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
         String currentTime = localTime.format(timeFormatter);
         String submitTime = assignmentService.englishTime(currentTime);
-        StudentAssignmentMark  studentAssignmentMark = new StudentAssignmentMark();
         String fileName=StringUtils.cleanPath(assignmentFileDTO.getAssignmentFile().getOriginalFilename());
-        studentAssignmentMark.setUploadedFile(fileName);
-        studentAssignmentMark.setDate(currentDate);
-        studentAssignmentMark.setTime(submitTime);
+        
+        StudentAssignmentMark checkStudentAssignmentMark = studentAssignmentMarkRepository.findByAssignment_IdAndStudent_Id(assignmentFileDTO.getAssignmentId(), assignmentFileDTO.getStudentId());
+        StudentAssignmentMark  studentAssignmentMark = new StudentAssignmentMark();
         Assignment assignment = new Assignment();
-        // log.info("assignmentid -->"+assignmentFileDTO.getAssignmentId());
         assignment.setId(assignmentFileDTO.getAssignmentId());
-        studentAssignmentMark.setAssignment(assignment);
         Student student =  new Student();
         student.setId(assignmentFileDTO.getStudentId());
-        studentAssignmentMark.setStudent(student);
-        StudentAssignmentMark studentAssignmentMarkSaved = studentAssignmentMarkRepository.save(studentAssignmentMark);
+        Path uploadPath = Paths.get("./assets/img/assignmentFiles/"+assignment.getId()+"/"+student.getId());
+        Path path = Paths.get("./assets/img/assignmentFiles/"+assignment.getId()+"/"+student.getId()+"/"+assignmentFileDTO.getAssignmentFile().getOriginalFilename());
+        if(checkStudentAssignmentMark == null){
+          studentAssignmentMark.setAssignment(assignment);
+          studentAssignmentMark.setUploadedFile(fileName);
+          studentAssignmentMark.setDate(currentDate);
+          studentAssignmentMark.setTime(submitTime);
+          studentAssignmentMark.setStudent(student);
+          studentAssignmentMark.setNotification(true);
+        }else{
+          
+          studentAssignmentMark = checkStudentAssignmentMark;
+          studentAssignmentMark.setNotification(true);
+          studentAssignmentMark.setDate(currentDate);
+          studentAssignmentMark.setTime(submitTime);
+          studentAssignmentMark.setUploadedFile(fileName);
+        }
         
-        Path uploadPath = Paths.get("./assets/img/assignmentFiles/"+assignment.getId()+"/"+student.getCode());
+        studentAssignmentMarkRepository.save(studentAssignmentMark);
+        if(Files.exists(path)){
+          Files.delete(path);
+        }
 
         if(!Files.exists(uploadPath)){
             try {

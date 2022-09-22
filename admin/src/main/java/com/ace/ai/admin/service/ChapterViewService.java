@@ -35,7 +35,9 @@ public class ChapterViewService {
             ChapterDTO chapterDTO=new ChapterDTO();
             chapterDTO.setId(chapterBatch.getChapter().getId());
             chapterDTO.setName( chapterBatch.getChapter().getName());
-            if(chapterBatch.getStartDate()!=null && chapterBatch.getEndDate()!=null){
+            String startDate1=chapterBatch.getStartDate();
+            String endDate1=chapterBatch.getEndDate();
+            if(startDate1!=null && endDate1!=null){
                 LocalDate startDate=LocalDate.parse(chapterBatch.getStartDate());
                 LocalDate endDate=LocalDate.parse(chapterBatch.getEndDate());
                 LocalDate now=LocalDate.now();
@@ -43,7 +45,7 @@ public class ChapterViewService {
                 boolean equal=startDate.isEqual(endDate);
                chapterDTO.setStart_date(startDate);
                 chapterDTO.setEnd_date(endDate);
-                if((lessThan && endDate.isAfter(now)  && startDate.isEqual(now) ) ||  ( lessThan && endDate.isEqual(now)  || startDate.isEqual(now))){
+                if((lessThan && endDate.isAfter(now)  && (startDate.isEqual(now) || startDate.isBefore(now))) ||  ( lessThan && endDate.isEqual(now)  || startDate.isEqual(now))){
                     chapterDTO.setStatus("In progress");
 
                 }
@@ -70,13 +72,13 @@ public class ChapterViewService {
          return chapterDTOList;
     }
 
-    public boolean saveDatesForChapter(String chpName,String startDate,String endDate,int batchId){
-        Chapter chapter=chapterRepository.findByName(chpName);
-        Batch batch=batchRepository.findBatchById(batchId);
+    public boolean saveDatesForChapter(Integer chpId,String chpName,String startDate,String endDate,int batchId){
 
-        ChapterBatch chapter_batch=chapterBatchRepository.findChapterBatchByBatchIdAndChapterId(batch.getId(),chapter.getId());
+        Batch batch=batchRepository.findBatchById(batchId);
+        ChapterBatch chapter_batch=chapterBatchRepository.findChapterBatchByBatchIdAndChapterId(batch.getId(),chpId);
         chapter_batch.setStartDate(startDate);
         chapter_batch.setEndDate(endDate);
+        System.out.println("*******"+chapter_batch.getStartDate()+" :"+ chapter_batch.getEndDate());
         chapterBatchRepository.save(chapter_batch);
 
         return true;

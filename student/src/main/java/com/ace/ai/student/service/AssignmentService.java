@@ -26,7 +26,7 @@ public class AssignmentService {
     StudentAssignmentMarkRepository studentAssignmentMarkRepository;
     
     public AssignmentDateTimeDTO getDateTimeByAssignmentId(int assignmentId) throws ParseException{
-        Assignment assignment = assignmentRepository.findById(assignmentId);
+        Assignment assignment = assignmentRepository.findByIdAndDeleteStatus(assignmentId, false);
         AssignmentDateTimeDTO assignmentDateTimeDTO = new AssignmentDateTimeDTO();
         if(assignment != null){
         assignmentDateTimeDTO.setEnd_date(assignment.getEnd_date());
@@ -97,13 +97,12 @@ public class AssignmentService {
     }
     
     public String getStatusAssignment(int assignmentId) throws ParseException{
-        Assignment assignment = assignmentRepository.findById(assignmentId);
+        Assignment assignment = assignmentRepository.findByIdAndDeleteStatus(assignmentId, false);
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         LocalTime localTime = LocalTime.now();
         String currentTime = localTime.format(timeFormatter);
         LocalTime localCurrentTime =LocalTime.parse(currentTime,timeFormatter);
-        System.out.println(currentTime);
         String status =null;
         LocalDate dueDate;
         LocalTime dueTime;
@@ -111,20 +110,81 @@ public class AssignmentService {
              dueDate = LocalDate.parse(assignment.getEnd_date(), dateFormatter);
              dueTime = LocalTime.parse(assignment.getEnd_time(), timeFormatter);            
             if(dueDate.isBefore(LocalDate.now()) == false){                
-                    if(dueTime.compareTo(localCurrentTime) == 0){
+                    if(dueTime.compareTo(localCurrentTime) == 0 ){
                         status = "early2";
                     }
-                    else if (dueTime.isBefore(localCurrentTime) == false) {
-                        status = "early3";
-                    }
-                    else if(dueTime.isBefore(localCurrentTime) ==true ){
+                    
+                    else if(dueTime.isBefore(localCurrentTime) == true ){
                         status = "late2";
                     }
-                }    
+                    else if(dueTime.isBefore(localCurrentTime) == false)
+                    status = "early1";
+                    
+            }    
             else if(dueDate.isBefore(LocalDate.now()) == true){
                 status = "late1";
             } 
         }   
+        return status;
+    }
+
+    public String getStatusAssignmentId(int assignmentId,int studentId){
+        Assignment assignment = assignmentRepository.findByIdAndDeleteStatus(assignmentId, false);
+        StudentAssignmentMark studentAssignmentMark = studentAssignmentMarkRepository.findByAssignment_IdAndStudent_Id(assignmentId,studentId);
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime localTime = LocalTime.now();
+        String currentTime = localTime.format(timeFormatter);
+        LocalTime localCurrentTime =LocalTime.parse(currentTime,timeFormatter);
+        String status =null;
+        LocalDate dueDate,submitDate;
+        LocalTime dueTime,submitTime;
+        if(assignment != null && studentAssignmentMark == null){
+            if(assignment.getEnd_date() != null && assignment.getEnd_time() != null){
+                dueDate = LocalDate.parse(assignment.getEnd_date(), dateFormatter);
+                dueTime = LocalTime.parse(assignment.getEnd_time(), timeFormatter);            
+               if(dueDate.isBefore(LocalDate.now()) == false){                
+                       if(dueTime.compareTo(localCurrentTime) == 0 ){
+                           status = "early2";
+                       }
+                       
+                       else if(dueTime.isBefore(localCurrentTime) == true ){
+                           status = "late2";
+                       }
+                       else if(dueTime.isBefore(localCurrentTime) == false)
+                       status = "early1";
+                       
+               }    
+               else if(dueDate.isBefore(LocalDate.now()) == true){
+                   status = "late1";
+               } 
+           }   
+        }
+        else if(assignment != null && studentAssignmentMark != null){
+            
+                if(assignment.getEnd_date() != null && assignment.getEnd_time() != null && studentAssignmentMark.getDate() != null && studentAssignmentMark.getTime() != null){
+                    dueDate = LocalDate.parse(assignment.getEnd_date(), dateFormatter);
+                    dueTime = LocalTime.parse(assignment.getEnd_time(), timeFormatter); 
+                    submitDate = LocalDate.parse(studentAssignmentMark.getDate(), dateFormatter);
+                    submitTime = LocalTime.parse(studentAssignmentMark.getTime(), timeFormatter);            
+                   if(dueDate.isBefore(submitDate) == false){                
+                           if(dueTime.compareTo(submitTime) == 0 ){
+                               status = "early2";
+                           }
+                           
+                           else if(dueTime.isBefore(submitTime) == true ){
+                               status = "late2";
+                           }
+                           else if(dueTime.isBefore(submitTime) == false)
+                           status = "early1";
+                           
+                   }    
+                   else if(dueDate.isBefore(submitDate) == true){
+                       status = "late1";
+                   } 
+               }   
+            
+        }
         return status;
     }
 

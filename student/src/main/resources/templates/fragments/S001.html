@@ -29,7 +29,7 @@
           <div class="carousel-container">
             <div class="owl-carousel show owl-theme" id="inprogress-show">
               <a th:each="inProgressChapter : ${inProgressChapterList}"
-                th:href="@{student/chapter(chapterId=${inProgressChapter.id})}" class="unit-a">
+                th:href="@{/student/chapter(chapterId=${inProgressChapter.id})}" class="unit-a">
                 <div class="chapter">
                   <div style="max-width: 100%;">
                     <div class="card-header chapter-text"><span th:text="${inProgressChapter.name}"></div>
@@ -40,7 +40,7 @@
                 </div>
               </a>
               <a th:each="inProgressCustomChapter : ${inProgressCustomChapterList}"
-                th:href="@{student/customChapter(customChapterId=${inProgressCustomChapter.id})}" class="unit-a">
+                th:href="@{/student/customChapter(customChapterId=${inProgressCustomChapter.id})}" class="unit-a">
                 <div class="chapter">
                   <div style="max-width: 100%;">
                     <div class="card-header chapter-text"><span th:text="${inProgressCustomChapter.name}"></div>
@@ -85,20 +85,18 @@
             <!--End owl-carousel-->
 
             <div class="owl-carousel owl-theme" id="done-show">
-              <a th:each="doneChapter : ${doneChapterList}" th:href="@{student/chapter(chapterId=${doneChapter.id})}"
+              <a th:each="doneChapter : ${doneChapterList}" th:href="@{/student/chapter(chapterId=${doneChapter.id})}"
                 class="unit-a">
                 <div class="chapter">
-                  <div style="max-width: 100%;">
+                  <div style="max-width: 100%; ">
                     <div class="card-header chapter-text"><span th:text="${doneChapter.name}"></div>
-                    <div class="card-body">
-                      <!-- <h5 class="card-title chapter-text">Core Java</h5> -->
-                    </div>
+                    
                   </div>
                 </div>
               </a>
 
               <a th:each="doneCustomChapter : ${doneCustomChapterList}"
-                th:href="@{student/customChapter(customChapterId=${doneCustomChapter.id})}" class="unit-a">
+                th:href="@{/student/customChapter(customChapterId=${doneCustomChapter.id})}" class="unit-a">
                 <div class="chapter">
                   <div style="max-width: 100%;">
                     <div class="card-header chapter-text"><span th:text="${doneCustomChapter.name}"></div>
@@ -127,8 +125,7 @@
                   <div class="col">
                     <div class="d-flex flex-start" th:each="comment : ${stuCommentViewDTOList}">
                       <img class="rounded-circle shadow-1-strong me-3"
-                      th:src="@{${'/assets/img/'+comment.commenterCode+'/'+comment.commenterPhoto}}"  width="65"
-                        height="65" />
+                      th:src="@{${'/assets/img/'+comment.commenterCode+'/'+comment.commenterPhoto}}"  style="width: 50px; height: 50px; margin-right: 10px;" />
                       <div class="flex-grow-1 flex-shrink-1">
                         <!-- COMMENT -->
                         <div>
@@ -151,7 +148,7 @@
                         <!-- reply -->
                         <div class="d-flex flex-start mt-4" th:each="reply : ${comment.stuReplayViewDTOList}">
                           <a class="me-3" href="#">
-                            <img class="rounded-circle shadow-1-strong" th:src="@{${'/assets/img/'+reply.commenterCode+'/'+reply.commenterPhoto}}"  width="65" height="65" />
+                            <img class="rounded-circle shadow-1-strong" th:src="@{${'/assets/img/'+reply.commenterCode+'/'+reply.commenterPhoto}}"  style="width: 50px; height: 50px; margin-right: 10px;" />
                           </a>
                           <div class="flex-grow-1 flex-shrink-1">
                             <div>
@@ -187,8 +184,7 @@
                               <form th:action="@{/student/home/replypost}" th:object="${stuReplyPostDTO}" method="post">
                                 <div class="d-flex flex-start w-100">
                                   <img class="rounded-circle shadow-1-strong me-3"
-                                    src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp"  width="40"
-                                    height="40" />
+                                    src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp"  style="width: 50px; height: 50px; margin-right: 10px;" />
                                   <input type="hidden" name="commentId" th:value="${comment.id}">
                                   <input type="hidden" name="commenterCode" th:value="${stuCode}">
                                   <input type="hidden" name="stuId" th:value="${stuId}">
@@ -221,8 +217,7 @@
                       <form th:action="@{/student/home/commentpost}" th:object="${stuCommentPostDTO}" method="post">
                         <div class="d-flex flex-start w-100">
                           <img class="rounded-circle shadow-1-strong me-3"
-                            src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp"  width="40"
-                            height="40" />
+                          th:src="@{${'/assets/img/'+#request.userPrincipal.principal.code+'/'+#request.userPrincipal.principal.photo}}"  style="width: 50px; height: 50px; margin-right: 10px;" />
                           <input type="hidden" name="batchId" th:value="${batchId}">
                           <input type="hidden" name="commenterCode" th:value="${stuCode}">
                           <input type="hidden" name="stuId" th:value="${stuId}">

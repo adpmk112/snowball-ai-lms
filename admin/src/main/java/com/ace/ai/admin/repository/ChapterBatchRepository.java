@@ -13,8 +13,8 @@ public interface ChapterBatchRepository extends JpaRepository<ChapterBatch,Integ
     @Query(value = "select * from chapter_batch\n" +
             "where chapter_batch.batch_id= :id ", nativeQuery = true)
     public List<ChapterBatch> findChapterIdByBatchId(Integer id);
-
-    public ChapterBatch findChapterBatchByBatchIdAndChapterId(Integer batchId,Integer chapterId);
+    List<ChapterBatch> findByBatchIdAndDeleteStatus(int batchId,boolean deleteStatus);
+    ChapterBatch findChapterBatchByBatchIdAndChapterId(Integer batchId,Integer chapterId);
 
 
 }
