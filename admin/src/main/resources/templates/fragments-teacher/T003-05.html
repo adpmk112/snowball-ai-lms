@@ -111,7 +111,7 @@
                                 aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                              <form th:action="@{activityFile/edit}" method="post" th:object="${customChapterFileDTO}"
+                              <form th:action="@{/teacher/batch/course/activityFile/edit}" method="post" th:object="${customChapterFileDTO}"
                                 enctype="multipart/form-data">
                                 <input type="hidden" class="form-control" name="id" th:value="${customChapterFile.id}"
                                   id="message-text" />
@@ -166,7 +166,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form th:action="@{customChapterFile/addpost}" method="post" th:object="${customChapterFileDTO}"
+              <form th:action="@{/teacher/batch/course/activityFile/add}" method="post" th:object="${customChapterFileDTO}"
                 enctype="multipart/form-data">
                 <div class="mb-3">
                   <input type="hidden" class="form-control" name="customChapterId" th:value="${customChapterId}"

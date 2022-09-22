@@ -101,7 +101,7 @@ public class ExamFormService {
     }
 
     public void updateExam(ExamDTO examDTO){
-        int id = Integer.valueOf(examDTO.getId());
+        //int id = Integer.valueOf(examDTO.getId());
         //delete all data
         questionService.deleteByExamId(Integer.valueOf(examDTO.getId()));
         //update ExamFrom        

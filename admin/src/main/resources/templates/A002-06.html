@@ -357,7 +357,7 @@
         let current_question = e.closest(".m-choice, li.card-body"); 
         let questions = $(current_question).siblings('.m-choice, li.card-body');
         $(questions).each(function(){
-          if($(e).val() == $(this).find('textarea').val()){
+          if($(e).val().trim() == $(this).find('textarea').val().trim()){
             $(current_question).find(".question-error-span").text("Questions shouldn't be same.");
             return false;
           }else{
@@ -394,7 +394,7 @@
         let current_option = e.closest('.option-added');
         let options = $(current_option).siblings('.option-added');
         $(options).each(function(){
-          if($(e).val() == $(this).find('input[name="option"]').val()){
+          if($(e).val().trim() == $(this).find('input[name="option"]').val().trim()){
             $(current_option).find(".answer-error").text("Answers shouldn't be same.");           
             return false;
           }else  {
