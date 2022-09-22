@@ -1,28 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
   <head>
-
-    <head>
-  
-      <title>Comment Home</title>
-      <div th:replace="TECFRG :: head"></div>
-      <link rel="stylesheet" href="../static/assets/owlcarousel/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="../static/assets/owlcarousel/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="../static/assets/css/assignment-comment-carousel.css">
-      
-    </head>
+    <title>Comment Home</title>
+    <div th:replace="TECFRG :: head"></div>
   </head>
-  
-  <body style="background-color: rgb(235, 235, 235);">
+
+  <body style="background-color: rgb(235, 235, 235)">
     <header th:replace="TECFRG :: header"></header>
     <main role="main">
       <div th:replace="fragments-teacher/T005 :: comment-assignmentList"></div>
     </main>
     <footer th:replace="TECFRG :: footer"></footer>
     <div th:replace="TECFRG:: scripts"></div>
-    <script src="../static/assets/owlcarousel/js/owl.carousel.min.js"></script>
-    <script src="../static/assets/js/assignment-comment-carousel.js"></script>
-</body>
-
+  </body>
 </html>
