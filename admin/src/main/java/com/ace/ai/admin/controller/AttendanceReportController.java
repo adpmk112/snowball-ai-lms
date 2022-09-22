@@ -24,7 +24,21 @@ public class AttendanceReportController {
     StudentRepository studentRepository;
 
     @GetMapping("/admin/exportToExcel{batch_id}")
-    public void exportPDF(@PathVariable("batch_id") Integer batchId, HttpServletResponse response) throws IOException {
+    public void exportAttendanceAdmin(@PathVariable("batch_id") Integer batchId, HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        String headerKey="Content-Disposition";
+        DateFormat dateFormatter=new SimpleDateFormat("yyyy-MM-dd");
+        String currentDateTime=dateFormatter.format(new Date());
+        String fileName="attendance_"+currentDateTime+".xlsx";
+        String headerValue="attachment; filename="+fileName;
+        response.setHeader(headerKey,headerValue);
+        AttendanceReportDTO attendanceReportDTO= reportService.getAttendance(batchId);
+        AttendanceExcelExporter exporter  =new AttendanceExcelExporter(attendanceReportDTO);
+        exporter.export(response);
+
+    }
+    @GetMapping("/teacher/exportToExcel{batch_id}")
+    public void exportAttendanceTeacher(@PathVariable("batch_id") Integer batchId, HttpServletResponse response) throws IOException {
         response.setContentType("application/octet-stream");
         String headerKey="Content-Disposition";
         DateFormat dateFormatter=new SimpleDateFormat("yyyy-MM-dd");
