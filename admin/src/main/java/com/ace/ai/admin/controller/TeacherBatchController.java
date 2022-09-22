@@ -271,7 +271,7 @@ public class TeacherBatchController {
         return new ModelAndView("","teacherCommentViewDTOList",teacherCommentViewDTOList);
     }
 
-    @GetMapping("/comment/chapterList/chapter")
+    @GetMapping("/comment/chapterList/customChapter")
     public ModelAndView getCustomChapterComment(@AuthenticationPrincipal AdminUserDetails userDetails,@RequestParam("batchId")int batchId,@RequestParam("chapterId")int chapterId,ModelMap model){
         CustomChapter customChapter = teacherCommentService.findCustomChapterById(chapterId);
     
