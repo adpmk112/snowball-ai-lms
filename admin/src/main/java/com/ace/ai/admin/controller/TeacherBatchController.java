@@ -14,6 +14,7 @@ import com.ace.ai.admin.datamodel.StudentExamMark;
 import com.ace.ai.admin.datamodel.Teacher;
 import com.ace.ai.admin.dtomodel.AssignmentMarkDTO;
 import com.ace.ai.admin.dtomodel.AttendanceRequestDTO;
+import com.ace.ai.admin.dtomodel.CustomAssignmentDTO;
 import com.ace.ai.admin.dtomodel.ExamMarkDTO;
 import com.ace.ai.admin.dtomodel.StudentAttendDTO;
 import com.ace.ai.admin.dtomodel.StudentIdMarkFilePathDTO;
@@ -114,7 +115,8 @@ public class TeacherBatchController {
         System.out.println("size is "+ studentAssignmentMarkService.getAssignmentMarkDTOList(batchId).size());
         model.addAttribute("classroomList", classroomService.showClassroomTable(batchId));
         model.addAttribute("batchCustomChapterDTOList", customChapterService.getCustomChapterListByBatchId(batchId) );
-        
+        model.addAttribute("customAssignmentDTO",new CustomAssignmentDTO());
+
         return "T003";
     }
 
@@ -123,6 +125,7 @@ public class TeacherBatchController {
     public ResponseEntity SendData(@RequestParam("chpId")Integer chpId,@RequestParam("chpName") String chpName, @RequestParam("startDate") String startDate,
                                    @RequestParam("endDate") String endDate, @RequestParam("batchId") Integer batchId) {
         System.out.println(batchId);
+        assignmentService.assignmentEndDateAdd(endDate, chpName, batchId);
         chapterViewService.saveDatesForChapter(chpId,chpName, startDate, endDate, batchId);
         return ResponseEntity.ok(HttpStatus.OK);
     }
