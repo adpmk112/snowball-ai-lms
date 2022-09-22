@@ -80,6 +80,7 @@ public class TeacherDashboardController {
         List<TeacherDashboardDTO> batchStudentList = teacherDashboardService.getBatchNameAndStuCountByTeacherCode(teacherCode);
         int totalBatch = batchList.size();
         List<TeacherDashboardExamDTO> teacherDashboardExamDTO = teacherDashboardService.getStudentNameAndExamMarkByBatchId(batchId);
+        System.out.println(teacherDashboardExamDTO+"++++++++++++++++++++++++++++");
         List<Student> studentNameList = studentRepository.findByDeleteStatusAndBatchId(false,batchId);
         List<TeacherCommentDTO> teacherCommentDTOList = teacherDashboardService.getCommentByBatchId(batchId);
         List<TeaceherDashboardAssignmentDTO> teaceherDashboardAssignmentDTOList = teacherDashboardService.getStuNameAndAssignmentMarksByBatchId(batchId);
