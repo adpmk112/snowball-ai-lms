@@ -263,12 +263,30 @@ public class TeacherBatchController {
         teacherAssignmentViewDTO.setTeacherCode(teacherCommentService.getTeacherCodeListByBatchId(batchId));
         List<TeacherCommentViewDTO>  teacherCommentViewDTOList=teacherCommentService.getCommentListByBatchIdAndLocationAndCommenterCode(teacherAssignmentViewDTO);
         Teacher teacher = teacherCommentService.getTeacherByCode(userDetails.getCode());
+        Assignment assignment = teacherCommentService.findAssignmentById(assignmentId);
         model.addAttribute("teacherReplyPostDTO",new TeacherReplyPostDTO());
         model.addAttribute("teacherCommentPostDTO", new TeacherCommentPostDTO());
         model.addAttribute("teacherCode", teacher.getCode());
         model.addAttribute("batchId",batchId);
+        model.addAttribute("stuCode",stuCode);
+        model.addAttribute("assignmentId",assignment.getId());
+        model.addAttribute("assignmentName",assignment.getName());
         model.addAttribute("teacherId",teacher.getId());
-        return new ModelAndView("","teacherCommentViewDTOList",teacherCommentViewDTOList);
+        return new ModelAndView("T005-01","teacherCommentViewDTOList",teacherCommentViewDTOList);
+    }
+
+    @PostMapping(value="/assignment/commentpost")
+    public String postAssignmentCommment(@ModelAttribute("teacherCommentPostDTO") TeacherCommentPostDTO teacherCommentPostDTO,ModelMap model){
+        // stuCommentPostDTO.setLocation("home");
+        teacherCommentService.saveComment(teacherCommentPostDTO);
+        return "redirect:/teacher/batch/comment/assignmentList/student?batchId="+teacherCommentPostDTO.getBatchId()+"&assignmentId="+teacherCommentPostDTO.getLocationId()+"&stuCode="+teacherCommentPostDTO.getStuCodeForAssignment();
+    }
+
+    @PostMapping(value="/assignment/replypost")
+    public String postAssignmentReply(@ModelAttribute("teacherReplyPostDTO") TeacherReplyPostDTO teacherReplyPostDTO,ModelMap model){
+        
+        teacherCommentService.saveReply(teacherReplyPostDTO);
+        return "redirect:/teacher/batch/comment/assignmentList/student?batchId="+teacherReplyPostDTO.getBatchId()+"&assignmentId="+teacherReplyPostDTO.getLocationId()+"&stuCode="+teacherReplyPostDTO.getStuCodeForAssignment();
     }
 
     @GetMapping("/comment/assignmentList")
@@ -420,28 +438,6 @@ public class TeacherBatchController {
     }
 
    
-
-   
-
-    
-
-    @PostMapping(value="/assignment/commentpost")
-    public String postAssignmentCommment(@ModelAttribute("teacherCommentPostDTO") TeacherCommentPostDTO teacherCommentPostDTO,ModelMap model){
-        // stuCommentPostDTO.setLocation("home");
-        teacherCommentService.saveComment(teacherCommentPostDTO);
-        return "redirect:/teacher/batch/comment/assignmentList/student?batchId="+teacherCommentPostDTO.getBatchId()+"&assignmentId="+teacherCommentPostDTO.getLocationId()+"&stuCode="+teacherCommentPostDTO.getStuCodeForAssignment();
-    }
-
-    @PostMapping(value="/assignment/replypost")
-    public String postAssignmentReply(@ModelAttribute("teacherReplyPostDTO") TeacherReplyPostDTO teacherReplyPostDTO,ModelMap model){
-        
-        teacherCommentService.saveReply(teacherReplyPostDTO);
-        return "redirect:/teacher/batch/comment/assignmentList/student?batchId="+teacherReplyPostDTO.getBatchId()+"&assignmentId="+teacherReplyPostDTO.getLocationId()+"&stuCode="+teacherReplyPostDTO.getStuCodeForAssignment();
-    }
-
-   
-
-    
 
     //Add custom chapter date schedule
     @GetMapping("/scheduleCustomChapter")

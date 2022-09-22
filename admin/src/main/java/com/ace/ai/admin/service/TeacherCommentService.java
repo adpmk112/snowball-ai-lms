@@ -71,6 +71,10 @@ public class TeacherCommentService {
     @Autowired
     ChapterRepository chapterRepository;
 
+
+    public Assignment findAssignmentById(int id){
+        return assignmentRepository.findById(id).get();
+    }
     public ChapterFile findChapterFileById(int chapterFileId){
         return chapterFileRepository.findById(chapterFileId);
     }
@@ -185,15 +189,17 @@ public class TeacherCommentService {
         List<TeacherCommentViewDTO> teacherCommentViewDTOList = new ArrayList<>();
         List<Comment> commentList = new ArrayList<>();
         Assignment assignment = assignmentRepository.findById(teacherAssignmentViewDTO.getAssignmentId()).get();
+        String location = assignment.getName()+teacherAssignmentViewDTO.getStuCode();
+        System.out.println("location ====" + location);
         List<Comment> stuCodeCommentList = commentRepository.findByBatchIdAndLocationAndCommenterCode(
-                teacherAssignmentViewDTO.getBatchId(), assignment.getName(), teacherAssignmentViewDTO.getStuCode());
+                teacherAssignmentViewDTO.getBatchId(), location, teacherAssignmentViewDTO.getStuCode());
         for (Comment stuCodeComment : stuCodeCommentList) {
             commentList.add(stuCodeComment);
         }
 
         for (String teacherCode : teacherAssignmentViewDTO.getTeacherCode()) {
             List<Comment> teacherCommentList = commentRepository.findByBatchIdAndLocationAndCommenterCode(
-                    teacherAssignmentViewDTO.getBatchId(), assignment.getName(), teacherCode);
+                    teacherAssignmentViewDTO.getBatchId(), location, teacherCode);
             for (Comment teacherComment : teacherCommentList) {
                 commentList.add(teacherComment);
             }
