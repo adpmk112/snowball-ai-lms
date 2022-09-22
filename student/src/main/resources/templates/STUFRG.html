@@ -71,7 +71,7 @@
                             <a class="nav-link" href="home.html"  th:href="@{/student/home}" select>Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="student-classroom.html"  th:href="@{/student/livesession}">
+                            <a class="nav-link" href="student-classroom.html" th:href="@{/student/livesession}">
                                 Live Sessions
                             </a>
                         </li>
@@ -206,7 +206,7 @@
               <a th:href="@{/student/home}" class="text-reset text-decoration-none">Home</a>
             </p>
             <p>
-              <a href="#!" class="text-reset text-decoration-none">Live Sessions</a>
+              <a th:href="@{/student/livesession}" class="text-reset text-decoration-none">Live Sessions</a>
             </p>
             <p>
               <a th:href="@{/student/exam}" class="text-reset text-decoration-none">Exam</a>

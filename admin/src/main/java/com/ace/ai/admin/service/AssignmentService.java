@@ -94,7 +94,7 @@ public class AssignmentService {
     }
 
     public void assignmentEndDateAdd(String endDate, String chapterName, int batchId){
-        List<Assignment> assignmentList = assignmentRepository.findByBatchIdAndAssignmentChapterName(batchId, chapterName);
+        List<Assignment> assignmentList = assignmentRepository.findByDeleteStatusAndBatchIdAndAssignmentChapterName(false, batchId, chapterName);
         for(Assignment assignment : assignmentList){
             assignment.setEnd_date(endDate);
             log.info(endDate);

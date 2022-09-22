@@ -24,8 +24,10 @@ import com.ace.ai.admin.datamodel.CustomChapter;
 import com.ace.ai.admin.datamodel.CustomChapterFile;
 import com.ace.ai.admin.dtomodel.ChapterFileDTO;
 import com.ace.ai.admin.dtomodel.ChapterRenameDTO;
+import com.ace.ai.admin.dtomodel.CustomAssignmentDTO;
 import com.ace.ai.admin.dtomodel.CustomChapterFileDTO;
 import com.ace.ai.admin.dtomodel.NewActivityDTO;
+import com.ace.ai.admin.repository.AssignmentRepository;
 import com.ace.ai.admin.repository.CustomChapterRepository;
 import com.ace.ai.admin.service.AssignmentService;
 import com.ace.ai.admin.service.BatchService;
@@ -41,12 +43,16 @@ public class TeacherNewActivity {
     BatchService batchService;
     @Autowired
     AssignmentService assignmentService;
+    @Autowired
+    CustomChapterRepository customChapterRepository;
 
     @GetMapping("/addActivity")
     public ModelAndView addNewActivity(@RequestParam("batchId") int batchId, ModelMap model) {
         NewActivityDTO newActivityDTO = new NewActivityDTO();
         newActivityDTO.setBatchId(batchId);
+        List<CustomChapter>customChapterList = customChapterRepository.findByBatchIdAndDeleteStatus(batchId, false);
         model.addAttribute("batchId", batchId);
+        model.addAttribute("totalCustomChapter",customChapterList.size());
         return new ModelAndView("T003-04", "newActivityDTO", newActivityDTO);
     }
 
@@ -168,10 +174,11 @@ public class TeacherNewActivity {
         List<CustomChapterFile> customChapterFileList = customChapterService
                 .getCustomChapterFileListById(customChapterId);
         int batchId = customChapterService.getCustomChapterById(customChapterId).getBatch().getId();
-
+        String chapterName = customChapterService.getCustomChapterById(customChapterId).getName();
         model.addAttribute("batchId", batchId);
         model.addAttribute("customChapterId", customChapterId);
         model.addAttribute("customChapterFileDTO", new CustomChapterFileDTO());
+        model.addAttribute("chapterName",chapterName);
         return new ModelAndView("T003-05", "customChapterFileList", customChapterFileList);
     }
 
