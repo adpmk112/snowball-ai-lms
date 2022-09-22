@@ -7,12 +7,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,7 +20,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.ace.ai.student.datamodel.Assignment;
 import com.ace.ai.student.datamodel.Student;
 import com.ace.ai.student.datamodel.StudentAssignmentMark;
@@ -33,11 +29,8 @@ import com.ace.ai.student.dtomodel.AssignmentMarkDTO;
 import com.ace.ai.student.repository.StudentAssignmentMarkRepository;
 import com.ace.ai.student.service.AssignmentService;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Controller
 @RequestMapping("/student")
-@Slf4j
 public class AssignmentController {
 
     @Autowired
