@@ -11,6 +11,6 @@ public class ChapterFileDTO {
     private String name;
     private  String fileType;
     private int chapterId;
-
+    private int assignmentId;
    
 }

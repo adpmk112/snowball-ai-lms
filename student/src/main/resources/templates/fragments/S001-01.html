@@ -7,7 +7,7 @@
       <div class="semi-circle"></div>
       <div class="banner">
         <div class="circle">
-          <i class="fa-regular fa-folder-open"></i>
+         
         </div>
         <div>
           <h1 th:text="${chapterName}"></h1>
@@ -40,9 +40,9 @@
         <div class="card custom-div" style="margin-bottom: 10px;">
           <div class="card-body">
             <h4 class="card-title" style="margin-left: 40px;">Assignment Links</h4>
-            <a th:each="chapterFile : ${chapterFileDTOList}" href="">
+            <a th:each="assignment : ${assignmentList}" th:href="@{/student/assignmentView(assignmentId=${assignment.id},studentId=${stuId},chapterId=${chapterId})}">
               <p class="card-text" style="margin-left: 80px; margin-bottom: 0px;"
-                th:if="${chapterFile.fileType == 'assignment'}" th:text="${chapterFile.name}"></p>
+                 th:text="${assignment.name}"></p>
             </a>
           </div>
         </div>
@@ -75,9 +75,9 @@
         <div class="card custom-div" style="margin-bottom: 10px;">
           <div class="card-body">
             <h4 class="card-title" style="margin-left: 40px;">Assignment Links</h4>
-            <a th:each="chapterFile : ${chapterFileDTOList}" th:href="">
+            <a th:each="assignment : ${assignmentList}" th:href="@{/student/assignemntView(assignmentId=${assignment.id},studentId=${stuId},chapterId=${chapterId})}">
               <p class="card-text" style="margin-left: 80px; margin-bottom: 0px;"
-                th:if="${chapterFile.fileType == 'assignment'}" th:text="${chapterFile.name}"></p>
+                 th:text="${assignment.name}"></p>
             </a>
           </div>
         </div>

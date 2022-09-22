@@ -6,12 +6,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ace.ai.student.datamodel.Assignment;
 import com.ace.ai.student.datamodel.Batch;
 import com.ace.ai.student.datamodel.Chapter;
 import com.ace.ai.student.datamodel.ChapterFile;
 import com.ace.ai.student.datamodel.CustomChapter;
 import com.ace.ai.student.datamodel.CustomChapterFile;
 import com.ace.ai.student.dtomodel.ChapterFileDTO;
+import com.ace.ai.student.repository.AssignmentRepository;
 import com.ace.ai.student.repository.BatchRepository;
 import com.ace.ai.student.repository.ChapterFileRepository;
 import com.ace.ai.student.repository.ChapterRepository;
@@ -30,6 +32,8 @@ public class StudentChapterService {
     CustomChapterFileRepository customChapterFileRepository;
     @Autowired
     BatchRepository batchRepository;
+    @Autowired
+    AssignmentRepository assignmentRepository;
 
     public List<ChapterFileDTO> getChapterFileListByChapterId(int chapterId) {
         List<ChapterFile> chapterFileList = chapterFileRepository.findByChapterIdAndDeleteStatus(chapterId, 0);
@@ -41,6 +45,7 @@ public class StudentChapterService {
             chapterFileDTO.setId(chapterFile.getId());
             chapterFileDTO.setName(chapterFile.getName());
             chapterFileDTO.setFileType(chapterFile.getFileType());
+            
             chapterFileDTOList.add(chapterFileDTO);
         }
         return chapterFileDTOList;
@@ -58,9 +63,21 @@ public class StudentChapterService {
             chapterFileDTO.setId(customChapterFile.getId());
             chapterFileDTO.setName(customChapterFile.getName());
             chapterFileDTO.setFileType(customChapterFile.getFileType());
+            
             chapterFileDTOList.add(chapterFileDTO);
         }
         return chapterFileDTOList;
+    }
+
+    public List<Assignment> getAssignmentListByChapterNameAndBatchId(String chapterName,int batchId){
+        List<Assignment> assignmentList = assignmentRepository.findByAssignmentChapterNameAndDeleteStatusAndBatchId(chapterName, false, batchId);
+        return assignmentList;
+    }
+    public Chapter getChapterById(int chapterId){
+        return chapterRepository.findById(chapterId).get();
+    }
+    public CustomChapter getCustomChapterById(int customChapterId){
+        return customChapterRepository.findById(customChapterId).get();
     }
 
     public ChapterFileDTO getChapterFileById(int chapterFileId, int chapterId) {
