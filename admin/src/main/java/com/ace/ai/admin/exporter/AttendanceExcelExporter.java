@@ -69,8 +69,8 @@ public class AttendanceExcelExporter {
         HashMap<Integer, String> map = attendanceReportDTO.getStudentAndAttend();
         if (attendanceReportDTO.getDateList().size() != 0) {
             int rowCount = 2;
-            int cellCount = 0;
             for (String s : dateList) {
+                int cellCount = 0;
                 Row row = sheet.createRow(rowCount++);
                 Cell cell = row.createCell(cellCount++);
                 cell.setCellValue(s);
