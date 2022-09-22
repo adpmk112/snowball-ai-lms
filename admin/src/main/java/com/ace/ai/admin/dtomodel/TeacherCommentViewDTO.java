@@ -14,5 +14,5 @@ public class TeacherCommentViewDTO {
     private String commenterCode;
     private boolean notification;
     private String commenterPhoto;
-    private List<TeacherReplyViewDTO> stuReplayViewDTOList;
+    private List<TeacherReplyViewDTO> teacherReplayViewDTOList;
 }

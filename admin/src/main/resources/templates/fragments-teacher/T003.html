@@ -485,7 +485,7 @@
                                             <td>Home</td>
 
                                             <td>
-                                                <a href="T005-04.html" class="more-info btn btn-floating"
+                                                <a th:href="@{/teacher/batch/comment/home(batchId=${batchId})}" class="more-info btn btn-floating"
                                                     data-mdb-ripple-color="dark">
                                                     See More
                                                 </a>
@@ -498,7 +498,7 @@
                                             <td>Chapter</td>
 
                                             <td>
-                                                <a href="T005-02.html" class="more-info btn btn-floating"
+                                                <a th:href="@{/teacher/batch/comment/chapterList(batchId=${batchId})}" class="more-info btn btn-floating"
                                                     data-mdb-ripple-color="dark">
                                                     See More
                                                 </a>
@@ -510,7 +510,7 @@
                                             <td>Exam</td>
 
                                             <td>
-                                                <a href="T005-03.html" class="more-info btn btn-floating"
+                                                <a th:href="@{/teacher/batch/comment/exam(batchId=${batchId})}" class="more-info btn btn-floating"
                                                     data-mdb-ripple-color="dark">
                                                     See More
                                                 </a>
@@ -518,7 +518,7 @@
                                                 </ion-icon>
                                             </td>
                                         </tr>
-                                        <tr>
+                                        <!-- <tr>
                                             <td>Live Session</td>
 
                                             <td>
@@ -529,12 +529,12 @@
                                                 <ion-icon class="position-absolute" name="notifications-circle-outline">
                                                 </ion-icon>
                                             </td>
-                                        </tr>
+                                        </tr> -->
                                         <tr>
                                             <td>Videos</td>
 
                                             <td>
-                                                <a href="T005-06.html" class="more-info btn btn-floating"
+                                                <a th:href="@{/teacher/batch/comment/videoList(batchId=${batchId})}" class="more-info btn btn-floating"
                                                     data-mdb-ripple-color="dark">
                                                     See More
                                                 </a>
@@ -546,7 +546,7 @@
                                             <td>Assignment</td>
 
                                             <td>
-                                                <a href="T005.html" class="more-info btn btn-floating"
+                                                <a th:href="@{/teacher/batch/comment/assignmentList(batchId=${batchId})}" class="more-info btn btn-floating"
                                                     data-mdb-ripple-color="dark">
                                                     See More
                                                 </a>
