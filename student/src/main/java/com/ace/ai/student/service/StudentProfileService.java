@@ -60,7 +60,7 @@ public class StudentProfileService {
             }
             student.setPhoto(studentDTO.getPhoto().getOriginalFilename());
 
-            String uploadDir="./assets/img/admin/";
+            String uploadDir="./assets/img/"+student.getCode()+"/";
             Path uploadPath = Paths.get(uploadDir);
             if(!Files.exists(uploadPath)){
                 try {
