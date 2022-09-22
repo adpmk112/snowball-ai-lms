@@ -271,7 +271,7 @@ $(document).ready(function () {
             batchId: batchId,
           },
           success: function (responce) {
-            location.reload();
+            window.location = "/teacher/batch/batchSeeMore?radio=&batchId="+batchId;
           },
           error: function () {
             $.alert("Error!");

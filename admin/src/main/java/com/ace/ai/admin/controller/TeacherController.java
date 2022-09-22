@@ -77,12 +77,14 @@ public class TeacherController {
           Files.createDirectories(uploadPath);
        }
 
-      try( InputStream inputStream=teacherDto.getPhoto().getInputStream()){
-       Path filePath=uploadPath.resolve(fileName);
-       System.out.println(filePath.toFile().getAbsolutePath());
-       Files.copy(inputStream, filePath ,StandardCopyOption.REPLACE_EXISTING);
-      }catch (IOException e){
-          throw new IOException("Could not save upload file: " + fileName);
+      if(teacherDto.getPhoto()!=null){
+          try( InputStream inputStream=teacherDto.getPhoto().getInputStream()){
+              Path filePath=uploadPath.resolve(fileName);
+              System.out.println(filePath.toFile().getAbsolutePath());
+              Files.copy(inputStream, filePath ,StandardCopyOption.REPLACE_EXISTING);
+          }catch (IOException e){
+              throw new IOException("Could not save upload file: " + fileName);
+          }
       }
       model.addAttribute("msg","Register Successfully !!!");
        return "redirect:/admin/teacher/addTeacherSuccess";

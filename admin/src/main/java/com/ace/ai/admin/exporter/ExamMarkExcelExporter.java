@@ -61,35 +61,36 @@ public class ExamMarkExcelExporter {
         }
     }
 
-//    public void writeDataRows() {
-//        List<String> studentList = examMarkReportDTO.getStudentName();
-//       List<Integer> markList=examMarkReportDTO.getStudentMark();
-//        if (examMarkReportDTO.getDateList().size() != 0) {
-//            int rowCount = 2;
-//            int cellCount = 0;
-//            for (String s : dateList) {
-//                Row row = sheet.createRow(rowCount++);
-//                Cell cell = row.createCell(cellCount++);
-//                cell.setCellValue(s);
-//                if (map != null) {
-//                    for (Integer key : map.keySet()) {
-//                        cell = row.createCell(cellCount++);
-//                        cell.setCellValue(map.get(key));
-//                    }
-//                }
-//
-//            }
-//
-//
-//        }
-//    }
-//    public void export(HttpServletResponse response) throws IOException {
-//      writeHeaderRow();
-//      writeDataRows();
-//      ServletOutputStream outputStream =response.getOutputStream();
-//      workbook.write(outputStream);
-//      workbook.close();
-//      outputStream.close();
-//
-//    }
+    public void writeDataRows() {
+        List<String> studentList = examMarkReportDTO.getStudentName();
+       List<Integer> markList=examMarkReportDTO.getStudentMark();
+        if (examMarkReportDTO.getExamName().size() != 0) {
+            int rowCount = 2;
+            int cellCount = 0;
+            if(studentList!=null) {
+                for(String s : studentList) {
+                    Row row = sheet.createRow(rowCount++);
+                    Cell cell = row.createCell(cellCount++);
+                    cell.setCellValue(s);
+                    if (markList != null) {
+                        for (Integer mark : markList) {
+                            cell = row.createCell(cellCount++);
+                            cell.setCellValue(mark);
+                        }
+                    }
+
+                }
+
+            }
+        }
+    }
+    public void export(HttpServletResponse response) throws IOException {
+      writeHeaderRow();
+      writeDataRows();
+      ServletOutputStream outputStream =response.getOutputStream();
+      workbook.write(outputStream);
+      workbook.close();
+      outputStream.close();
+
+    }
 }
