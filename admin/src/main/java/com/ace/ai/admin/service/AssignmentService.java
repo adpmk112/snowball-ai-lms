@@ -94,11 +94,14 @@ public class AssignmentService {
     }
 
     public void assignmentEndDateAdd(String endDate, String chapterName, int batchId){
-        log.info("EndDate add working");
-        Assignment assignment = assignmentRepository.findByBatchIdAndAssignmentChapterName(batchId, chapterName);
-        assignment.setEnd_date(endDate);
-        System.out.println(assignment);
-        assignmentRepository.save(assignment);
+        List<Assignment> assignmentList = assignmentRepository.findByBatchIdAndAssignmentChapterName(batchId, chapterName);
+        for(Assignment assignment : assignmentList){
+            assignment.setEnd_date(endDate);
+            log.info(endDate);
+            assignment.setEnd_time("23:59");
+            assignmentRepository.save(assignment);
+        }
+        log.info("Ok assignment EndDate");
     }
 
     public void customAssignmentAdd(CustomAssignmentDTO customAssignmentDTO,int batchId, int chapterId){
@@ -120,6 +123,7 @@ public class AssignmentService {
             assignment1.setAssignmentChapterName(chapter.getName());
             assignment1.setBatch(batch);
             assignment1.setBranch("customAssignment");
+            assignment1.setName(assignment.getOriginalFilename());
             assignment1.setEnd_date(chapterBatch.getEndDate());
             assignment1.setEnd_time("23:59");
                 

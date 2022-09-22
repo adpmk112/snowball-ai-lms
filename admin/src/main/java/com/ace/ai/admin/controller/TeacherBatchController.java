@@ -125,7 +125,7 @@ public class TeacherBatchController {
     public ResponseEntity SendData(@RequestParam("chpId")Integer chpId,@RequestParam("chpName") String chpName, @RequestParam("startDate") String startDate,
                                    @RequestParam("endDate") String endDate, @RequestParam("batchId") Integer batchId) {
         System.out.println(batchId);
-        // assignmentService.assignmentEndDateAdd(endDate, chpName, batchId);
+        assignmentService.assignmentEndDateAdd(endDate, chpName, batchId);
         chapterViewService.saveDatesForChapter(chpId,chpName, startDate, endDate, batchId);
         return ResponseEntity.ok(HttpStatus.OK);
     }
