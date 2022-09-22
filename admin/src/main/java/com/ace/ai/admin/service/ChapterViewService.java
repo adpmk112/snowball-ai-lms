@@ -25,8 +25,6 @@ public class ChapterViewService {
     ChapterRepository chapterRepository;
     @Autowired
     BatchRepository batchRepository;
-    @Autowired
-    AssignmentService assignmentService;
 
     public List<ChapterDTO> findAllChapterInChapterBatchByBatchId(Integer id) throws ParseException {
 
@@ -82,8 +80,6 @@ public class ChapterViewService {
         chapter_batch.setEndDate(endDate);
         System.out.println("*******"+chapter_batch.getStartDate()+" :"+ chapter_batch.getEndDate());
         chapterBatchRepository.save(chapter_batch);
-
-        assignmentService.assignmentEndDateAdd(endDate, chpName, batchId);
         return true;
     }
 }
