@@ -108,9 +108,16 @@ public class TeacherController {
       return new ModelAndView("A004-02","teacherDto",teacherDto);
    }
    @GetMapping("/updateTeacherSuccess")
-   public ModelAndView updateTeacherSuccess(ModelMap model) {
+   public ModelAndView updateTeacherSuccess(ModelMap model,@RequestParam("id")Integer id,  HttpServletRequest request) {
     model.addAttribute("msg","Update Successfully !!!");
-    return new ModelAndView("A004-01","teacherDto",new TeacherDTO());
+    Teacher bean = teacherService.getId(id);
+      TeacherDTO teacherDto=new TeacherDTO();
+      teacherDto.setId(bean.getId());
+      teacherDto.setCode(bean.getCode());
+      teacherDto.setName(bean.getName());
+      teacherDto.setPassword(bean.getPassword());
+      request.setAttribute("photo", bean.getImagePath());
+      return new ModelAndView("A004-02","teacherDto",teacherDto);
   }
 
    @PostMapping("/updateTeacherPost")
@@ -130,12 +137,14 @@ public class TeacherController {
             bean.setPhoto(teacher.getPhoto());
             teacherRepository.save(bean);
             model.addAttribute("msg","Update Successfully !!!");
-            return "redirect:/admin/teacher/updateTeacherSuccess";
+            return "redirect:/admin/teacher/updateTeacherSuccess?id="+bean.getId();
         }
         else{
 
             Path path = Paths.get("./assets/img/"+teacher.getCode()+"/"+teacher.getPhoto());
+            if(Files.exists(path)){
             Files.delete(path);
+            }
             String fileName=StringUtils.cleanPath(teacherDto.getPhoto().getOriginalFilename());
             bean.setPhoto(fileName);
           
@@ -164,7 +173,7 @@ public class TeacherController {
           } 
           
           model.addAttribute("msg","Update Successfully !!!");
-          return "redirect:/admin/teacher/updateTeacherSuccess";
+          return "redirect:/admin/teacher/updateTeacherSuccess?id="+bean.getId();
         }
         
       }
