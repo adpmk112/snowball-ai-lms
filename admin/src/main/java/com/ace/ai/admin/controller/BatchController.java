@@ -98,6 +98,7 @@ public class BatchController {
     @ResponseBody
     public ResponseEntity SendData(@RequestParam("chpName") String chpName, @RequestParam("startDate") String startDate,
             @RequestParam("endDate") String endDate, @RequestParam("batchId") Integer batchId) {
+        assignmentService.assignmentEndDateAdd(endDate, chpName, batchId);
         chapterViewService.saveDatesForChapter(chpName, startDate, endDate, batchId);
         return ResponseEntity.ok(HttpStatus.OK);
     }

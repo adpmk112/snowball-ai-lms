@@ -49,7 +49,6 @@ public class BatchService {
                        for (TeacherBatch tb : teacherBatches){
                            if(t.getName().equals(tb.getTeacher().getName())){
                                    exceptTeacher.remove(t);
-
                            }
                        }
                    }
