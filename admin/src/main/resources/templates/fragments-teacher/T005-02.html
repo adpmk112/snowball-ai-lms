@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layouts/main :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+  <main>
+    <div th:fragment="comment-chapterList">
+      <div class="semi-circle"></div>
+      <div class="banner">
+        <div class="circle">
+          <i class="fa-solid fa-people-group"></i>
+        </div>
+        <div>
+          <h1>Batches</h1>
+          <h3>Total: 4</h3>
+        </div>
+      </div>
+      <div class="custom-div margin-top-8">
+        <div id="courselist" class="width-100">
+          <div id="courselist">
+            <div class="bread-crumb d-flex justify-content-between width-90">
+              <div class="bread container-fluid">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                      <a class="text-decoration-none" href="T002.html">
+                        Batch List
+                      </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                      <a class="text-decoration-none" th:href="@{/teacher/batch/batchSeeMore(batchId=${batchId},radio='comment')}">
+                        Batch Details
+                      </a>
+                    </li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+            <div class="p-5">
+              <div>
+                <div class="mt-1 mb-4 d-flex justify-content-between">
+                  <div>
+                    <p>
+                      <a th:href="@{/teacher/batch/batchSeeMore(batchId=${batchId},radio='comment')}">
+                        &lt; back
+                      </a>
+                    </p>
+                  </div>
+                  <div class="add-list">
+
+                  </div>
+                </div>
+                <table id="datatable2">
+                  <thead>
+                    <tr>
+                      <th>Chapter Name</th>
+                      <th>Go To Comment</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr th:each="chapter : ${chapterAndCustomChapterList}">
+                      <td th:text="${chapter.chapterName}"></td>
+                      
+                      <td th:if="${chapter.chapterType == 'chapter'}">
+                        <a  th:href="@{/teacher/batch/comment/chapterList/chapter(batchId=${batchId},chapterId=${chapter.chapterId})}" class="more-info btn btn-floating" data-mdb-ripple-color="dark">
+                          <img class="more" th:src="@{/assets/img/option.png}" alt="" />
+                        </a>
+                        
+                      </td>
+                      <td th:if="${chapter.chapterType == 'customChapter'}">
+                        
+                        <a th:href="@{/teacher/batch/comment/chapterList/customChapter(batchId=${batchId},chapterId=${chapter.chapterId})}" class="more-info btn btn-floating" data-mdb-ripple-color="dark">
+                          <img class="more" th:src="@{/assets/img/option.png}" alt="" />
+                        </a>
+                      </td>
+                    </tr>
+
+                    
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="plus-icon"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+    </div>
+    </div>
+  </main>
+</body>
+
+</html>

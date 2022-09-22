@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layouts/main :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+  <main>
+    <div th:fragment="comment-assignmentList">
+      <div class="semi-circle"></div>
+  <div class="banner">
+    <div class="circle">
+      <i class="fa-solid fa-people-group"></i>
+    </div>
+    <div>
+      <h1>Batches</h1>
+      <h3>Total: 4</h3>
+    </div>
+  </div>
+  <div class="custom-div margin-top-8">
+    <div id="courselist" class="width-100">
+      <div id="courselist">
+        <div class="bread-crumb d-flex justify-content-between width-90">
+          <div class="bread container-fluid">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                  <a class="text-decoration-none" href="T002.html">
+                    Batch List
+                  </a>
+                </li>
+                <li class="breadcrumb-item">
+                  <a class="text-decoration-none" href="T003.html">
+                    Batch Details
+                  </a>
+                </li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+        <div class="tab p-5">
+          <div class="mt-3 mb-4 d-flex justify-content-between">
+            <div>
+              <p>
+                <a class="text-decoration-none" th:href="@{/teacher/batch/batchSeeMore(batchId=${batchId},radio='comment')}">
+                  &lt; back
+                </a>
+              </p>
+            </div>
+
+          </div>
+          <!-- Assigment with carousel -->
+          <div class="d-flex flex-column text-start">
+            <span th:each="assignment : ${assignemntList}">
+              <a href="#" class=" btn text-primary text-start  assignment-collapse position-relative" type="button"
+                data-bs-toggle="collapse" th:attr="data-bs-target='#assignment'+${assignment.assignmentId}"
+                aria-expanded="false" aria-controls="collapseExample" th:text="${assignment.assignmentName}">
+                <i class="fa-solid fa-angle-down"></i>
+              </a>
+              <div class="collapse float-xs-right mt-3" th:attr="id='assignment'+${assignment.assignmentId}">
+                <div class="container">
+
+                  <div class="carousel-container">
+                    <div class="owl-carousel show owl-theme" id="inprogress-show">
+
+                      <a th:each="student : ${assignment.studentAssignmentCommentDTOList}"
+                        th:href="@{/teacher/batch/comment/assignmentList/student(batchId=${batchId},assignmentId=${assignment.assignmentId},stuCode=${student.stuCode})}"
+                        class="unit-a">
+                        <div class="student-card bg-light">
+                          <div style="max-width: 100%;">
+
+                            <div class="card-body">
+                              <div class="student-img d-flex justify-content-center">
+
+                                <img class="position-relative student-image" th:src="@{${'/assets/img/'+student.stuCode+'/'+student.photo}}" alt="user"
+                                  style="width: 50px; height: 50px; border-radius: 50%;" />
+                                <span 
+                                  class="badge position-absolute rounded-pill bg-danger"
+                                  style="top: 15px; left: 60% ;"><i class="fa-solid fa-bell"></i></span>
+
+                              </div>
+                              <div class="card-title text-center student-name" th:text="${student.stuName}"></div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </a>
+                   
+
+                    
+
+                    </div>
+                    <!--End owl-carousel-->
+                  </div>
+                </div>
+
+
+
+                <div class="plus-icon"></div>
+              </div><!-- End assignment 1-->
+            </span>
+           
+          </div>
+        </div>
+
+
+
+        <div class="plus-icon"></div>
+      </div> 
+
+    </div>
+  </div>
+    </div>
+
+
+
+
+
+
+
+    
+  </main>
+</body>
+
+</html>
