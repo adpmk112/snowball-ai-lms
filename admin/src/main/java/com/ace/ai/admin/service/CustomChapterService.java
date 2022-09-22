@@ -24,8 +24,8 @@ public class CustomChapterService {
         customChapterRepository.save(customChapter);
     }
 
-    public int getChapterIdByName(String chapterName) {
-        CustomChapter customChapter = customChapterRepository.findByName(chapterName);
+    public int getChapterIdByNameAndBatchId(String chapterName,int batchId) {
+        CustomChapter customChapter = customChapterRepository.findByNameAndBatchId(chapterName,batchId);
         return customChapter.getId();
     }
 

@@ -1,6 +1,6 @@
 package com.ace.ai.admin.controller;
 
-import com.ace.ai.admin.config.AdminUserDetails;
+import com.ace.ai.admin.config.TeacherUserDetails;
 import com.ace.ai.admin.datamodel.Assignment;
 import com.ace.ai.admin.datamodel.Attendance;
 import com.ace.ai.admin.datamodel.Batch;
@@ -200,7 +200,7 @@ public class TeacherBatchController {
     }
 
     @GetMapping("/comment/home")
-    public ModelAndView getCommetHome(@AuthenticationPrincipal AdminUserDetails userDetails,@RequestParam("batchId")int batchId,ModelMap model){
+    public ModelAndView getCommetHome(@AuthenticationPrincipal TeacherUserDetails userDetails,@RequestParam("batchId")int batchId,ModelMap model){
         List<TeacherCommentViewDTO>  teacherCommentViewDTOList=teacherCommentService.getCommentListByBatchIdAndLocation(batchId, "home");
         Teacher teacher = teacherCommentService.getTeacherByCode(userDetails.getCode());
         model.addAttribute("teacherReplyPostDTO",new TeacherReplyPostDTO());
@@ -208,11 +208,25 @@ public class TeacherBatchController {
         model.addAttribute("teacherCode", teacher.getCode());
         model.addAttribute("batchId",batchId);
         model.addAttribute("teacherId",teacher.getId());
-        return new ModelAndView("","teacherCommentViewDTOList",teacherCommentViewDTOList);
+        return new ModelAndView("T005-04","teacherCommentViewDTOList",teacherCommentViewDTOList);
+    }
+
+    @PostMapping(value="/home/commentpost")
+    public String postHomeCommment(@ModelAttribute("teacherCommentPostDTO") TeacherCommentPostDTO teacherCommentPostDTO,ModelMap model){
+        // stuCommentPostDTO.setLocation("home");
+        teacherCommentService.saveComment(teacherCommentPostDTO);
+        return "redirect:/teacher/batch/comment/home?batchId="+teacherCommentPostDTO.getBatchId();
+    }
+
+    @PostMapping(value="/home/replypost")
+    public String postHomeReply(@ModelAttribute("teacherReplyPostDTO") TeacherReplyPostDTO teacherReplyPostDTO,ModelMap model){
+        
+        teacherCommentService.saveReply(teacherReplyPostDTO);
+        return "redirect:/teacher/batch/comment/home?batchId="+teacherReplyPostDTO.getBatchId();
     }
 
     @GetMapping("/comment/exam")
-    public ModelAndView getCommetExam(@AuthenticationPrincipal AdminUserDetails userDetails,@RequestParam("batchId")int batchId,ModelMap model){
+    public ModelAndView getCommetExam(@AuthenticationPrincipal TeacherUserDetails userDetails,@RequestParam("batchId")int batchId,ModelMap model){
         List<TeacherCommentViewDTO>  teacherCommentViewDTOList=teacherCommentService.getCommentListByBatchIdAndLocation(batchId, "exam");
         Teacher teacher = teacherCommentService.getTeacherByCode(userDetails.getCode());
         model.addAttribute("teacherReplyPostDTO",new TeacherReplyPostDTO());
@@ -224,7 +238,7 @@ public class TeacherBatchController {
     }
 
     @GetMapping("/comment/assignmentList/student")
-    public ModelAndView getAssignmentComment(@AuthenticationPrincipal AdminUserDetails userDetails,@RequestParam("batchId")int batchId,@RequestParam("assignmentId") int assignmentId,@RequestParam("stuCode") String stuCode,ModelMap model){
+    public ModelAndView getAssignmentComment(@AuthenticationPrincipal TeacherUserDetails userDetails,@RequestParam("batchId")int batchId,@RequestParam("assignmentId") int assignmentId,@RequestParam("stuCode") String stuCode,ModelMap model){
         TeacherAssignmentViewDTO teacherAssignmentViewDTO = new TeacherAssignmentViewDTO();
         teacherAssignmentViewDTO.setAssignmentId(assignmentId);
         teacherAssignmentViewDTO.setBatchId(batchId);
@@ -240,7 +254,7 @@ public class TeacherBatchController {
         return new ModelAndView("","teacherCommentViewDTOList",teacherCommentViewDTOList);
     }
 
-    @GetMapping("/comment/assignmnetList")
+    @GetMapping("/comment/assignmentList")
     public ModelAndView getAssignemntCommentList(@RequestParam("batchId") int batchId,ModelMap model){
         
         
@@ -252,11 +266,11 @@ public class TeacherBatchController {
     public ModelAndView getChpaterCommentList(@RequestParam("batchId") int batchId,ModelMap model){
         model.addAttribute("batchId", batchId);
         
-        return new ModelAndView("","chapterAndCustomChapterList",teacherCommentService.getChapterListAndCustomChapterListByBatchId(batchId));
+        return new ModelAndView("T005-02","chapterAndCustomChapterList",teacherCommentService.getChapterListAndCustomChapterListByBatchId(batchId));
     }
 
     @GetMapping("/comment/chapterList/chapter")
-    public ModelAndView getChapterComment(@AuthenticationPrincipal AdminUserDetails userDetails,@RequestParam("batchId")int batchId,@RequestParam("chapterId")int chapterId,ModelMap model){
+    public ModelAndView getChapterComment(@AuthenticationPrincipal TeacherUserDetails userDetails,@RequestParam("batchId")int batchId,@RequestParam("chapterId")int chapterId,ModelMap model){
         Chapter chapter = teacherCommentService.findChapterById(chapterId);
     
         List<TeacherCommentViewDTO>  teacherCommentViewDTOList=teacherCommentService.getCommentListByBatchIdAndLocation(batchId, chapter.getName());
@@ -273,7 +287,7 @@ public class TeacherBatchController {
     }
 
     @GetMapping("/comment/chapterList/customChapter")
-    public ModelAndView getCustomChapterComment(@AuthenticationPrincipal AdminUserDetails userDetails,@RequestParam("batchId")int batchId,@RequestParam("chapterId")int chapterId,ModelMap model){
+    public ModelAndView getCustomChapterComment(@AuthenticationPrincipal TeacherUserDetails userDetails,@RequestParam("batchId")int batchId,@RequestParam("chapterId")int chapterId,ModelMap model){
         CustomChapter customChapter = teacherCommentService.findCustomChapterById(chapterId);
     
         List<TeacherCommentViewDTO>  teacherCommentViewDTOList=teacherCommentService.getCommentListByBatchIdAndLocation(batchId, customChapter.getName());
@@ -296,7 +310,7 @@ public class TeacherBatchController {
     }
 
     @GetMapping("/comment/videoList/chapterVideo")
-    public ModelAndView getChapterVideoComment(@AuthenticationPrincipal AdminUserDetails userDetails,@RequestParam("batchId")int batchId,@RequestParam("videoid")int videoId,ModelMap model){
+    public ModelAndView getChapterVideoComment(@AuthenticationPrincipal TeacherUserDetails userDetails,@RequestParam("batchId")int batchId,@RequestParam("videoid")int videoId,ModelMap model){
         ChapterFile chapterFile = teacherCommentService.findChapterFileById(videoId);
     
         List<TeacherCommentViewDTO>  teacherCommentViewDTOList=teacherCommentService.getCommentListByBatchIdAndLocation(batchId, chapterFile.getName());
@@ -313,7 +327,7 @@ public class TeacherBatchController {
     }
 
     @GetMapping("/comment/videoList/customChapterVideo")
-    public ModelAndView getChaperVideoComment(@AuthenticationPrincipal AdminUserDetails userDetails,@RequestParam("batchId")int batchId,@RequestParam("videoid")int videoId,ModelMap model){
+    public ModelAndView getChaperVideoComment(@AuthenticationPrincipal TeacherUserDetails userDetails,@RequestParam("batchId")int batchId,@RequestParam("videoid")int videoId,ModelMap model){
         CustomChapterFile customChapterFile = teacherCommentService.findCustomChapterFileById(videoId);
     
         List<TeacherCommentViewDTO>  teacherCommentViewDTOList=teacherCommentService.getCommentListByBatchIdAndLocation(batchId, customChapterFile.getName());
@@ -370,19 +384,7 @@ public class TeacherBatchController {
         return "redirect:/teacher/batch/comment/exam?batchId="+teacherReplyPostDTO.getBatchId();
     }
 
-    @PostMapping(value="/home/commentpost")
-    public String postHomeCommment(@ModelAttribute("teacherCommentPostDTO") TeacherCommentPostDTO teacherCommentPostDTO,ModelMap model){
-        // stuCommentPostDTO.setLocation("home");
-        teacherCommentService.saveComment(teacherCommentPostDTO);
-        return "redirect:/teacher/batch/comment/home?batchId="+teacherCommentPostDTO.getBatchId();
-    }
-
-    @PostMapping(value="/home/replypost")
-    public String postHomeReply(@ModelAttribute("teacherReplyPostDTO") TeacherReplyPostDTO teacherReplyPostDTO,ModelMap model){
-        
-        teacherCommentService.saveReply(teacherReplyPostDTO);
-        return "redirect:/teacher/batch/comment/home?batchId="+teacherReplyPostDTO.getBatchId();
-    }
+    
 
     @PostMapping(value="/assignment/commentpost")
     public String postAssignmentCommment(@ModelAttribute("teacherCommentPostDTO") TeacherCommentPostDTO teacherCommentPostDTO,ModelMap model){
