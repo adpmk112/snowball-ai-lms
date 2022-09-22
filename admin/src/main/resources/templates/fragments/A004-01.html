@@ -41,6 +41,7 @@
                   <img id="thumbnail" alt="Preview" style="width: 200px; height: 200px" />
                 </div>
               </div>
+              
               <form action="/admin/teacher/addTeacherPost" method="post" th:object="${teacherDto}"
                 enctype="multipart/form-data" class="mx-4 py-md-3 col-md-8" style="max-width: 500px">
                 <div class="row">
@@ -64,7 +65,7 @@
                   </label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control" id="inputPassword" placeholder="Teacher ID" th:field="*{code}"
-                      th:value="${teacherDto.code}" required/>
+                      th:value="${teacherDto.code}" style="text-transform: uppercase;"/>
                   </div>
                 </div>
                 <div class="form-group mt-2 row">
@@ -72,7 +73,7 @@
                     Name
                   </label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputPassword" placeholder="Name" th:field="*{name}" required/>
+                    <input type="text" class="form-control" id="inputPassword" placeholder="Name" th:field="*{name}" />
                   </div>
                 </div>
                 <div class="form-group mt-2 row">
@@ -81,7 +82,7 @@
                   </label>
                   <div class="col-sm-10">
                     <input type="password" class="form-control" id="inputPassword" placeholder="Password"
-                      th:field="*{password}" required />
+                      th:field="*{password}"  />
                   </div>
                 </div>
                 <div class="form-group mt-2 row">
