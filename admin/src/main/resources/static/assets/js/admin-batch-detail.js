@@ -132,7 +132,7 @@ $(document).ready(function () {
         _start_date.css("border", "none");
         _end_date.css("border", "none");
       }
-      if (d1.getTime() > d2.getTime()) {
+      if (startDate > endDate) {
         $.alert("Start date can't be bigger!");
         edit_btn.removeClass("fa-pen-to-square").addClass("fa-solid fa-check");
         _start_date.removeAttr("disabled");
