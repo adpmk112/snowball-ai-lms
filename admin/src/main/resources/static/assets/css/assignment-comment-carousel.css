@@ -71,13 +71,13 @@
 
 
 /* For assignment collapse */
-a.assignment-collapse {
+ a.assignment-collapse {
     outline: none;
     box-shadow: none !important;
     border: none;   
 }
-
+/*
 .assignment-collapse i{
     transition: all .4s;
     margin-left: 50px;
-}
+} */

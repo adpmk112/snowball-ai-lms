@@ -117,7 +117,7 @@ $(document).ready(function () {
               batchId: batchId,
             },
             success: function (responce) {
-              location.reload();
+              window.location.replace("/admin/batch/batchSeeMore?radio=&id="+batchId);
             },
             error: function () {
               $.alert("Error!");
