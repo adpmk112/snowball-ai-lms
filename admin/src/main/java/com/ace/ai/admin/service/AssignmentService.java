@@ -76,6 +76,14 @@ public class AssignmentService {
         }
     }
 
+    public void assignmentEndDateAdd(String endDate, String chapterName, int batchId){
+        log.info("EndDate add working");
+        Assignment assignment = assignmentRepository.findByBatchIdAndAssignmentChapterName(batchId, chapterName);
+        assignment.setEnd_date(endDate);
+        System.out.println(assignment);
+        assignmentRepository.save(assignment);
+    }
+
     public Assignment getById(int id){
         return assignmentRepository.getById(id);
     }

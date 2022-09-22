@@ -59,7 +59,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <form method="post" th:object="${chapterDTOList}">
+                                        <!-- <form method="post" th:object="${chapterDTOList}"> -->
                                             <tr th:each="chapterDTO,iterationStatus: ${chapterDTOList}">
                                                 <input th:id="'batchId_'+${iterationStatus.count}" type="hidden"
                                                     th:value="${batchId}" />
@@ -137,7 +137,7 @@
                                                     </div>
                                                 </div>
                                             </tr>
-                                        </form>
+                                        <!-- </form> -->
                                         <form method="post" th:object="${customChapterList}">
                                             <tr th:each="customChapter,iterationStatus: ${batchCustomChapterDTOList}">
                                                 <input th:id="'batchId_'+${iterationStatus.count}" type="hidden"
