@@ -10,10 +10,11 @@ public class TeacherCommentPostDTO {
     private boolean notification;
     private String text;
     private int batchId;
-    private int stuId;
+    private int teacherId;
     //chapterId or customchapterId or exam id or assignment id
     private int locationId;
     private int chapterFileId;
+    private String stuCodeForAssignment;
     
 
 }
