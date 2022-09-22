@@ -14,7 +14,7 @@ public interface ChapterBatchRepository extends JpaRepository<ChapterBatch,Integ
             "where chapter_batch.batch_id= :id ", nativeQuery = true)
     public List<ChapterBatch> findChapterIdByBatchId(Integer id);
     List<ChapterBatch> findByBatchIdAndDeleteStatus(int batchId,boolean deleteStatus);
-    public ChapterBatch findChapterBatchByBatchIdAndChapterId(Integer batchId,Integer chapterId);
+    ChapterBatch findChapterBatchByBatchIdAndChapterId(Integer batchId,Integer chapterId);
 
 
 }
