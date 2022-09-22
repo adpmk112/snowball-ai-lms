@@ -141,8 +141,8 @@
                                         <!-- </form> -->
                                         <form method="post" th:object="${customChapterList}">
                                             <tr th:each="customChapter,iterationStatus: ${batchCustomChapterDTOList}">
-                                                <input th:id="'batchId_'+${iterationStatus.count}" type="hidden"
-                                                    th:value="${batchId}" />
+                                                <input  type="hidden" name="batchId" th:value="${batchId}" />
+                                                <input type="hidden" name="customChapterId" th:value="${customChapter.id}">
                                                 <td th:text="${iterationStatus.count}"></td>
                                                 <td th:id="'chpName_'+${iterationStatus.count}"
                                                     th:text="${customChapter.name}"></td>
@@ -161,7 +161,7 @@
                                                 </td>
                                                 <td>
                                                     <a href="" th:id="'img-click_'+${iterationStatus.count}"
-                                                        class="btn btn-outline-primary btn-chapter-edit btn-floating"
+                                                        class="btn btn-outline-primary btn-custom-chapter-edit btn-floating"
                                                         data-mdb-ripple-color="dark">
                                                         <i class="fa-regular fa-pen-to-square"></i>
                                                     </a>
