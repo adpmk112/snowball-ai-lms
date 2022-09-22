@@ -72,13 +72,13 @@ public class ChapterViewService {
          return chapterDTOList;
     }
 
-    public boolean saveDatesForChapter(String chpName,String startDate,String endDate,int batchId){
-        Chapter chapter=chapterRepository.findByName(chpName);
-        Batch batch=batchRepository.findBatchById(batchId);
+    public boolean saveDatesForChapter(Integer chpId,String chpName,String startDate,String endDate,int batchId){
 
-        ChapterBatch chapter_batch=chapterBatchRepository.findChapterBatchByBatchIdAndChapterId(batch.getId(),chapter.getId());
+        Batch batch=batchRepository.findBatchById(batchId);
+        ChapterBatch chapter_batch=chapterBatchRepository.findChapterBatchByBatchIdAndChapterId(batch.getId(),chpId);
         chapter_batch.setStartDate(startDate);
         chapter_batch.setEndDate(endDate);
+        System.out.println("*******"+chapter_batch.getStartDate()+" :"+ chapter_batch.getEndDate());
         chapterBatchRepository.save(chapter_batch);
 
         return true;

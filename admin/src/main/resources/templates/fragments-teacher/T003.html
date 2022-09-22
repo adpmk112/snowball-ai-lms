@@ -63,6 +63,7 @@
                                             <tr th:each="chapterDTO,iterationStatus: ${chapterDTOList}">
                                                 <input th:id="'batchId_'+${iterationStatus.count}" type="hidden"
                                                     th:value="${batchId}" />
+                                                <input th:id="'chapId_'+${iterationStatus.count}" type="hidden" th:value="${chapterDTO.id}"/>
                                                 <td th:text="${iterationStatus.count}"></td>
                                                 <td th:id="'chpName_'+${iterationStatus.count}"
                                                     th:text="${chapterDTO.name}"></td>

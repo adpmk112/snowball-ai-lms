@@ -239,6 +239,7 @@ $(document).ready(function () {
     }
     else {
       let id = $(this).attr("id").split("_")[1];
+      let chpId=$("#chapId_"+id)[0].value;
       let chpName = $("#chpName_" + id)[0].innerHTML;
       let startDate = $("#startDate_" + id)[0].value;
       let endDate = $("#endDate_" + id)[0].value;
@@ -263,6 +264,7 @@ $(document).ready(function () {
           contentType: "application/json; charset=utf-8",
           dataType: "json",
           data: {
+            chpId:chpId,
             chpName: chpName,
             startDate: startDate,
             endDate: endDate,
@@ -287,7 +289,7 @@ $(document).ready(function () {
         _end_date.css("border", "none");
       }
 
-      if (d1.getTime() > d2.getTime()) {
+      if (startDate > endDate) {
         $.alert("Start date can't be bigger!");
         edit_btn.removeClass("fa-pen-to-square").addClass("fa-solid fa-check");
         _start_date.removeAttr("disabled");
