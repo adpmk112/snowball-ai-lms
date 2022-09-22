@@ -1,18 +1,29 @@
 package com.ace.ai.admin.service;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ace.ai.admin.datamodel.Assignment;
 import com.ace.ai.admin.datamodel.Batch;
 import com.ace.ai.admin.datamodel.Chapter;
+import com.ace.ai.admin.datamodel.ChapterBatch;
 import com.ace.ai.admin.datamodel.ChapterFile;
 import com.ace.ai.admin.datamodel.CustomChapter;
 import com.ace.ai.admin.datamodel.CustomChapterFile;
+import com.ace.ai.admin.dtomodel.CustomAssignmentDTO;
 import com.ace.ai.admin.repository.AssignmentRepository;
+import com.ace.ai.admin.repository.ChapterBatchRepository;
 import com.ace.ai.admin.repository.ChapterFileRepository;
+import com.ace.ai.admin.repository.ChapterRepository;
 import com.ace.ai.admin.repository.CustomChapterFileRepository;
 import com.ace.ai.admin.repository.CustomChapterRepository;
 
@@ -32,6 +43,12 @@ public class AssignmentService {
 
     @Autowired
     CustomChapterRepository customChapterRepository;
+
+    @Autowired
+    ChapterRepository chapterRepository;
+
+    @Autowired
+    ChapterBatchRepository chapterBatchRepository;
 
     public void saveAssignment(Assignment assignment){
         assignmentRepository.save(assignment);
@@ -83,6 +100,56 @@ public class AssignmentService {
         System.out.println(assignment);
         assignmentRepository.save(assignment);
     }
+
+    public void customAssignmentAdd(CustomAssignmentDTO customAssignmentDTO,int batchId, int chapterId){
+        
+        try{
+
+        for (MultipartFile assignment : customAssignmentDTO.getAssignment()) {
+            if (!assignment.isEmpty()) {
+
+            Chapter chapter = chapterRepository.findById(chapterId).get();
+
+            ChapterBatch chapterBatch = chapterBatchRepository.findChapterBatchByBatchIdAndChapterId(batchId, chapterId);
+
+            Batch batch = new Batch();
+            batch.setId(batchId);
+            
+            Assignment assignment1 = new Assignment();
+
+            assignment1.setAssignmentChapterName(chapter.getName());
+            assignment1.setBatch(batch);
+            assignment1.setBranch("customAssignment");
+            assignment1.setEnd_date(chapterBatch.getEndDate());
+            assignment1.setEnd_time("23:59");
+                
+            assignmentRepository.save(assignment1);
+
+            }
+        }
+            String uploadDir = "./assets/img/customAssignment/" +chapterId;
+            Path uploadPath = Paths.get(uploadDir);
+
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+            }
+
+            for (MultipartFile assignment : customAssignmentDTO.getAssignment()) {
+                if (!assignment.isEmpty()) {
+                    try (InputStream inputStream = assignment.getInputStream()) {
+                        Path filePath = uploadPath.resolve(assignment.getOriginalFilename());
+                        System.out.println(filePath.toFile().getAbsolutePath());
+                        Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+                    } catch (IOException e) {
+                        throw new IOException("Could not save upload assignment: " + assignment.getOriginalFilename());
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        }
 
     public Assignment getById(int id){
         return assignmentRepository.getById(id);

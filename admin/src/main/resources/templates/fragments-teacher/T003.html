@@ -103,13 +103,13 @@
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title">Edit File</h5>
+                                                                <h5 class="modal-title">Add File</h5>
                                                                 <button type="button" class="btn-close"
                                                                     data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <form th:action="@{chapterFile/editpost}" method="post"
-                                                                    enctype="multipart/form-data">
+                                                                <form th:action="@{customActivity/add(chapterId=${chapterDTO.id},batchId=${batchId})}" method="post"
+                                                                    enctype="multipart/form-data" th:object="${customAssignmentDTO}"> 
                                                                     <input type="hidden" class="form-control" name="id"
                                                                         id="message-text" />
                                                                     <input type="hidden" class="form-control"
@@ -117,12 +117,14 @@
                                                                         id="message-text" />
                                                                     <div class="mb-3">
                                                                         <input type="text" class="form-control"
+                                                                            th:value="Assignment"
                                                                             name="fileType" id="message-text"
                                                                             readonly />
                                                                     </div>
                                                                     <div class="mb-3">
                                                                         <input type="file" class="form-control"
-                                                                            id="name" placeholder="Assignment" />
+                                                                            id="name" placeholder="Assignment"
+                                                                            th:field="*{assignment}" />
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-secondary"
@@ -143,7 +145,7 @@
                                             <tr th:each="customChapter,iterationStatus: ${batchCustomChapterDTOList}">
                                                 <input  type="hidden" name="batchId" th:value="${batchId}" />
                                                 <input type="hidden" name="customChapterId" th:value="${customChapter.id}">
-                                                <td th:text="${iterationStatus.count}"></td>
+                                                <td th:text="${chapterDTOList.size()}+${iterationStatus.count}"></td>
                                                 <td th:id="'chpName_'+${iterationStatus.count}"
                                                     th:text="${customChapter.name}"></td>
                                                 <td th:id="'chpStatus_'+${iterationStatus.count}"
