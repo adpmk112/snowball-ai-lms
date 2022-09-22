@@ -73,207 +73,149 @@
                 </div>
                 <section class="gradient-custom custom-comment-box" style="background-color: rgb(255, 255, 255);">
                     <div class="container my-5 py-5">
-                    <div class="row d-flex justify-content-center">
+                      <div class="row d-flex justify-content-center">
                         <div class="col-md-12 col-lg-10 col-xl-8">
-                        <div class="">
+                          <div class="">
                             <div class="card-body p-4">
-                            <div class="row">
+                              <div class="row">
                                 <div class="col">
-                                <div class="d-flex flex-start">
+                                  <div class="d-flex flex-start" th:each="comment : ${stuCommentViewDTOList}">
                                     <img class="rounded-circle shadow-1-strong me-3"
-                                    src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp" alt="avatar" width="65"
-                                    height="65" />
+                                      th:src="@{${'/assets/img/'+comment.commenterCode+'/'+comment.commenterPhoto}}" 
+                                      style="width: 50px; height: 50px; margin-right: 10px;" />
                                     <div class="flex-grow-1 flex-shrink-1">
-                                    <div>
+                                      <!-- COMMENT -->
+                                      <div>
                                         <div class="d-flex justify-content-between align-items-center">
-                                        <p class="mb-1">
-                                            Maria Smantha
-                                            <span class="small">- 2 hours ago</span>
-                                        </p>
-                                        <a href="#!">
+                                          <p class="mb-1" th:text="${comment.commenterName}">
+                                            
+                                          </p>
+                                          <span class="" th:text="${comment.dateTime}" style="font-size: 10px; color: rgb(122, 122, 122);"></span>
+                                          <a th:attr="href='#reply-comment'+${comment.id}"
+                                            class="btn btn-outline-primary btn-floating" data-bs-toggle="modal"
+                                            data-mdb-ripple-color="dark">
                                             <i class="fas fa-reply fa-xs"></i>
                                             <span class="small">reply</span>
-                                        </a>
+                                          </a>
                                         </div>
-                                        <p class="small mb-0">
-                                        It is a long established fact that a reader will be
-                                        distracted by the readable content of a page.
+                                        <p class="small mb-0" th:text="${comment.text}">
+                                          <!-- It is a long established fact that a reader will
+                                          be distracted by the readable content of a page. -->
                                         </p>
-                                    </div>
-
-                                    <div class="d-flex flex-start mt-4">
-                                        <a class="me-3" href="#">
-                                        <img class="rounded-circle shadow-1-strong"
-                                            src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(11).webp" alt="avatar" width="65"
-                                            height="65" />
-                                        </a>
+                                      </div>
+                                      <!-- reply -->
+                                      <div class="d-flex flex-start mt-4" th:each="reply : ${comment.stuReplayViewDTOList}">
+                                        
+                                          <img class="rounded-circle shadow-1-strong"
+                                            th:src="@{${'/assets/img/'+reply.commenterCode+'/'+reply.commenterPhoto}}" 
+                                            style="width: 50px; height: 50px; margin-right: 10px;" />
+                                        
                                         <div class="flex-grow-1 flex-shrink-1">
-                                        <div>
+                                          <div>
                                             <div class="d-flex justify-content-between align-items-center">
-                                            <p class="mb-1">
-                                                Simona Disa
-                                                <span class="small">- 3 hours ago</span>
-                                            </p>
+                                              <p class="mb-1" th:text="${reply.commenterName}">
+                                                
+                                              </p>
+                                              <span class="" th:text="${reply.dateTime}" style="font-size: 10px; color: rgb(122, 122, 122);"></span><span></span>
                                             </div>
-                                            <p class="small mb-0">
-                                            letters, as opposed to using 'Content here,
-                                            content here', making it look like readable
-                                            English.
+                                            <p class="small mb-0" th:text="${reply.text}">
+                                              <!-- letters, as opposed to using 'Content here,
+                                              content here', making it look like readable
+                                              English. -->
                                             </p>
+                                          </div>
                                         </div>
-                                        </div>
+                                      </div>
+                                      <!-- reply -->
+            
                                     </div>
-
-                                    <div class="d-flex flex-start mt-4">
-                                        <a class="me-3" href="#">
-                                        <img class="rounded-circle shadow-1-strong"
-                                            src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp" alt="avatar" width="65"
-                                            height="65" />
-                                        </a>
-                                        <div class="flex-grow-1 flex-shrink-1">
-                                        <div>
-                                            <div class="d-flex justify-content-between align-items-center">
-                                            <p class="mb-1">
-                                                John Smith
-                                                <span class="small">- 4 hours ago</span>
-                                            </p>
-                                            </div>
-                                            <p class="small mb-0">
-                                            the majority have suffered alteration in some
-                                            form, by injected humour, or randomised words.
-                                            </p>
+                                    <!-- Edit File Modal Box-->
+            
+                                    <div class="modal fade" th:attr="id='reply-comment'+${comment.id}" tabindex="-1"
+                                      aria-labelledby="Edit File" aria-hidden="true" style="margin-top: 120px;">
+                                      <div class="modal-dialog">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title">Reply</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                              aria-label="Close"></button>
+                                          </div>
+                                          <div class="modal-body">
+                                            <form th:action="@{/student/exam/replypost}" th:object="${stuReplyPostDTO}"
+                                              method="post">
+                                              <div class="d-flex flex-start w-100">
+                                                <img class="rounded-circle shadow-1-strong me-3"
+                                                th:src="@{${'/assets/img/'+#request.userPrincipal.principal.code+'/'+#request.userPrincipal.principal.photo}}"
+                                                style="width: 50px; height: 50px; margin-right: 10px;" />
+                                                <input type="hidden" name="commentId" th:value="${comment.id}">
+                                                <input type="hidden" name="commenterCode" th:value="${stuCode}">
+                                                <input type="hidden" name="stuId" th:value="${studentId}">
+                                                <input type="hidden" name="batchId" th:value="${batchId}">
+                                                
+                                                <input type="hidden" name="location" value="exam">
+                                                <div class="form-outline w-100">
+                                                  <textarea class="form-control" id="textAreaExample" rows="4"
+                                                    style="background: rgb(255, 250, 250);" th:field="*{text}"></textarea>
+                                                  <!-- <label class="form-label" for="textAreaExample">
+                                                  Message
+                                                </label> -->
+                                                </div>
+                                              </div>
+                                              <div class="float-end mt-2 pt-1">
+                                                <button type="submit" class="btn btn-primary btn-sm">
+                                                  Post comment
+                                                </button>
+                                                <button type="reset" class="btn btn-outline-primary btn-sm">
+                                                  Cancel
+                                                </button>
+                                              </div>
+                                            </form>
+                                          </div>
                                         </div>
+                                      </div>
+                                    </div>
+                                  </div>
+            
+            
+            
+                                  <div class="card-footer py-3 border-0" style="background-color: #ffffff;">
+                                    <form th:action="@{/student/exam/commentpost}" th:object="${stuCommentPostDTO}"
+                                      method="post">
+                                   
+                                      <div class="d-flex flex-start w-100">
+                                        <img class="rounded-circle shadow-1-strong me-3"
+                                        th:src="@{${'/assets/img/'+#request.userPrincipal.principal.code+'/'+#request.userPrincipal.principal.photo}}" style="width: 50px; height: 50px; margin-right: 10px;"/>
+                                        <input type="hidden" name="batchId" th:value="${batchId}">
+                                        <input type="hidden" name="commenterCode" th:value="${stuCode}">
+                                        <input type="hidden" name="stuId" th:value="${studentId}">
+                                        
+                                        <input type="hidden" name="location" value="exam">
+                                        <div class="form-outline w-100">
+                                          <textarea class="form-control" id="textAreaExample" rows="4"
+                                            style="background: rgb(255, 250, 250);" th:field="*{text}"></textarea>
+                                          <!-- <label class="form-label" for="textAreaExample">
+                                          Message
+                                        </label> -->
                                         </div>
-                                    </div>
-                                    </div>
+                                      </div>
+                                      <div class="float-end mt-2 pt-1">
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                          Post comment
+                                        </button>
+                                        <button type="reset" class="btn btn-outline-primary btn-sm">
+                                          Cancel
+                                        </button>
+                                      </div>
+                                    </form>
+                                  </div>
                                 </div>
-
-                                <div class="d-flex flex-start mt-4">
-                                    <img class="rounded-circle shadow-1-strong me-3"
-                                    src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(12).webp" alt="avatar" width="65"
-                                    height="65" />
-                                    <div class="flex-grow-1 flex-shrink-1">
-                                    <div>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                        <p class="mb-1">
-                                            Natalie Smith
-                                            <span class="small">- 2 hours ago</span>
-                                        </p>
-                                        <a href="#!">
-                                            <i class="fa-solid fa-reply"></i>
-                                            <span class="small">reply</span>
-                                        </a>
-                                        </div>
-                                        <p class="small mb-0">
-                                        The standard chunk of Lorem Ipsum used since the
-                                        1500s is reproduced below for those interested.
-                                        Sections 1.10.32 and 1.10.33.
-                                        </p>
-                                    </div>
-
-                                    <div class="d-flex flex-start mt-4">
-                                        <a class="me-3" href="#">
-                                        <img class="rounded-circle shadow-1-strong"
-                                            src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(31).webp" alt="avatar" width="65"
-                                            height="65" />
-                                        </a>
-                                        <div class="flex-grow-1 flex-shrink-1">
-                                        <div>
-                                            <div class="d-flex justify-content-between align-items-center">
-                                            <p class="mb-1">
-                                                Lisa Cudrow
-                                                <span class="small">- 4 hours ago</span>
-                                            </p>
-                                            </div>
-                                            <p class="small mb-0">
-                                            Cras sit amet nibh libero, in gravida nulla.
-                                            Nulla vel metus scelerisque ante sollicitudin
-                                            commodo. Cras purus odio, vestibulum in
-                                            vulputate at, tempus viverra turpis.
-                                            </p>
-                                        </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="d-flex flex-start mt-4">
-                                        <a class="me-3" href="#">
-                                        <img class="rounded-circle shadow-1-strong"
-                                            src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(29).webp" alt="avatar" width="65"
-                                            height="65" />
-                                        </a>
-                                        <div class="flex-grow-1 flex-shrink-1">
-                                        <div>
-                                            <div class="d-flex justify-content-between align-items-center">
-                                            <p class="mb-1">
-                                                Maggie McLoan
-                                                <span class="small">- 5 hours ago</span>
-                                            </p>
-                                            </div>
-                                            <p class="small mb-0">
-                                            a Latin professor at Hampden-Sydney College in
-                                            Virginia, looked up one of the more obscure
-                                            Latin words, consectetur
-                                            </p>
-                                        </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="d-flex flex-start mt-4">
-                                        <a class="me-3" href="#">
-                                        <img class="rounded-circle shadow-1-strong"
-                                            src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp" alt="avatar" width="65"
-                                            height="65" />
-                                        </a>
-                                        <div class="flex-grow-1 flex-shrink-1">
-                                        <div>
-                                            <div class="d-flex justify-content-between align-items-center">
-                                            <p class="mb-1">
-                                                John Smith
-                                                <span class="small">- 6 hours ago</span>
-                                            </p>
-                                            </div>
-                                            <p class="small mb-0">
-                                            Autem, totam debitis suscipit saepe sapiente
-                                            magnam officiis quaerat necessitatibus odio
-                                            assumenda, perferendis quae iusto labore
-                                            laboriosam minima numquam impedit quam dolorem!
-                                            </p>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    </div>
-                                </div>
-
-                                <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
-                                    <div class="d-flex flex-start w-100">
-                                    <img class="rounded-circle shadow-1-strong me-3"
-                                        src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="40"
-                                        height="40" />
-                                    <div class="form-outline w-100">
-                                        <textarea class="form-control" id="textAreaExample" rows="4"
-                                        style="background: #fff;"></textarea>
-                                        <label class="form-label" for="textAreaExample">
-                                        Message
-                                        </label>
-                                    </div>
-                                    </div>
-                                    <div class="float-end mt-2 pt-1">
-                                    <button type="button" class="btn btn-primary btn-sm">
-                                        Post comment
-                                    </button>
-                                    <button type="button" class="btn btn-outline-primary btn-sm">
-                                        Cancel
-                                    </button>
-                                    </div>
-                                </div>
-                                </div>
+                              </div>
                             </div>
-                            </div>
+                          </div>
                         </div>
-                        </div>
+                      </div>
                     </div>
-                    </div>
-                </section>
+                  </section>
             </div>
         </main>
     </body>

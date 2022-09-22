@@ -3,7 +3,7 @@
 
 <body>
   <main>
-    <div th:fragment="comment-home">
+    <div th:fragment="comment-exam">
       <div class="semi-circle"></div>
       <div class="banner">
         <div class="circle">
@@ -39,7 +39,7 @@
               <div class="container  ">
                 <p><a th:href="@{/teacher/batch/batchSeeMore(batchId=${batchId},radio='comment')}">< back</a></p>
                 
-              <h2>Home Comment</h2>
+              <h2>Exam Comment</h2>
                 <div class="row d-flex justify-content-center">
                   <div class="col-md-12 col-lg-10 col-xl-8">
                     <div class="">
@@ -112,7 +112,7 @@
                                         aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                      <form th:action="@{/teacher/batch/home/replypost}" th:object="${teacherReplyPostDTO}"
+                                      <form th:action="@{/teacher/batch/exam/replypost}" th:object="${teacherReplyPostDTO}"
                                         method="post">
                                         <div class="d-flex flex-start w-100">
                                           <img class="rounded-circle shadow-1-strong me-3"
@@ -148,7 +148,7 @@
 
 
                             <div class="card-footer py-3 border-0" style="background-color: #ffffff;">
-                              <form th:action="@{/teacher/batch/home/commentpost}" th:object="${teacherCommentPostDTO}"
+                              <form th:action="@{/teacher/batch/exam/commentpost}" th:object="${teacherCommentPostDTO}"
                                 method="post">
                                 <div class="d-flex flex-start w-100">
                                   <img class="rounded-circle shadow-1-strong me-3"
@@ -157,7 +157,7 @@
                                   <input type="hidden" name="batchId" th:value="${batchId}">
                                   <input type="hidden" name="commenterCode" th:value="${teacherCode}">
                                   <input type="hidden" name="teacherId" th:value="${teacherId}">
-                                  <input type="hidden" name="location" value="home">
+                                  <input type="hidden" name="location" value="exam">
                                   <div class="form-outline w-100">
                                     <textarea class="form-control" id="textAreaExample" rows="4"
                                       style="background: rgb(255, 250, 250);" th:field="*{text}"></textarea>
