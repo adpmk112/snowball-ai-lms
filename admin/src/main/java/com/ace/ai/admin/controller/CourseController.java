@@ -79,7 +79,7 @@ public class CourseController {
             chapter.setName(fileUploadDTO.getName());
 
             courseService.saveChapter(chapter);
-            int chapterId = courseService.getChapterId(fileUploadDTO.getName());
+            int chapterId = courseService.getChapterIdByNameAndCourseId(fileUploadDTO.getName(),fileUploadDTO.getCourseId());
             System.out.println("chapterid = "+ chapterId);
             Chapter toSetChapterId = new Chapter();
             toSetChapterId.setId(chapterId);

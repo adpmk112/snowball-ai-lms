@@ -130,8 +130,8 @@ public class CourseService {
 
     // public void edit
 
-    public int getChapterId(String chapterName) {
-        Chapter chapter = chapterRepository.findByName(chapterName);
+    public int getChapterIdByNameAndCourseId(String chapterName,int courseId) {
+        Chapter chapter = chapterRepository.findByNameAndCourseId(chapterName,courseId);
         return chapter.getId();
     }
 

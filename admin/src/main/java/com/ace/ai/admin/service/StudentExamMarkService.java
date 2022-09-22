@@ -1,5 +1,7 @@
 package com.ace.ai.admin.service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,9 +29,18 @@ public class StudentExamMarkService {
     //get all Data 
     public List<ExamMarkDTO> getExamMarkDTOList(int batchId){        
         List<BatchExamForm> batchExamFormsByBatchId =  batchExamFormService.findByBatch_Id(batchId);//find by batchId and examform delete status and bef_deletestatus
-        List<ExamMarkDTO> examMarkDTOList = new ArrayList<>();        
+        List<ExamMarkDTO> examMarkDTOList = new ArrayList<>();   
+        //Current Date
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String formattedString = now.format(formatter);
+        LocalDateTime formattedNow = LocalDateTime.parse(formattedString, dtf);
+        
         for(BatchExamForm batchExamForm : batchExamFormsByBatchId){  
-            if(batchExamForm.getStartDate()!=null && !batchExamForm.getStartDate().isBlank() && batchExamForm.getEndDate()!=null && !batchExamForm.getEndDate().isBlank()) { //filters that are only scheduled
+            //filters that are only scheduled and start date is after current
+            if(batchExamForm.getStartDate()!=null && !batchExamForm.getStartDate().isBlank() && batchExamForm.getEndDate()!=null && !batchExamForm.getEndDate().isBlank()
+                && formattedNow.isAfter( LocalDateTime.parse( batchExamForm.getStartDate().replace("T"," "), dtf))) { 
                 ExamMarkDTO examMarkDTO = this.getExamMarkDTO(batchExamForm, batchId);
                 if(examMarkDTO.getStudentData().size() > 0){ //add to list only if student list is find
                     examMarkDTOList.add(examMarkDTO);
