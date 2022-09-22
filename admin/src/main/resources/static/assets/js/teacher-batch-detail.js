@@ -299,6 +299,11 @@ $(document).ready(function () {
       }
     }
   });
+
+  //For activity schedule edit
+  $(document).on("click","", function(e)){
+    
+  }
   // For exam-schedule edit
   $(document).on("click", ".btn.btn-exam-schedule-edit", function (e) {
     e.preventDefault();
