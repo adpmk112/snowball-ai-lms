@@ -57,6 +57,7 @@
                                     <tr th:each="chapterDTO,iterationStatus: ${chapterDTOList}">
                                         <input th:id="'batchId_'+${iterationStatus.count}" type="hidden"
                                             th:value="${batch_id}" />
+                                        <input th:id="'chapId_'+${iterationStatus.count}" type="hidden" th:value="${chapterDTO.id}"/>
                                         <td th:text="${iterationStatus.count}"></td>
                                         <td th:id="'chpName_'+${iterationStatus.count}" th:text="${chapterDTO.name}">
                                         </td>
@@ -342,7 +343,7 @@
                                     <td th:text="${classroom.link}"></td>
                                     <td th:text="${classroom.status}"></td>
                                     <td>
-                                    <a th:href="@{/setupClassroomEdit/{classId}(classId = ${classroom.id})}"
+                                    <a th:href="@{/admin/batch/classroom/recordVideo(classroomId=${classroom.id})}"
                                                     class="btn btn-outline-primary btn-floating"
                                                     data-mdb-ripple-color="dark">
                                                     <i class="fa-solid fa-file-video"></i>

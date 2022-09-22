@@ -31,27 +31,29 @@
     <!-- Confirm Box-->
     <script>
       $(document).on("click",'a.remove-customChapter',function(){
-        window.customChapter=$(this).attr('id');
-        
-      })
-      $(document).ready(function () {
+        window.customChapterId=$(this).attr('id');
+        batchId = $(this).closest('tr').find('input[name="batchId"]').val();
         $('a.remove-customChapter').confirm({
           closeIcon: true,
           theme: 'Material',
           //icon: 'fa-solid fa-warning',
   
-          title: 'Remove Teacher',
-          content: 'Are you sure?',
+          title: 'Remove Custom Activity!',
+          content: 'Are you sure to remove?',
           animation: 'Scale',
           buttons: {           
             No: function () {},
             Yes: function () {        
               // /admin/course/chapter/chapterFile/delete(customChapter=${chapterFile.id},chapterId=${chapterId})      
-              window.location = `/teacher/batch/course/activity/delete?customChapter=`+chapterFileId;
+              window.location = "/teacher/batch/deleteCustomChapter?customChapterId="+customChapterId+"&batchId="+batchId;
             },
           },
         })
 
+
+      })
+      $(document).ready(function () {
+       
         showExamTable();//selected by default
         $('#selectBoxForExamAnsAssignment').on('change',function(){
           (this.value == 0)? showExamTable() : showAssignmentTable();

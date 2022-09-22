@@ -61,7 +61,7 @@ public class TeacherNewActivity {
 
             customChapterService.createNewActivity(customChapter);
 
-            int customChapterId = customChapterService.getChapterIdByName(newActivityDTO.getActivityName());
+            int customChapterId = customChapterService.getChapterIdByNameAndBatchId(newActivityDTO.getActivityName(),newActivityDTO.getBatchId());
             CustomChapter toSetCustomChapterId = new CustomChapter();
             toSetCustomChapterId.setId(customChapterId);
 

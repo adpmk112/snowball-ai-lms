@@ -5,6 +5,7 @@ import com.ace.ai.admin.datamodel.Batch;
 import com.ace.ai.admin.datamodel.Classroom;
 import com.ace.ai.admin.datamodel.Course;
 import com.ace.ai.admin.dtomodel.AttendanceReportDTO;
+import com.ace.ai.admin.dtomodel.ExamMarkReportDTO;
 import com.ace.ai.admin.repository.BatchRepository;
 import com.ace.ai.admin.repository.ClassRoomRepository;
 import com.ace.ai.admin.repository.CourseRepository;
@@ -61,5 +62,10 @@ public class ReportService {
        else{
            return attendanceReportDTO;
        }
+    }
+
+    public ExamMarkReportDTO getStudentMarks(Integer batchId) {
+            ExamMarkReportDTO examMarkReportDTO=new ExamMarkReportDTO();
+            return examMarkReportDTO;
     }
 }
