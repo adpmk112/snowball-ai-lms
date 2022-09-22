@@ -45,7 +45,7 @@ public class ChapterViewService {
                 boolean equal=startDate.isEqual(endDate);
                chapterDTO.setStart_date(startDate);
                 chapterDTO.setEnd_date(endDate);
-                if((lessThan && endDate.isAfter(now)  && startDate.isEqual(now) || startDate.isBefore(now) ) ||  ( lessThan && endDate.isEqual(now)  || startDate.isEqual(now))){
+                if((lessThan && endDate.isAfter(now)  && (startDate.isEqual(now) || startDate.isBefore(now))) ||  ( lessThan && endDate.isEqual(now)  || startDate.isEqual(now))){
                     chapterDTO.setStatus("In progress");
 
                 }
