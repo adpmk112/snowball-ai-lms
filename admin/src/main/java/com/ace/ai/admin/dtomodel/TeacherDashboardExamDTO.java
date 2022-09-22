@@ -9,5 +9,6 @@ public class TeacherDashboardExamDTO {
     private int examForm_id;
     private String examForm_name;
     private int max_marks;
+    private int batchId;
     List<StudentExamMarkDTO> studentExamMarkDTO;
 }

@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class TeaceherDashboardAssignmentDTO {
+    private int batchId;
     private int assignmentId;
     private String assignmentName;
     private List<TeacherDashboardAssignmentStudentMarksDTO> teacherDashboardAssignmentStudentMarksDTO;

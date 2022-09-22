@@ -80,7 +80,6 @@ public class ChapterViewService {
         chapter_batch.setEndDate(endDate);
         System.out.println("*******"+chapter_batch.getStartDate()+" :"+ chapter_batch.getEndDate());
         chapterBatchRepository.save(chapter_batch);
-
         return true;
     }
 }

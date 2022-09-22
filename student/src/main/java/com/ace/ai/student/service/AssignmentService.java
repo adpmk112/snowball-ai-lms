@@ -28,13 +28,10 @@ public class AssignmentService {
     public AssignmentDateTimeDTO getDateTimeByAssignmentId(int assignmentId) throws ParseException{
         Assignment assignment = assignmentRepository.findByIdAndDeleteStatus(assignmentId, false);
         AssignmentDateTimeDTO assignmentDateTimeDTO = new AssignmentDateTimeDTO();
+        assignmentDateTimeDTO.setFileName(assignment.getName());
         if(assignment != null){
         assignmentDateTimeDTO.setEnd_date(assignment.getEnd_date());
         assignmentDateTimeDTO.setEnd_time(twelveHourFormat(assignment.getEnd_time()));
-        }
-        else{
-            assignmentDateTimeDTO.setEnd_date("Date");
-            assignmentDateTimeDTO.setEnd_time("Time");
         }
         return assignmentDateTimeDTO;
     }

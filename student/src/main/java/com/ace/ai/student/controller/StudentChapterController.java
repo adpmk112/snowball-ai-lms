@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ace.ai.student.config.StudentUserDetails;
+import com.ace.ai.student.datamodel.Chapter;
+import com.ace.ai.student.datamodel.CustomChapter;
 import com.ace.ai.student.datamodel.Student;
 import com.ace.ai.student.dtomodel.ChapterFileDTO;
 import com.ace.ai.student.dtomodel.StuCommentPostDTO;
@@ -37,9 +39,10 @@ public class StudentChapterController {
 
     @GetMapping("/chapter")
     public ModelAndView getChapterFileList(@AuthenticationPrincipal StudentUserDetails userDetails,@RequestParam("chapterId") int chapterId,ModelMap model){
-        List<ChapterFileDTO> chapterFileDTOList = studentChapterService.getChapterFileListByChapterId(chapterId);
+        Chapter chapter = studentChapterService.getChapterById(chapterId);
         StuCommentPostDTO stuCommentPostDTO = new StuCommentPostDTO();
         Student student = studentCourseService.getStudentById(userDetails.getId());
+        List<ChapterFileDTO> chapterFileDTOList = studentChapterService.getChapterFileListByChapterId(chapterId);
         stuCommentPostDTO.setLocation(studentChapterService.findChapterById(chapterId).getName());
         model.addAttribute("chapterType", "chapter");
         model.addAttribute("stuReplyPostDTO",new StuReplyPostDTO());
@@ -52,14 +55,16 @@ public class StudentChapterController {
         model.addAttribute("stuCode", student.getCode());
         model.addAttribute("batchId",student.getBatch().getId());
         model.addAttribute("stuId",userDetails.getId());
+        model.addAttribute("assignmentList",studentChapterService.getAssignmentListByChapterNameAndBatchId(chapter.getName(), student.getBatch().getId()));
         return new ModelAndView("S001-01","chapterFileDTOList",chapterFileDTOList);
     }
 
     @GetMapping("/customChapter")
     public ModelAndView getCustomChapterFileList(@AuthenticationPrincipal StudentUserDetails userDetails,@RequestParam("customChapterId") int customChapterId,ModelMap model){
-        List<ChapterFileDTO> chapterFileDTOList = studentChapterService.getCustomChapterFileListByCustomChapterId(customChapterId);
+        CustomChapter customChapter = studentChapterService.getCustomChapterById(customChapterId);
         StuCommentPostDTO stuCommentPostDTO = new StuCommentPostDTO();
         Student student = studentCourseService.getStudentById(userDetails.getId());
+        List<ChapterFileDTO> chapterFileDTOList = studentChapterService.getCustomChapterFileListByCustomChapterId(customChapterId);
         stuCommentPostDTO.setLocation(studentChapterService.findCustomChapterById(customChapterId).getName());
         model.addAttribute("chapterType", "customChapter");
         model.addAttribute("stuReplyPostDTO",new StuReplyPostDTO());
@@ -68,7 +73,7 @@ public class StudentChapterController {
         model.addAttribute("batchName",studentChapterService.findBatchById(student.getBatch().getId()).getName());
         model.addAttribute("chapterName", studentChapterService.findCustomChapterById(customChapterId).getName());
         model.addAttribute("chapterId", customChapterId);
-        
+        model.addAttribute("assignmentList",studentChapterService.getAssignmentListByChapterNameAndBatchId(customChapter.getName(), student.getBatch().getId()));
         model.addAttribute("stuCode", student.getCode());
         model.addAttribute("batchId",student.getBatch().getId());
         model.addAttribute("stuId",userDetails.getId());
@@ -174,5 +179,7 @@ public class StudentChapterController {
         studentCommentService.getCommentById(stuReplyPostDTO.getCommentId());
         return "redirect:/student/customChapter/video?chapterId="+stuReplyPostDTO.getLocationId()+"&chapterFileId="+stuReplyPostDTO.getChapterFileId();
     }
+
+
 
 }

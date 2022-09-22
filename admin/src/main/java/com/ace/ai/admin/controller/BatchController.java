@@ -7,7 +7,6 @@ import com.ace.ai.admin.dtomodel.StudentAttendDTO;
 import com.ace.ai.admin.dtomodel.StudentDTO;
 import com.ace.ai.admin.dtomodel.TeacherDTO;
 import com.ace.ai.admin.repository.ChapterBatchRepository;
-import com.ace.ai.admin.repository.ChapterRepository;
 import com.ace.ai.admin.service.AssignmentService;
 import com.ace.ai.admin.service.AttendanceService;
 import com.ace.ai.admin.service.BatchService;
@@ -16,7 +15,6 @@ import com.ace.ai.admin.service.ExamFormService;
 import com.ace.ai.admin.service.ClassRoomService;
 import com.ace.ai.admin.service.BatchExamFormService;
 import com.ace.ai.admin.service.TeacherBatchService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +24,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletResponse;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -98,7 +94,6 @@ public class BatchController {
     @ResponseBody
     public ResponseEntity SendData(@RequestParam("chpId")Integer chpId,@RequestParam("chpName") String chpName, @RequestParam("startDate") String startDate,
             @RequestParam("endDate") String endDate, @RequestParam("batchId") Integer batchId) {
-       // assignmentService.assignmentEndDateAdd(endDate, chpName, batchId);
         chapterViewService.saveDatesForChapter(chpId,chpName, startDate, endDate, batchId);
         return ResponseEntity.ok(HttpStatus.OK);
     }

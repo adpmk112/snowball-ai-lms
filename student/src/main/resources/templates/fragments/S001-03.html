@@ -8,9 +8,9 @@
             <div>
                 <div class="assigncontainer">
                     <div class="circle">
-                        <img id="file" src="assets/img/assignment.png" alt="file" />
-                    </div>
-                    <div class="part1 d-flex flex-row">
+                        <img id="file" src="/assets/img/assignment.png" alt="file" />
+                      </div>
+                    <div class="part1 d-flex flex-column">
                         <div class="assign_header">
                             <div class="line">
                                 <h1>Student Management Assignment</h1>
@@ -23,7 +23,16 @@
                                     </div>
                                 </div>
                             </div>
+                            
                         </div>
+                        <div style="margin-top: 20px;" class="assign_header" >
+                           <span th:text="${assignmentDateTimeDTO.fileName}"></span>
+                            <a th:href="@{${'/assets/img/chapterFiles/'+chapterId+'/'+assignmentDateTimeDTO.fileName}}"
+                            class="btn btn-outline-light btn-floating" 
+                             style="margin-left: 30px;">
+                             <i class="fa-solid fa-download"></i>
+                          </a>
+                         </div>
                     </div>
                     <div class="part2">
                         <div class="upload">

@@ -109,25 +109,30 @@ public class TeacherDashboardService {
     public List<TeacherDashboardExamDTO> getStudentNameAndExamMarkByBatchId(int batchId) {
         List<TeacherDashboardExamDTO> teacherDashboardExamDTOList = new ArrayList<>();
         List<BatchExamForm> batchExamFormList = batchExamFormRepository.findByDeleteStatusAndBatchId(false, batchId);
-
-        for (BatchExamForm batchExamForm : batchExamFormList) {
-            TeacherDashboardExamDTO teacherDashboardExamDTO = new TeacherDashboardExamDTO();
-            teacherDashboardExamDTO.setExamForm_id(batchExamForm.getExamForm().getId());
-            teacherDashboardExamDTO.setExamForm_name(batchExamForm.getExamForm().getName());
-            teacherDashboardExamDTO.setMax_marks(batchExamForm.getExamForm().getMaxMark());
-            List<StudentExamMark> studentExamMarkList = studentExamMarkRepository.findByDeleteStatusAndBatchExamFormId(false,
-                    batchExamForm.getId());
-            List<StudentExamMarkDTO> studentExamMarkDTOList = new ArrayList<>();
-
-            for (StudentExamMark studentExamMark : studentExamMarkList) {
+        if (batchExamFormList != null) {
+            for (BatchExamForm batchExamForm : batchExamFormList) {
+                TeacherDashboardExamDTO teacherDashboardExamDTO = new TeacherDashboardExamDTO();
+                teacherDashboardExamDTO.setBatchId(batchId);
+                teacherDashboardExamDTO.setExamForm_id(batchExamForm.getExamForm().getId());
+                teacherDashboardExamDTO.setExamForm_name(batchExamForm.getExamForm().getName());
+                teacherDashboardExamDTO.setMax_marks(batchExamForm.getExamForm().getMaxMark());
+                List<StudentExamMark> studentExamMarkList = studentExamMarkRepository
+                        .findByDeleteStatusAndBatchExamFormId(false,
+                                batchExamForm.getId());
+                List<StudentExamMarkDTO> studentExamMarkDTOList = new ArrayList<>();
                 StudentExamMarkDTO studentExamMarkDTO = new StudentExamMarkDTO();
-                studentExamMarkDTO.setStudentMarks(studentExamMark.getStudentMark());
-                studentExamMarkDTOList.add(studentExamMarkDTO);
+                if (studentExamMarkList != null) {
+
+                    for (StudentExamMark studentExamMark : studentExamMarkList) {
+                        studentExamMarkDTO.setStudentMarks(studentExamMark.getStudentMark());
+                    }
+
+                    studentExamMarkDTOList.add(studentExamMarkDTO);
+                }
+                teacherDashboardExamDTO.setStudentExamMarkDTO(studentExamMarkDTOList);
+                teacherDashboardExamDTOList.add(teacherDashboardExamDTO);
+
             }
-
-            teacherDashboardExamDTO.setStudentExamMarkDTO(studentExamMarkDTOList);
-            teacherDashboardExamDTOList.add(teacherDashboardExamDTO);
-
         }
         return teacherDashboardExamDTOList;
 
@@ -139,9 +144,10 @@ public class TeacherDashboardService {
         for (Comment comment : commentList) {
             String commenter_Code = comment.getCommenterCode();
             if (!commenter_Code.isBlank()) {
-                List<Student> studentList = studentRepository.findByDeleteStatusAndCodeAndBatchId(false, commenter_Code,batchId);
+                List<Student> studentList = studentRepository.findByDeleteStatusAndCodeAndBatchId(false, commenter_Code,
+                        batchId);
                 for (Student student : studentList) {
-                    
+
                     TeacherCommentDTO teacherCommentDTO = new TeacherCommentDTO();
                     teacherCommentDTO.setBatchId(batchId);
                     teacherCommentDTO.setLocation(comment.getLocation());
@@ -149,39 +155,44 @@ public class TeacherDashboardService {
                     teacherCommentDTO.setCommenter_Name(student.getName());
                     teacherCommentDTO.setCommentId(comment.getId());
                     teacherCommentDTOList.add(teacherCommentDTO);
-                   
+
                 }
-             }
-           }
-           return teacherCommentDTOList;
+            }
         }
-    
+        return teacherCommentDTOList;
+    }
 
     public List<TeaceherDashboardAssignmentDTO> getStuNameAndAssignmentMarksByBatchId(int batchId) {
         List<TeaceherDashboardAssignmentDTO> teaceherDashboardAssignmentDTOList = new ArrayList<>();
         List<Assignment> assignmentList = assignmentRepository.findByDeleteStatusAndBatchId(false, batchId);
+        if(assignmentList!=null){
         for (Assignment assignment : assignmentList) {
             TeaceherDashboardAssignmentDTO teaceherDashboardAssignmentDTO = new TeaceherDashboardAssignmentDTO();
+            teaceherDashboardAssignmentDTO.setBatchId(batchId);
             teaceherDashboardAssignmentDTO.setAssignmentId(assignment.getId());
             teaceherDashboardAssignmentDTO.setAssignmentName(assignment.getName());
             List<StudentAssignmentMark> studentAssignmentMarkList = studentAssignmentMarkRepository
                     .findByAssignmentId(assignment.getId());
             List<TeacherDashboardAssignmentStudentMarksDTO> teacherDashboardAssignmentStudentMarksDTOList = new ArrayList<>();
-            for (StudentAssignmentMark studentAssignmentMark : studentAssignmentMarkList) {
-                TeacherDashboardAssignmentStudentMarksDTO teacherDashboardAssignmentStudentMarksDTO = new TeacherDashboardAssignmentStudentMarksDTO();
-                teacherDashboardAssignmentStudentMarksDTO.setStudentId(studentAssignmentMark.getStudent().getId());
-                teacherDashboardAssignmentStudentMarksDTO.setStudentMarks(String.valueOf(studentAssignmentMark.getStudentMark()));
-                List<Student> studentList = studentRepository.findByDeleteStatusAndIdAndBatchId(false,
-                        studentAssignmentMark.getStudent().getId(),batchId);
-                for (Student student : studentList) {
-                    
-                    teacherDashboardAssignmentStudentMarksDTO.setStudentName(student.getName());
+            if(studentAssignmentMarkList != null){
+                for (StudentAssignmentMark studentAssignmentMark : studentAssignmentMarkList) {
+                    TeacherDashboardAssignmentStudentMarksDTO teacherDashboardAssignmentStudentMarksDTO = new TeacherDashboardAssignmentStudentMarksDTO();
+                    teacherDashboardAssignmentStudentMarksDTO.setStudentId(studentAssignmentMark.getStudent().getId());
+                    teacherDashboardAssignmentStudentMarksDTO
+                            .setStudentMarks(String.valueOf(studentAssignmentMark.getStudentMark()));
+                    List<Student> studentList = studentRepository.findByDeleteStatusAndIdAndBatchId(false,
+                            studentAssignmentMark.getStudent().getId(), batchId);
+                    for (Student student : studentList) {
+
+                        teacherDashboardAssignmentStudentMarksDTO.setStudentName(student.getName());
+                    }
+                    teacherDashboardAssignmentStudentMarksDTOList.add(teacherDashboardAssignmentStudentMarksDTO);
                 }
-                teacherDashboardAssignmentStudentMarksDTOList.add(teacherDashboardAssignmentStudentMarksDTO);
             }
             teaceherDashboardAssignmentDTO
                     .setTeacherDashboardAssignmentStudentMarksDTO(teacherDashboardAssignmentStudentMarksDTOList);
             teaceherDashboardAssignmentDTOList.add(teaceherDashboardAssignmentDTO);
+            }
         }
         return teaceherDashboardAssignmentDTOList;
     }
