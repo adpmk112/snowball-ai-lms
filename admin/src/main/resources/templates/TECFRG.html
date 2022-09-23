@@ -87,12 +87,12 @@
 
                     <div id="profile-dropdown" class="dropdown">
                         <a id="dropdown-toggle" class="" aria-expanded="false" data-bs-toggle="dropdown" href="#">
-                            <div th:if="${#request.userPrincipal.principal.photo != null}">
+                            <div th:if="${#request.userPrincipal.principal.photo != null && !#strings.isEmpty(#request.userPrincipal.principal.photo)}">
                                 <img id="profile-img"
                                     th:src="@{${'/assets/img/'+#request.userPrincipal.principal.code+'/'+#request.userPrincipal.principal.photo}}" />
                             </div>
                             <!--/*@thymesVar id="principal" type="principal"*/-->
-                            <div th:unless="${#request.userPrincipal.principal.photo != null}">
+                            <div th:unless="${#request.userPrincipal.principal.photo != null && !#strings.isEmpty(#request.userPrincipal.principal.photo)}">
                                 <img id="profile-img" src="/assets/img/profileboy.jpg" />
                             </div>
                         </a>
@@ -132,13 +132,13 @@
                             <div class="card-body p-4">
                                 <div class="d-flex text-black">
                                     <div class="flex-shrink-0"
-                                        th:if="${#request.userPrincipal.principal.photo != null}">
+                                        th:if="${#request.userPrincipal.principal.photo != null && !#strings.isEmpty(#request.userPrincipal.principal.photo)}">
                                         <img th:src="@{${'/assets/img/'+#request.userPrincipal.principal.code+'/'+#request.userPrincipal.principal.photo}}"
                                             alt="Generic placeholder image" class="img-fluid"
                                             style="width: 180px; border-radius: 10px;">
                                     </div>
                                     <div class="flex-shrink-0"
-                                        th:unless="${#request.userPrincipal.principal.photo != null} ">
+                                        th:unless="${#request.userPrincipal.principal.photo != null && !#strings.isEmpty(#request.userPrincipal.principal.photo)} ">
                                         <img src="/assets/img/profileboy.jpg" alt="Generic placeholder image"
                                             class="img-fluid" style="width: 180px; border-radius: 10px;">
                                     </div>
