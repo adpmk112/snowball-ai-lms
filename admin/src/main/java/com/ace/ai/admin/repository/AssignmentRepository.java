@@ -9,5 +9,5 @@ import com.ace.ai.admin.datamodel.Assignment;
 public interface AssignmentRepository extends JpaRepository<Assignment,Integer> {
 
    List<Assignment> findByDeleteStatusAndBatchId(boolean deleteStatus , int batchId);
-   List<Assignment> findByBatchIdAndAssignmentChapterName(int batchId , String assignmentChapterName);
+   List<Assignment> findByDeleteStatusAndBatchIdAndAssignmentChapterName(boolean deleteStatus, int batchId , String assignmentChapterName);
 }

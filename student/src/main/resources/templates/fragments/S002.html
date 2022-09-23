@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layouts/main :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org">
+
+<body class="body-color">
+  <main role="main">
+    <div th:fragment="student-classroom">
+      <div class="semi-circle"></div>
+      <div class="banner">
+        <div class="circle"><i class="fa-solid fa-person-chalkboard"></i></div>
+        <div>
+          <h1>Classroom</h1>
+          <h3>Study Mode</h3>
+        </div>
+      </div>
+      <div class="class-margin custom-div" style="margin-top: 8px;">
+        <div class="mytabs">
+          <input type="radio" id="tabupcoming" name="mytabs" checked="checked" />
+          <label for="tabupcoming" id="lab">Upcoming</label>
+          <div class="tab">
+            <table id="datatable">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Start-Time</th>
+                  <th>End-Time</th>
+                  <th>Teacher</th>
+                  <th>Classroom Link</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="classroom,iterationStatus : ${upcomingClass}">
+                  <input type="hidden" th:value="${classroom.id}">
+                  <td th:text="${classroom.date}"></td>
+                  <td th:text="${classroom.startTime}"></td>
+                  <td th:text="${classroom.endTime}"></td>
+                  <td th:text="${classroom.teacherName}"></td>
+                  <td th:text="${classroom.link}"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <input type="radio" id="tabprevious" name="mytabs" th:checked="${radio == 'previousClass'}" />
+          <label for="tabprevious" id="lab">Previous</label>
+          <div class="tab">
+            <table id="datatable1">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Start-Time</th>
+                  <th>End-Time</th>
+                  <th>Teacher</th>
+                  <th>Classroom Link</th>
+                  <!-- <th>Record Video</th> -->
+                </tr>
+              </thead>
+              <tr th:each="classroom,iterationStatus : ${previousClass}">
+                <input type="hidden" th:value="${classroom.id}">
+                <td th:text="${classroom.date}"></td>
+                <td th:text="${classroom.startTime}"></td>
+                <td th:text="${classroom.endTime}"></td>
+                <td th:text="${classroom.teacherName}"></td>
+                <td th:text="${classroom.link}"></td>
+                <td>
+                  <!-- <a th:href="@{/student/recordVideo(classroomId=${classroom.id})}"
+                    class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
+                    <i class="fa-solid fa-file-video"></i>
+                  </a> -->
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>
