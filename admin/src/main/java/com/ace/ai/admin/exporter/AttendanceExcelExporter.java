@@ -1,6 +1,7 @@
 package com.ace.ai.admin.exporter;
 
 import com.ace.ai.admin.dtomodel.AttendanceReportDTO;
+import com.ace.ai.admin.dtomodel.StudentAttendanceDTO;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
@@ -66,7 +67,9 @@ public class AttendanceExcelExporter {
 
     public void writeDataRows() {
         List<String> dateList = attendanceReportDTO.getDateList();
+        List<StudentAttendanceDTO> studentDTOList=attendanceReportDTO.getStudentDTOList();
         HashMap<Integer, String> map = attendanceReportDTO.getStudentAndAttend();
+
         if (attendanceReportDTO.getDateList().size() != 0) {
             int rowCount = 2;
             for (String s : dateList) {
@@ -81,6 +84,14 @@ public class AttendanceExcelExporter {
                     }
                 }
 
+            }
+            int cellCount = 0;
+            Row row=sheet.createRow(rowCount);
+            Cell cell=row.createCell(cellCount);
+            cell.setCellValue("Total :");
+            for(StudentAttendanceDTO s:studentDTOList){
+                cell = row.createCell(++cellCount);
+                cell.setCellValue(s.getAttendance());
             }
 
 
