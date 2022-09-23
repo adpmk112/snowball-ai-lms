@@ -10,8 +10,8 @@
                     <i class="fa-regular fa-folder-open"></i>
                 </div>
                 <div>
-                    <h1>Courses</h1>
-                    <h3>Total: 4</h3>
+                    <h1>Custom-chapter</h1>
+                    <h3 th:text="'Total :'+${totalCustomChapter}"></h3>
                 </div>
             </div>
             <div class="custom-div margin-top-8">
@@ -22,18 +22,18 @@
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item">
-                                            <a class="text-decoration-none" href="/admin/course">
+                                            <a class="text-decoration-none" href="/teacher/batch/">
                                                 Batch List
                                             </a>
                                         </li>
                                         <li class="breadcrumb-item">
-                                            <a class="text-decoration-none" th:href="@{/admin/course/courseDetail(courseId=${courseId},radio='activity')}">
+                                            <a class="text-decoration-none" th:href="@{/teacher/batch/batchSeeMore(batchId=${batchId},radio='chapter')}">
                                                 Batch Details
                                             </a>
                                         </li>
                                         <li class="breadcrumb-item">
                                             <a class="text-decoration-none" href="">
-                                                activity Add
+                                                custom-chapter add
                                             </a>
                                         </li>
                                     </ol>
@@ -49,10 +49,10 @@
                         <div>
                             <form class="form bg-light p-3 rounded m-auto" style="max-width: 700px;" th:action="addActivityPost"
                                 method="post" th:object="${newActivityDTO}" enctype="multipart/form-data">
-                                <h2 class="mt-2 mb-3 text-center">Add Activity</h2>
+                                <h2 class="mt-2 mb-3 text-center">Add New Chapter</h2>
                                 <input type="hidden" th:field="*{batchId}">
                                 <div class="row mt-2">
-                                    <label class="col-sm-4" for="name">Activity Name</label>
+                                    <label class="col-sm-4" for="name">Chapter Name</label>
                                     <div class="col-sm-8">
                                         <input type="text" class="form-control" id="name" placeholder="Enter Name"
                                             name="name" th:field="*{activityName}" required/>

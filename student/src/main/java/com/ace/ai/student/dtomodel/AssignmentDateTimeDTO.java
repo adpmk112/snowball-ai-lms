@@ -6,5 +6,6 @@ import lombok.Data;
 public class AssignmentDateTimeDTO {
     private String end_date;
     private String end_time;
+    private String fileName;
     
 }

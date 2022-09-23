@@ -39,7 +39,7 @@ public class AssignmentController {
     StudentAssignmentMarkRepository studentAssignmentMarkRepository;
 
     @GetMapping("/assignmentView")
-    public ModelAndView assignmentStudent(@RequestParam("assignmentId") Integer assignmentId,@RequestParam("studentId") Integer studentId,ModelMap model) throws ParseException{
+    public ModelAndView assignmentStudent(@RequestParam("assignmentId") Integer assignmentId,@RequestParam("studentId") Integer studentId,@RequestParam("chapterId") Integer chapterId,ModelMap model) throws ParseException{
         AssignmentDateTimeDTO assignmentDateTimeDTO = assignmentService.getDateTimeByAssignmentId(assignmentId);
         AssignmentMarkDTO assignmentMarkDTO= assignmentService.getStudentMarkByAssiIdAndStuId(assignmentId,studentId);
         String status = assignmentService.getStatusAssignmentId(assignmentId,studentId);
@@ -49,6 +49,7 @@ public class AssignmentController {
         assignmentFileDTO.setAssignmentId(assignmentId);
         assignmentFileDTO.setStudentId(studentId);
         model.addAttribute("status", status);
+        model.addAttribute("chapterId",chapterId);
         return new ModelAndView("S001-03","assignmentFileDTO",assignmentFileDTO);
     }
 

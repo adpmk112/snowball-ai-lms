@@ -315,7 +315,7 @@ public class TeacherCommentService {
     }
 
     public List<ChapterListCommentDTO> getChapterListAndCustomChapterListByBatchId(int batchId) {
-        List<ChapterBatch> chapterBatchList = chapterBatchRepository.findByBatchIdAndDeleteStatus(batchId,false);
+        List<ChapterBatch> chapterBatchList = chapterBatchRepository.findByBatchIdAndDeleteStatus(batchId,0);
         List<ChapterListCommentDTO> chapterListCommentDTOList = new ArrayList<>();
         List<CustomChapter> customChapterList = customChapterRepository.findByBatchIdAndDeleteStatus(batchId, false);
         for (ChapterBatch chapterBatch : chapterBatchList) {
@@ -342,7 +342,7 @@ public class TeacherCommentService {
     
 
     public List<VideoListCommentDTO> getVideoListByBatchId(int batchId){
-        List<ChapterBatch> chapterBatchList = chapterBatchRepository.findByBatchIdAndDeleteStatus(batchId,false);
+        List<ChapterBatch> chapterBatchList = chapterBatchRepository.findByBatchIdAndDeleteStatus(batchId,0);
         List<CustomChapter> customChapterList = customChapterRepository.findByBatchIdAndDeleteStatus(batchId, false);
         List<VideoListCommentDTO> videoListCommentDTOList = new ArrayList<>();
         for(ChapterBatch chapterBatch : chapterBatchList){

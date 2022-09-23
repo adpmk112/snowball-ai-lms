@@ -3,6 +3,12 @@
     color:rgb(70, 65, 65);
 } */
 
+
+.part3{
+    background: #fff;
+    
+}
+
 .assigncontainer{
     flex-direction: column;
     justify-content: flex-start;
@@ -26,7 +32,8 @@
     justify-content: space-between;
 }
 #file{
-   width:40px;
+    height: 50px;
+   width:50px;
    margin-right: 1rem;
    
 }

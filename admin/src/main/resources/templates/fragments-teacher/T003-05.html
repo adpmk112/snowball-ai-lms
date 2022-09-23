@@ -10,8 +10,7 @@
           <i class="fa-regular fa-folder-open"></i>
         </div>
         <div>
-          <h1>New Activity</h1>
-          <h3 th:text="${courseCount}"></h3>
+          <h1 th:text = ${chapterName}></h1>
         </div>
       </div>
       <div class="custom-div margin-top-8">
@@ -22,12 +21,12 @@
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                      <a class="text-decoration-none" href="">
+                      <a class="text-decoration-none" href="/teacher/batch/">
                         Batch List
                       </a>
                     </li>
                     <li class="breadcrumb-item">
-                      <a class="text-decoration-none" href="">
+                      <a class="text-decoration-none" th:href="@{/teacher/batch/batchSeeMore(batchId=${batchId},radio='chapter')}">
                         Batch Details
                       </a>
                     </li>
@@ -37,13 +36,19 @@
                       </a>
                     </li>
                   </ol>
+                  <div class="margin-button">
+                    <a th:href="@{/teacher/batch/batchSeeMore(batchId=${batchId},radio='chapter')}" class="text-decoration-none">
+                        &lt; Back
+                    </a>
+                </div>
                 </nav>
               </div>
-              <div></div>
+              <div>
+              </div>
             </div>
             <div class="mytabs">
               <input type="radio" id="tabunit" name="mytabs" checked="checked" />
-              <label for="tabunit" id="lab">Acticity Name</label>
+              <label for="tabunit" id="lab">Files</label>
               <div class="tab">
                 <div class="add-list">
                   <label>Add File</label>
@@ -111,7 +116,7 @@
                                 aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                              <form th:action="@{activityFile/edit}" method="post" th:object="${customChapterFileDTO}"
+                              <form th:action="@{/teacher/batch/course/activityFile/edit}" method="post" th:object="${customChapterFileDTO}"
                                 enctype="multipart/form-data">
                                 <input type="hidden" class="form-control" name="id" th:value="${customChapterFile.id}"
                                   id="message-text" />
@@ -166,7 +171,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form th:action="@{customChapterFile/addpost}" method="post" th:object="${customChapterFileDTO}"
+              <form th:action="@{/teacher/batch/course/activityFile/add}" method="post" th:object="${customChapterFileDTO}"
                 enctype="multipart/form-data">
                 <div class="mb-3">
                   <input type="hidden" class="form-control" name="customChapterId" th:value="${customChapterId}"

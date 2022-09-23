@@ -17,9 +17,4 @@
             }
         })
 
-
-        //For assignment arrow change
-        $(".assignment-collapse ").click(function(){ 
-            $(this).find("i").toggleClass("fa-angle-up") ;
-           
-        })
+       
