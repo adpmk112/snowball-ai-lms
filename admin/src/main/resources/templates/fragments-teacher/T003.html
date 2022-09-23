@@ -378,7 +378,9 @@
 
                             <input type="radio" id="tabmarks" name="mytabs" th:checked="${radio == 'mark'}" />
                             <label for="tabmarks" id="lab">Marks</label>
+
                             <div class="tab">
+
                                 <div class="mt-3 mb-4 d-flex justify-content-between">
                                     <div class="">
                                         <select class="form-control mt-2" name="selectBoxForExamAnsAssignment" id="selectBoxForExamAnsAssignment">
@@ -388,7 +390,13 @@
                                     </div>
                                 </div>
                                 <!-- Mark Table -->
-                                <div class="table-responsive p-2" id="examMarkTable">
+                                <div class="table-responsive p-2 pt-5 " id="examMarkTable">
+                                    <div class="add-list pb-1 ">
+                                        <a  id="pdf" th:href="@{/teacher/exam/exportToExcel{batch_id}(batch_id=${batchId})}"
+                                            class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
+                                            <i class="fa-solid fa-file-excel"></i>
+                                        </a>
+                                    </div>
                                     <table id="datatable" class="hover">
                                         <thead>
                                             <tr>
@@ -435,6 +443,12 @@
                                 <!-- End mark Table-->
                                 <!-- Assignment Table -->
                                 <div class="table-responsive p-2" id="assignmentMarkTable">
+                                    <div class="add-list pb-1 ">
+                                        <a  id="pdf" th:href="@{/teacher/assignment/exportToExcel{batch_id}(batch_id=${batchId})}"
+                                            class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
+                                            <i class="fa-solid fa-file-excel"></i>
+                                        </a>
+                                    </div>
                                     <table id="assignmentDataTable" class="hover">
                                         <thead>
                                             <tr>

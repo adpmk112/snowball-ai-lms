@@ -1,17 +1,15 @@
 package com.ace.ai.admin.service;
 
-import com.ace.ai.admin.datamodel.Attendance;
-import com.ace.ai.admin.datamodel.Batch;
-import com.ace.ai.admin.datamodel.Classroom;
-import com.ace.ai.admin.datamodel.Course;
-import com.ace.ai.admin.dtomodel.AttendanceReportDTO;
-import com.ace.ai.admin.dtomodel.ExamMarkReportDTO;
-import com.ace.ai.admin.repository.BatchRepository;
-import com.ace.ai.admin.repository.ClassRoomRepository;
-import com.ace.ai.admin.repository.CourseRepository;
+import com.ace.ai.admin.datamodel.*;
+import com.ace.ai.admin.dtomodel.*;
+import com.ace.ai.admin.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +24,17 @@ public class ReportService {
     CourseRepository courseRepository;
     @Autowired
     AttendanceService attendanceService;
+    @Autowired
+    StudentRepository studentRepository;
+    @Autowired
+    BatchExamFormRepository batchExamFormRepository;
+    @Autowired
+    StudentExamMarkService studentExamMarkService;
+    @Autowired
+    AdminDashboardService adminDashboardService;
+    @Autowired
+    StudentAssignmentMarkService studentAssignmentMarkService;
+
 
     public AttendanceReportDTO getAttendance(Integer batchId){
         AttendanceReportDTO attendanceReportDTO=new AttendanceReportDTO();
@@ -34,6 +43,7 @@ public class ReportService {
        attendanceReportDTO.setBatchName(batch.getName());
        attendanceReportDTO.setCourseName(course.getName());
        List<Classroom> classroomList= classRoomRepository.findAllByBatchIdAndDeleteStatus(batchId,false);
+        List<StudentAttendanceDTO> studentDTOList=adminDashboardService.getStuAttendanceByBatch(batchId);
        HashMap<Integer,String> studentAttendance=new HashMap<>();
         HashMap<Integer,String> studentNames=new HashMap<>();
        List<String> dateList=new ArrayList<>();
@@ -56,6 +66,7 @@ public class ReportService {
              attendanceReportDTO.setStudentAndAttend(studentAttendance);
            attendanceReportDTO.setDateList(dateList);
            attendanceReportDTO.setStudentNames(studentNames);
+           attendanceReportDTO.setStudentDTOList(studentDTOList);
            return attendanceReportDTO;
 
        }
@@ -66,6 +77,26 @@ public class ReportService {
 
     public ExamMarkReportDTO getStudentMarks(Integer batchId) {
             ExamMarkReportDTO examMarkReportDTO=new ExamMarkReportDTO();
+            List<Student> studentList=studentRepository.findByBatchIdAndDeleteStatus(batchId,false);
+            List<BatchExamForm> batchExamForms1=new ArrayList<>();
+            Batch batch=batchRepository.findBatchById(batchId);
+            List<Student> examPresent=new ArrayList<>();
+            examMarkReportDTO.setBatchName(batch.getName());
+            examMarkReportDTO.setCourseName(batch.getCourse().getName());
+            List<ExamMarkDTO> examMarkDTOList=studentExamMarkService.getExamMarkDTOList(batchId);
+            examMarkReportDTO.setExamMarkDTOList(examMarkDTOList);
+            examMarkReportDTO.setStudents(studentList);
             return examMarkReportDTO;
+    }
+    public AssignmentReportDTO getAssigmentMarks(Integer batchId){
+        AssignmentReportDTO assignmentReportDTO=new AssignmentReportDTO();
+      List<AssignmentMarkDTO> assignmentMarkDTOList= studentAssignmentMarkService.getAssignmentMarkDTOList(batchId);
+      List<Student> studentList=studentRepository.findByBatchIdAndDeleteStatus(batchId,false);
+        Batch batch=batchRepository.findBatchById(batchId);
+     assignmentReportDTO.setBatchName(batch.getName());
+     assignmentReportDTO.setCourseName(batch.getCourse().getName());
+      assignmentReportDTO.setStudentAssignmentMarks(assignmentMarkDTOList);
+      assignmentReportDTO.setStudentList(studentList);
+      return assignmentReportDTO;
     }
 }

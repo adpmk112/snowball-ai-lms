@@ -1,9 +1,7 @@
 package com.ace.ai.admin.exporter;
 
 import com.ace.ai.admin.datamodel.Student;
-import com.ace.ai.admin.dtomodel.ExamMarkDTO;
-import com.ace.ai.admin.dtomodel.ExamMarkReportDTO;
-import com.ace.ai.admin.dtomodel.StudentIdMarkFilePathDTO;
+import com.ace.ai.admin.dtomodel.*;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
@@ -14,15 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-
-public class ExamMarkExcelExporter {
-    private ExamMarkReportDTO examMarkReportDTO;
+public class AssignmentExcelExporter {
+    private AssignmentReportDTO assignmentReportDTO;
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
 
 
-    public ExamMarkExcelExporter(ExamMarkReportDTO examMarkReportDTO) {
-        this.examMarkReportDTO = examMarkReportDTO;
+    public AssignmentExcelExporter(AssignmentReportDTO assignmentReportDTO) {
+        this.assignmentReportDTO = assignmentReportDTO;
         workbook=new XSSFWorkbook();
         sheet=workbook.createSheet();
     }
@@ -36,20 +33,20 @@ public class ExamMarkExcelExporter {
         style.setFont(font);
 
         XSSFCell cell = row.createCell(0);
-        cell.setCellValue("Course : "+examMarkReportDTO.getCourseName());
+        cell.setCellValue("Course : "+assignmentReportDTO.getCourseName());
         cell.setCellStyle(style);
         sheet.autoSizeColumn(0);
         cell=row.createCell(1);
-        cell.setCellValue("Batch : " +examMarkReportDTO.getBatchName());
+        cell.setCellValue("Batch : " +assignmentReportDTO.getBatchName());
         cell.setCellStyle(style);
         sheet.autoSizeColumn(1);
 
         row=sheet.createRow(1);
         cell= row.createCell(0);
-        cell.setCellValue("Exams");
+        cell.setCellValue("Assignments");
         cell.setCellStyle(style);
         sheet.autoSizeColumn(0);
-        List<Student> studentList = examMarkReportDTO.getStudents();
+        List<Student> studentList = assignmentReportDTO.getStudentList();
         int cellCount = 1;
         if (studentList != null) {
             for (Student s : studentList) {
@@ -63,15 +60,15 @@ public class ExamMarkExcelExporter {
     }
 
     public void writeDataRows() {
-        List<ExamMarkDTO> examMarkDTOList = examMarkReportDTO.getExamMarkDTOList();
+        List<AssignmentMarkDTO> assignmentMarkDTOList = assignmentReportDTO.getStudentAssignmentMarks();
         int rowCount = 2;
-        if (examMarkDTOList.size() != 0) {
-            for (ExamMarkDTO examMarkDTO : examMarkDTOList) {
+        if (assignmentMarkDTOList.size() != 0) {
+            for (AssignmentMarkDTO assignmentMarkDTO : assignmentMarkDTOList) {
                 int cellCount = 0;
                 Row row = sheet.createRow(rowCount++);
                 Cell cell = row.createCell(cellCount++);
-                cell.setCellValue(examMarkDTO.getExam().getName()+"("+examMarkDTO.getExam().getMaxMark()+"marks)");
-                for (StudentIdMarkFilePathDTO s : examMarkDTO.getStudentData()) {
+                cell.setCellValue(assignmentMarkDTO.getAssignment().getName());
+                for (StudentIdMarkFilePathDTO s : assignmentMarkDTO.getStudentData()) {
                     cell = row.createCell(cellCount++);
                     cell.setCellValue(s.getMark());
                 }
@@ -82,12 +79,12 @@ public class ExamMarkExcelExporter {
     }
 
     public void export(HttpServletResponse response) throws IOException {
-      writeHeaderRow();
-      writeDataRows();
-      ServletOutputStream outputStream =response.getOutputStream();
-      workbook.write(outputStream);
-      workbook.close();
-      outputStream.close();
+        writeHeaderRow();
+        writeDataRows();
+        ServletOutputStream outputStream =response.getOutputStream();
+        workbook.write(outputStream);
+        workbook.close();
+        outputStream.close();
 
     }
 }

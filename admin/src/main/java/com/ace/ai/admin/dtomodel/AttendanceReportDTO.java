@@ -13,5 +13,6 @@ public class AttendanceReportDTO {
     private HashMap<Integer, String> studentNames;
     private List<String> dateList;
     private String teacherName;
+    private  List<StudentAttendanceDTO> studentDTOList;
 
 }
