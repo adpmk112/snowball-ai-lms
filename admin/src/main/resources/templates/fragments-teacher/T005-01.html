@@ -1,80 +1,113 @@
 <!DOCTYPE html>
 <html lang="en" th:replace="~{layouts/main :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org">
 
-<body class="body-color">
-    <main role="main">
-        <div th:fragment="student-assignment">
-            <div class="semi-circle"></div>
-            <div>
-                <div class="assigncontainer">
-                    <div class="circle">
-                        <img id="file" src="/assets/img/assignment.png" alt="file" />
-                      </div>
-                    <div class="part1 d-flex flex-column">
-                        <div class="assign_header">
-                            <div class="line">
-                                <h1>Student Management Assignment</h1>
-                                <div>
-                                    <div class="assign-p">
-                                        <p th:text="${assignmentMarkDTO.studentMark}+'/100 point'"></p>
-                                        <p
-                                            th:text="'Due '+${assignmentDateTimeDTO.end_date}+' '+${assignmentDateTimeDTO.end_time}">
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                        </div>
-                        <div style="margin-top: 20px;" class="assign_header" >
-                           <span th:text="${assignmentDateTimeDTO.fileName}"></span>
-                            <a th:href="@{${'/assets/img/chapterFiles/'+chapterId+'/'+assignmentDateTimeDTO.fileName}}"
-                            class="btn btn-outline-light btn-floating" 
-                             style="margin-left: 30px;">
-                             <i class="fa-solid fa-download"></i>
-                          </a>
-                         </div>
-                    </div>
-                    <div class="part2">
-                        <div class="upload">
-                            <form th:action="@{/student/assignmentAdd}" method="post" th:object="${assignmentFileDTO}"
-                                enctype="multipart/form-data">
-                                <div class="d-flex justify-content-between">
-                                    <h5>Your Work</h5>
-                                    <p th:text = "${status}"></p>
-                                </div>
-                                <div class="d-flex justify-content-between">
-                                    <p th:text = "${assignmentMarkDTO.submitDate}"></p>
-                                    <p th:text = "${assignmentMarkDTO.submitTime}"></p>
-                                </div>
-                                <input type="hidden" th:field="*{assignmentId}" >
-                                <input type="hidden" th:field="*{studentId}" >
-                                <input class="sub form-control" type="file" id="formFileDisabled"
-                                    th:field="*{assignmentFile}" />
-                                <input th:if="${assignmentMarkDTO.submitTime == 'SubmitTime'}" id="sub" type="submit" value="submit" />
-                                <input th:unless="${assignmentMarkDTO.submitTime == 'SubmitTime'}" id="sub" type="submit" value="Resubmit" />
-                            </form>
-                        </div>
-                    </div>
-                </div>
+<body>
+  <main>
+    <div th:fragment="comment-assignment">
+      <div class="semi-circle"></div>
+      <div class="banner">
+        <div class="circle">
+          <i class="fa-solid fa-people-group"></i>
+        </div>
+        <div>
+          <h1>Batches</h1>
+          <h3>Total: 4</h3>
+        </div>
+      </div>
+      <div class="custom-div margin-top-8">
+        <div id="courselist" class="width-100">
+          <div id="courselist">
+            <div class="bread-crumb d-flex justify-content-between width-90">
+              <div class="bread container-fluid">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                      <a class="text-decoration-none" href="T002.html">
+                        Batch List
+                      </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                      <a class="text-decoration-none" href="T002.html">
+                        Batch Details
+                      </a>
+                    </li>
+                  </ol>
+                </nav>
+              </div>
             </div>
+            <div class="tab p-5">
+              <div class="mt-3 mb-4 d-flex justify-content-between">
 
-            <section class="gradient-custom custom-comment-box" style="background-color: rgb(255, 255, 255);">
-                <div class="container my-5 py-5">
+                <div class="add-list">
+
+                </div>
+              </div>
+              <div>
+                <p>
+                  <a class="text-decoration-none" href="T005.html">
+                    &lt; back
+                  </a>
+                </p>
+                <h2>Assignment Comment</h2>
+                <!-- <div>
+                    <div class="assigncontainer" style="background-color: gray;">
+                      <div class="circle">
+                        <img id="file" src="assets/img/assignment.png" alt="file" />
+                      </div>
+                      <div class="part1 d-flex flex-row">
+                        <div class="assign_header">
+                          <div class="line">
+                            <h1>Student Management Assignment</h1>
+                            <div>
+                              <p>Teacher's name</p>
+                              <div class="assign-p">
+                                <p>100 points</p>
+                                <p>Due Date, Time</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="part2">
+                        <div class="upload">
+                          <form action="">
+                            <div class="d-flex justify-content-between">
+                              <h5>Your Work</h5>
+                              <p>Status</p>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                              <p>Submitted Date</p>
+                              <p>Submitted Time</p>
+                            </div>
+                            <input class="sub form-control" type="file" id="formFileDisabled" />
+                            <input id="sub" type="submit" value="submit" />
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div> -->
+              </div>
+              <section class="gradient-custom custom-comment-box" style="background-color: rgb(255, 255, 255); ">
+                <div class="container  ">
+                  <p><a th:href="@{/teacher/batch/batchSeeMore(batchId=${batchId},radio='comment')}">< back</a></p>
+                  
+                <h2> </h2>
                   <div class="row d-flex justify-content-center">
                     <div class="col-md-12 col-lg-10 col-xl-8">
                       <div class="">
                         <div class="card-body p-4">
                           <div class="row">
                             <div class="col">
-                              <div class="d-flex flex-start" th:each="comment : ${stuCommentViewDTOList}">
+                              <div class="d-flex flex-start mb-4" th:each="comment : ${teacherCommentViewDTOList}">
                                 <img class="rounded-circle shadow-1-strong me-3"
-                                  th:src="@{${'/assets/img/'+comment.commenterCode+'/'+comment.commenterPhoto}}" 
+                                  th:src="@{${'/assets/img/'+comment.commenterCode+'/'+comment.commenterPhoto}}"
                                   style="width: 50px; height: 50px; margin-right: 10px;" />
                                 <div class="flex-grow-1 flex-shrink-1">
                                   <!-- COMMENT -->
                                   <div>
                                     <div class="d-flex justify-content-between align-items-center">
                                       <p class="mb-1" th:text="${comment.commenterName}">
+                                        <!-- Maria Smantha -->
                                         
                                       </p>
                                       <span class="" th:text="${comment.dateTime}" style="font-size: 10px; color: rgb(122, 122, 122);"></span>
@@ -91,19 +124,22 @@
                                     </p>
                                   </div>
                                   <!-- reply -->
-                                  <div class="d-flex flex-start mt-4" th:each="reply : ${comment.stuReplayViewDTOList}">
-                                    
-                                      <img class="rounded-circle shadow-1-strong"
-                                        th:src="@{${'/assets/img/'+reply.commenterCode+'/'+reply.commenterPhoto}}" 
+                                  <div class="d-flex flex-start mt-4"
+                                    th:each="reply : ${comment.teacherReplayViewDTOList}">
+                                    <a class="me-3" href="#">
+                                      <img class="rounded-circle shadow-1-strong" 
+                                        th:src="@{${'/assets/img/'+reply.commenterCode+'/'+reply.commenterPhoto}}"
                                         style="width: 50px; height: 50px; margin-right: 10px;" />
-                                    
+                                    </a>
                                     <div class="flex-grow-1 flex-shrink-1">
                                       <div>
-                                        <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex justify-content-between ">
                                           <p class="mb-1" th:text="${reply.commenterName}">
                                             
+                                            
                                           </p>
-                                          <span class="" th:text="${reply.dateTime}" style="font-size: 10px; color: rgb(122, 122, 122);"></span><span></span>
+                                        <span class="" th:text="${reply.dateTime}" style="font-size: 10px; color: rgb(122, 122, 122); "></span>
+                                        <span></span>
                                         </div>
                                         <p class="small mb-0" th:text="${reply.text}">
                                           <!-- letters, as opposed to using 'Content here,
@@ -114,10 +150,10 @@
                                     </div>
                                   </div>
                                   <!-- reply -->
-        
+  
                                 </div>
                                 <!-- Edit File Modal Box-->
-        
+  
                                 <div class="modal fade" th:attr="id='reply-comment'+${comment.id}" tabindex="-1"
                                   aria-labelledby="Edit File" aria-hidden="true" style="margin-top: 120px;">
                                   <div class="modal-dialog">
@@ -128,19 +164,19 @@
                                           aria-label="Close"></button>
                                       </div>
                                       <div class="modal-body">
-                                        <form th:action="@{/student/assignment/replypost}" th:object="${stuReplyPostDTO}"
+                                        <form th:action="@{/teacher/batch/assignment/replypost}" th:object="${teacherReplyPostDTO}"
                                           method="post">
                                           <div class="d-flex flex-start w-100">
                                             <img class="rounded-circle shadow-1-strong me-3"
-                                              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" 
-                                              width="40" height="40" />
+                                            th:src="@{${'/assets/img/'+#request.userPrincipal.principal.code+'/'+#request.userPrincipal.principal.photo}}" width="40"
+                                              height="40" />
+                                              <input type="hidden" name="batchId" th:value="${batchId}">
                                             <input type="hidden" name="commentId" th:value="${comment.id}">
-                                            <input type="hidden" name="commenterCode" th:value="${stuCode}">
-                                            <input type="hidden" name="stuId" th:value="${stuId}">
-                                            <input type="hidden" name="batchId" th:value="${batchId}">
-                                            <input type="hidden" name="locationId" th:value="${chapterId}">
-                                            <!-- di mr pyin -->
-                                    <input type="hidden" th:field="*{location}">
+                                            <input type="hidden" name="commenterCode" th:value="${teacherCode}">
+                                            <input type="hidden" name="teacherId" th:value="${teacherId}">
+                                            <input type="hidden" name="location" th:value="${assignmentName}+${stuCode}">
+                                            <input type="hidden" name="stuCodeForAssignment" th:value="${stuCode}">
+                                    <input type="hidden" name="locationId" th:value="${assignmentId}">
                                             <div class="form-outline w-100">
                                               <textarea class="form-control" id="textAreaExample" rows="4"
                                                 style="background: rgb(255, 250, 250);" th:field="*{text}"></textarea>
@@ -163,30 +199,26 @@
                                   </div>
                                 </div>
                               </div>
-        
-        
-        
+  
+  
+  
                               <div class="card-footer py-3 border-0" style="background-color: #ffffff;">
-                                <form th:action="@{/student/assignment/commentpost}" th:object="${stuCommentPostDTO}"
+                                <form th:action="@{/teacher/batch/assignment/commentpost}" th:object="${teacherCommentPostDTO}"
                                   method="post">
-                                  <!-- C:\Users\Admin\Desktop\AILMS PC\Design-Prototype\assets\img\chainsaw.jpg
-                                  C:\Users\Admin\Desktop\AILMS PC\Design-Prototype\assets\img\profileboy.jpg -->
                                   <div class="d-flex flex-start w-100">
                                     <img class="rounded-circle shadow-1-strong me-3"
-                                      src="/assets/img/wallpapersden.com_hollow-knight-art_1920x1080.jpg" width="40"
+                                    th:src="@{${'/assets/img/'+#request.userPrincipal.principal.code+'/'+#request.userPrincipal.principal.photo}}" width="40"
                                       height="40" />
                                     <input type="hidden" name="batchId" th:value="${batchId}">
-                                    <input type="hidden" name="commenterCode" th:value="${stuCode}">
-                                    <input type="hidden" name="stuId" th:value="${stuId}">
-                                    <input type="hidden" name="locationId" th:value="${chapterId}">
-                                    <!-- di mr pyin -->
-                                    <input type="hidden" th:field="*{location}">
+                                    <input type="hidden" name="commenterCode" th:value="${teacherCode}">
+                                    <input type="hidden" name="teacherId" th:value="${teacherId}">
+                                    <input type="hidden" name="location" th:value="${assignmentName}+${stuCode}">
+                                    <input type="hidden" name="locationId" th:value="${assignmentId}">
+                                    <input type="hidden" name="stuCodeForAssignment" th:value="${stuCode}">
                                     <div class="form-outline w-100">
                                       <textarea class="form-control" id="textAreaExample" rows="4"
                                         style="background: rgb(255, 250, 250);" th:field="*{text}"></textarea>
-                                      <!-- <label class="form-label" for="textAreaExample">
-                                      Message
-                                    </label> -->
+                                      
                                     </div>
                                   </div>
                                   <div class="float-end mt-2 pt-1">
@@ -207,9 +239,24 @@
                   </div>
                 </div>
               </section>
+            </div>
+
+            <div class="plus-icon"></div>
+
+          </div>
         </div>
-        </div>
-    </main>
+      </div>
+    </div>
+
+
+
+
+
+
+
+    </div>
+    </div>
+  </main>
 </body>
 
 </html>

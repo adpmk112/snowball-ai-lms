@@ -10,3 +10,5 @@ assets/img/chapterFiles/5/SQL_Assignment2.pdf
 assets/img/customChapterFiles/4/Dota 2_09-18-2022_18-41-54-0.mp4
 assets/img/customChapterFiles/4/HtetWaiAung_CV.pdf
 assets/img/customChapterFiles/4/SQL_Assignment3.pdf
+admin/src/main/resources/application.properties
+student/src/main/resources/application.properties

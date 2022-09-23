@@ -26,8 +26,11 @@ import com.ace.ai.student.datamodel.StudentAssignmentMark;
 import com.ace.ai.student.dtomodel.AssignmentDateTimeDTO;
 import com.ace.ai.student.dtomodel.AssignmentFileDTO;
 import com.ace.ai.student.dtomodel.AssignmentMarkDTO;
+import com.ace.ai.student.dtomodel.StuCommentPostDTO;
+import com.ace.ai.student.dtomodel.StuReplyPostDTO;
 import com.ace.ai.student.repository.StudentAssignmentMarkRepository;
 import com.ace.ai.student.service.AssignmentService;
+import com.ace.ai.student.service.StudentCommentService;
 
 @Controller
 @RequestMapping("/student")
@@ -37,6 +40,8 @@ public class AssignmentController {
     AssignmentService assignmentService;
     @Autowired
     StudentAssignmentMarkRepository studentAssignmentMarkRepository;
+    @Autowired
+    StudentCommentService studentCommentService;
 
     @GetMapping("/assignmentView")
     public ModelAndView assignmentStudent(@RequestParam("assignmentId") Integer assignmentId,@RequestParam("studentId") Integer studentId,@RequestParam("chapterId") Integer chapterId,ModelMap model) throws ParseException{
@@ -118,12 +123,33 @@ public class AssignmentController {
           assignmentMarkDTO.setSubmitDate(currentDate);
           assignmentMarkDTO.setSubmitTime(currentTime);
           String status = assignmentService.getStatusAssignment(assignmentFileDTO.getAssignmentId());
+          
           model.addAttribute("assignmentDateTimeDTO" ,assignmentDateTimeDTO);
           model.addAttribute("assignmentMarkDTO", assignmentMarkDTO);
           model.addAttribute("status", status);
+          model.addAttribute("stuReplyPostDTO",new StuReplyPostDTO());
+        model.addAttribute("stuCommentPostDTO", new StuCommentPostDTO());
+        //home mrr nay dl, location mr ll pyin ya ml
+
+        model.addAttribute("stuCommentViewDTOList",studentCommentService.getCommentListByBatchIdAndLocation(student.getBatch().getId(), "home"));
           return "S001-03";
           
          
+    }
+
+    @PostMapping(value="/assignment/commentpost")
+    public String postVideoCommment(@ModelAttribute("stuCommentPostDTO") StuCommentPostDTO stuCommentPostDTO,ModelMap model){
+        // stuCommentPostDTO.setLocation("home");
+        studentCommentService.saveComment(stuCommentPostDTO);
+        return "redirect:/student/assignmentView?assignmentId="+stuCommentPostDTO.getLocationId()+"&studentId="+stuCommentPostDTO.getStuId();
+    }
+
+    @PostMapping(value="/assignment/replypost")
+    public String postVideoReply(@ModelAttribute("stuReplyPostDTO") StuReplyPostDTO stuReplyPostDTO,ModelMap model){
+        
+        studentCommentService.saveReply(stuReplyPostDTO);
+        
+        return "redirect:/student/assignmentView?assignmentId="+stuReplyPostDTO.getLocationId()+"&studentId="+stuReplyPostDTO.getStuId();
     }
 
     
