@@ -13,6 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,9 +53,13 @@ public class TeacherController {
     return new ModelAndView("A004-01","teacherDto",new TeacherDTO());
   }
   @PostMapping("/addTeacherPost")
-       public String addTeacher(@ModelAttribute("teacherDto") TeacherDTO teacherDto, ModelMap model) throws IllegalStateException, IOException {
+       public String addTeacher(@ModelAttribute("teacherDto")@Validated TeacherDTO teacherDto,BindingResult bs, ModelMap model) throws IllegalStateException, IOException {
+        if(bs.hasErrors()){
+          model.addAttribute("msg","Fill all Details!");
+          return"A004-01";
+        }
        Teacher bean=new Teacher();
-       bean.setCode(teacherDto.getCode());
+       bean.setCode(teacherDto.getCode().toUpperCase());
        bean.setName(teacherDto.getName());
       BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
       String encodedPassword=encoder.encode(teacherDto.getPassword());
@@ -123,8 +129,11 @@ public class TeacherController {
   }
 
    @PostMapping("/updateTeacherPost")
-    public String updateTeacher(@ModelAttribute("teacherDto") TeacherDTO teacherDto,ModelMap model) throws IOException{
-
+    public String updateTeacher(@ModelAttribute("teacherDto")@Validated TeacherDTO teacherDto,BindingResult bs,ModelMap model) throws IOException{
+      if(bs.hasErrors()){
+        model.addAttribute("msg","Fill all Details!");
+        return"A004-02";
+        }
       Teacher bean=new Teacher();
       bean.setId(teacherDto.getId());
       bean.setCode(teacherDto.getCode());
