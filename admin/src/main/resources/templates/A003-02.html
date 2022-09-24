@@ -2,7 +2,7 @@
 <html lang="en"  xmlns:th="http://www.thymeleaf.org">
   <head>
     <div th:replace="ADMFRG:: head"></div>
-    <title>Edit Teacher</title>    
+    <title>Edit Batch</title>
   </head>
 
   <body style="background-color: rgb(235, 235, 235);">   
@@ -23,27 +23,37 @@
     <script>
     function checkName() {
       let batchName=$("#name").val();
-      $.ajax({
-        type: "GET",
-        url: "../CheckBatchName",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data : {batchName: batchName},
-        success: function () {
-          let span = document.getElementById('same-name');
-          span.removeAttribute('hidden');
-          let span1=document.getElementById('diff-name');
-          span1.setAttribute('hidden','hidden');
-        },
-        error: function () {
-          let span = document.getElementById('same-name');
-          span.setAttribute('hidden','hidden');
-          let span1=document.getElementById('diff-name');
-          span1.removeAttribute('hidden');
+      let batchName1=$('#batchName1').val();
+      if(batchName1==batchName){
+        let span = document.getElementById('same-name');
+        span.setAttribute('hidden','hidden');
+        let span1=document.getElementById('diff-name');
+        span1.removeAttribute('hidden');
+        let button = document.getElementById('editBatch').disabled=true;
+      }else {
+        $.ajax({
+          type: "GET",
+          url: "../CheckBatchName",
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+          data: {batchName: batchName},
+          success: function () {
+            let span = document.getElementById('same-name');
+            span.removeAttribute('hidden');
+            let span1 = document.getElementById('diff-name');
+            span1.setAttribute('hidden', 'hidden');
+            let button = document.getElementById('editBatch').disabled=true;
+          },
+          error: function () {
+            let span = document.getElementById('same-name');
+            span.setAttribute('hidden', 'hidden');
+            let span1 = document.getElementById('diff-name');
+            span1.removeAttribute('hidden');
+            let button = document.getElementById('editBatch').disabled=false;
+          }
 
-        }
-
-      })
+        })
+      }
     }
   </script>
     

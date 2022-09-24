@@ -1,4 +1,4 @@
-package com.ace.ai.admin;
+package com.ace.ai.admin.repository;
 
 import com.ace.ai.admin.datamodel.Admin;
 import com.ace.ai.admin.repository.AdminRepository;
