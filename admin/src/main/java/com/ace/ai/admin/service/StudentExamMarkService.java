@@ -40,7 +40,7 @@ public class StudentExamMarkService {
         for(BatchExamForm batchExamForm : batchExamFormsByBatchId){  
             //filters that are only scheduled and start date is after current
             if(batchExamForm.getStartDate()!=null && !batchExamForm.getStartDate().isBlank() && batchExamForm.getEndDate()!=null && !batchExamForm.getEndDate().isBlank()
-                && formattedNow.isAfter( LocalDateTime.parse( batchExamForm.getStartDate().replace("T"," "), dtf))) { 
+                && formattedNow.isAfter( LocalDateTime.parse( batchExamForm.getEndDate().replace("T"," "), dtf))) { 
                 ExamMarkDTO examMarkDTO = this.getExamMarkDTO(batchExamForm, batchId);
                 if(examMarkDTO.getStudentData().size() > 0){ //add to list only if student list is find
                     examMarkDTOList.add(examMarkDTO);

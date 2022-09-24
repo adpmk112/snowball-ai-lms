@@ -1,159 +1,159 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <div th:replace="ADMFRG :: head"></div>
-    <title>Batch Details</title>
-  </head>
 
-  <body style="background-color: rgb(235, 235, 235);">
-    <header th:replace="ADMFRG :: header"></header>
-    <main role="main">
-      <div th:replace="fragments/A003-03 :: admin-batch-see-more"></div>
-    </main>
-    <footer th:replace="ADMFRG :: footer"></footer>
-    <div th:replace="ADMFRG :: scripts"></div>
+<head>
+  <div th:replace="ADMFRG :: head"></div>
+  <title>Batch Details</title>
+</head>
 
-    <script th:src="@{/assets/js/data.js}"></script>
-    <script
-      type="text/javascript"
-      charset="utf8"
-      src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"
-    ></script>
-    <script th:src="@{/assets/js/admin-batch-detail.js}"></script>
+<body style="background-color: rgb(235, 235, 235);">
+  <header th:replace="ADMFRG :: header"></header>
+  <main role="main">
+    <div th:replace="fragments/A003-03 :: admin-batch-see-more"></div>
+  </main>
+  <footer th:replace="ADMFRG :: footer"></footer>
+  <div th:replace="ADMFRG :: scripts"></div>
 
-    <!-- For student delete confirm-->
-    <script>
-      $(document).ready(function () {
-        $(document).on('click', 'a.remove-student', function () {
-          window.batchId =  $(this).attr('id').split('_')[0]
-         window.studentId = $(this).attr('id').split('_')[1]
-        })
-        $('a.remove-student').confirm({
-          closeIcon: true,
-          theme: 'Material',
-          //icon: 'fa-solid fa-warning',
+  <script th:src="@{/assets/js/data.js}"></script>
+  <script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+  <script th:src="@{/assets/js/admin-batch-detail.js}"></script>
 
-          title: 'Remove Student',
-          content: 'Are you sure to remove this student?',
-          animation: 'Scale',
-          buttons: {
-            Yes: function () {
-              $.ajax({
-                type: 'GET',
-                url: '/admin/batch/RemoveStudent',
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-                data: { batchId: batchId, studentId: studentId },
-                success: function () {
-                  window.location = '/admin/batch/batchSeeMore?id='+batchId+'&radio=student'
-                },
-                error: function () {},
-              })
-            },
-            No: function () {},
+  <!-- For student delete confirm-->
+  <script>
+    $(document).ready(function () {
+      $(document).on('click', 'a.remove-student', function () {
+        window.batchId = $(this).attr('id').split('_')[0]
+        window.studentId = $(this).attr('id').split('_')[1]
+      })
+      $('a.remove-student').confirm({
+        closeIcon: true,
+        theme: 'Material',
+        //icon: 'fa-solid fa-warning',
+
+        title: 'Remove Student',
+        content: 'Are you sure to remove this student?',
+        animation: 'Scale',
+        buttons: {
+          Yes: function () {
+            $.ajax({
+              type: 'GET',
+              url: '/admin/batch/RemoveStudent',
+              contentType: 'application/json; charset=utf-8',
+              dataType: 'json',
+              data: { batchId: batchId, studentId: studentId },
+              success: function () {
+                window.location = '/admin/batch/batchSeeMore?id=' + batchId + '&radio=student'
+              },
+              error: function () { },
+            })
           },
-        })
-        $(document).on('click', 'a.remove-teacher', function () {
-          window.batch_id = $(this).attr('id').split('_')[1]
-          window.teacherCode = $(this).attr('id').split('_')[0]
-        })
-        $('a.remove-teacher').confirm({
-          closeIcon: true,
-          theme: 'Material',
-          //icon: 'fa-solid fa-warning',
+          No: function () { },
+        },
+      })
+      $(document).on('click', 'a.remove-teacher', function () {
+        window.batch_id = $(this).attr('id').split('_')[1]
+        window.teacherCode = $(this).attr('id').split('_')[0]
+      })
+      $('a.remove-teacher').confirm({
+        closeIcon: true,
+        theme: 'Material',
+        //icon: 'fa-solid fa-warning',
 
-          title: 'Remove Teacher',
-          content: 'Are you sure to remove?',
-          animation: 'Scale',
-          buttons: {
-            Yes: function () {
-              $.ajax({
-                type: 'GET',
-                url: '/admin/batch/RemoveTeacher',
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-                data: { batch_id: batch_id, teacherCode: teacherCode },
-                success: function () {
-                  window.location = '/admin/batch/batchSeeMore?id='+batch_id+'&radio=teacher'
-                },
-                error: function () {},
-              })
-            },
-            No: function () {},
+        title: 'Remove Teacher',
+        content: 'Are you sure to remove?',
+        animation: 'Scale',
+        buttons: {
+          Yes: function () {
+            $.ajax({
+              type: 'GET',
+              url: '/admin/batch/RemoveTeacher',
+              contentType: 'application/json; charset=utf-8',
+              dataType: 'json',
+              data: { batch_id: batch_id, teacherCode: teacherCode },
+              success: function () {
+                window.location = '/admin/batch/batchSeeMore?id=' + batch_id + '&radio=teacher'
+              },
+              error: function () { },
+            })
           },
-        })
-        //<!-- For exam-schedule delete confirm -->
-        $('a.remove-exam').on('click', function () {
-          window.exam_schedule_id = $(this).attr('id')
-        })
-        $('a.remove-exam').confirm({
-          closeIcon: true,
-          theme: 'Material',
-          //icon: 'fa-solid fa-warning',
+          No: function () { },
+        },
+      })
+      //<!-- For exam-schedule delete confirm -->
+      $('a.remove-exam').on('click', function () {
+        window.exam_schedule_id = $(this).attr('id')
+      })
+      $('a.remove-exam').confirm({
+        closeIcon: true,
+        theme: 'Material',
+        //icon: 'fa-solid fa-warning',
 
-          title: 'Remove Exam!',
-          content: 'Are you sure to remove this exam?',
-          animation: 'Scale',
-          buttons: {           
-            No: function () {},
-            Yes: function () {
-              window.location = '/admin/batch/removeExamSchedule/'+exam_schedule_id
-            },
+        title: 'Remove Exam!',
+        content: 'Are you sure to remove this exam?',
+        animation: 'Scale',
+        buttons: {
+          No: function () { },
+          Yes: function () {
+            window.location = '/admin/batch/removeExamSchedule/' + exam_schedule_id
           },
-        })
-        //<!-- For Remove Attencance confirm -->
-        $('a.remove-attendance').confirm({
-          closeIcon: true,
-          theme: 'Material',
-          //icon: 'fa-solid fa-warning',
+        },
+      })
+      //<!-- For Remove Attencance confirm -->
+      $('a.remove-attendance').confirm({
+        closeIcon: true,
+        theme: 'Material',
+        //icon: 'fa-solid fa-warning',
 
-          title: 'Remove Row!',
-          content: 'Do you want to remove this row?',
-          animation: 'Scale',
-          buttons: {
-            Yes: function () {},
-            No: function () {},
-          },
-        })
-        // For Classroom Delete confirm
-        $('a.remove-classroom').on('click', function () {
-          window.class_id = $(this).attr('id')
-        })
-        $('a.remove-classroom').confirm({
-          closeIcon: true,
-          theme: 'Material',
-          //icon: 'fa-solid fa-warning',
+        title: 'Remove Row!',
+        content: 'Do you want to remove this row?',
+        animation: 'Scale',
+        buttons: {
+          Yes: function () { },
+          No: function () { },
+        },
+      })
+      // For Classroom Delete confirm
+      $('a.remove-classroom').on('click', function () {
+        window.class_id = $(this).attr('id')
+      })
+      $('a.remove-classroom').confirm({
+        closeIcon: true,
+        theme: 'Material',
+        //icon: 'fa-solid fa-warning',
 
-          title: 'Remove Classroom!',
-          content: 'Are you sure to remove this classroom?',
-          animation: 'Scale',
-          buttons: {           
-            No: function () {},
-            Yes: function () {
-             window.location='/admin/batch/deleteClassroom/'+class_id;
-            },
+        title: 'Remove Classroom!',
+        content: 'Are you sure to remove this classroom?',
+        animation: 'Scale',
+        buttons: {
+          No: function () { },
+          Yes: function () {
+            window.location = '/admin/batch/deleteClassroom/' + class_id;
           },
-        })
+        },
       })
 
-      // function addTeacherToBatch(e) {
-      //   window.bId = document.getElementById('bId').value
-      //   window.tId = $('#tId').val();
-      //   $.ajax({
-      //     type: 'GET',
-      //     url: '/admin/batch/addTeacherToBatch',
-      //     contentType: 'application/json; charset=utf-8',
-      //     dataType: 'json',
-      //     data: { bId: bId, tId: tId },
-      //     success: function () {
-      //       window.location = '/admin/batch/batchSeeMore?id='+bId+'&radio=teacher'
-      //     },
-      //     error: function () {
-      //       $.alert("error"); 
-      //     },
-      //   })
-      // }
-    
-    </script>
-  </body>
+      //For exam mark and assignment mark
+      showExamTable();//selected by default
+      $('#selectBoxForExamAnsAssignment').on('change', function () {
+        (this.value == 0) ? showExamTable() : showAssignmentTable();
+      })
+
+      function showExamTable() {
+        $('#examMarkTable').show();
+        $('#assignmentMarkTable').hide();
+      }
+      function showAssignmentTable() {
+        $('#assignmentMarkTable').show();
+        $('#examMarkTable').hide();
+      }
+
+    })
+
+
+
+
+  </script>
+</body>
+
 </html>

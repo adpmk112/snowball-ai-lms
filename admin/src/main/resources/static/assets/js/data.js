@@ -36,9 +36,12 @@ $(document).ready(function () {
   $( '#datatable5' ).dataTable( {    
     "bDestroy": true
   } );
+  $('#datatable6').dataTable()
+
+  $('#datatable7').dataTable()
 
   $('#assignmentDataTable').dataTable({ //For teacher Assignment Data table
-    
+    "bDestroy": true
   })
 
 });
