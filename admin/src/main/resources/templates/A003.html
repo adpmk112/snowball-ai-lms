@@ -26,7 +26,7 @@
         window.batchId=$(this).attr('id');
       });
       $(document).ready(function () {
-        $('a.batch-close.btn-outline-danger').confirm({
+        $('a.batch-close.btn-outline-success').confirm({
           closeIcon: true,
           theme: 'Material',
           title: 'Batch Close!',
@@ -34,6 +34,7 @@
           animation: 'Scale',
           buttons: {
 
+            No: function () {},
             Yes: function () {
                 console.log(batchId);
                 $.ajax({
@@ -46,24 +47,22 @@
                     location.reload(true);
                   },
                   error: function () {}
-
                 })
 
 
             },
-            No: function () {}
+           
         }
       });
-        $('a.batch-close.btn-outline-dark').confirm({
+      $('a.batch-close.btn-outline-secondary').confirm({
           closeIcon: true,
           theme: 'Material',
           title: 'Reopen Batch!',
           content: 'Are you sure?',
           animation: 'Scale',
-          buttons: {
-
+          buttons: {           
+            No: function () {},
             Yes: function () {
-              console.log(batchId);
               $.ajax({
                 type: "GET",
                 url: "/admin/batch/BatchReopen",
@@ -76,16 +75,47 @@
                 error: function () {}
 
               })
-
-
             },
-            No: function () {}
           }
         });
       })
+
+      // Batch delete
+      $('a.batch-delete').on("click", function(e){
+        e.preventDefault();
+        batchId = $(this).attr("id");
+        $.confirm({
+          closeIcon: true,
+          theme: 'Material',
+          title: 'Delete Batch!',
+          content: 'Are you sure to delete this batch?',
+          animation: 'Scale',
+          buttons: {           
+            No: function () {},
+            Yes: function () {
+              $.ajax({
+                type: "GET",
+                url: "/admin/batch/deleteBatch",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: {batchId: batchId},
+                success: function () {
+                  location.reload(true);
+                },
+                error: function () {
+                  $.alert('Sorry, error occurs!')
+                }
+                  
+              })
+            },
+          }
+        });
+    
+      })
+      
     </script>
 
-    <!-- Batch Reopen -->
+    
 
   </body>
 </html>

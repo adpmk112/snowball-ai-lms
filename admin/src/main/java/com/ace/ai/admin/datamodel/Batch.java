@@ -26,28 +26,28 @@ public class Batch implements Serializable {
     @JoinColumn(name="course_id")
     private Course course;
 
-    @OneToMany(mappedBy = "batch")
+    @OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ChapterBatch> chapterBatches = new ArrayList<>();
 
-    @OneToMany(mappedBy = "batch")
+    @OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BatchExamForm> batchExamForms = new ArrayList<>();
 
-    @OneToMany(mappedBy = "batch")
+    @OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TeacherBatch> teacherBatches = new ArrayList<>();
-
-    @OneToMany(mappedBy = "batch")
+  
+    @OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CustomChapter> customChapters = new ArrayList<>();
 
-    @OneToMany(mappedBy = "batch")
+    @OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "batch")
+    @OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Student> students = new ArrayList<>();
 
-    @OneToMany(mappedBy = "batch")
+    @OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Classroom> classrooms = new ArrayList<>();
 
-    @OneToMany(mappedBy = "batch")
+    @OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Assignment> assignment = new ArrayList<>();
 
     @Override

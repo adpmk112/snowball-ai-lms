@@ -1,66 +1,38 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
   <div th:replace="STUFRG :: head"></div>
   <title>Student Video</title>
 </head>
+
 <body class="body-color">
   <header th:replace="STUFRG :: header"></header>
 
-    <main role="main">
-      <div th:replace="fragments/S002 :: student-classroom"></div>
-    </main>
+  <main role="main">
+    <div th:replace="fragments/S002 :: student-classroom"></div>
+  </main>
   <footer th:replace="STUFRG :: footer"></footer>
   <div th:replace="STUFRG :: scripts"></div>
   <!-- <script src="assets/bootstrap/js/bootstrap.min.js"></script>
   <script src="assets/js/Material-Text-Input.js"></script> -->
-  <script src="assets/js/ml-video.js"></script>
+  <!-- <script src="assets/js/ml-video.js"></script> -->
+  <script>
+
+    $(document).ready(function () {
+
+      $('#upcomingLiveSession').dataTable({
+        
+      });
+
+      $('#previousLiveSession').dataTable({
+        
+      });
+
+    })
+
+
+  </script>
 </body>
 
 </html>
-  <!-- <head>
-    <div th:replace="STUFRG :: head"></div>
-    <title>Student-Classroom</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css"
-    />
-    <script
-      type="text/javascript"
-      charset="utf8"
-      src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"
-    ></script>
-
-    <script src="assets/js/data.js"></script>
-    <link rel="stylesheet" href="assets/css/datatable.css" />
-    <link rel="stylesheet" href="assets/css/styles.css" />
-
-    <script>
-      $(function () {
-        $('#header').load('S005.html')
-      })
-    </script>
-    <script>
-      $(function () {
-        $('#footer').load('F001.html')
-      })
-    </script>
-    <script
-      src="https://kit.fontawesome.com/83e4876698.js"
-      crossorigin="anonymous"
-    ></script>
-  </head>
-
-  <body class="body-color">
-    <div id="header"></div>
-
-    <div id="footer"></div>
-
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-
-    <script src="assets/js/subject-carousel.js"></script>
-    <script src="assets/js/header.js"></script>
-  </body> -->
-
