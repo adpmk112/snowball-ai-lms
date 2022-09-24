@@ -54,7 +54,7 @@ public class ChapterViewService {
                     chapterDTO.setStatus("Done");
                 }
                 else{
-                    chapterDTO.setStatus("Not Started");
+                    chapterDTO.setStatus("Upcoming");
 
                 }
 
