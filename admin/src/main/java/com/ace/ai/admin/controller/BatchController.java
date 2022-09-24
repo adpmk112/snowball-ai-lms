@@ -12,6 +12,8 @@ import com.ace.ai.admin.service.AttendanceService;
 import com.ace.ai.admin.service.BatchService;
 import com.ace.ai.admin.service.ChapterViewService;
 import com.ace.ai.admin.service.ExamFormService;
+import com.ace.ai.admin.service.StudentAssignmentMarkService;
+import com.ace.ai.admin.service.StudentExamMarkService;
 import com.ace.ai.admin.service.ClassRoomService;
 import com.ace.ai.admin.service.BatchExamFormService;
 import com.ace.ai.admin.service.TeacherBatchService;
@@ -51,6 +53,10 @@ public class BatchController {
     ChapterBatchRepository chapterBatchRepository;
     @Autowired
     AssignmentService assignmentService;
+    @Autowired
+    StudentAssignmentMarkService studentAssignmentMarkService;
+    @Autowired
+    StudentExamMarkService studentExamMarkService;
 
 
     @GetMapping({ "/" })
@@ -84,6 +90,8 @@ public class BatchController {
         model.addAttribute("examScheduleList", examScheduleService.showExamScheduleTable(id));
         model.addAttribute("attendanceDTOList", attendanceService.getAllAttendanceList(id));// Attendance with bath id
         model.addAttribute("allStudent", attendanceService.getAllStudentByDeleteStatus(id));// for attendance with batch
+        model.addAttribute("studentExamMarkList", studentExamMarkService.getExamMarkDTOList(id));//To mark exam;
+        model.addAttribute("studentAssignmentMarkList", studentAssignmentMarkService.getAssignmentMarkDTOList(id));//To mark Assignment
         model.addAttribute("classroomList", classRoomService.showClassroomTable(id));
         model.addAttribute("studentDTOList", batchService.findALlStudentByBatchId(id));
         model.addAttribute("radio",radio);
@@ -351,6 +359,12 @@ public class BatchController {
             }
         }
         return "redirect:/admin/batch/batchSeeMore?id="+batchId+"&radio=attendance";
+    }
+
+    @GetMapping("/deleteBatch")
+    public ResponseEntity deleteBatch(@RequestParam("batchId") int batchId){
+        batchService.deleteById(batchId);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
 

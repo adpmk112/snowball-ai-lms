@@ -75,10 +75,15 @@
                                                         <i class="fa-regular fa-pen-to-square"></i>
                                                     </a>
                                                     <a href="" th:id="${batch.id}" class="btn batch-close btn-floating"
-                                                        th:classappend="${batch.deleteStatus} ? 'btn-outline-dark' : 'btn-outline-danger'"
+                                                        th:classappend="${batch.deleteStatus} ? 'btn-outline-secondary' : 'btn-outline-success'"
                                                         data-mdb-ripple-color="dark">
                                                         <i class="fa-solid fa-lock"></i>
                                                     </a>
+                                                    <a href="" th:id="${batch.id}" class="btn batch-delete btn-floating btn-outline-danger"                                                        
+                                                        data-mdb-ripple-color="dark">
+                                                        <i class="fa-solid fa-trash"></i>
+                                                    </a>
+                                                    
                                                 </td>
                                             </tr>
                                         </form>
