@@ -42,7 +42,7 @@ public class ProfileController {
       if(admin.getEmail()!=null){
           adminDTO.setEmail(admin.getEmail());
       }
-      if(admin.getPhoto()!=null){
+      if(admin.getPhoto()!=null ){
           model.addAttribute("photoName",admin.getPhoto());
 
       }
