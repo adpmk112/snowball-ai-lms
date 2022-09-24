@@ -275,4 +275,8 @@ public class BatchService {
          }
          return batchList;
     }
+
+    public void deleteById(int batchId){
+        batchRepository.deleteById(batchId);
+    }
 }
