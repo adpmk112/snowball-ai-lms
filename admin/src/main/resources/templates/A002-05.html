@@ -65,7 +65,7 @@
                       <div class="col-8">
                         <input type="radio" name="correct-ans` +
           question_id +
-          `" class="me-2" required><label><input type="text" id="option-input" maxlength="100" name="option" class="form-control" placeholder="Option " required oninput="checkAnswerName(this);"></label>
+          `" class="me-2" required><label><input type="text" id="option-input" maxlength="1000" name="option" class="form-control" placeholder="Option " required oninput="checkAnswerName(this);"></label>
                         <span id="answer-error" class="ms-2 text-danger answer-error" style="font-size: 14px;"></span>
                       </div>
                       <div class="col-4">
@@ -87,7 +87,7 @@
           `">
                                   <div class="row">
                                         <div class="col-8 mr-auto">
-                                            <textarea maxlength="500" name="mc-question" class="col-10 form-control question border-none"  rows="1" placeholder="Your question..." required oninput="checkQuestionName(this);"></textarea>
+                                            <textarea maxlength="2000" name="mc-question" class="col-10 form-control question border-none"  rows="1" placeholder="Your question..." required oninput="checkQuestionName(this);"></textarea>
                                             <span class="question-error-span text-danger" style="font-size: 14px;"></span>
                                         </div>                                                    
                                         <div class="col-2">
@@ -102,7 +102,7 @@
                                         <div class="col-8">
                                             <input type="radio" name="correct-ans` +
           radio_question_id +
-          `" checked class="me-2" required><label><input type="text" id="option-input" name="option" class="form-control" placeholder="Option" maxlength="100" required oninput="checkAnswerName(this);"></label>
+          `" checked class="me-2" required><label><input type="text" id="option-input" name="option" class="form-control" placeholder="Option" maxlength="1000" required oninput="checkAnswerName(this);"></label>
                                             <span id="answer-error" class="ms-2 text-danger answer-error" style="font-size: 14px;"></span>
                                             </div>
                                         <div class="col-4">                             
@@ -114,7 +114,7 @@
                                         <div class="col-8">
                                             <input type="radio" name="correct-ans` +
           radio_question_id +
-          `"  class="me-2" required><label><input type="text" id="option-input" name="option" class="form-control" placeholder="Option" maxlength="100" required oninput="checkAnswerName(this);"></label>
+          `"  class="me-2" required><label><input type="text" id="option-input" name="option" class="form-control" placeholder="Option" maxlength="1000" required oninput="checkAnswerName(this);"></label>
                                             <span id="answer-error" class="ms-2 text-danger answer-error" style="font-size: 14px;"></span>
                                         </div>
                                         <div class="col-4">                             
@@ -160,7 +160,7 @@
                         class="col-10 form-control question border-none"
                         rows="1"
                         placeholder="Your question..."
-                        maxlength="500"
+                        maxlength="2000"
                         required
                         oninput="checkQuestionName(this);"
                         ></textarea>

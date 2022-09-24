@@ -140,7 +140,8 @@ public class ExamFormService {
          LocalDateTime now = LocalDateTime.now();
          DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
          String formattedString = now.format(formatter);
-         studentExamMark.setAnswerDate(formattedString);       
+         studentExamMark.setAnswerDate(formattedString);  
+         studentExamMark.setNotification(false);     
         if(!answerFile.isEmpty()){
                         
             String studentName = student.getName().trim().replaceAll("\\s","-");
