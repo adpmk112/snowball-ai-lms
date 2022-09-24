@@ -15,6 +15,7 @@
                             <div class="wrapper"  th:if="${photoName == 'default' || photoName== null}">
                                <div class="image-container">
                                   <i class="fas fa-user"></i>
+                                   <img src="/assets/img/profileboy.jpg"/>
                                </div>
                                 <label for="img-input" class="camera-icon">
                                     <i class="fas fa-camera"></i>
@@ -23,7 +24,7 @@
                             </div>
 
 <!--                            /*@thymesVar id="principal" type="principal"*/-->
-                            <div class="wrapper" th:unless="${photoName == null || photoName == 'default'}">
+                            <div class="wrapper" th:unless="${photoName == 'default' || photoName == null  }">
                                <div class="image-container">
                                    <i class="fas fa-user"></i>
                                    <img th:src="@{${'/assets/img/admin/'+photoName}}" />
