@@ -103,7 +103,7 @@ public class StudentChapterService {
     }
 
     public ChapterFileDTO getCustomChapterFileById(int customChapterFileId, int customChapterId) {
-        CustomChapterFile customChapterFile = customChapterFileRepository.findById(customChapterId).get();
+        CustomChapterFile customChapterFile = customChapterFileRepository.findById(customChapterFileId).get();
         ChapterFileDTO chapterFileDTO = new ChapterFileDTO();
         chapterFileDTO.setChapterId(customChapterId);
         chapterFileDTO.setId(customChapterFile.getId());

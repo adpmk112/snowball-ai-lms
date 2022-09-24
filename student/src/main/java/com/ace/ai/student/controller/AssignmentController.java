@@ -55,6 +55,11 @@ public class AssignmentController {
         assignmentFileDTO.setStudentId(studentId);
         model.addAttribute("status", status);
         model.addAttribute("chapterId",chapterId);
+
+        model.addAttribute("stuReplyPostDTO",new StuReplyPostDTO());
+        model.addAttribute("stuCommentPostDTO", new StuCommentPostDTO());
+         model.addAttribute("stuCommentViewDTOList",studentCommentService.getCommentListByBatchIdAndLocation(student.getBatch().getId(), "home"));
+
         return new ModelAndView("S001-03","assignmentFileDTO",assignmentFileDTO);
     }
 
@@ -127,11 +132,10 @@ public class AssignmentController {
           model.addAttribute("assignmentDateTimeDTO" ,assignmentDateTimeDTO);
           model.addAttribute("assignmentMarkDTO", assignmentMarkDTO);
           model.addAttribute("status", status);
-          model.addAttribute("stuReplyPostDTO",new StuReplyPostDTO());
-        model.addAttribute("stuCommentPostDTO", new StuCommentPostDTO());
+         
         //home mrr nay dl, location mr ll pyin ya ml
 
-        model.addAttribute("stuCommentViewDTOList",studentCommentService.getCommentListByBatchIdAndLocation(student.getBatch().getId(), "home"));
+       
           return "S001-03";
           
          

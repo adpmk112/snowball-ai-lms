@@ -7,7 +7,7 @@
       <div class="semi-circle"></div>
       <div class="banner">
         <div class="circle">
-         
+          <i class="fa-solid fa-book-open"></i>
         </div>
         <div>
           <h1 th:text="${chapterName}"></h1>
@@ -54,7 +54,7 @@
           <div class="card-body ">
             <h4 class="card-title " style="margin-left: 40px;">Videos Links</h4>
             <a th:each="chapterFile : ${chapterFileDTOList}"
-              th:href="@{/student/customChapter/video/(chapterId=${chapterId},batchId=${batchId},chapterFileId=${chapterFile.id})}">
+              th:href="@{/student/customChapter/video(customChapterId=${chapterId},batchId=${batchId},customChapterFileId=${chapterFile.id})}">
               <p class="card-text" style="margin-left: 80px; margin-bottom: 0px;"
                 th:if="${chapterFile.fileType == 'video'}" th:text="${chapterFile.name}"></p>
             </a>
@@ -66,7 +66,7 @@
           <div class="card-body">
             <h4 class="card-title" style="margin-left: 40px;">PDF Links</h4>
             <a th:each="chapterFile : ${chapterFileDTOList}"
-              th:src="@{${'/assets/img/customChapterFiles/'+chapterFile.chapterId+'/'+chapterFile.name}}">
+              th:href="@{${'/assets/img/customChapterFiles/'+chapterFile.chapterId+'/'+chapterFile.name}}">
               <p class="card-text" style="margin-left: 80px; margin-bottom: 0px;"
                 th:if="${chapterFile.fileType == 'pdf'}" th:text="${chapterFile.name}"></p>
             </a>
@@ -75,7 +75,7 @@
         <div class="card custom-div" style="margin-bottom: 10px;">
           <div class="card-body">
             <h4 class="card-title" style="margin-left: 40px;">Assignment Links</h4>
-            <a th:each="assignment : ${assignmentList}" th:href="@{/student/assignemntView(assignmentId=${assignment.id},studentId=${stuId},chapterId=${chapterId})}">
+            <a th:each="assignment : ${assignmentList}" th:href="@{/student/assignmentView(assignmentId=${assignment.id},studentId=${stuId},chapterId=${chapterId})}">
               <p class="card-text" style="margin-left: 80px; margin-bottom: 0px;"
                  th:text="${assignment.name}"></p>
             </a>

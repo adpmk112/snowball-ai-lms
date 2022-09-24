@@ -179,14 +179,11 @@
                                     <input type="hidden" name="commenterCode" th:value="${stuCode}">
                                     <input type="hidden" name="stuId" th:value="${stuId}">
                                     <input type="hidden" name="locationId" th:value="${chapterId}">
-                                    <!-- di mr pyin -->
-                                    <input type="hidden" th:field="*{location}">
+                                    
                                     <div class="form-outline w-100">
                                       <textarea class="form-control" id="textAreaExample" rows="4"
-                                        style="background: rgb(255, 250, 250);" th:field="*{text}"></textarea>
-                                      <!-- <label class="form-label" for="textAreaExample">
-                                      Message
-                                    </label> -->
+                                        style="background: rgb(255, 250, 250);" th:field="*{text}">
+                                      </textarea>
                                     </div>
                                   </div>
                                   <div class="float-end mt-2 pt-1">
