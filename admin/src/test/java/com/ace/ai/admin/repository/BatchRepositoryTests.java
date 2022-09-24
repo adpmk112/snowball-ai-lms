@@ -1,4 +1,4 @@
-package com.ace.ai.admin;
+package com.ace.ai.admin.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
