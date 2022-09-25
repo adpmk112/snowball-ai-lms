@@ -9,9 +9,13 @@ import com.ace.ai.admin.datamodel.Chapter;
 import com.ace.ai.admin.datamodel.ChapterFile;
 import com.ace.ai.admin.datamodel.CustomChapter;
 import com.ace.ai.admin.datamodel.CustomChapterFile;
+import com.ace.ai.admin.datamodel.Student;
 import com.ace.ai.admin.datamodel.StudentAssignmentMark;
 import com.ace.ai.admin.datamodel.StudentExamMark;
 import com.ace.ai.admin.datamodel.Teacher;
+import com.ace.ai.admin.dtomodel.AssignmentDateTimeDTO;
+import com.ace.ai.admin.dtomodel.AssignmentFileDTO;
+import com.ace.ai.admin.dtomodel.AssignmentMarkCommentDTO;
 import com.ace.ai.admin.dtomodel.AssignmentMarkDTO;
 import com.ace.ai.admin.dtomodel.AttendanceRequestDTO;
 import com.ace.ai.admin.dtomodel.CustomAssignmentDTO;
@@ -211,6 +215,8 @@ public class TeacherBatchController {
         model.addAttribute("teacherCode", teacher.getCode());
         model.addAttribute("batchId",batchId);
         model.addAttribute("teacherId",teacher.getId());
+        model.addAttribute("batchName", batchService.getById(batchId).getName());
+        model.addAttribute("courseName", batchService.getById(batchId).getCourse().getName());
         return new ModelAndView("T005-04","teacherCommentViewDTOList",teacherCommentViewDTOList);
     }
 
@@ -237,6 +243,8 @@ public class TeacherBatchController {
         model.addAttribute("teacherCode", teacher.getCode());
         model.addAttribute("batchId",batchId);
         model.addAttribute("teacherId",teacher.getId());
+        model.addAttribute("batchName", batchService.getById(batchId).getName());
+        model.addAttribute("courseName", batchService.getById(batchId).getCourse().getName());
         return new ModelAndView("T005-03","teacherCommentViewDTOList",teacherCommentViewDTOList);
     }
 
@@ -255,7 +263,7 @@ public class TeacherBatchController {
     }
 
     @GetMapping("/comment/assignmentList/student")
-    public ModelAndView getAssignmentComment(@AuthenticationPrincipal TeacherUserDetails userDetails,@RequestParam("batchId")int batchId,@RequestParam("assignmentId") int assignmentId,@RequestParam("stuCode") String stuCode,ModelMap model){
+    public ModelAndView getAssignmentComment(@AuthenticationPrincipal TeacherUserDetails userDetails,@RequestParam("batchId")int batchId,@RequestParam("assignmentId") int assignmentId,@RequestParam("stuCode") String stuCode,ModelMap model) throws ParseException{
         TeacherAssignmentViewDTO teacherAssignmentViewDTO = new TeacherAssignmentViewDTO();
         teacherAssignmentViewDTO.setAssignmentId(assignmentId);
         teacherAssignmentViewDTO.setBatchId(batchId);
@@ -272,6 +280,21 @@ public class TeacherBatchController {
         model.addAttribute("assignmentId",assignment.getId());
         model.addAttribute("assignmentName",assignment.getName());
         model.addAttribute("teacherId",teacher.getId());
+        Student student = teacherCommentService.getStudetByCode(stuCode);
+
+        AssignmentDateTimeDTO assignmentDateTimeDTO = teacherCommentService.getDateTimeByAssignmentId(assignmentId);
+        AssignmentMarkCommentDTO assignmentMarkDTO= teacherCommentService.getStudentMarkByAssiIdAndStuId(assignmentId,student.getId());
+        String status = teacherCommentService.getStatusAssignmentId(assignmentId,student.getId());
+        model.addAttribute("assignmentDateTimeDTO" ,assignmentDateTimeDTO);
+        model.addAttribute("assignmentMarkDTO", assignmentMarkDTO);
+        AssignmentFileDTO assignmentFileDTO = new AssignmentFileDTO();
+        assignmentFileDTO.setAssignmentId(assignmentId);
+        assignmentFileDTO.setStudentId(student.getId());
+        model.addAttribute("status", status);
+
+
+        model.addAttribute("batchName", batchService.getById(batchId).getName());
+        model.addAttribute("courseName", batchService.getById(batchId).getCourse().getName());
         return new ModelAndView("T005-01","teacherCommentViewDTOList",teacherCommentViewDTOList);
     }
 
@@ -294,13 +317,16 @@ public class TeacherBatchController {
         
         
         model.addAttribute("batchId", batchId);
+        model.addAttribute("batchName", batchService.getById(batchId).getName());
+        model.addAttribute("courseName", batchService.getById(batchId).getCourse().getName());
         return new ModelAndView("T005","assignemntList",teacherCommentService.getAssignmentListByBatchId(batchId));
     }
 
     @GetMapping("/comment/chapterList")
     public ModelAndView getChpaterCommentList(@RequestParam("batchId") int batchId,ModelMap model){
         model.addAttribute("batchId", batchId);
-        
+        model.addAttribute("batchName", batchService.getById(batchId).getName());
+        model.addAttribute("courseName", batchService.getById(batchId).getCourse().getName());
         return new ModelAndView("T005-02","chapterAndCustomChapterList",teacherCommentService.getChapterListAndCustomChapterListByBatchId(batchId));
     }
 
@@ -318,6 +344,8 @@ public class TeacherBatchController {
         model.addAttribute("chapterId",chapter.getId());
         model.addAttribute("chapterName",chapter.getName());
         model.addAttribute("chapterType","chapter");
+        model.addAttribute("batchName", batchService.getById(batchId).getName());
+        model.addAttribute("courseName", batchService.getById(batchId).getCourse().getName());
         return new ModelAndView("T005-10","teacherCommentViewDTOList",teacherCommentViewDTOList);
     }
 
@@ -350,6 +378,8 @@ public class TeacherBatchController {
         model.addAttribute("chapterId",customChapter.getId());
         model.addAttribute("chapterName",customChapter.getName());
         model.addAttribute("chapterType","customChapter");
+        model.addAttribute("batchName", batchService.getById(batchId).getName());
+        model.addAttribute("courseName", batchService.getById(batchId).getCourse().getName());
         return new ModelAndView("T005-10","teacherCommentViewDTOList",teacherCommentViewDTOList);
     }
 
@@ -370,6 +400,8 @@ public class TeacherBatchController {
     @GetMapping("/comment/videoList")
     public ModelAndView getVideoCommentList(@RequestParam("batchId") int batchId,ModelMap model){
         model.addAttribute("batchId", batchId);
+        model.addAttribute("batchName", batchService.getById(batchId).getName());
+        model.addAttribute("courseName", batchService.getById(batchId).getCourse().getName());
         return new ModelAndView("T005-06","videoList",teacherCommentService.getVideoListByBatchId(batchId));
     }
 
@@ -388,6 +420,8 @@ public class TeacherBatchController {
         model.addAttribute("chapterFileName",chapterFile.getName());
         model.addAttribute("chapterType","chapter");
         model.addAttribute("videoId",videoId);
+        model.addAttribute("batchName", batchService.getById(batchId).getName());
+        model.addAttribute("courseName", batchService.getById(batchId).getCourse().getName());
         return new ModelAndView("T005-07","teacherCommentViewDTOList",teacherCommentViewDTOList);
     }
 
@@ -420,6 +454,8 @@ public class TeacherBatchController {
         model.addAttribute("chapterFileName",customChapterFile.getName());
         model.addAttribute("chapterType","customChapter");
         model.addAttribute("videoId",videoId);
+        model.addAttribute("batchName", batchService.getById(batchId).getName());
+        model.addAttribute("courseName", batchService.getById(batchId).getCourse().getName());
         return new ModelAndView("T005-07","teacherCommentViewDTOList",teacherCommentViewDTOList);
     }
 

@@ -132,15 +132,16 @@
                                           method="post">
                                           <div class="d-flex flex-start w-100">
                                             <img class="rounded-circle shadow-1-strong me-3"
-                                              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" 
-                                              width="40" height="40" />
+                                            th:src="@{${'/assets/img/'+#request.userPrincipal.principal.code+'/'+#request.userPrincipal.principal.photo}}"
+                                              style="width: 50px; height: 50px; margin-right: 10px;" />
                                             <input type="hidden" name="commentId" th:value="${comment.id}">
                                             <input type="hidden" name="commenterCode" th:value="${stuCode}">
                                             <input type="hidden" name="stuId" th:value="${stuId}">
                                             <input type="hidden" name="batchId" th:value="${batchId}">
-                                            <input type="hidden" name="locationId" th:value="${chapterId}">
-                                            <!-- di mr pyin -->
-                                    <input type="hidden" th:field="*{location}">
+                                            <input type="hidden" name="locationId" th:value="${assignmentId}">
+                                    <input type="hidden" name="chapterId" th:value="${chapterId}">
+                                           
+                                    <input type="hidden" name="location" th:value="${assignmentName}+${stuCode}">
                                             <div class="form-outline w-100">
                                               <textarea class="form-control" id="textAreaExample" rows="4"
                                                 style="background: rgb(255, 250, 250);" th:field="*{text}"></textarea>
@@ -173,13 +174,13 @@
                                   C:\Users\Admin\Desktop\AILMS PC\Design-Prototype\assets\img\profileboy.jpg -->
                                   <div class="d-flex flex-start w-100">
                                     <img class="rounded-circle shadow-1-strong me-3"
-                                      src="/assets/img/wallpapersden.com_hollow-knight-art_1920x1080.jpg" width="40"
-                                      height="40" />
+                                    th:src="@{${'/assets/img/'+#request.userPrincipal.principal.code+'/'+#request.userPrincipal.principal.photo}}" style="width: 50px; height: 50px; margin-right: 10px;" />
                                     <input type="hidden" name="batchId" th:value="${batchId}">
                                     <input type="hidden" name="commenterCode" th:value="${stuCode}">
                                     <input type="hidden" name="stuId" th:value="${stuId}">
-                                    <input type="hidden" name="locationId" th:value="${chapterId}">
-                                    
+                                    <input type="hidden" name="locationId" th:value="${assignmentId}">
+                                    <input type="hidden" name="chapterId" th:value="${chapterId}">
+                                    <input type="hidden" name="location" th:value="${assignmentName}+${stuCode}">
                                     <div class="form-outline w-100">
                                       <textarea class="form-control" id="textAreaExample" rows="4"
                                         style="background: rgb(255, 250, 250);" th:field="*{text}">

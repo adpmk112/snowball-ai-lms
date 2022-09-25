@@ -10,7 +10,10 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -20,6 +23,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.ace.ai.student.config.StudentUserDetails;
 import com.ace.ai.student.datamodel.Assignment;
 import com.ace.ai.student.datamodel.Student;
 import com.ace.ai.student.datamodel.StudentAssignmentMark;
@@ -27,10 +32,13 @@ import com.ace.ai.student.dtomodel.AssignmentDateTimeDTO;
 import com.ace.ai.student.dtomodel.AssignmentFileDTO;
 import com.ace.ai.student.dtomodel.AssignmentMarkDTO;
 import com.ace.ai.student.dtomodel.StuCommentPostDTO;
+import com.ace.ai.student.dtomodel.StuCommentViewDTO;
 import com.ace.ai.student.dtomodel.StuReplyPostDTO;
+import com.ace.ai.student.dtomodel.TeacherAssignmentViewDTO;
 import com.ace.ai.student.repository.StudentAssignmentMarkRepository;
 import com.ace.ai.student.service.AssignmentService;
 import com.ace.ai.student.service.StudentCommentService;
+import com.ace.ai.student.service.StudentCourseService;
 
 @Controller
 @RequestMapping("/student")
@@ -42,9 +50,11 @@ public class AssignmentController {
     StudentAssignmentMarkRepository studentAssignmentMarkRepository;
     @Autowired
     StudentCommentService studentCommentService;
+    @Autowired
+    StudentCourseService studentCourseService;
 
     @GetMapping("/assignmentView")
-    public ModelAndView assignmentStudent(@RequestParam("assignmentId") Integer assignmentId,@RequestParam("studentId") Integer studentId,@RequestParam("chapterId") Integer chapterId,ModelMap model) throws ParseException{
+    public ModelAndView assignmentStudent(@AuthenticationPrincipal StudentUserDetails userDetails,@RequestParam("assignmentId") Integer assignmentId,@RequestParam("studentId") Integer studentId,@RequestParam("chapterId") Integer chapterId,ModelMap model) throws ParseException{
         AssignmentDateTimeDTO assignmentDateTimeDTO = assignmentService.getDateTimeByAssignmentId(assignmentId);
         AssignmentMarkDTO assignmentMarkDTO= assignmentService.getStudentMarkByAssiIdAndStuId(assignmentId,studentId);
         String status = assignmentService.getStatusAssignmentId(assignmentId,studentId);
@@ -55,10 +65,24 @@ public class AssignmentController {
         assignmentFileDTO.setStudentId(studentId);
         model.addAttribute("status", status);
         model.addAttribute("chapterId",chapterId);
-
+        model.addAttribute("assignmentId", assignmentId);
+        model.addAttribute("assignmentName", studentCommentService.getAssignmentById(assignmentId).getName());
+        
+        Student student = studentCourseService.getStudentById(userDetails.getId());
+        TeacherAssignmentViewDTO teacherAssignmentViewDTO = new TeacherAssignmentViewDTO();
+       teacherAssignmentViewDTO.setAssignmentId(assignmentId);
+       teacherAssignmentViewDTO.setBatchId(student.getBatch().getId());
+       teacherAssignmentViewDTO.setStuCode(student.getCode());
+       teacherAssignmentViewDTO.setTeacherCode(studentCommentService.getTeacherCodeListByBatchId(student.getBatch().getId()));
+        List<StuCommentViewDTO>  stuCommentViewDTOList=studentCommentService.getCommentListByBatchIdAndLocationAndCommenterCode(teacherAssignmentViewDTO);
+        model.addAttribute("batchId", student.getBatch().getId());
+        model.addAttribute("stuId", student.getId());
+        model.addAttribute("stuCode", student.getCode());
+        
         model.addAttribute("stuReplyPostDTO",new StuReplyPostDTO());
         model.addAttribute("stuCommentPostDTO", new StuCommentPostDTO());
-         model.addAttribute("stuCommentViewDTOList",studentCommentService.getCommentListByBatchIdAndLocation(student.getBatch().getId(), "home"));
+         model.addAttribute("stuCommentViewDTOList",stuCommentViewDTOList);
+         
 
         return new ModelAndView("S001-03","assignmentFileDTO",assignmentFileDTO);
     }
@@ -133,7 +157,7 @@ public class AssignmentController {
           model.addAttribute("assignmentMarkDTO", assignmentMarkDTO);
           model.addAttribute("status", status);
          
-        //home mrr nay dl, location mr ll pyin ya ml
+        
 
        
           return "S001-03";
@@ -145,7 +169,7 @@ public class AssignmentController {
     public String postVideoCommment(@ModelAttribute("stuCommentPostDTO") StuCommentPostDTO stuCommentPostDTO,ModelMap model){
         // stuCommentPostDTO.setLocation("home");
         studentCommentService.saveComment(stuCommentPostDTO);
-        return "redirect:/student/assignmentView?assignmentId="+stuCommentPostDTO.getLocationId()+"&studentId="+stuCommentPostDTO.getStuId();
+        return "redirect:/student/assignmentView?assignmentId="+stuCommentPostDTO.getLocationId()+"&studentId="+stuCommentPostDTO.getStuId()+"&chapterId="+stuCommentPostDTO.getChapterId();
     }
 
     @PostMapping(value="/assignment/replypost")
@@ -153,7 +177,7 @@ public class AssignmentController {
         
         studentCommentService.saveReply(stuReplyPostDTO);
         
-        return "redirect:/student/assignmentView?assignmentId="+stuReplyPostDTO.getLocationId()+"&studentId="+stuReplyPostDTO.getStuId();
+        return "redirect:/student/assignmentView?assignmentId="+stuReplyPostDTO.getLocationId()+"&studentId="+stuReplyPostDTO.getStuId()+"&chapterId="+stuReplyPostDTO.getChapterId();
     }
 
     
