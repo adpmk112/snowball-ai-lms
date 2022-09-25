@@ -111,6 +111,32 @@ public class AssignmentService {
         log.info("assignment added into table");
     }
 
+    // public void customChapterAssignmentEdit(CustomChapter customChapter,Integer batchId,String fileName){
+
+    //     Assignment assignment = 
+    //     assignmentRepository.findByAssignmentChapterNameAndBranchAndBatchIdAndName
+    //     (customChapter.getName(), "customChapter", batchId, fileName);
+    //     log.info(assignment.getAssignmentChapterName());
+        
+    //     assignment.setName(fileName);
+            
+    //     assignmentRepository.save(assignment);
+    //     log.info("assignment updated into table");
+
+    // }
+
+    public void customChapterAssignmentDelete(String assignmentChapterName, String branch, int batchId){
+        List<Assignment> assignmentList = 
+        findByAssignmentChapterNameAndBranchAndBatchId(assignmentChapterName, branch, batchId);
+
+        for(Assignment assignment : assignmentList){
+            assignment.setDeleteStatus(true);
+            assignmentRepository.save(assignment);
+        }
+
+        log.info("assignment deleted");
+    }
+
     public void assignmentEndDateAdd(String endDate, String chapterName, int batchId){
         List<Assignment> assignmentList = assignmentRepository.findByDeleteStatusAndBatchIdAndAssignmentChapterName(false, batchId, chapterName);
         for(Assignment assignment : assignmentList){

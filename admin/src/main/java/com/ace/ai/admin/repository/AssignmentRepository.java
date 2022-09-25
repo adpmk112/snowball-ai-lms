@@ -11,4 +11,5 @@ public interface AssignmentRepository extends JpaRepository<Assignment,Integer> 
    List<Assignment> findByDeleteStatusAndBatchId(boolean deleteStatus , int batchId);
    List<Assignment> findByDeleteStatusAndBatchIdAndAssignmentChapterName(boolean deleteStatus, int batchId , String assignmentChapterName);
    List<Assignment> findByAssignmentChapterNameAndBranchAndBatchId(String assignmentChapterName, String branch, int batchId);
+   Assignment findByAssignmentChapterNameAndBranchAndBatchIdAndName(String assignmentChapterName, String branch, int batchId, String name);
 }

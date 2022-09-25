@@ -237,8 +237,9 @@ public class TeacherNewActivity {
         Path path = Paths
                 .get("./assets/img/customChapterFiles/" + customChapterFileDTO.getCustomChapterId() + "/" + oldCustomChapterFile.getName());
         Files.delete(path);
-
         customChapterService.saveCustomChapterFile(customChapterFile);
+        System.out.println(customChapterFile.getName());
+        // assignmentService.customChapterAssignmentEdit(customChapter, customChapter.getBatch().getId(), customChapterFile.getName());
 
         String uploadDir = "./assets/img/customChapterFiles/" + customChapterFileDTO.getCustomChapterId();
         Path uploadPath = Paths.get(uploadDir);

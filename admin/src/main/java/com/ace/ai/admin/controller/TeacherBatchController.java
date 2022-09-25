@@ -583,6 +583,7 @@ public class TeacherBatchController {
         CustomChapter customChapter = customChapterService.getCustomChapterById(customChapterId);
         customChapter.setDeleteStatus(true);
         customChapterService.save(customChapter);
+        assignmentService.customChapterAssignmentDelete(customChapter.getName(), "customChapter", batchId);
         return "redirect:/teacher/batch/batchSeeMore?batchId=" + batchId + "&radio=";
     }
 
