@@ -192,6 +192,9 @@ public class TeacherNewActivity {
         customChapterFile.setFileType(customChapterFileDTO.getFileType());
         customChapterFile.setName(customChapterFileDTO.getFile().getOriginalFilename());
         customChapterService.saveCustomChapterFile(customChapterFile);
+        if(customChapterFile.getFileType().equalsIgnoreCase("assignment")){
+            assignmentService.customChapterAssignmentFileAdd(customChapter, customChapter.getBatch().getId(),customChapterFile.getName());
+        }
 
         Path uploadPath = Paths.get("./assets/img/customChapterFiles/" + customChapterFileDTO.getCustomChapterId());
         if (!Files.exists(uploadPath)) {

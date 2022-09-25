@@ -563,6 +563,7 @@ public class TeacherBatchController {
         customChapter.setStartDate(startDate);
         customChapter.setEndDate(endDate);
         customChapterService.save(customChapter);
+        assignmentService.assignmentEndDateAdd(endDate, customChapter.getName(), batchId);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
