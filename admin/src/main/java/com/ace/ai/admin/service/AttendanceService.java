@@ -20,7 +20,6 @@ import com.ace.ai.admin.datamodel.Classroom;
 import com.ace.ai.admin.datamodel.Student;
 import com.ace.ai.admin.dtomodel.AttendanceDTO;
 
-@Slf4j
 @Service
 public class AttendanceService {
     @Autowired

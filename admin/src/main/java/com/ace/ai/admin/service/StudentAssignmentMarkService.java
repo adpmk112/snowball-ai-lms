@@ -5,9 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.ace.ai.admin.datamodel.Assignment;
-import com.ace.ai.admin.datamodel.Attendance;
 import com.ace.ai.admin.datamodel.Student;
 import com.ace.ai.admin.datamodel.StudentAssignmentMark;
 import com.ace.ai.admin.dtomodel.AssignmentMarkDTO;

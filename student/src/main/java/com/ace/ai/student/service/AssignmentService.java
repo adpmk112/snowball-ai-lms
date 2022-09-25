@@ -30,9 +30,14 @@ public class AssignmentService {
         AssignmentDateTimeDTO assignmentDateTimeDTO = new AssignmentDateTimeDTO();
         assignmentDateTimeDTO.setFileName(assignment.getName());
         if(assignment != null){
-        assignmentDateTimeDTO.setEnd_date(assignment.getEnd_date());
-        assignmentDateTimeDTO.setEnd_time(twelveHourFormat(assignment.getEnd_time()));
-        }
+            if(assignment.getEnd_date() != null && assignment.getEnd_time() != null){
+            assignmentDateTimeDTO.setEnd_date(assignment.getEnd_date());
+            assignmentDateTimeDTO.setEnd_time(twelveHourFormat(assignment.getEnd_time()));
+            }
+            else{
+                assignmentDateTimeDTO.setEnd_date(assignment.getEnd_date()); 
+            }
+    }
         return assignmentDateTimeDTO;
     }
 
@@ -66,7 +71,6 @@ public class AssignmentService {
     }
 
     public String twelveHourFormat(String time) throws ParseException {
-
         final SimpleDateFormat sdf = new SimpleDateFormat("h:mm");
         final Date dateObj = sdf.parse(time);
         return new SimpleDateFormat("hh:mm a").format(dateObj);
