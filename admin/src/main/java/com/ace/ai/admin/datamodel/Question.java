@@ -26,7 +26,9 @@ public class Question {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
+    @Column(length = 2000)
     private String name;
+    @Column(length = 1000)
     private String trueAnswer;
     @Column(columnDefinition = "tinyint(1) default 0")
     private boolean deleteStatus;

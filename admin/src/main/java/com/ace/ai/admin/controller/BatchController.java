@@ -228,7 +228,6 @@ public class BatchController {
 
     @PostMapping("/updateStudent")
     public String updateStudent(@ModelAttribute("studentDTO") StudentDTO studentDTO) {
-        System.out.println("id is"+studentDTO.getId());
        batchService.updateStudent(studentDTO);
         return "redirect:/admin/batch/batchSeeMore?id=" + studentDTO.getBatchId() + "&radio=student";
     }
@@ -329,9 +328,7 @@ public class BatchController {
     @PostMapping("/updateBatch")
     public String updateBatch(@ModelAttribute("batchDTO") BatchDTO batchDTO) {
         int batchId = batchDTO.getBatchId();
-        System.out.println("Batch Name is " + batchDTO.getName());
         Batch batch = batchService.findBatchById(batchId);
-        System.out.print("batch info" + batchId + batchDTO.getName() + batch.getName());
         batch.setName(batchDTO.getName());
         batchService.saveBatch(batch);
         // Delete All Teacher
@@ -348,7 +345,6 @@ public class BatchController {
         int batchId=attendance.getBatchId();
         int classId = attendance.getClassId();
         List<StudentAttendDTO> studentAndAttendList = attendance.getStudentAndAttendList();
-        System.out.println("studentAndAttendList is "+studentAndAttendList.size());
         for(StudentAttendDTO studentAndAttend : studentAndAttendList){
             int studentId = studentAndAttend.getStudentId();
             String attend = studentAndAttend.getAttend();

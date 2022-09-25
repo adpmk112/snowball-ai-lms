@@ -10,8 +10,8 @@
           <i class="fa-solid fa-people-group"></i>
         </div>
         <div>
-          <h1>Batches</h1>
-          <h3>Total: 4</h3>
+          <h1 th:if="${batchName}" th:text="${batchName}"></h1>
+        <h3 th:if="${courseName}" th:text="${courseName}"></h3>
         </div>
       </div>
       <div class="custom-div margin-top-8">

@@ -21,7 +21,6 @@ public class QuestionService {
     public void saveQuestion(Question question){
         //try{
             questionRepository.save(question);
-            System.out.println("Question Saved Successfylly.");
         // }catch(Exception e){
         //     System.out.println("Question Service Save Error.");
         // }
