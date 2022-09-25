@@ -72,23 +72,44 @@ public class AssignmentService {
             log.info("assignment added into table");
         }
     }
-    public void customChapterAssignmentFileAdd(CustomChapter customChapter,Integer batchId, String fileName){
+    public void customChapterAssignmentFileAdd(CustomChapter customChapter,Integer batchId){
 
+        List<CustomChapterFile> customChapterFileList = customChapterFileRepository.findByCustomChapterIdAndFileTypeAndDeleteStatus(customChapter.getId(), "assignment", false);
+
+        for(CustomChapterFile customChapterFile:customChapterFileList){
             Assignment assignment = new Assignment();
-
+            
             Batch batch = new Batch();
             batch.setId(batchId);
 
-            assignment.setAssignmentChapterName(customChapter.getName());
-            assignment.setBatch(batch);
+            CustomChapter customChapter1 = customChapterRepository.findById(customChapterFile.getCustomChapter().getId()).get();
+
+            assignment.setAssignmentChapterName(customChapter1.getName());
             assignment.setBranch("customChapter");
-            assignment.setName(fileName);
-            assignment.setEnd_date(customChapter.getEndDate());
-            assignment.setEnd_time("23:59");
-                
+            assignment.setName(customChapterFile.getName());
+            assignment.setBatch(batch);
             assignmentRepository.save(assignment);
             log.info("assignment added into table");
         }
+    }
+
+    public void customChapterAssignmentPlus(CustomChapter customChapter,Integer batchId,String fileName){
+        
+        Assignment assignment = new Assignment();
+
+        Batch batch = new Batch();
+        batch.setId(batchId);
+
+        assignment.setAssignmentChapterName(customChapter.getName());
+        assignment.setBatch(batch);
+        assignment.setBranch("customChapter");
+        assignment.setName(fileName);
+        assignment.setEnd_date(customChapter.getEndDate());
+        assignment.setEnd_time("23:59");
+            
+        assignmentRepository.save(assignment);
+        log.info("assignment added into table");
+    }
 
     public void assignmentEndDateAdd(String endDate, String chapterName, int batchId){
         List<Assignment> assignmentList = assignmentRepository.findByDeleteStatusAndBatchIdAndAssignmentChapterName(false, batchId, chapterName);
@@ -114,12 +135,6 @@ public class AssignmentService {
 
             Batch batch = new Batch();
             batch.setId(batchId);
-
-            ChapterFile chapterFile = new ChapterFile();
-            chapterFile.setChapter(chapter);
-            chapterFile.setFileType("assignment");
-            chapterFile.setName(assignment.getOriginalFilename());
-            chapterFileRepository.save(chapterFile);
             
             Assignment assignment1 = new Assignment();
 
@@ -134,8 +149,7 @@ public class AssignmentService {
 
             }
         }
-        
-            String uploadDir = "./assets/img/chapterFiles/" +chapterId;
+            String uploadDir = "./assets/img/customAssignment/" +chapterId;
             Path uploadPath = Paths.get(uploadDir);
 
             if (!Files.exists(uploadPath)) {
@@ -159,7 +173,12 @@ public class AssignmentService {
         }
         }
 
+    public List<Assignment> findByAssignmentChapterNameAndBranchAndBatchId(String assignmentChapterName, String branch, int batchId){
+        return assignmentRepository.findByAssignmentChapterNameAndBranchAndBatchId(assignmentChapterName, branch, batchId);
+    }
+
     public Assignment getById(int id){
         return assignmentRepository.getById(id);
     }
+
 }

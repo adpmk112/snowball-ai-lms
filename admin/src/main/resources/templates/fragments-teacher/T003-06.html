@@ -124,6 +124,18 @@
                         </div>
                       </div>
                     </tr>
+                    <tr th:each="assignment : ${assignmentList}">
+                      <td th:text="${assignment.name}"></td>
+                      <td th:text="assignment"></td>
+                      <td>
+
+                        <a th:href="@{${'/assets/img/customAssignment/'+chapterId+'/'+assignment.name}}"
+                          class="btn btn-outline-primary btn-floating" data-bs-target="#edit-file"
+                          data-mdb-ripple-color="dark" style="margin-left: 30px;">
+                          <i class="fa-solid fa-download"></i>
+                        </a>
+
+                      </td>
                   </tbody>
                 </table>
               </div>
