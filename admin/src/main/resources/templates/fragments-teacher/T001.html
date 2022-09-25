@@ -54,7 +54,7 @@
 
         <div class="charts custom-div d-flex flex-column" style="width: 90%">
           <div class="col-sm-4 mt-5 ms-5">
-            <h3 class="text-muted" th:text="${batchName}">Current Batch</h3>
+            <h3 class="text-muted"  th:text="${batchName}">Current Batch</h3>
             <select id="examAndComment" class="form-control">
               <option value="" disabled selected>Select Batch</option>
               <option th:each="batch : ${batchList}" th:value="${batch.id}" th:text="${batch.name}" th:id="${batch.id}">
@@ -137,7 +137,7 @@
                     <p class="card-text" th:text="${comment.text}">
                       Hi Kya Naw Pr sr mayy ma lo dr ka di lo shi dl lay
                     </p>
-                    <a href="" class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
+                    <a th:href="@{/teacher/batch/batchSeeMore(batchId=${comment.batchId},radio='comment')}" class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
                       Go to Comments
                       <ion-icon name="arrow-forward-circle-outline"></ion-icon>
                     </a>
