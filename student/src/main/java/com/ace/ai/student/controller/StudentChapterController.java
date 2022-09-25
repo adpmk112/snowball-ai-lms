@@ -169,7 +169,7 @@ public class StudentChapterController {
     public String postCustomChapterVideoCommment(@ModelAttribute("stuCommentPostDTO") StuCommentPostDTO stuCommentPostDTO,ModelMap model){
         // stuCommentPostDTO.setLocation("home");
         studentCommentService.saveComment(stuCommentPostDTO);
-        return "redirect:/student/customChapter/video?chapterId="+stuCommentPostDTO.getLocationId()+"&chapterFileId="+stuCommentPostDTO.getChapterFileId();
+        return "redirect:/student/customChapter/video?customChapterId="+stuCommentPostDTO.getLocationId()+"&customChapterFileId="+stuCommentPostDTO.getChapterFileId();
     }
 
     @PostMapping(value="/customChapter/video/replypost")
@@ -177,7 +177,7 @@ public class StudentChapterController {
         
         studentCommentService.saveReply(stuReplyPostDTO);
         studentCommentService.getCommentById(stuReplyPostDTO.getCommentId());
-        return "redirect:/student/customChapter/video?chapterId="+stuReplyPostDTO.getLocationId()+"&chapterFileId="+stuReplyPostDTO.getChapterFileId();
+        return "redirect:/student/customChapter/video?customChapterId="+stuReplyPostDTO.getLocationId()+"&customChapterFileId="+stuReplyPostDTO.getChapterFileId();
     }
 
 

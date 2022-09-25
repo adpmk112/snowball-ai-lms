@@ -252,7 +252,7 @@
                               <div class="d-flex flex-start w-100">
                                 <img class="rounded-circle shadow-1-strong me-3"
                                   th:src="@{${'/assets/img/'+#request.userPrincipal.principal.code+'/'+#request.userPrincipal.principal.photo}}" 
-                                  width="40" height="40" />
+                                  style="width: 50px; height: 50px; margin-right: 10px;" />
                                 <input type="hidden" name="commentId" th:value="${comment.id}">
                                 <input type="hidden" name="commenterCode" th:value="${stuCode}">
                                 <input type="hidden" name="stuId" th:value="${stuId}">
@@ -285,14 +285,13 @@
 
 
                   <div class="card-footer py-3 border-0" style="background-color: #ffffff;">
-                    <form th:action="@{/student/chapter/video/commentpost}" th:object="${stuCommentPostDTO}"
+                    <form th:action="@{/student/customChapter/video/commentpost}" th:object="${stuCommentPostDTO}"
                       method="post">
                       <!-- C:\Users\Admin\Desktop\AILMS PC\Design-Prototype\assets\img\chainsaw.jpg
                       C:\Users\Admin\Desktop\AILMS PC\Design-Prototype\assets\img\profileboy.jpg -->
                       <div class="d-flex flex-start w-100">
                         <img class="rounded-circle shadow-1-strong me-3"
-                          src="/assets/img/wallpapersden.com_hollow-knight-art_1920x1080.jpg" width="40"
-                          height="40" />
+                        th:src="@{${'/assets/img/'+#request.userPrincipal.principal.code+'/'+#request.userPrincipal.principal.photo}}"  style="width: 50px; height: 50px; margin-right: 10px;" />
                         <input type="hidden" name="batchId" th:value="${batchId}">
                         <input type="hidden" name="commenterCode" th:value="${stuCode}">
                         <input type="hidden" name="stuId" th:value="${stuId}">
