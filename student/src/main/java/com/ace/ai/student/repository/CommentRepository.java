@@ -10,4 +10,5 @@ import com.ace.ai.student.datamodel.Comment;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment,Integer> {
     List<Comment> findByBatchIdAndLocation(int batchId,String location);
+    List<Comment> findByBatchIdAndLocationAndCommenterCode(int batchId,String location,String code);
 }

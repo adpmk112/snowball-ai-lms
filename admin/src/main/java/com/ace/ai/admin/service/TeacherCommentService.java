@@ -1,8 +1,13 @@
 package com.ace.ai.admin.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +23,13 @@ import com.ace.ai.admin.datamodel.CustomChapter;
 import com.ace.ai.admin.datamodel.CustomChapterFile;
 import com.ace.ai.admin.datamodel.Reply;
 import com.ace.ai.admin.datamodel.Student;
+import com.ace.ai.admin.datamodel.StudentAssignmentMark;
 import com.ace.ai.admin.datamodel.Teacher;
 import com.ace.ai.admin.datamodel.TeacherBatch;
+import com.ace.ai.admin.dtomodel.AssignmentDateTimeDTO;
 import com.ace.ai.admin.dtomodel.AssignmentListCommentDTO;
+import com.ace.ai.admin.dtomodel.AssignmentMarkCommentDTO;
+import com.ace.ai.admin.dtomodel.AssignmentMarkDTO;
 import com.ace.ai.admin.dtomodel.ChapterFileDTO;
 import com.ace.ai.admin.dtomodel.ChapterListCommentDTO;
 import com.ace.ai.admin.dtomodel.CommentLocationDTO;
@@ -40,6 +49,7 @@ import com.ace.ai.admin.repository.CommentRepository;
 import com.ace.ai.admin.repository.CustomChapterFileRepository;
 import com.ace.ai.admin.repository.CustomChapterRepository;
 import com.ace.ai.admin.repository.ReplyRepository;
+import com.ace.ai.admin.repository.StudentAssignmentMarkRepository;
 import com.ace.ai.admin.repository.StudentRepository;
 import com.ace.ai.admin.repository.TeacherBatchRepository;
 import com.ace.ai.admin.repository.TeacherRepository;
@@ -70,6 +80,8 @@ public class TeacherCommentService {
     BatchRepository batchRepository;
     @Autowired
     ChapterRepository chapterRepository;
+    @Autowired
+    StudentAssignmentMarkRepository studentAssignmentMarkRepository;
 
 
     public Assignment findAssignmentById(int id){
@@ -402,5 +414,117 @@ public class TeacherCommentService {
         reply.setText(teacherReplyPostDTO.getText());
         replyRepository.save(reply);
 
+    }
+
+    public AssignmentMarkCommentDTO getStudentMarkByAssiIdAndStuId(int assignmentId, int studentId) throws ParseException{
+        int studentMark;
+        String submitDate;
+        String submitTime;
+        AssignmentMarkCommentDTO assignmentMarkCommentDTO = new AssignmentMarkCommentDTO();
+        StudentAssignmentMark studentAssignmentMark =studentAssignmentMarkRepository.findByAssignment_IdAndStudent_Id(assignmentId , studentId);
+        if(studentAssignmentMark != null){
+            if(studentAssignmentMark.getStudentMark() == 0 && !studentAssignmentMark.getDate().isBlank() && !studentAssignmentMark.getTime().isBlank()){
+                studentMark = 100;
+                submitDate = studentAssignmentMark.getDate();
+                submitTime = twelveHourFormat(studentAssignmentMark.getTime());
+
+            }
+            else{
+                studentMark = studentAssignmentMark.getStudentMark();
+                submitDate = studentAssignmentMark.getDate();
+                submitTime = twelveHourFormat(studentAssignmentMark.getTime());
+            }
+        }
+        else{
+            studentMark =100;
+            submitDate = "SubmitDate";
+            submitTime = "SubmitTime";
+        }
+        assignmentMarkCommentDTO.setStudentMark(studentMark);
+        assignmentMarkCommentDTO.setSubmitDate(submitDate);
+        assignmentMarkCommentDTO.setSubmitTime(submitTime);
+        return assignmentMarkCommentDTO;   
+    }
+
+    public String twelveHourFormat(String time) throws ParseException {
+
+        final SimpleDateFormat sdf = new SimpleDateFormat("h:mm");
+        final Date dateObj = sdf.parse(time);
+        return new SimpleDateFormat("hh:mm a").format(dateObj);
+    }
+
+    public AssignmentDateTimeDTO getDateTimeByAssignmentId(int assignmentId) throws ParseException{
+        Assignment assignment = assignmentRepository.findById(assignmentId).get();
+        AssignmentDateTimeDTO assignmentDateTimeDTO = new AssignmentDateTimeDTO();
+        assignmentDateTimeDTO.setFileName(assignment.getName());
+        if(assignment != null){
+        assignmentDateTimeDTO.setEnd_date(assignment.getEnd_date());
+        assignmentDateTimeDTO.setEnd_time(twelveHourFormat(assignment.getEnd_time()));
+        }
+        return assignmentDateTimeDTO;
+    }
+
+    public Student getStudetByCode(String code){
+        return studentRepository.findByCodeAndDeleteStatus(code,false);
+    }
+
+    public String getStatusAssignmentId(int assignmentId,int studentId){
+        Assignment assignment = assignmentRepository.findById(assignmentId).get();
+        StudentAssignmentMark studentAssignmentMark = studentAssignmentMarkRepository.findByAssignment_IdAndStudent_Id(assignmentId,studentId);
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime localTime = LocalTime.now();
+        String currentTime = localTime.format(timeFormatter);
+        LocalTime localCurrentTime =LocalTime.parse(currentTime,timeFormatter);
+        String status =null;
+        LocalDate dueDate,submitDate;
+        LocalTime dueTime,submitTime;
+        if(assignment != null && studentAssignmentMark == null){
+            if(assignment.getEnd_date() != null && assignment.getEnd_time() != null){
+                dueDate = LocalDate.parse(assignment.getEnd_date(), dateFormatter);
+                dueTime = LocalTime.parse(assignment.getEnd_time(), timeFormatter);            
+               if(dueDate.isBefore(LocalDate.now()) == false){                
+                       if(dueTime.compareTo(localCurrentTime) == 0 ){
+                           status = "early2";
+                       }
+                       
+                       else if(dueTime.isBefore(localCurrentTime) == true ){
+                           status = "late2";
+                       }
+                       else if(dueTime.isBefore(localCurrentTime) == false)
+                       status = "early1";
+                       
+               }    
+               else if(dueDate.isBefore(LocalDate.now()) == true){
+                   status = "late1";
+               } 
+           }   
+        }
+        else if(assignment != null && studentAssignmentMark != null){
+            
+                if(assignment.getEnd_date() != null && assignment.getEnd_time() != null && studentAssignmentMark.getDate() != null && studentAssignmentMark.getTime() != null){
+                    dueDate = LocalDate.parse(assignment.getEnd_date(), dateFormatter);
+                    dueTime = LocalTime.parse(assignment.getEnd_time(), timeFormatter); 
+                    submitDate = LocalDate.parse(studentAssignmentMark.getDate(), dateFormatter);
+                    submitTime = LocalTime.parse(studentAssignmentMark.getTime(), timeFormatter);            
+                   if(dueDate.isBefore(submitDate) == false){                
+                           if(dueTime.compareTo(submitTime) == 0 ){
+                               status = "early2";
+                           }
+                           
+                           else if(dueTime.isBefore(submitTime) == true ){
+                               status = "late2";
+                           }
+                           else if(dueTime.isBefore(submitTime) == false)
+                           status = "early1";
+                           
+                   }    
+                   else if(dueDate.isBefore(submitDate) == true){
+                       status = "late1";
+                   } 
+               }   
+            
+        }
+        return status;
     }
 }
