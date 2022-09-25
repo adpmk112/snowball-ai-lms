@@ -54,4 +54,32 @@ public class ExamMarkReportController {
         exporter.export(response);
 
     }
+    @GetMapping("/admin/exam/exportToExcel{batch_id}")
+    public void exportExcelExamAdmin(@PathVariable("batch_id") Integer batchId, HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        String headerKey="Content-Disposition";
+        DateFormat dateFormatter=new SimpleDateFormat("yyyy-MM-dd");
+        String currentDateTime=dateFormatter.format(new Date());
+        String fileName="exam_marks_"+currentDateTime+".xlsx";
+        String headerValue="attachment; filename="+fileName;
+        response.setHeader(headerKey,headerValue);
+        ExamMarkReportDTO examMarkReportDTO = reportService.getStudentMarks(batchId);
+        ExamMarkExcelExporter exporter  =new ExamMarkExcelExporter(examMarkReportDTO);
+        exporter.export(response);
+
+    }
+    @GetMapping("/admin/assignment/exportToExcel{batch_id}")
+    public void exportExcelAssignmentAdmin(@PathVariable("batch_id") Integer batchId, HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        String headerKey="Content-Disposition";
+        DateFormat dateFormatter=new SimpleDateFormat("yyyy-MM-dd");
+        String currentDateTime=dateFormatter.format(new Date());
+        String fileName="assignment_marks_"+currentDateTime+".xlsx";
+        String headerValue="attachment; filename="+fileName;
+        response.setHeader(headerKey,headerValue);
+        AssignmentReportDTO assignmentReportDTO = reportService.getAssigmentMarks(batchId);
+        AssignmentExcelExporter exporter  =new AssignmentExcelExporter(assignmentReportDTO);
+        exporter.export(response);
+
+    }
 }
