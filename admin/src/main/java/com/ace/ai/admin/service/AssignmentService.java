@@ -111,19 +111,44 @@ public class AssignmentService {
         log.info("assignment added into table");
     }
 
-    // public void customChapterAssignmentEdit(CustomChapter customChapter,Integer batchId,String fileName){
+     public Assignment getUniqueAssignment(CustomChapter customChapter,Integer batchId,String fileName){
 
-    //     Assignment assignment = 
-    //     assignmentRepository.findByAssignmentChapterNameAndBranchAndBatchIdAndName
-    //     (customChapter.getName(), "customChapter", batchId, fileName);
-    //     log.info(assignment.getAssignmentChapterName());
+        List<Assignment>assignmentList = 
+        findByAssignmentChapterNameAndBranchAndBatchId(customChapter.getName(), "customChapter", batchId);
+        log.info(fileName);
+        Assignment foundAssignment = new Assignment();
+
+        for(Assignment assignment : assignmentList){
+            log.info("Assignment.getName() --> "+assignment.getName());
+            if(assignment.getName().equalsIgnoreCase(fileName)){
+                foundAssignment.setId(assignment.getId());
+                log.info(""+assignment.getId());
+            }
+        }
+
+        foundAssignment = assignmentRepository.findById(foundAssignment.getId()).get();
+
+        return foundAssignment;
+
+ }
+
+     public void customChapterAssignmentEdit(Assignment assignment, String newFileName){
         
-    //     assignment.setName(fileName);
+         assignment.setName(newFileName);
             
-    //     assignmentRepository.save(assignment);
-    //     log.info("assignment updated into table");
+         assignmentRepository.save(assignment);
+         log.info("assignment updated into table");
 
-    // }
+     } 
+
+     public void customChapterAssignmentDelete(Assignment assignment){
+        
+        assignment.setDeleteStatus(true);
+           
+        assignmentRepository.save(assignment);
+        log.info("assignment deleted");
+
+    } 
 
     public void customChapterAssignmentDelete(String assignmentChapterName, String branch, int batchId){
         List<Assignment> assignmentList = 
