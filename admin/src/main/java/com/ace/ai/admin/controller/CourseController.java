@@ -67,6 +67,16 @@ public class CourseController {
         return new ModelAndView("A002-02", "fileUploadDTO", fileUploadDTO);
     }
 
+    @GetMapping("/chapter/add/success")
+    public ModelAndView goToChapterAddPageSuccess(@RequestParam("courseId") int id, ModelMap model) {
+
+        FileUploadDTO fileUploadDTO = new FileUploadDTO();
+        fileUploadDTO.setCourseId(id);
+        model.addAttribute("courseId", id);
+        model.addAttribute("success","Chapter Added Successfully!");
+        return new ModelAndView("A002-02", "fileUploadDTO", fileUploadDTO);
+    }
+
     @PostMapping("/chapter/addpost")
     public String uploadMultipartFile(@ModelAttribute("fileUploadDTO") FileUploadDTO fileUploadDTO, Model modal) {
         try {
@@ -173,7 +183,7 @@ public class CourseController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "redirect:/admin/course/chapter/add?courseId=" + fileUploadDTO.getCourseId();
+        return "redirect:/admin/course/chapter/add/success?courseId=" + fileUploadDTO.getCourseId();
     }
 
     @GetMapping("")
