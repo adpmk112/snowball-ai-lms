@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+ 
+  <title>RecordVideo</title>
+  <div th:replace="STUFRG :: head"></div>
+</head>
+
+<body style="background-color: rgb(235, 235, 235);">
+  <header th:replace="STUFRG :: header"></header>
+
+  <main>
+    <div th:replace="fragments/S002-01 :: recordvideo-list"></div>
+  </main>
+
+  <footer th:replace="STUFRG :: footer"></footer>
+  <div th:replace="STUFRG :: scripts"></div>
+
+  <script
+  type="text/javascript"
+  charset="utf8"
+  src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"
+></script>
+<script th:src="@{/assets/js/data.js}"></script>
+
+  <script>
+    $(document).on("click",'a.remove-recordVideo',function(){
+      window.recordVideoId=$(this).attr('id');
+    })
+    $(document).ready(function () {
+      $('a.remove-recordVideo').confirm({
+        closeIcon: true,
+        theme: 'Material',
+        //icon: 'fa-solid fa-warning',
+
+        title: 'Remove Record Video',
+        content: 'Are you sure?',
+        animation: 'Scale',
+        buttons: {
+          Yes: function () {           
+            window.location = `/teacher/batch/classroom/recordVideo/delete?recordVideoId=`+recordVideoId;
+          },
+          No: function () {},
+        },
+      })
+    })
+  </script>
+</body>
+
+</html>
