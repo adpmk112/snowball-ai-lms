@@ -28,7 +28,9 @@ import com.ace.ai.admin.dtomodel.TeacherAssignmentViewDTO;
 import com.ace.ai.admin.dtomodel.TeacherCommentPostDTO;
 import com.ace.ai.admin.dtomodel.TeacherCommentViewDTO;
 import com.ace.ai.admin.dtomodel.TeacherReplyPostDTO;
+import com.ace.ai.admin.repository.AssignmentRepository;
 import com.ace.ai.admin.repository.BatchExamFormRepository;
+import com.ace.ai.admin.repository.ChapterRepository;
 import com.ace.ai.admin.service.AssignmentService;
 import com.ace.ai.admin.service.AttendanceService;
 import com.ace.ai.admin.service.BatchService;
@@ -91,6 +93,8 @@ public class TeacherBatchController {
     BatchExamFormRepository batchExamFormRepository;
     @Autowired
     CourseService courseService;
+    @Autowired
+    ChapterRepository chapterRepository;
 
     @GetMapping({ "/addNewActivity" })
     public String addNewActivity(Model model) {
@@ -129,10 +133,15 @@ public class TeacherBatchController {
         model.addAttribute("courseCount", courseCount);
        List<ChapterFileDTO> chapterFileList = courseService.getChapterFile(id);
        int courseId = courseService.getChapterById(id).getCourse().getId();
-       model.addAttribute("courseId", courseId);
+        model.addAttribute("courseId", courseId);
         model.addAttribute("chapterId", id);
         model.addAttribute("batchId", batchId);
         model.addAttribute("chapterFileDTO",new ChapterFileDTO());
+
+        Chapter chapter = chapterRepository.findById(id).get();
+        List<Assignment> assignmentList = assignmentService.findByAssignmentChapterNameAndBranchAndBatchId(chapter.getName(), "customAssignment", batchId);
+        model.addAttribute("assignmentList", assignmentList);
+
         return new ModelAndView("T003-06", "chapterFileList", chapterFileList);
     }
 
@@ -563,6 +572,7 @@ public class TeacherBatchController {
         customChapter.setStartDate(startDate);
         customChapter.setEndDate(endDate);
         customChapterService.save(customChapter);
+        assignmentService.assignmentEndDateAdd(endDate, customChapter.getName(), batchId);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
@@ -573,6 +583,7 @@ public class TeacherBatchController {
         CustomChapter customChapter = customChapterService.getCustomChapterById(customChapterId);
         customChapter.setDeleteStatus(true);
         customChapterService.save(customChapter);
+        assignmentService.customChapterAssignmentDelete(customChapter.getName(), "customChapter", batchId);
         return "redirect:/teacher/batch/batchSeeMore?batchId=" + batchId + "&radio=";
     }
 

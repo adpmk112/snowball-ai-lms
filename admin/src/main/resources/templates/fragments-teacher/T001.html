@@ -46,15 +46,15 @@
             </select>
           </div>
           <div style="margin: 50px">
-            <div id="graficoSituacoesPedidos" class="container2" style="display: flex; justify-content: center">
-              <canvas id="myChart" style="height: 400px; width: 80%"></canvas>
+            <div id="graficoSituacoesPedidos" class="container2" style="width: 900px;">
+              <canvas id="myChart" style="max-width:70%; width:40% ; height: 170px;"></canvas>
             </div>
           </div>
         </div>
 
         <div class="charts custom-div d-flex flex-column" style="width: 90%">
           <div class="col-sm-4 mt-5 ms-5">
-            <h3 class="text-muted" th:text="${batchName}">Current Batch</h3>
+            <h3 class="text-muted"  th:text="${batchName}">Current Batch</h3>
             <select id="examAndComment" class="form-control">
               <option value="" disabled selected>Select Batch</option>
               <option th:each="batch : ${batchList}" th:value="${batch.id}" th:text="${batch.name}" th:id="${batch.id}">
@@ -80,17 +80,17 @@
                     <thead>
                       <tr>
                         <th>Name</th>
-                        <th th:each="studentName : ${studentNameList}" th:text="${studentName.name}"></th>
+                        <th th:each="studentName : ${allStudent}" th:text="${studentName.name}"></th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr th:each="batch : ${teacherDashboardExamDTO}">
-                        <td th:text="${batch.examForm_name}"></td>
-                        <td th:each="student : ${batch.studentExamMarkDTO}"
-                          th:text="${student.studentMarks}+'/'+ ${batch.max_marks}"></td>
+                      <tr th:if="${allStudent != null}" th:each="studentExamMarkList : ${studentExamMarkList}">
+                        <td th:text="${studentExamMarkList.exam.name}"></td>
+                        <td th:each="student : ${studentExamMarkList.studentData}"
+                          th:text="${student.mark}+'/'+${studentExamMarkList.exam.maxMark}"></td>
                         <td>
-                          <a th:href="@{/teacher/batch/batchSeeMore(batchId=${batch.batchId},radio='mark')}" class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
+                          <a th:href="@{/teacher/batch/batchSeeMore(batchId=${studentExamMarkList.batchId},radio='mark')}" class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
                             Go to Marks<ion-icon name="arrow-forward-circle-outline"></ion-icon>
                           </a>
                         </td>
@@ -104,20 +104,17 @@
                     <thead>
                       <tr>
                         <th>Name</th>
-                        <span th:each="batch : ${teaceherDashboardAssignmentDTOList}">
-                          <th th:each="student : ${batch.teacherDashboardAssignmentStudentMarksDTO}"
-                            th:text="${student.studentName}"></th>
-                        </span>
+                        <th th:each="studentName : ${allStudent}" th:text="${studentName.name}"></th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr th:each="batch : ${teaceherDashboardAssignmentDTOList}">
-                        <td th:text="${batch.assignmentName}"></td>
-                        <td th:each="student : ${batch.teacherDashboardAssignmentStudentMarksDTO}"
-                          th:text="${student.studentMarks}"></td>
+                      <tr th:if="${allStudent != null}" th:each="studentAssignmentMarkList : ${studentAssignmentMarkList}">
+                        <td th:text="${studentAssignmentMarkList.assignment.name}"></td>
+                        <td th:each="studentData : ${studentAssignmentMarkList.studentData}"
+                          th:text="${studentData.mark}"></td>
                         <td>
-                          <a th:href="@{/teacher/batch/batchSeeMore(batchId=${batch.batchId},radio='mark')}" class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
+                          <a th:href="@{/teacher/batch/batchSeeMore(batchId=${studentAssignmentMarkList.batchId},radio='mark')}" class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
                             Go to Marks<ion-icon name="arrow-forward-circle-outline"></ion-icon>
                           </a>
                         </td>
@@ -140,7 +137,7 @@
                     <p class="card-text" th:text="${comment.text}">
                       Hi Kya Naw Pr sr mayy ma lo dr ka di lo shi dl lay
                     </p>
-                    <a href="" class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
+                    <a th:href="@{/teacher/batch/batchSeeMore(batchId=${comment.batchId},radio='comment')}" class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
                       Go to Comments
                       <ion-icon name="arrow-forward-circle-outline"></ion-icon>
                     </a>

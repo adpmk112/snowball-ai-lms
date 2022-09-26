@@ -99,7 +99,8 @@ public class TeacherController {
 
   @GetMapping("/")
     public String showTeacher(ModelMap model){
-      List<Teacher> teacherList=teacherRepository.findByDeleteStatus(false);      
+      List<Teacher> teacherList=teacherRepository.findByDeleteStatus(false); 
+      model.addAttribute("teachrCount",teacherList.size());     
       model.addAttribute("teacherList",teacherList);
       return "A004";
     }

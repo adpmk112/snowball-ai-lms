@@ -28,7 +28,7 @@
         studentName = []
         attendence = []
         $('#myChart').remove();
-        $('#graficoSituacoesPedidos').append('<canvas id="myChart" style="max-width:70%; width:40% ; height: 200px;"></canvas>');
+        $('#graficoSituacoesPedidos').append('<canvas id="myChart" style="max-width:70%; width:40% ; height: 170px;"></canvas>');
         $.ajax({
           url: "/admin/grap?batchId=" + batchId,
           success: function (result) {
@@ -63,8 +63,22 @@
               },
               options: {
                 scales: {
+                  x: {
+                    title: {
+                      display: true,
+                      text: 'Student Name',
+                      color: 'blue',
+                      font: { weight: 'bold' }
+                    }
+                  },
                   y: {
                     beginAtZero: true,
+                    title: {
+                      display: true,
+                      text: 'Student   Attendance',
+                      color: 'blue',
+                      font: { weight: 'bold' }
+                    }
                   },
                 },
               },
@@ -108,8 +122,22 @@
               },
               options: {
                 scales: {
+                  x: {
+                    title: {
+                      display: true,
+                      text: 'Student Name',
+                      color: 'blue',
+                      font: { weight: 'bold' }
+                    }
+                  },
                   y: {
                     beginAtZero: true,
+                    title: {
+                      display: true,
+                      text: 'Student   Attendance',
+                      color: 'blue',
+                      font: { weight: 'bold' }
+                    }
                   },
                 },
               },
@@ -117,7 +145,7 @@
           },
         });
 
-      }, 10);
+      },10);
     });
   </script>
 

@@ -7,8 +7,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.ace.ai.admin.datamodel.Batch;
 import com.ace.ai.admin.datamodel.BatchExamForm;
 import com.ace.ai.admin.datamodel.ExamForm;
 import com.ace.ai.admin.datamodel.Student;
