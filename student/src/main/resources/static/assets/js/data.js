@@ -37,9 +37,6 @@ $(document).ready(function () {
     "bDestroy": true
   } );
 
-  $('#previousLiveSession').dataTable({ //For teacher Assignment Data table
-    
-  })
   // $('#datatable6').DataTable({
   //   responsive: true
   // })

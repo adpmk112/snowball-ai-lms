@@ -34,7 +34,7 @@
                   <td th:text="${classroom.startTime}"></td>
                   <td th:text="${classroom.endTime}"></td>
                   <td th:text="${classroom.teacherName}"></td>
-                  <td><a th:href="@{${classroom.link}}"></a></td>
+                  <td><a th:href="@{${classroom.link}}" target="_blank" th:text="${classroom.link}"></a></td>
                 </tr>
               </tbody>
             </table>
@@ -43,7 +43,7 @@
           <input type="radio" id="tabprevious" name="mytabs" th:checked="${radio == 'previousClass'}" />
           <label for="tabprevious" id="lab">Previous</label>
           <div class="tab">
-            <table id="previousLiveSession">
+            <table id="previousSession">
               <thead>
                 <tr>
                   <th>Date</th>
@@ -54,20 +54,23 @@
                   <!-- <th>Record Video</th> -->
                 </tr>
               </thead>
-              <tr th:each="classroom,iterationStatus : ${previousClass}">
-                <input type="hidden" th:value="${classroom.id}">
-                <td th:text="${classroom.date}"></td>
-                <td th:text="${classroom.startTime}"></td>
-                <td th:text="${classroom.endTime}"></td>
-                <td th:text="${classroom.teacherName}"></td>
-                <td th:text="${classroom.link}"></td>
-                <td>
-                  <!-- <a th:href="@{/student/recordVideo(classroomId=${classroom.id})}"
-                    class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
-                    <i class="fa-solid fa-file-video"></i>
-                  </a> -->
-                </td>
-              </tr>
+              <tbody>
+                <tr th:each="classroom,iterationStatus : ${previousClass}">
+                  <input type="hidden" th:value="${classroom.id}">
+                  <td th:text="${classroom.date}"></td>
+                  <td th:text="${classroom.startTime}"></td>
+                  <td th:text="${classroom.endTime}"></td>
+                  <td th:text="${classroom.teacherName}"></td>
+                  <td th:text="${classroom.link}"></td>
+                  <!-- <td>
+                    <a th:href="@{/student/recordVideo(classroomId=${classroom.id})}"
+                      class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
+                      <i class="fa-solid fa-file-video"></i>
+                    </a>
+                  </td> -->
+                </tr>
+              </tbody>
+              
             </table>
           </div>
         </div>
