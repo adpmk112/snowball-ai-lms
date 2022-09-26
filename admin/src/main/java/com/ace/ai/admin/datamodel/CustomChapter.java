@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import lombok.Data;
 
@@ -30,6 +31,6 @@ public class CustomChapter {
     @JoinColumn(name = "batch_id")
     private Batch batch;
 
-    @OneToMany(mappedBy = "customChapter")
+    @OneToMany(mappedBy = "customChapter", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CustomChapterFile> customChapterFiles = new ArrayList<>();
 }

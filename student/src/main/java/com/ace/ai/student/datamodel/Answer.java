@@ -15,6 +15,7 @@ public class Answer {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
+    @Column(length = 2000)
     private String answer;
     @Column(columnDefinition = "tinyint(1) default 0")
     private boolean deleteStatus;

@@ -80,7 +80,6 @@ public class CourseController {
 
             courseService.saveChapter(chapter);
             int chapterId = courseService.getChapterIdByNameAndCourseId(fileUploadDTO.getName(),fileUploadDTO.getCourseId());
-            System.out.println("chapterid = "+ chapterId);
             Chapter toSetChapterId = new Chapter();
             toSetChapterId.setId(chapterId);
 
@@ -202,8 +201,8 @@ public class CourseController {
          String courseCount = "Total : " + courseService.getAllCourse().size();
          model.addAttribute("courseCount", courseCount);
          model.addAttribute("chapterList", chapterList);
-         System.out.println("exam length => "+ exams.size());
-         System.out.println("course length => "+ chapterList.size());
+        //  System.out.println("exam length => "+ exams.size());
+        //  System.out.println("course length => "+ chapterList.size());
          return "A002-01";
      }
 

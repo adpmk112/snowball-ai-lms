@@ -72,7 +72,7 @@ public class ExamFormService {
                             false,
                             examForm,
                             Integer.valueOf(questionDTO.getPoint()));
-                    questionService.saveQuestion(question);
+                    questionService.saveQuestion(question);                   
                     // save Answers
                     for (String ans : questionDTO.getAnswer_list()) {
                         System.out.println(ans);                        
@@ -94,7 +94,6 @@ public class ExamFormService {
                 }
             }
             // examFormRepo.save(exam);
-            System.out.println("Exam form saved successfully.");
         } catch (Exception ex) {
             System.out.println("ExamForm save Error.");
         }
@@ -156,5 +155,9 @@ public class ExamFormService {
             questionDTO_list.add(questionDTO);
         }
         return new ExamDTO(String.valueOf(id), name, type, duration, questionDTO_list, total_point);
+    }
+
+    public void deleteExamForm(int examId){
+        examFormRepo.deleteById(examId);
     }
 }

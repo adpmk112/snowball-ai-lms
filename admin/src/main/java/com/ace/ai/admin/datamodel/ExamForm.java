@@ -41,7 +41,7 @@ public class ExamForm implements Serializable {
     @OneToMany(mappedBy = "examForm", cascade = CascadeType.REMOVE)
     private List<Question> questions = new ArrayList<>();
 
-    @OneToMany(mappedBy = "examForm")
+    @OneToMany(mappedBy = "examForm", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BatchExamForm> batchExamForms = new ArrayList<>();
 
     // @OneToMany(mappedBy = "examForm")
