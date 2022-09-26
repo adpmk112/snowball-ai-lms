@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layouts/main :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+  <main>
+    <div th:fragment="recordvideo-list">
+        <div class="semi-circle"></div>
+        <div class="banner">
+          <div class="circle">
+            <i class="fa-solid fa-people-group"></i>
+          </div>
+          <div>
+            <h1>Record Video</h1>
+            <h3>Total: 4</h3>
+          </div>
+        </div>
+      <div class="custom-div margin-top-8">
+        <div id="courselist" class="width-100">
+          <div>
+            <div class="bread-crumb d-flex justify-content-between width-90">
+              <div class="bread container-fluid">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                      <a class="text-decoration-none" href="/teacher/batch/">
+                        Batch List
+                      </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                      <a class="text-decoration-none" th:href="@{/teacher/batch/batchSeeMore(batchId=${batchId},radio='chapter')}">
+                        Batch Details
+                      </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                      <a class="text-decoration-none" href="">
+                        Record Videos
+                      </a>
+                    </li>
+                  </ol>
+                </nav>
+              </div>
+              <div></div>
+            </div>
+            <div class="mytabs">
+              <input type="radio" id="tabunit" name="mytabs" checked="checked" />
+              <label for="tabunit" id="lab">Classroom Name</label>
+              <div class="tab">
+                <div class="add-list">
+                  <label>Add File</label>
+                  <a href="#" class="btn btn-outline-success btn-floating" data-bs-toggle="modal"
+                    data-bs-target="#add-file">
+                    <i class="fa-solid fa-circle-plus"></i>
+                  </a>
+                </div>
+                <table id="datatable3">
+                  <thead>
+                    <tr>
+                      <th>Video Name</th>
+                      <th>Preview</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr th:each="recordVideo : ${recordVideoList}">
+                      <td th:text="${recordVideo.name}"></td>
+                      <td>
+
+                        <video controls controlsList="nodownload" width="130" height="75">
+                          <source th:src="@{${'/assets/img/recordVideo/'+classroomId+'/'+recordVideo.name}}" />
+
+                        </video>
+
+                      </td>
+                      <td>
+                        <a th:attr="href='#edit-model'+${recordVideo.id}" class="btn btn-outline-primary btn-floating"
+                          data-bs-toggle="modal" data-mdb-ripple-color="dark">
+                          <i class="fa-regular fa-pen-to-square"></i>
+                        </a>
+
+
+
+                        <a th:id="${recordVideo.id}" class="btn btn-outline-danger remove-recordVideo btn-floating"
+                          data-mdb-ripple-color="dark">
+                          <i class="fa-solid fa-circle-minus"></i>
+                        </a>
+                      </td>
+                      <!-- Edit RecordVideo Modal Box-->
+
+                      <div class="modal fade" th:attr="id='edit-model'+${recordVideo.id}" tabindex="-1"
+                        aria-labelledby="Edit File" aria-hidden="true" style="margin-top: 120px;">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">Edit Record Video</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <form th:action="@{/teacher/batch/classroom/recordVideo/edit}" method="post" th:object="${recordVideoEditDTO}"
+                                enctype="multipart/form-data">
+                                <input type="hidden" class="form-control" name="id" th:value="${recordVideo.id}"
+                                  id="message-text" />
+                                <input type="hidden" class="form-control" name="classroomId" th:value="${classroomId}"
+                                  id="message-text" />
+
+                                <div class="mb-3">
+                                  <input type="file" class="form-control" id="name" placeholder="Record Video"
+                                    th:field="*{recordVideo}" accept="video/mp4,video/x-m4v,video/*" />
+                                </div>
+
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                    Close
+                                  </button>
+                                  <button type="submit" class="btn btn-primary">Update</button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="plus-icon"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add File Modal Box -->
+      <div class="modal fade" id="add-file" tabindex="-1" aria-labelledby="Add File" aria-hidden="true"
+        style="margin-top: 120px;">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add Recorded Video File</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form th:action="@{/teacher/batch/classroom/recordVideo/add}" method="post" th:object="${recordVideoDTO}"
+                enctype="multipart/form-data">
+                <input type="hidden" class="form-control" name="classroomId" th:value="${classroomId}"
+                                  id="message-text" />
+                <div class="mb-3">
+                  <input type="file" class="form-control" th:field="*{recordVideo}" accept="video/mp4,video/x-m4v,video/*" multiple />
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Close
+                  </button>
+                  <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+    </div>
+    </div>
+  </main>
+</body>
+
+</html>
