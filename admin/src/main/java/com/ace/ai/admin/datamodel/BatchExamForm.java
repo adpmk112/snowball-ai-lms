@@ -20,6 +20,7 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
 @Entity
@@ -44,7 +45,7 @@ public class BatchExamForm {
     @JoinColumn(name="exam_form_id")
     private ExamForm examForm;
 
-    @OneToMany(mappedBy = "batchExamForm")
+    @OneToMany(mappedBy = "batchExamForm", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StudentExamMark> studentExamMarks = new ArrayList<>();
 
     public  BatchExamForm(String startDate, String endDate, boolean status, Batch batch, ExamForm examForm){

@@ -17,6 +17,7 @@ import com.ace.ai.admin.datamodel.Attendance;
 import com.ace.ai.admin.datamodel.Batch;
 import com.ace.ai.admin.datamodel.Classroom;
 import com.ace.ai.admin.datamodel.Student;
+import com.ace.ai.admin.datamodel.Teacher;
 import com.ace.ai.admin.datamodel.TeacherBatch;
 import com.ace.ai.admin.dtomodel.ClassroomDTO;
 import com.ace.ai.admin.dtomodel.ReqClassroomDTO;
@@ -46,6 +47,9 @@ public class ClassRoomService {
 
     @Autowired
     AttendanceRepository attendanceRepository;
+
+    @Autowired
+    TeacherProfileService teacherProfileService;
 
     public static String englishTime(String input)
             throws ParseException {
@@ -144,6 +148,13 @@ public class ClassRoomService {
 //                log.info(classroomDTOforTeacherList.get(0).getTeacherName());
 //            }
         return classroomDTOforTeacherList;
+    }
+
+    public ClassroomDTO getTeacherName(String code){
+        Teacher teacher = teacherProfileService.findByCode(code);
+        ClassroomDTO classroomDTO = new ClassroomDTO();
+        classroomDTO.setTeacherName(teacher.getName());
+        return classroomDTO;
     }
 
     public void createClassroom(ReqClassroomDTO reqClassroomDTO) throws ParseException {

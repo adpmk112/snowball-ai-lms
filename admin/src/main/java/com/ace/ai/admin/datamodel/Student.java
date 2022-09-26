@@ -39,13 +39,13 @@ public class Student implements Serializable{
     @JoinColumn(name = "batch_id")
     private Batch batch;
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Attendance> attendances = new ArrayList<>();
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StudentExamMark> studentExamMarks = new ArrayList<>();
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StudentAssignmentMark> studentAssignmentMarks = new ArrayList<>();
 
     public Student(int id,String name,String photo,String code,String password,boolean deleteStatus,Batch batch){

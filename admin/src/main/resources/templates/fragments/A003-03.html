@@ -381,9 +381,9 @@
                             </div>
                         </div>
                         <!-- Mark Table -->
-                        <div class="table-responsive p-2 pt-5 " id="examMarkTable">
+                        <div class="table-responsive p-2 " id="examMarkTable">
                             <div class="add-list pb-1 ">
-                                <a id="pdf" th:href="@{/teacher/exam/exportToExcel{batch_id}(batch_id=${batchId})}"
+                                <a id="pdf" th:href="@{/admin/exam/exportToExcel{batch_id}(batch_id=${batch_id})}"
                                     class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
                                     <i class="fa-solid fa-file-excel"></i>
                                 </a>
@@ -421,7 +421,7 @@
                         <div class="table-responsive p-2" id="assignmentMarkTable">
                             <div class="add-list pb-1 ">
                                 <a id="pdf"
-                                    th:href="@{/teacher/assignment/exportToExcel{batch_id}(batch_id=${batchId})}"
+                                    th:href="@{/admin/assignment/exportToExcel{batch_id}(batch_id=${batch_id})}"
                                     class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
                                     <i class="fa-solid fa-file-excel"></i>
                                 </a>

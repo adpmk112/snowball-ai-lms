@@ -34,7 +34,7 @@
                   <td th:text="${classroom.startTime}"></td>
                   <td th:text="${classroom.endTime}"></td>
                   <td th:text="${classroom.teacherName}"></td>
-                  <td th:text="${classroom.link}"></td>
+                  <td><a th:href="@{${classroom.link}}"></a></td>
                 </tr>
               </tbody>
             </table>

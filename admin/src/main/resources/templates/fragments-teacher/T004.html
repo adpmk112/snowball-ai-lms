@@ -55,14 +55,9 @@
                 <br>
                 <label class="col-sm-4" for="id">Teacher name:</label>
                 <div class="col-sm-8">
-                  <select class="form-control" id="teacherId" th:field="*{teacherName}">
-                    <option th:value="0">Select Teacher</option>
-                    <option th:each="teacher : ${teacherList}" th:value="${teacher.teacherName}"
-                      th:text="${teacher.teacherName}">
-                    </option>
+                    <input type="text" class="form-control" id="teacher-name" th:value="${reqClassroomDTO.teacherName}" readonly
+                    th:field="*{teacherName}" />
                     <input type="hidden" th:field="*{batchId}"></input>
-
-                  </select>
                 </div>
               </div>
               <div class="row mb-3">

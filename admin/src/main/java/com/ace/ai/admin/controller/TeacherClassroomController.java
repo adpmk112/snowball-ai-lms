@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ace.ai.admin.config.TeacherUserDetails;
 import com.ace.ai.admin.datamodel.Classroom;
 import com.ace.ai.admin.dtomodel.ClassroomDTO;
 import com.ace.ai.admin.dtomodel.ReqClassroomDTO;
@@ -34,8 +36,11 @@ public class TeacherClassroomController{
     BatchService batchService;
 
     @GetMapping("/setupClassroomAdd/{batch_id}")
-    public ModelAndView classroomAdd(Model model, @PathVariable("batch_id") Integer id) {
+    public ModelAndView classroomAdd(Model model, @PathVariable("batch_id") Integer id, @AuthenticationPrincipal TeacherUserDetails userDetails) {
         ReqClassroomDTO reqClassroomDTO = new ReqClassroomDTO();
+        ClassroomDTO classroomDTO = classRoomService.getTeacherName(userDetails.getCode());
+        reqClassroomDTO.setTeacherName(classroomDTO.getTeacherName()); 
+        
         reqClassroomDTO.setBatchId(id);
         model.addAttribute("teacherList", classRoomService.fetchTeacherListForClassroom(id));
         model.addAttribute("batchId", id);
