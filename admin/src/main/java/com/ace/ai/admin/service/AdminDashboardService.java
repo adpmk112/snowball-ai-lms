@@ -26,8 +26,6 @@ public class AdminDashboardService {
     @Autowired
     AttendanceRepository attendanceRepository;
     @Autowired
-    AttendanceService attendanceService;
-    @Autowired
     CourseRepository courseRepository;
     @Autowired
     TeacherRepository teacherRepository;

@@ -13,10 +13,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Column;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Student implements Serializable{
 
     @Id
@@ -31,8 +35,6 @@ public class Student implements Serializable{
     @Column(columnDefinition = "tinyint(1) default 0")
     private boolean deleteStatus;
 
-
-
     @ManyToOne
     @JoinColumn(name = "batch_id")
     private Batch batch;
@@ -45,4 +47,15 @@ public class Student implements Serializable{
 
     @OneToMany(mappedBy = "student")
     private List<StudentAssignmentMark> studentAssignmentMarks = new ArrayList<>();
+
+    public Student(int id,String name,String photo,String code,String password,boolean deleteStatus,Batch batch){
+        this.id = id;
+        this.name = name;
+        this.photo =  photo;
+        this.code =  code ;
+        this.password = password;
+        this.deleteStatus = deleteStatus;
+        this.batch = batch;
+    }
+    
 }

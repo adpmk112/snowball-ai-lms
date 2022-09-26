@@ -74,4 +74,5 @@ public class Batch implements Serializable {
         this.createdDate =  createdDate;
         this.course = course;
     }
+   
 }

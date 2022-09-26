@@ -49,6 +49,14 @@ public class Teacher {
         this.password = password;
         this.deleteStatus = deleteStatus;
     }
+    public Teacher(int id,String code,String name,String photo,String password,boolean deleteStatus){
+        this.id = id;
+        this.code = code;
+        this.name = name;
+        this.photo = photo;
+        this.password = password;
+        this.deleteStatus = deleteStatus;
+    }
 
 
     
