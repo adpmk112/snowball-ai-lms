@@ -7,7 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.ace.ai.admin.datamodel.Batch;
 import com.ace.ai.admin.datamodel.BatchExamForm;
+import com.ace.ai.admin.datamodel.Course;
 import com.ace.ai.admin.datamodel.ExamForm;
 import com.ace.ai.admin.dtomodel.ExamScheduleDTO;
 import com.ace.ai.admin.repository.BatchExamFormRepository;
@@ -22,9 +25,27 @@ public class BatchExamFormService {
     @Autowired
     ExamFormRepository examFormRepository;
 
-    public List<ExamScheduleDTO> showExamScheduleTable(Integer batchId) throws ParseException{
+    @Autowired
+    BatchService batchService;
+
+    public List<ExamScheduleDTO> showExamScheduleTable(int batchId) throws ParseException{
         List<ExamScheduleDTO>examScheduleDTOList = new ArrayList<>();
         List<BatchExamForm>batchExamFormList = batchExamFormRepository.findByDeleteStatusAndBatch_IdAndExamForm_DeleteStatus(false, batchId, false);
+        Batch batch = batchService.getById(batchId);
+        Course course = batch.getCourse();// Get Course
+        List<ExamForm> examFormList = course.getExamForms();//Get ExamForm List
+        for(ExamForm examForm: examFormList){ //insert to batchExamForm for exams that are added later
+            BatchExamForm batchExamForm = batchExamFormRepository.findByExamForm_IdAndBatch_Id(examForm.getId(), batchId);
+            if(batchExamForm == null){
+                BatchExamForm newBef = new BatchExamForm();
+                newBef.setDeleteStatus(false);
+                newBef.setStartDate("");
+                newBef.setEndDate("");
+                newBef.setBatch(batch);
+                newBef.setExamForm(examForm);
+                batchExamFormRepository.save(newBef);
+            }
+        }
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         //current time

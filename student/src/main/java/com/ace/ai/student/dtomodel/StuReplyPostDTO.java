@@ -16,5 +16,5 @@ public class StuReplyPostDTO {
     //chapterId or customchapterId or exam id or assignment id
     private int locationId;
     private int chapterFileId;
-    
+    private int chapterId;
 }

@@ -101,9 +101,9 @@ public class ExamFormController {
     //Delete Exam
     @GetMapping("/exam-delete")
     public String deleteExam(@RequestParam("id")int id,@RequestParam("courseId") int courseId) {
-        ExamForm exam = examFormService.findById(id);
-        exam.setDeleteStatus(true);
-        examFormService.saveByJPa(exam);
+        // ExamForm exam = examFormService.findById(id);
+        // exam.setDeleteStatus(true);
+        examFormService.deleteExamForm(id);
         return "redirect:/admin/course/courseDetail?radio=exam&courseId=" + courseId;
     }
     

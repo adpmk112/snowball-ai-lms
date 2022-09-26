@@ -92,6 +92,10 @@
                                                         <i class="fa-solid fa-folder-plus me-1"></i>
                                                         Add Assignment
                                                     </a>
+                                                    <a th:href="@{/teacher/batch/chapter/chapterFile(chapterId=${chapterDTO.id},batchId=${batchId})}"
+                                                    class="more-info btn btn-floating" data-mdb-ripple-color="dark">
+                                                    See More
+                                                </a>
 
                                                     <!-- <p>Custom Assignment add button htae pay pr</p> -->
                                                 </td>
@@ -177,7 +181,7 @@
                                                         See More
                                                     </a>
 
-                                                    <!-- <p>Custom Assignment add button htae pay pr</p> -->
+                                                   
                                                 </td>
                                             </tr>
                                         </form>
@@ -394,7 +398,7 @@
                                     </div>
                                 </div>
                                 <!-- Mark Table -->
-                                <div class="table-responsive p-2 pt-5 " id="examMarkTable">
+                                <div class="table-responsive p-2 " id="examMarkTable">
                                     <div class="add-list pb-1 ">
                                         <a  id="pdf" th:href="@{/teacher/exam/exportToExcel{batch_id}(batch_id=${batchId})}"
                                             class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
@@ -516,8 +520,7 @@
                                                     class="more-info btn btn-floating" data-mdb-ripple-color="dark">
                                                     See More
                                                 </a>
-                                                <ion-icon class="position-absolute" name="notifications-circle-outline">
-                                                </ion-icon>
+                                                
                                             </td>
                                         </tr>
 
@@ -529,8 +532,7 @@
                                                     class="more-info btn btn-floating" data-mdb-ripple-color="dark">
                                                     See More
                                                 </a>
-                                                <ion-icon class="position-absolute" name="notifications-circle-outline">
-                                                </ion-icon>
+                                                
                                             </td>
                                         </tr>
                                         <tr>
@@ -541,8 +543,7 @@
                                                     class="more-info btn btn-floating" data-mdb-ripple-color="dark">
                                                     See More
                                                 </a>
-                                                <ion-icon class="position-absolute" name="notifications-circle-outline">
-                                                </ion-icon>
+                                                
                                             </td>
                                         </tr>
                                         <!-- <tr>
@@ -553,8 +554,7 @@
                                                     data-mdb-ripple-color="dark">
                                                     See More
                                                 </a>
-                                                <ion-icon class="position-absolute" name="notifications-circle-outline">
-                                                </ion-icon>
+                                                
                                             </td>
                                         </tr> -->
                                         <tr>
@@ -565,8 +565,7 @@
                                                     class="more-info btn btn-floating" data-mdb-ripple-color="dark">
                                                     See More
                                                 </a>
-                                                <ion-icon class="position-absolute" name="notifications-circle-outline">
-                                                </ion-icon>
+                                                
                                             </td>
                                         </tr>
                                         <tr>
@@ -577,8 +576,7 @@
                                                     class="more-info btn btn-floating" data-mdb-ripple-color="dark">
                                                     See More
                                                 </a>
-                                                <ion-icon class="position-absolute" name="notifications-circle-outline">
-                                                </ion-icon>
+                                                
                                             </td>
                                         </tr>
                                     </tbody>

@@ -12,3 +12,5 @@ assets/img/customChapterFiles/4/HtetWaiAung_CV.pdf
 assets/img/customChapterFiles/4/SQL_Assignment3.pdf
 admin/src/main/resources/application.properties
 student/src/main/resources/application.properties
+admin/src/main/resources/application.properties
+student/src/main/resources/application.properties
