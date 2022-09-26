@@ -160,7 +160,7 @@ public class AssignmentController {
         
 
        
-          return "S001-03";
+          return "redirect:/student/assignmentView?assignmentId="+assignmentFileDTO.getAssignmentId()+"&studentId="+assignmentFileDTO.getStudentId()+"&chapterId="+assignmentFileDTO.getChapterId();
           
          
     }
