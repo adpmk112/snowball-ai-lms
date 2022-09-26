@@ -1,6 +1,7 @@
 package com.ace.ai.admin.datamodel;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.beans.Transient;
 import java.io.Serializable;
@@ -15,6 +16,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class Admin implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -33,5 +35,11 @@ public class Admin implements Serializable {
     public String getImagePath(){
         if(photo == null || code == null)return null;
         return "/assets/img/" + code + "/" +photo;
+    }
+    public Admin(String name, String photo,String password){
+        this.name=name;
+        this.photo=photo;
+        this.password=password;
+
     }
 }

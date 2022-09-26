@@ -50,6 +50,8 @@
                             <form class="form bg-light p-3 rounded m-auto" style="max-width: 700px;" th:action="addActivityPost"
                                 method="post" th:object="${newActivityDTO}" enctype="multipart/form-data">
                                 <h2 class="mt-2 mb-3 text-center">Add New Chapter</h2>
+                                <div class="alert alert-success" role="alert" th:if="${success}" th:text="${success}">
+                                </div>
                                 <input type="hidden" th:field="*{batchId}">
                                 <div class="row mt-2">
                                     <label class="col-sm-4" for="name">Chapter Name</label>

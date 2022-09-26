@@ -56,6 +56,17 @@ public class TeacherNewActivity {
         return new ModelAndView("T003-04", "newActivityDTO", newActivityDTO);
     }
 
+    @GetMapping("/addActivity/success")
+    public ModelAndView addNewActivitySuccess(@RequestParam("batchId") int batchId, ModelMap model) {
+        NewActivityDTO newActivityDTO = new NewActivityDTO();
+        newActivityDTO.setBatchId(batchId);
+        List<CustomChapter>customChapterList = customChapterRepository.findByBatchIdAndDeleteStatus(batchId, false);
+        model.addAttribute("batchId", batchId);
+        model.addAttribute("totalCustomChapter",customChapterList.size());
+        model.addAttribute("success","Chapter Added Successfully!");
+        return new ModelAndView("T003-04", "newActivityDTO", newActivityDTO);
+    }
+
     @PostMapping("/addActivityPost")
     public String addNewActivityPost(@ModelAttribute("newActivityDTO") NewActivityDTO newActivityDTO, ModelMap model) {
         try {
@@ -160,7 +171,7 @@ public class TeacherNewActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "redirect:/teacher/batch/course/addActivity?batchId=" + newActivityDTO.getBatchId();
+        return "redirect:/teacher/batch/course/addActivity/success?batchId=" + newActivityDTO.getBatchId();
     }
 
     @PostMapping("/activity/edit")

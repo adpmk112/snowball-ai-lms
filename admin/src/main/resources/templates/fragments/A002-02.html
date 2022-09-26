@@ -50,9 +50,11 @@
                             <form class="form bg-light p-3 rounded m-auto" style="max-width: 700px;" th:action="addpost"
                                 method="post" th:object="${fileUploadDTO}" enctype="multipart/form-data">
                                 <h2 class="mt-2 mb-3 text-center">Add Chapter</h2>
+                                <div class="alert alert-success" role="alert" th:if="${success}" th:text="${success}">
+                                </div>
                                 <input type="hidden" th:field="*{courseId}">
                                 <div class="row mt-2">
-                                    <label class="col-sm-4" for="id">Chapter Name</label>
+                                    <label class="col-sm-4" for="name">Chapter Name</label>
                                     <div class="col-sm-8">
                                         <input type="text" class="form-control" id="name" placeholder="Enter Name"
                                             name="name" th:field="*{name}" required/>
