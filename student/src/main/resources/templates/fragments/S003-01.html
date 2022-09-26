@@ -34,7 +34,7 @@
                         <ol class="exam-list">
                             <li class="exam-question" th:each="question , qStatus : ${exam.questions}">
                             <div class="row">
-                                <textarea class="col-10" disabled th:text="${question.text}" th:rows="${#strings.arraySplit(question.text,'\n').length-1}" style="border: none ; height:auto;background: none; "></textarea>
+                                <textarea class="col-10" disabled th:text="${question.text}" th:rows="${#strings.arraySplit(question.text,'\n').length}" style="border: none ; height:auto;background: none; "></textarea>
                                 <div class="col-2 text-end">
                                 <span th:text="${question.point}"></span> <span class="ms-1" th:text="${(question.point > 1)?'Marks': 'Mark'}"></span>
                                 </div>
