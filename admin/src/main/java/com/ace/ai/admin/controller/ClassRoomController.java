@@ -57,7 +57,7 @@ public class ClassRoomController {
 
         classRoomService.createClassroom(reqClassroomDTO2);
         int batchId = reqClassroomDTO.getBatchId();
-        model.addAttribute("msg", "Classroom added !");
+        model.addAttribute("success", "Classroom added !");
         model.addAttribute("batchId", reqClassroomDTO.getBatchId());
         model.addAttribute("batchName", batchService.getById(batchId).getName());
         model.addAttribute("courseName", batchService.getById(batchId).getCourse().getName());
@@ -109,7 +109,7 @@ public class ClassRoomController {
         model.addAttribute("batchName", classroom.getBatch().getName());
         model.addAttribute("batchId", classroom.getBatch().getId());
         model.addAttribute("courseName", classroom.getBatch().getCourse().getName());
-        model.addAttribute("msg", "Classroom updated !");
+        model.addAttribute("success", "Classroom updated !");
         return "A003-07";
     }
 
