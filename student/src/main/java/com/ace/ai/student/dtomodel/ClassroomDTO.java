@@ -19,4 +19,5 @@ public class ClassroomDTO {
     private String status;
     private Integer batchId;
     private String recordedVideo;
+    private String attendanceStatus;
 }
