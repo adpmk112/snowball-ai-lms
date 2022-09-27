@@ -191,8 +191,10 @@ public class BatchController {
 
                 assignmentService.baseChapterAssignmentFileAdd(chapter, batch.getId());
             }
-            for (Teacher teacher : batchDTO.getTeacherList()) {
-                batchService.saveTeacherBatch(teacher.getId(), batch.getId());
+            if( batchDTO.getTeacherList()!=null) {
+                for (Teacher teacher : batchDTO.getTeacherList()) {
+                    batchService.saveTeacherBatch(teacher.getId(), batch.getId());
+                }
             }
             // save batchExamFormTable
             List<ExamForm> examFormList = examFormService.findByDeleteStatusAndCourseId(false, course.getId());
