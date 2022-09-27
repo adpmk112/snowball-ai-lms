@@ -29,7 +29,7 @@ public class BatchExamFormService {
     BatchService batchService;
 
     public List<ExamScheduleDTO> showExamScheduleTable(int batchId) throws ParseException{
-        List<ExamScheduleDTO>examScheduleDTOList = new ArrayList<>();
+        
         List<BatchExamForm>batchExamFormList = batchExamFormRepository.findByDeleteStatusAndBatch_IdAndExamForm_DeleteStatus(false, batchId, false);
         Batch batch = batchService.getById(batchId);
         Course course = batch.getCourse();// Get Course
@@ -54,6 +54,7 @@ public class BatchExamFormService {
         String formattedString = now.format(formatter);
         LocalDateTime formattedNow = LocalDateTime.parse(formattedString, dtf);
         
+        List<ExamScheduleDTO>examScheduleDTOList = new ArrayList<>();
         for(BatchExamForm batchExamForm:batchExamFormList){
             ExamScheduleDTO examScheduleDTO = new ExamScheduleDTO();
             examScheduleDTO.setId(batchExamForm.getId());
