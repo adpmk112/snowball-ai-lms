@@ -248,17 +248,23 @@ public class TeacherNewActivity {
         customChapterFile.setCustomChapter(customChapter);
 
         CustomChapterFile oldCustomChapterFile = customChapterService.getCustomChapterFileById(customChapterFileDTO.getId());
-
+        
+        Assignment assignment = 
+        assignmentService.getUniqueAssignment(customChapter, customChapter.getBatch().getId(), oldCustomChapterFile.getName());
+        
         Path path = Paths
                 .get("./assets/img/customChapterFiles/" + customChapterFileDTO.getCustomChapterId() + "/" + oldCustomChapterFile.getName());
-        Files.delete(path);
+        if(Files.exists(path)){
+            Files.delete(path);
+        }        
+       
         customChapterService.saveCustomChapterFile(customChapterFile);
         
-        // Need to ask HWA
-        // Assignment assignment = 
-        // assignmentService.getUniqueAssignment(customChapter, customChapter.getBatch().getId(), oldCustomChapterFile.getName());
+
+         Assignment assignment1 = 
+         assignmentService.getUniqueAssignment(customChapter, customChapter.getBatch().getId(), customChapterFile.getName());
         
-        // assignmentService.customChapterAssignmentEdit(assignment, newFileName);
+         assignmentService.customChapterAssignmentEdit(assignment, assignment1.getName());
 
         String uploadDir = "./assets/img/customChapterFiles/" + customChapterFileDTO.getCustomChapterId();
         Path uploadPath = Paths.get(uploadDir);
@@ -289,19 +295,22 @@ public class TeacherNewActivity {
     }
 
     @GetMapping("/activityFile/delete")
-    public String deleteCustomChapterFile(@RequestParam("customChapterFileId")int customChapterFileId,ModelMap model){
+    public String deleteCustomChapterFile(@RequestParam("customChapterFileId")int customChapterFileId,ModelMap model) throws IOException{
         int customChapterId = customChapterService.getCustomChapterFileById(customChapterFileId).getCustomChapter().getId();
         customChapterService.deleteCustomChapterFile(customChapterFileId);
-       
-        // Need to ask HWA
-        // CustomChapter customChapter = customChapterRepository.findById(customChapterId).get();
+        
+         CustomChapter customChapter = customChapterRepository.findById(customChapterId).get();
 
-        // CustomChapterFile customChapterFile = customChapterFileRepository.findById(customChapterFileId).get();
+         CustomChapterFile customChapterFile = customChapterFileRepository.findById(customChapterFileId).get();
+         Path path = Paths
+         .get("./assets/img/customChapterFiles/" + customChapterId + "/" + customChapterFile.getName());
+ if(Files.exists(path)){
+     Files.delete(path);
+ } 
+         Assignment assignment = 
+         assignmentService.getUniqueAssignment(customChapter, customChapter.getBatch().getId(), customChapterFile.getName());
 
-        // Assignment assignment = 
-        // assignmentService.getUniqueAssignment(customChapter, customChapter.getBatch().getId(), customChapterFile.getName());
-
-        // assignmentService.customChapterAssignmentDelete(assignment);
+         assignmentService.customChapterAssignmentDelete(assignment);
 
         return "redirect:/teacher/batch/course/activityFile?customChapterId=" + customChapterId;
     }

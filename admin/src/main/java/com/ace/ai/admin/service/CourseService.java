@@ -5,18 +5,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ace.ai.admin.datamodel.*;
+import com.ace.ai.admin.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ace.ai.admin.datamodel.Chapter;
-import com.ace.ai.admin.datamodel.ChapterFile;
-import com.ace.ai.admin.datamodel.Course;
 import com.ace.ai.admin.dtomodel.AdminChapterDTO;
 import com.ace.ai.admin.dtomodel.AdminCourseDTO;
 import com.ace.ai.admin.dtomodel.ChapterFileDTO;
-import com.ace.ai.admin.repository.ChapterFileRepository;
-import com.ace.ai.admin.repository.ChapterRepository;
-import com.ace.ai.admin.repository.CourseRepository;
 
 @Service
 public class CourseService {
@@ -26,6 +22,10 @@ public class CourseService {
     ChapterRepository chapterRepository;
     @Autowired
     ChapterFileRepository chapterFileRepository;
+    @Autowired
+    BatchRepository batchRepository;
+    @Autowired
+    ChapterBatchRepository chapterBatchRepository;
 
     public List<AdminCourseDTO> getCourseList() {
         List<Course> courseList = courseRepository.findAll();
@@ -135,6 +135,8 @@ public class CourseService {
         return chapter.getId();
     }
 
+
+
     public int getChapterFileCount(int chapterId) {
         return chapterFileRepository.findByChapterIdAndDeleteStatus(chapterId, 0).size();
     }
@@ -181,5 +183,13 @@ public class CourseService {
 
     public Chapter getChapterById(int chapterId) {
         return chapterRepository.findById(chapterId).get();
+    }
+
+    public List<Batch> getBatchListByCourseId(int courseId){
+        return  batchRepository.findByCourseId(courseId);
+    }
+
+    public void saveChapterBatch(ChapterBatch chapterBatch){
+         chapterBatchRepository.save(chapterBatch);
     }
 }

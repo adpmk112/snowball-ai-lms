@@ -12,8 +12,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BatchRepository extends JpaRepository<Batch, Integer> {
     Batch findBatchById(Integer id);
-
+    Batch findBatchByIdAndName(Integer id,String name);
     List<Batch> findByDeleteStatus(boolean deleteStatus);
+    List<Batch> findByCourseId(int courseId);
 
     Batch findBatchByName(String name);
 
