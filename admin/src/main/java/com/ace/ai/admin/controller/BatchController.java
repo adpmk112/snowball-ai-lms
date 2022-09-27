@@ -86,7 +86,10 @@ public class BatchController {
         model.addAttribute("teacherList1", batchService.findALlTeacherForAllBatchExcept(id));
         model.addAttribute("batch_id", id);
         model.addAttribute("batchName", batchService.getById(id).getName());
-        model.addAttribute("courseName", batchService.getById(id).getCourse().getName());// for course name in view
+        Course course=batchService.getById(id).getCourse();
+        if(course!=null) {
+            model.addAttribute("courseName", batchService.getById(id).getCourse().getName());
+        }// for course name in view
         model.addAttribute("examScheduleList", examScheduleService.showExamScheduleTable(id));
         model.addAttribute("attendanceDTOList", attendanceService.getAllAttendanceList(id));// Attendance with bath id
         model.addAttribute("allStudent", attendanceService.getAllStudentByDeleteStatus(id));// for attendance with batch
@@ -138,6 +141,24 @@ public class BatchController {
             return ResponseEntity.notFound().build();
         }
     }
+    @GetMapping({ "/CheckBatchNameEditBatch" })
+    @ResponseBody
+    public ResponseEntity checkBatchNameEditBatch(@RequestParam("batchName") String batchName,@RequestParam("batchId")Integer batchId) {
+        Batch editBatch = batchService.findBatchById(batchId);
+        Batch batch1=batchService.findBatchByName(batchName);
+        Integer matchedBatch=0;
+           if(batch1!=null){
+              matchedBatch= batch1.getId();
+           }
+        if (editBatch.getId()==matchedBatch) {
+            return ResponseEntity.notFound().build();
+        } else if(batch1!=null) {
+            return ResponseEntity.ok(HttpStatus.OK);
+
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     @PostMapping({ "/addBatch" })
     public String saveBatch(@ModelAttribute("batchDTO")@Validated BatchDTO batchDTO, BindingResult bs,Model model) {
@@ -153,9 +174,9 @@ public class BatchController {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             String localDateString = localDate.format(dateTimeFormatter);
             batch.setCreatedDate(localDateString);
-            batch.setName(batchDTO.getName());
+            String name  =batchService.capitalize(batchDTO.getName());
+            batch.setName(name);
             Course course = batchService.findCourseById(batchDTO.getCourseId());
-
             batch.setCourse(course);
             batchService.saveBatch(batch);
             batch = batchService.findLastBatch();
@@ -308,16 +329,18 @@ public class BatchController {
 
         BatchDTO batchDTO = new BatchDTO();
         batchDTO.setName(batch.getName());
-        batchDTO.setCourseId(batch.getCourse().getId());
-        batchDTO.setBatchId(batch.getId());
-
-        List<TeacherBatch> teachersFromBatch = batch.getTeacherBatches(); // For batchteachers
-        List<Teacher> selectedTeacher = new ArrayList<Teacher>();
-        for (TeacherBatch teacherFromBatch : teachersFromBatch) {
-            Teacher teacher = teacherFromBatch.getTeacher();
-            selectedTeacher.add(teacher);
+        if(batch!=null) {
+            batchDTO.setCourseId(batch.getCourse().getId());
+            batchDTO.setBatchId(batch.getId());
+            List<TeacherBatch> teachersFromBatch = batch.getTeacherBatches(); // For batchteachers
+            List<Teacher> selectedTeacher = new ArrayList<Teacher>();
+            for (TeacherBatch teacherFromBatch : teachersFromBatch) {
+                Teacher teacher = teacherFromBatch.getTeacher();
+                selectedTeacher.add(teacher);
+            }
+            batchDTO.setTeacherList(selectedTeacher);
         }
-        batchDTO.setTeacherList(selectedTeacher);
+
 
         model.addAttribute("teacherListAll", teacherList);
         model.addAttribute("courseList", courseList);
@@ -329,7 +352,8 @@ public class BatchController {
     public String updateBatch(@ModelAttribute("batchDTO") BatchDTO batchDTO) {
         int batchId = batchDTO.getBatchId();
         Batch batch = batchService.findBatchById(batchId);
-        batch.setName(batchDTO.getName());
+        String batchName=batchService.capitalize(batchDTO.getName());
+        batch.setName(batchName);
         batchService.saveBatch(batch);
         // Delete All Teacher
         teacherBatchService.deleteByBatchId(batchId);
