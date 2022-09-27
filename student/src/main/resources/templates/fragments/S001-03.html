@@ -25,14 +25,30 @@
                             </div>
                             
                         </div>
-                        <div style="margin-top: 20px;" class="assign_header" >
-                           <span th:text="${assignmentDateTimeDTO.fileName}"></span>
+                        <div th:if="${assignmentDateTimeDTO.fileType=='baseChapter'}" style="margin-top: 20px;" class="assign_header" >
+                           <span  th:text="${assignmentDateTimeDTO.fileName}"></span>
                             <a th:href="@{${'/assets/img/chapterFiles/'+chapterId+'/'+assignmentDateTimeDTO.fileName}}"
                             class="btn btn-outline-light btn-floating" 
                              style="margin-left: 30px;">
                              <i class="fa-solid fa-download"></i>
                           </a>
                          </div>
+                         <div th:if="${assignmentDateTimeDTO.fileType=='customChapter'}" style="margin-top: 20px;" class="assign_header" >
+                          <span  th:text="${assignmentDateTimeDTO.fileName}"></span>
+                           <a th:href="@{${'/assets/img/customChapterFiles/'+chapterId+'/'+assignmentDateTimeDTO.fileName}}"
+                           class="btn btn-outline-light btn-floating" 
+                            style="margin-left: 30px;">
+                            <i class="fa-solid fa-download"></i>
+                         </a>
+                        </div>
+                        <div th:if="${assignmentDateTimeDTO.fileType=='customAssignment'}" style="margin-top: 20px;" class="assign_header" >
+                          <span  th:text="${assignmentDateTimeDTO.fileName}"></span>
+                           <a th:href="@{${'/assets/img/customAssignment/'+chapterId+'/'+assignmentDateTimeDTO.fileName}}"
+                           class="btn btn-outline-light btn-floating" 
+                            style="margin-left: 30px;">
+                            <i class="fa-solid fa-download"></i>
+                         </a>
+                        </div>
                     </div>
                     <div class="part2">
                         <div class="upload">

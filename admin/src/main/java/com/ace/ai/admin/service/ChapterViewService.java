@@ -29,7 +29,7 @@ public class ChapterViewService {
     public List<ChapterDTO> findAllChapterInChapterBatchByBatchId(Integer id) throws ParseException {
 
         List<ChapterDTO> chapterDTOList=new ArrayList<ChapterDTO>();
-        List<ChapterBatch> chapterBatches=chapterBatchRepository.findChapterIdByBatchId(id);
+        List<ChapterBatch> chapterBatches=chapterBatchRepository.findByBatchIdAndDeleteStatus(id,0);
 
         for(ChapterBatch chapterBatch:chapterBatches){
             ChapterDTO chapterDTO=new ChapterDTO();
