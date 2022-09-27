@@ -134,9 +134,7 @@
                   <h5 class="card-header" th:text="${comment.location}"></h5>
                   <div class="card-body">
                     <h5 class="card-title" th:text="${comment.commenter_Name}"></h5>
-                    <p class="card-text" th:text="${comment.text}">
-                      Hi Kya Naw Pr sr mayy ma lo dr ka di lo shi dl lay
-                    </p>
+                    <p class="card-text" th:text="${comment.text}"></p>
                     <a th:href="@{/teacher/batch/batchSeeMore(batchId=${comment.batchId},radio='comment')}" class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
                       Go to Comments
                       <ion-icon name="arrow-forward-circle-outline"></ion-icon>

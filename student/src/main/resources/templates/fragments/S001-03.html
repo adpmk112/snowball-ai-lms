@@ -46,10 +46,12 @@
                                     <p th:text = "${assignmentMarkDTO.submitDate}"></p>
                                     <p th:text = "${assignmentMarkDTO.submitTime}"></p>
                                 </div>
+                                
                                 <input type="hidden" th:field="*{assignmentId}" >
                                 <input type="hidden" th:field="*{studentId}" >
+                                <input type="hidden" name="chapterId" th:value="${chapterId}">
                                 <input class="sub form-control" type="file" id="formFileDisabled"
-                                    th:field="*{assignmentFile}" />
+                                    th:field="*{assignmentFile}" required/>
                                 <input th:if="${assignmentMarkDTO.submitTime == 'SubmitTime'}" id="sub" type="submit" value="submit" />
                                 <input th:unless="${assignmentMarkDTO.submitTime == 'SubmitTime'}" id="sub" type="submit" value="Resubmit" />
                             </form>

@@ -10,5 +10,7 @@ public class AssignmentFileDTO {
     private int studentId;
     private MultipartFile assignmentFile;
     private boolean notification;
+    private int chapterId;
+    private MultipartFile fileName;
     
 }
