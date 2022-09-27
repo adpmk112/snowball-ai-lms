@@ -10,7 +10,7 @@
             <i class="fa-solid fa-people-group"></i>
           </div>
           <div>
-            <h1>Batches</h1>
+            <h1>Record Video</h1>
             <h3>Total: 4</h3>
           </div>
         </div>
@@ -22,17 +22,17 @@
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                      <a class="text-decoration-none" href="/admin/course">
+                      <a class="text-decoration-none" href="/teacher/batch/">
                         Batch List
                       </a>
                     </li>
                     <li class="breadcrumb-item">
-                      <a class="text-decoration-none" th:href="@{/admin/course/courseDetail(courseId=${courseId},radio='chapter')}">
+                      <a class="text-decoration-none" th:href="@{/teacher/batch/batchSeeMore(batchId=${batchId},radio='chapter')}">
                         Batch Details
                       </a>
                     </li>
                     <li class="breadcrumb-item">
-                      <a class="text-decoration-none" href="A002-03.html">
+                      <a class="text-decoration-none" href="">
                         Record Videos
                       </a>
                     </li>
@@ -96,7 +96,7 @@
                                 aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                              <form th:action="@{/admin/batch/classroom/recordVideo/edit}" method="post" th:object="${recordVideoEditDTO}"
+                              <form th:action="@{/teacher/batch/classroom/recordVideo/edit}" method="post" th:object="${recordVideoEditDTO}"
                                 enctype="multipart/form-data">
                                 <input type="hidden" class="form-control" name="id" th:value="${recordVideo.id}"
                                   id="message-text" />
@@ -136,16 +136,16 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Add File</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Add Recorded Video File</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form th:action="@{/admin/batch/classroom/recordVideo/add}" method="post" th:object="${recordVideoDTO}"
+              <form th:action="@{/teacher/batch/classroom/recordVideo/add}" method="post" th:object="${recordVideoDTO}"
                 enctype="multipart/form-data">
                 <input type="hidden" class="form-control" name="classroomId" th:value="${classroomId}"
                                   id="message-text" />
                 <div class="mb-3">
-                  <input type="file" class="form-control" th:field="*{recordVideo}" />
+                  <input type="file" class="form-control" th:field="*{recordVideo}" accept="video/mp4,video/x-m4v,video/*" multiple />
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">

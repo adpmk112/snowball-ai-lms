@@ -51,7 +51,7 @@
                 </label>
               </div>
               <div class="row mb-3">
-                <h6 style="color: blue;" th:text="${msg}"></h6>
+                <div class="alert alert-success" role="alert" th:if="${success}" th:text="${success}"></div>
                 <input type="hidden" th:value="${classId}">
                 <br>
                 <label class="col-sm-4" for="id">Teacher name:</label>

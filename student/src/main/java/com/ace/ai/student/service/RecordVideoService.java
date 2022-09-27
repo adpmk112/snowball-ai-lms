@@ -17,4 +17,8 @@ public class RecordVideoService {
         
         return recordVideoRepository.findByDeleteStatusAndClassroomId(0, classroomId);
     }
+
+    public RecordVideo getRecordVideoById(int id){
+        return recordVideoRepository.findById(id);
+    }
 }

@@ -23,6 +23,8 @@ public interface BatchRepository extends JpaRepository<Batch, Integer> {
     @Query(value = "SELECT count(*)from batch",nativeQuery = true)
     Integer getTotalBatches();
 
+    List<Batch> findByDeleteStatusAndCourseId(boolean deleteStatus, int courseId);
+
    
 
 }

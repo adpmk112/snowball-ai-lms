@@ -30,9 +30,10 @@ import com.ace.ai.admin.dtomodel.ChapterFileDTO;
 import com.ace.ai.admin.dtomodel.ChapterRenameDTO;
 import com.ace.ai.admin.dtomodel.CourseDTO;
 import com.ace.ai.admin.dtomodel.FileUploadDTO;
-import com.ace.ai.admin.repository.AssignmentRepository;
+import com.ace.ai.admin.repository.BatchRepository;
 import com.ace.ai.admin.repository.ChapterRepository;
 import com.ace.ai.admin.service.AssignmentService;
+import com.ace.ai.admin.service.ChapterBatchService;
 import com.ace.ai.admin.service.CourseService;
 import com.ace.ai.admin.service.ExamFormService;
 
@@ -53,6 +54,12 @@ public class CourseController {
 
     @Autowired
     AssignmentService assignmentService;
+
+    @Autowired
+    ChapterBatchService chapterBatchService;
+
+    @Autowired
+    BatchRepository batchRepository;
 
     @GetMapping("/chapter/add")
     public ModelAndView goToChapterAddPage(@RequestParam("courseId") int id, ModelMap model) {
@@ -85,6 +92,7 @@ public class CourseController {
             chapter.setName(fileUploadDTO.getName());
 
             courseService.saveChapter(chapter);
+
 
             int chapterId = courseService.getChapterIdByNameAndCourseId(fileUploadDTO.getName(),fileUploadDTO.getCourseId());
             Chapter chapter1 = courseService.getChapterById(chapterId);
