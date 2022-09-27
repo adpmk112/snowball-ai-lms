@@ -196,43 +196,43 @@
                             <table id="datatable2" class="hover">
                                 <thead>
                                     <tr>
-                                        <th style="max-width: 100px !important;">Exam Name</th>
-                                        <th style="max-width: 100px !important;"> Start-Date</th>
-                                        <th style="max-width: 100px !important;">End-Date</th>
-                                        <th style="max-width: 100px !important;">Status</th>
-                                        <th style="max-width: 100px !important;">Action</th>
+                                        <th>Exam Name</th>
+                                        <th>
+                                            <span style="padding-left:10px">Start Date</span>
+                                        </th>
+                                        <th >
+                                            <span style="padding-left:10px">End Date</span>
+                                        </th>
+                                        <th >Status</th>
+                                        <th >Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr th:each="examSchedule: ${examScheduleList}">
-                                        <td th:text="${examSchedule.examName}" style="max-width: 100px !important;">
-                                        </td>
-                                        <td style="max-width: 100px !important;">
+                                        <td th:text="${examSchedule.examName}" ></td>
+                                        <td >
                                             <input type="datetime-local" class="form-control text-start"
                                                 name="start-date"
                                                 th:value="${examSchedule.startDate != null ? examSchedule.startDate: ''}"
-                                                style="max-width: 200px; padding:6px 15px;" disabled />
+                                                style="width: 200px; padding:6px 10px;" disabled />
                                         </td>
-                                        <td style="max-width: 100px !important;">
+                                        <td >
                                             <input type="datetime-local" class="form-control text-start" name="end-date"
                                                 th:value="${examSchedule.endDate != null ? examSchedule.endDate: ''}"
-                                                style="max-width: 200px; padding:6px 15px;" disabled />
-                                        </td>
-                                        <!-- <td th:text = "${examSchedule.status != null ? examSchedule.status : 'No Status'}"
-                                             th:class="${examSchedule.status == 'Upcoming'? 'text-info':''}"></td>
-                                        <td> -->
-                                        <td style="max-width: 100px !important;" th:if="${examSchedule.status == null}"
+                                                style="width: 200px; padding:6px 10px;" disabled />
+                                        </td>                                        
+                                        <td  th:if="${examSchedule.status == null}"
                                             th:text="'No Status'">
                                         </td>
-                                        <td style="max-width: 100px !important;"
+                                        <td 
                                             th:if="${examSchedule.status == 'Upcoming'}"
                                             th:text="${examSchedule.status}" class="text-danger">
                                         </td>
-                                        <td style="max-width: 100px !important;"
+                                        <td 
                                             th:if="${examSchedule.status == 'In Progress'}"
                                             th:text="${examSchedule.status}" class="text-success">
                                         </td>
-                                        <td style="max-width: 100px !important;"
+                                        <td 
                                             th:if="${examSchedule.status == 'Done'}" th:text="${examSchedule.status}"
                                             class="text-secondary">
                                         </td>
