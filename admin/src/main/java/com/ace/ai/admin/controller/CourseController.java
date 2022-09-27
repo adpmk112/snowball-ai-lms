@@ -270,6 +270,19 @@ public class CourseController {
         String courseCount = "Total : " + allCourse.size();
         model.addAttribute("courseCount", courseCount);
 
+
+        Chapter chapter1 = courseService.getChapterById(id);
+            List<Batch> batchList = courseService.getBatchListByCourseId(chapter1.getCourse().getId());
+            if(batchList!=null) {
+                for (Batch batch : batchList) {
+                    ChapterBatch chapterBatch = courseService.getChapterBatchByChapterIdAndBAtchId(chapter1.getId(), batch.getId());
+                   
+                    chapterBatch.setDeleteStatus(1);
+                    courseService.saveChapterBatch(chapterBatch);
+                }
+            }
+
+
         return "redirect:/admin/course/courseDetail?courseId=" + courseId + "&radio=chapter";
     }
     
