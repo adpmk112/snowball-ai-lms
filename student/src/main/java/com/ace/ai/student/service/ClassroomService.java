@@ -12,8 +12,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ace.ai.student.datamodel.Attendance;
 import com.ace.ai.student.datamodel.Classroom;
 import com.ace.ai.student.dtomodel.ClassroomDTO;
+import com.ace.ai.student.repository.AttendanceRepository;
 import com.ace.ai.student.repository.ClassroomRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +26,9 @@ public class ClassroomService {
 
     @Autowired
     ClassroomRepository classRoomRepository;
+
+    @Autowired
+    AttendanceRepository attendanceRepository;
 
     public String twelveHourFormat(String time) throws ParseException {
 
@@ -93,13 +98,19 @@ public class ClassroomService {
         return comingClassroom;
     }
 
-    public List<ClassroomDTO> previousClassroom(int batchId) throws ParseException{
+    public List<ClassroomDTO> previousClassroom(int batchId, int studentId) throws ParseException{
         List<ClassroomDTO> classroomDTOs = showClassroomTable(batchId);
 
         List<ClassroomDTO> previousClassroom = new ArrayList<>();
 
         for(ClassroomDTO classroomDTO : classroomDTOs){
              if(classroomDTO.getStatus() == "Done"){
+                Attendance attendance = attendanceRepository.findByStudent_IdAndClassroom_Id(studentId, classroomDTO.getId());
+                if(attendance != null){
+                    classroomDTO.setAttendanceStatus(attendance.getAttend());
+                }else{
+                    classroomDTO.setAttendanceStatus("Absent");
+                }
                 previousClassroom.add(classroomDTO);
             }
         }

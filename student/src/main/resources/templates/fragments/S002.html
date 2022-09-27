@@ -51,6 +51,7 @@
                   <th>End-Time</th>
                   <th>Teacher</th>
                  <th>Record Video</th> 
+                 <th>Attendance Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -66,12 +67,9 @@
                         <i class="fa-solid fa-file-video"></i>
                     </a>
                 </td>
-                  <!-- <td>
-                    <a th:href="@{/student/recordVideo(classroomId=${classroom.id})}"
-                      class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
-                      <i class="fa-solid fa-file-video"></i>
-                    </a>
-                  </td> -->
+                  <td>
+                    [[${classroom.attendanceStatus}]]
+                  </td>
                 </tr>
               </tbody>
               

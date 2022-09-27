@@ -113,11 +113,7 @@ public class ExamFormService {
 
     public ExamForm findById(int id) {
         return examFormRepo.getById(id);
-    }
-
-    public int findCurrentId() {
-        return examFormRepo.findCurrentId();
-    }
+    }   
 
     public List<ExamForm> findAll() {
         return examFormRepo.findAll();

@@ -45,7 +45,7 @@ public class StudentClassroomController {
         
         List<ClassroomDTO> upcomingClassroomList = classroomService.comingClassroom(student.getBatch().getId());
         
-        List<ClassroomDTO> previousClassroomList = classroomService.previousClassroom(student.getBatch().getId());
+        List<ClassroomDTO> previousClassroomList = classroomService.previousClassroom(student.getBatch().getId(), student.getId());
 
         model.addAttribute("upcomingClass", upcomingClassroomList);
         model.addAttribute("previousClass", previousClassroomList);

@@ -10,9 +10,7 @@ import com.ace.ai.admin.datamodel.ExamForm;
 
 @Repository
 public interface ExamFormRepository extends JpaRepository<ExamForm, Integer>{    
-    @Query(value = "select max(id) from exam_form", nativeQuery = true)
-    public int findCurrentId();
-
+    
     public List<ExamForm> findByCourse_id(Integer courseId);
 
     @Query(value = "select count(id) from exam_form where name=?1 and course_id = ?2", nativeQuery = true)
