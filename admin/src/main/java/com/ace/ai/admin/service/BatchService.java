@@ -176,31 +176,10 @@ public class BatchService {
         return studentDTOList;
     }
 
-    public StudentDTO findStudentByBatchIdAndStudentId(Integer batchId,String code){
-        List<Student> studentList= studentRepository.findByDeleteStatusAndBatchId(false,batchId);
-        StudentDTO studentDTO=new StudentDTO();
-        for(Student s: studentList){
-            if(s.getCode().equals(code))
-            {
+     public Batch findBatchByIdAndName(Integer id,String name){
+        return batchRepository.findBatchByIdAndName(id,name);
 
-               studentDTO.setPassword(s.getPassword());
-               studentDTO.setName(s.getName());
-               studentDTO.setCode(s.getCode());
-               studentDTO.setBatchId(s.getBatch().getId());
-               studentDTO.setPhoto(s.getPhoto());
-               studentDTO.setId(s.getId());
-
-            }
-        }
-        return studentDTO;
-    }
-
-    public void UpdateStudentByBatchIdAndCode(Integer batchId,Integer id){
-        Batch batch=batchRepository.findBatchById(batchId);
-        Student student= studentRepository.findStudentById(id);
-        student.setDeleteStatus(true);
-        studentRepository.save(student);
-    }
+     }
 
     public StudentDTO updateStudent(StudentDTO studentDTO){
         Batch batch= batchRepository.findBatchById(studentDTO.getBatchId());

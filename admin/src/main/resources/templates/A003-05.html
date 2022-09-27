@@ -13,38 +13,5 @@
   </main>
   <footer th:replace="ADMFRG :: footer"></footer>
   <div th:replace="ADMFRG :: scripts"></div>
-  <script>
-    function checkId(e) {
-      let id = $('#updateStudent').find('#batchId').val()
-      let enterId = $(e).val()
-
-      $.ajax({
-        type: 'GET',
-        url: '/admin/batch/CheckStudentId',
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        data: { id: id, enterId: enterId },
-        success: function () {
-          let span =  $('#updateStudent').find('#same-name')
-          console.log(span)
-          let span1 = $('#updateStudent').find('#diff-name')
-          $(span).removeAttr('hidden')
-          $(span).text('Id is already taken!')
-          $(span1).attr('hidden', 'hidden')
-          document.getElementById('saveStudent').disabled = true
-        },
-        error: function () {
-
-          let span =  $('#updateStudent').find('#same-name')
-          console.log(span)
-          let span1 = $('#updateStudent').find('#diff-name')
-          $(span).attr('hidden', 'hidden')
-          $(span).text('')
-          $(span1).removeAttr('hidden')
-            document.getElementById('saveStudent').disabled = false
-        },
-      })
-    }
-  </script>
   </body>
 </html>

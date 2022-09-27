@@ -57,11 +57,7 @@
                                             <td class="tdInput">
                                                 <input type="hidden" th:field="*{id}" required />
                                                 <input type="text" class="form-control" name="code" placeholder="Id"
-                                                    th:field="*{code}" oninput="checkId(this);" required autofocus />
-                                                <span id="same-name" hidden="hidden" style="color: red;"></span>
-                                                <span id="diff-name" hidden="hidden" style="color: green;">
-                                                    Id Available!
-                                                </span>
+                                                    th:field="*{code}" readonly required autofocus style="text-transform: uppercase;" />
                                             </td>
                                             <td class="tdInput">
                                                 <input type="text" class="form-control" name="password"

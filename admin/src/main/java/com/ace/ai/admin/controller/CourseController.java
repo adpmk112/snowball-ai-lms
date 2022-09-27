@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.ace.ai.admin.datamodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,11 +25,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ace.ai.admin.datamodel.Batch;
-import com.ace.ai.admin.datamodel.Chapter;
-import com.ace.ai.admin.datamodel.ChapterFile;
-import com.ace.ai.admin.datamodel.Course;
-import com.ace.ai.admin.datamodel.ExamForm;
 import com.ace.ai.admin.dtomodel.AdminChapterDTO;
 import com.ace.ai.admin.dtomodel.ChapterFileDTO;
 import com.ace.ai.admin.dtomodel.ChapterRenameDTO;
@@ -97,16 +93,18 @@ public class CourseController {
 
             courseService.saveChapter(chapter);
 
-            Chapter chapter1 = chapterRepository.findLastChapter();
-            
-            List<Batch> batchList = batchRepository.findByDeleteStatusAndCourseId(false, course.getId());
-            
-            if(batchList.size()>0){
-                int batchId = batchList.get(0).getId();
-                chapterBatchService.chapterBatchPlus(batchId, chapter1.getId());
-            }
-            
+
             int chapterId = courseService.getChapterIdByNameAndCourseId(fileUploadDTO.getName(),fileUploadDTO.getCourseId());
+            Chapter chapter1 = courseService.getChapterById(chapterId);
+            List<Batch> batchList = courseService.getBatchListByCourseId(chapter1.getCourse().getId());
+            if(batchList!=null) {
+                for (Batch batch : batchList) {
+                    ChapterBatch chapterBatch = new ChapterBatch();
+                    chapterBatch.setChapter(chapter1);
+                    chapterBatch.setBatch(batch);
+                    courseService.saveChapterBatch(chapterBatch);
+                }
+            }
             Chapter toSetChapterId = new Chapter();
             toSetChapterId.setId(chapterId);
 
