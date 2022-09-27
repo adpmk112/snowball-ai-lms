@@ -19,7 +19,7 @@ import com.ace.ai.admin.datamodel.Batch;
 import com.ace.ai.admin.datamodel.Course;
 import com.ace.ai.admin.datamodel.Teacher;
 import com.ace.ai.admin.datamodel.TeacherBatch;
-import com.ace.ai.admin.repository.BatchRepository;
+
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace= Replace.NONE)

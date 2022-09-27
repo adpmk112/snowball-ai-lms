@@ -40,6 +40,12 @@ public class Course implements Serializable  {
         this.deleteStatus = deleteStatus;
     }
 
+    public Course(int id,String name,String createdDate, boolean deleteStatus){
+        this.id = id;
+        this.name = name;
+        this.createdDate = createdDate;
+        this.deleteStatus = deleteStatus;
+    }
    
 
 

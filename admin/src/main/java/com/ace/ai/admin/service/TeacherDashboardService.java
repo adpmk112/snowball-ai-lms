@@ -38,15 +38,7 @@ public class TeacherDashboardService {
     TeacherBatchRepository teacherBatchRepository;
     @Autowired
     AttendanceRepository attendanceRepository;
-    @Autowired
-    StudentExamMarkRepository studentExamMarkRepository;
-    @Autowired
-    BatchExamFormRepository batchExamFormRepository;
-    @Autowired
-    AssignmentRepository assignmentRepository;
-    @Autowired
-    StudentAssignmentMarkRepository studentAssignmentMarkRepository;
-
+    
     public List<Batch> findBatchesByTeacherCode(String teacherCode) {
         Teacher teacher = teacherRepository.findTeacherByCode(teacherCode);
         List<TeacherBatch> teacherBatches = teacher.getTeacherBatches();

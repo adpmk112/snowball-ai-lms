@@ -19,7 +19,26 @@
   <script type="text/javascript">
     $(document).ready(function () {
       let batchId = document.getElementById("batch").value;
-
+      const colorListTwo = [
+    'rgba(236,107,86,0.4)', 'rgba(255,193,84,0.4)',
+    'rgba(71,179,156,0.4)', 'rgba(51,102,204,0.4)',
+    'rgba(220,57,18,0.4)', 'rgba(255,153,0,0.4)',
+    'rgba(16,150,24,0.4)', 'rgba(153,0,153,0.4)',
+    'rgba(0,153,198,0.4)', 'rgba(221,68,119,0.4)',
+    'rgba(102,170,0,0.4)', 'rgba(184,46,46,0.4)',
+    'rgba(49,99,149,0.4)', 'rgba(51,102,204,0.4)',
+    'rgba(153,68,153,0.4)', 'rgba(34,170,153,0.4)',
+    'rgba(170,170,17,0.4)', 'rgba(102,51,204,0.4)',
+    'rgba(230,115,0,0.4)', 'rgba(139,7,7,0.4)',
+    'rgba(101,16,103,0.4)', 'rgba(50,146,98,0.4)',
+    'rgba(85,116,166,0.4)', 'rgba(59,62,172,0.4)',
+    'rgba(183,115,34,0.4)', 'rgba(22,214,32,0.4)',
+    'rgba(185,19,131,0.4)', 'rgba(244,53,158,0.4)',
+    'rgba(156,89,53,0.4)', 'rgba(169,196,19,0.4)',
+    'rgba(42,119,141,0.4)', 'rgba(102,141,28,0.4)',
+    'rgba(190,164,19,0.4)', 'rgba(12,89,34,0.4)',
+    'rgba(116,52,17,0.4)'
+];
       var studentName = [];
       var attendence = [];
       console.log(batchId);
@@ -52,9 +71,9 @@
                   {
                     label: "Attend Count Per Student Data",
                     data: attendence,
-                    backgroundColor: [
-                      'rgb(106, 204, 226)',
-                    ],
+                    
+                    backgroundColor: [...colorListTwo],
+                    
                     borderColor: [
                       'rgb(106, 204, 226)',
                     ],
@@ -111,9 +130,7 @@
                   {
                     label: "Attend Count Per Student Data",
                     data: attendence,
-                    backgroundColor: [
-                      'rgb(106, 204, 226)',
-                    ],
+                    backgroundColor: [...colorListTwo],
                     borderColor: [
                       'rgb(106, 204, 226)',
                     ],

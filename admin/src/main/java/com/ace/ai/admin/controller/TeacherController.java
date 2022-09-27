@@ -25,179 +25,178 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ace.ai.admin.datamodel.Teacher;
 import com.ace.ai.admin.dtomodel.TeacherDTO;
 import com.ace.ai.admin.repository.TeacherRepository;
+import com.ace.ai.admin.service.BatchService;
 import com.ace.ai.admin.service.TeacherService;
-
 
 @Controller
 @RequestMapping("/admin/teacher")
 public class TeacherController {
-    @Autowired
-    private TeacherService teacherService;
-
+  @Autowired
+  private TeacherService teacherService;
   @Autowired
   private TeacherRepository teacherRepository;
+  @Autowired
+  private BatchService batchService;
 
   @GetMapping("/addTeacher")
-   public ModelAndView setupAddTeacher(ModelMap model) {
-    return new ModelAndView("A004-01","teacherDto",new TeacherDTO());
+  public ModelAndView setupAddTeacher(ModelMap model) {
+    return new ModelAndView("A004-01", "teacherDto", new TeacherDTO());
   }
+
   @GetMapping("/addTeacherSuccess")
-   public ModelAndView setupAddTeacherSuccess(ModelMap model) {
-    model.addAttribute("msg","Register Successfully !!!");
-    return new ModelAndView("A004-01","teacherDto",new TeacherDTO());
+  public ModelAndView setupAddTeacherSuccess(ModelMap model) {
+    model.addAttribute("msg", "Register Successfully !!!");
+    return new ModelAndView("A004-01", "teacherDto", new TeacherDTO());
   }
 
   @GetMapping("/addTeacherFail")
-   public ModelAndView setupAddTeacherFail(ModelMap model) {
-    model.addAttribute("error","Teacher Code Exists in Database");
-    return new ModelAndView("A004-01","teacherDto",new TeacherDTO());
+  public ModelAndView setupAddTeacherFail(ModelMap model) {
+    model.addAttribute("error", "Teacher Code Exists in Database");
+    return new ModelAndView("A004-01", "teacherDto", new TeacherDTO());
   }
+
   @PostMapping("/addTeacherPost")
-       public String addTeacher(@ModelAttribute("teacherDto")@Validated TeacherDTO teacherDto,BindingResult bs, ModelMap model) throws IllegalStateException, IOException {
-        if(bs.hasErrors()){
-          model.addAttribute("msg","Fill all Details!");
-          return"A004-01";
-        }
-       Teacher bean=new Teacher();
-       bean.setCode(teacherDto.getCode().toUpperCase());
-       bean.setName(teacherDto.getName());
-      BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
-      String encodedPassword=encoder.encode(teacherDto.getPassword());
-       bean.setPassword(encodedPassword);
-       String fileName=StringUtils.cleanPath(teacherDto.getPhoto().getOriginalFilename());
-       bean.setPhoto(fileName);
-       boolean code=teacherService.existsByCode(bean.getCode());
-        if(code == true){
-          model.addAttribute("error","Teacher Code Exists in Database");
-          return "redirect:/admin/teacher/addTeacherFail";
-        }
-         else{
-          Teacher savedTeacher=teacherRepository.save(bean);
-
-          String uploadDir="./assets/img/"+ savedTeacher.getCode();
-            
-
-          Path uploadPath = Paths.get(uploadDir);
-
-          if(!Files.exists(uploadPath)){
-          Files.createDirectories(uploadPath);
-       }
-
-      if(teacherDto.getPhoto()!=null){
-          try( InputStream inputStream=teacherDto.getPhoto().getInputStream()){
-              Path filePath=uploadPath.resolve(fileName);
-              System.out.println(filePath.toFile().getAbsolutePath());
-              Files.copy(inputStream, filePath ,StandardCopyOption.REPLACE_EXISTING);
-          }catch (IOException e){
-              throw new IOException("Could not save upload file: " + fileName);
-          }
-      }
-      model.addAttribute("msg","Register Successfully !!!");
-       return "redirect:/admin/teacher/addTeacherSuccess";
+  public String addTeacher(@ModelAttribute("teacherDto") @Validated TeacherDTO teacherDto, BindingResult bs,
+      ModelMap model) throws IllegalStateException, IOException {
+    if (bs.hasErrors()) {
+      model.addAttribute("msg", "Fill all Details!");
+      return "A004-01";
     }
-}
+    Teacher bean = new Teacher();
+    bean.setCode(teacherDto.getCode().toUpperCase());
+    String name = teacherDto.getName();
+    String capName = batchService.capitalize(name);
+    bean.setName(capName);
+    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    String encodedPassword = encoder.encode(teacherDto.getPassword());
+    bean.setPassword(encodedPassword);
+    String fileName = StringUtils.cleanPath(teacherDto.getPhoto().getOriginalFilename());
+    bean.setPhoto(fileName);
+    boolean code = teacherService.existsByCode(bean.getCode());
+    if (code == true) {
+      model.addAttribute("error", "Teacher Code Exists in Database");
+      return "redirect:/admin/teacher/addTeacherFail";
+    } else {
+      Teacher savedTeacher = teacherRepository.save(bean);
+
+      String uploadDir = "./assets/img/" + savedTeacher.getCode();
+
+      Path uploadPath = Paths.get(uploadDir);
+
+      if (!Files.exists(uploadPath)) {
+        Files.createDirectories(uploadPath);
+      }
+
+      if (teacherDto.getPhoto() != null) {
+        try (InputStream inputStream = teacherDto.getPhoto().getInputStream()) {
+          Path filePath = uploadPath.resolve(fileName);
+          System.out.println(filePath.toFile().getAbsolutePath());
+          Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+          throw new IOException("Could not save upload file: " + fileName);
+        }
+      }
+      model.addAttribute("msg", "Register Successfully !!!");
+      return "redirect:/admin/teacher/addTeacherSuccess";
+    }
+  }
 
   @GetMapping("/")
-    public String showTeacher(ModelMap model){
-      List<Teacher> teacherList=teacherRepository.findByDeleteStatus(false); 
-      model.addAttribute("teachrCount",teacherList.size());     
-      model.addAttribute("teacherList",teacherList);
-      return "A004";
-    }
-
-  @GetMapping("/updateTeacher")
-   public ModelAndView setupUpdateTeacher(ModelMap model,@RequestParam("id")Integer id,  HttpServletRequest request) {
-      Teacher bean = teacherService.getId(id);
-      TeacherDTO teacherDto=new TeacherDTO();
-      teacherDto.setId(bean.getId());
-      teacherDto.setCode(bean.getCode());
-      teacherDto.setName(bean.getName());
-      teacherDto.setPassword(bean.getPassword());
-      request.setAttribute("photo", bean.getImagePath());
-      return new ModelAndView("A004-02","teacherDto",teacherDto);
-   }
-   @GetMapping("/updateTeacherSuccess")
-   public ModelAndView updateTeacherSuccess(ModelMap model,@RequestParam("id")Integer id,  HttpServletRequest request) {
-    model.addAttribute("msg","Update Successfully !!!");
-    Teacher bean = teacherService.getId(id);
-      TeacherDTO teacherDto=new TeacherDTO();
-      teacherDto.setId(bean.getId());
-      teacherDto.setCode(bean.getCode());
-      teacherDto.setName(bean.getName());
-      teacherDto.setPassword(bean.getPassword());
-      request.setAttribute("photo", bean.getImagePath());
-      return new ModelAndView("A004-02","teacherDto",teacherDto);
+  public String showTeacher(ModelMap model) {
+    List<Teacher> teacherList = teacherRepository.findByDeleteStatus(false);
+    model.addAttribute("teachrCount", teacherList.size());
+    model.addAttribute("teacherList", teacherList);
+    return "A004";
   }
 
-   @PostMapping("/updateTeacherPost")
-    public String updateTeacher(@ModelAttribute("teacherDto")@Validated TeacherDTO teacherDto,BindingResult bs,ModelMap model) throws IOException{
-      if(bs.hasErrors()){
-        model.addAttribute("msg","Fill all Details!");
-        return"A004-02";
-        }
-      Teacher bean=new Teacher();
-      bean.setId(teacherDto.getId());
-      bean.setCode(teacherDto.getCode());
-      bean.setName(teacherDto.getName());
-      BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
-     String encodedPassword =encoder.encode(teacherDto.getPassword());
-      bean.setPassword(encodedPassword);
-      
-        Teacher teacher = teacherService.getId(bean.getId());
+  @GetMapping("/updateTeacher")
+  public ModelAndView setupUpdateTeacher(ModelMap model, @RequestParam("id") Integer id, HttpServletRequest request) {
+    Teacher bean = teacherService.getId(id);
+    TeacherDTO teacherDto = new TeacherDTO();
+    teacherDto.setId(bean.getId());
+    teacherDto.setCode(bean.getCode());
+    teacherDto.setName(bean.getName());
+    teacherDto.setPassword(bean.getPassword());
+    request.setAttribute("photo", bean.getImagePath());
+    return new ModelAndView("A004-02", "teacherDto", teacherDto);
+  }
 
-        if(teacherDto.getPhoto().getOriginalFilename().isBlank()){
-            bean.setPhoto(teacher.getPhoto());
-            teacherRepository.save(bean);
-            model.addAttribute("msg","Update Successfully !!!");
-            return "redirect:/admin/teacher/updateTeacherSuccess?id="+bean.getId();
-        }
-        else{
+  @GetMapping("/updateTeacherSuccess")
+  public ModelAndView updateTeacherSuccess(ModelMap model, @RequestParam("id") Integer id, HttpServletRequest request) {
+    model.addAttribute("msg", "Update Successfully !!!");
+    TeacherDTO teacherDto = new TeacherDTO();
+    return new ModelAndView("A004-02", "teacherDto", teacherDto);
+  }
 
-            Path path = Paths.get("./assets/img/"+teacher.getCode()+"/"+teacher.getPhoto());
-            if(Files.exists(path)){
-            Files.delete(path);
-            }
-            String fileName=StringUtils.cleanPath(teacherDto.getPhoto().getOriginalFilename());
-            bean.setPhoto(fileName);
-          
-            Teacher savedTeacher=teacherRepository.save(bean);
-            String uploadDir="./assets/img/"+ savedTeacher.getCode();
-            Path uploadPath = Paths.get(uploadDir);
-            if(!Files.exists(uploadPath)){
-            try {
-              Files.createDirectories(uploadPath);
-            } catch (IOException e) {
-              
-              e.printStackTrace();
-            }
-            }
-          try( InputStream inputStream=teacherDto.getPhoto().getInputStream()){
-            Path filePath=uploadPath.resolve(fileName);
-            System.out.println(filePath.toFile().getAbsolutePath());
-            Files.copy(inputStream, filePath ,StandardCopyOption.REPLACE_EXISTING);
-          }catch (IOException e){
-              try {
-                throw new IOException("Could not save upload file: " + fileName);
-              } catch (IOException e1) {
-                
-                e1.printStackTrace();
-              }
-          } 
-          
-          model.addAttribute("msg","Update Successfully !!!");
-          return "redirect:/admin/teacher/updateTeacherSuccess?id="+bean.getId();
-        }
-        
-      }
-
-      @GetMapping("/deleteTeacher/{id}")
-      public String deleteTeacher(@PathVariable("id")Integer id) {
-        Teacher teacher = teacherService.getId(id);
-        teacher.setDeleteStatus(true);
-        teacherService.saveTeacher(teacher);
-        return "redirect:/admin/teacher/";
-      }
-      
+  @PostMapping("/updateTeacherPost")
+  public String updateTeacher(@ModelAttribute("teacherDto") @Validated TeacherDTO teacherDto, BindingResult bs,
+      ModelMap model) throws IOException {
+    if (bs.hasErrors()) {
+      model.addAttribute("msg", "Fill all Details!");
+      return "A004-02";
     }
-   
+    Teacher bean = new Teacher();
+    bean.setId(teacherDto.getId());
+    bean.setCode(teacherDto.getCode());
+    String name = teacherDto.getName();
+    String capName = batchService.capitalize(name);
+    bean.setName(capName);
+    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    String encodedPassword = encoder.encode(teacherDto.getPassword());
+    bean.setPassword(encodedPassword);
 
+    Teacher teacher = teacherService.getId(bean.getId());
+
+    if (teacherDto.getPhoto().getOriginalFilename().isBlank()) {
+      bean.setPhoto(teacher.getPhoto());
+      teacherRepository.save(bean);
+      model.addAttribute("msg", "Update Successfully !!!");
+      return "redirect:/admin/teacher/updateTeacherSuccess?id=" + bean.getId();
+    } else {
+
+      Path path = Paths.get("./assets/img/" + teacher.getCode() + "/" + teacher.getPhoto());
+      if (Files.exists(path)) {
+        Files.delete(path);
+      }
+      String fileName = StringUtils.cleanPath(teacherDto.getPhoto().getOriginalFilename());
+      bean.setPhoto(fileName);
+
+      Teacher savedTeacher = teacherRepository.save(bean);
+      String uploadDir = "./assets/img/" + savedTeacher.getCode();
+      Path uploadPath = Paths.get(uploadDir);
+      if (!Files.exists(uploadPath)) {
+        try {
+          Files.createDirectories(uploadPath);
+        } catch (IOException e) {
+
+          e.printStackTrace();
+        }
+      }
+      try (InputStream inputStream = teacherDto.getPhoto().getInputStream()) {
+        Path filePath = uploadPath.resolve(fileName);
+        System.out.println(filePath.toFile().getAbsolutePath());
+        Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+      } catch (IOException e) {
+        try {
+          throw new IOException("Could not save upload file: " + fileName);
+        } catch (IOException e1) {
+
+          e1.printStackTrace();
+        }
+      }
+
+      model.addAttribute("msg", "Update Successfully !!!");
+      return "redirect:/admin/teacher/updateTeacherSuccess?id=" + bean.getId();
+    }
+
+  }
+
+  @GetMapping("/deleteTeacher/{id}")
+  public String deleteTeacher(@PathVariable("id") Integer id) {
+    Teacher teacher = teacherService.getId(id);
+    teacher.setDeleteStatus(true);
+    teacherService.saveTeacher(teacher);
+    return "redirect:/admin/teacher/";
+  }
+
+}

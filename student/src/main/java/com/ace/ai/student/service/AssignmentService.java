@@ -49,7 +49,7 @@ public class AssignmentService {
         StudentAssignmentMark studentAssignmentMark =studentAssignmentMarkRepository.findByAssignment_IdAndStudent_Id(assignmentId , studentId);
         if(studentAssignmentMark != null){
             if(studentAssignmentMark.getStudentMark() == 0 && !studentAssignmentMark.getDate().isBlank() && !studentAssignmentMark.getTime().isBlank()){
-                studentMark = 100;
+                studentMark = 0;
                 submitDate = studentAssignmentMark.getDate();
                 submitTime = twelveHourFormat(studentAssignmentMark.getTime());
             }
@@ -60,7 +60,7 @@ public class AssignmentService {
             }
         }
         else{
-            studentMark =100;
+            studentMark =0;
             submitDate = "SubmitDate";
             submitTime = "SubmitTime";
         }
@@ -112,18 +112,18 @@ public class AssignmentService {
              dueTime = LocalTime.parse(assignment.getEnd_time(), timeFormatter);            
             if(dueDate.isBefore(LocalDate.now()) == false){                
                     if(dueTime.compareTo(localCurrentTime) == 0 ){
-                        status = "early2";
+                        status = "early";
                     }
                     
                     else if(dueTime.isBefore(localCurrentTime) == true ){
-                        status = "late2";
+                        status = "late";
                     }
                     else if(dueTime.isBefore(localCurrentTime) == false)
-                    status = "early1";
+                    status = "early";
                     
             }    
             else if(dueDate.isBefore(LocalDate.now()) == true){
-                status = "late1";
+                status = "late";
             } 
         }   
         return status;
@@ -146,18 +146,18 @@ public class AssignmentService {
                 dueTime = LocalTime.parse(assignment.getEnd_time(), timeFormatter);            
                if(dueDate.isBefore(LocalDate.now()) == false){                
                        if(dueTime.compareTo(localCurrentTime) == 0 ){
-                           status = "early2";
+                           status = "early";
                        }
                        
                        else if(dueTime.isBefore(localCurrentTime) == true ){
-                           status = "late2";
+                           status = "late";
                        }
                        else if(dueTime.isBefore(localCurrentTime) == false)
-                       status = "early1";
+                       status = "early";
                        
                }    
                else if(dueDate.isBefore(LocalDate.now()) == true){
-                   status = "late1";
+                   status = "late";
                } 
            }   
         }
@@ -170,24 +170,35 @@ public class AssignmentService {
                     submitTime = LocalTime.parse(studentAssignmentMark.getTime(), timeFormatter);            
                    if(dueDate.isBefore(submitDate) == false){                
                            if(dueTime.compareTo(submitTime) == 0 ){
-                               status = "early2";
+                               status = "early";
                            }
                            
                            else if(dueTime.isBefore(submitTime) == true ){
-                               status = "late2";
+                               status = "late";
                            }
                            else if(dueTime.isBefore(submitTime) == false)
-                           status = "early1";
+                           status = "early";
                            
                    }    
                    else if(dueDate.isBefore(submitDate) == true){
-                       status = "late1";
+                       status = "late";
                    } 
                }   
             
         }
         return status;
     }
+
+    // public StudentAssignmentMark getFileName(String fileName){
+    //     StudentAssignmentMark studentAssignmentMark = studentAssignmentMarkRepository.findByUploadedFile(fileName);
+    //     return studentAssignmentMark;
+    // }
+         public StudentAssignmentMark getStudentAssignmentMarkUnique(int assignmentId,int stuId){
+            return studentAssignmentMarkRepository.findByAssignment_IdAndStudent_Id(assignmentId, stuId);
+         }
+   
+
+    
 
     }
 
