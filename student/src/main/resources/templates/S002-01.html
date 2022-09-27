@@ -3,19 +3,19 @@
 
 <head>
  
-  <title>Course List</title>
-  <div th:replace="ADMFRG :: head"></div>
+  <title>RecordVideo</title>
+  <div th:replace="STUFRG :: head"></div>
 </head>
 
 <body style="background-color: rgb(235, 235, 235);">
-  <header th:replace="ADMFRG :: header"></header>
+  <header th:replace="STUFRG :: header"></header>
 
   <main>
-    <div th:replace="fragments/A003-08 :: recordvideo-list"></div>
+    <div th:replace="fragments/S002-01 :: recordvideo-list"></div>
   </main>
 
-  <footer th:replace="ADMFRG :: footer"></footer>
-  <div th:replace="ADMFRG :: scripts"></div>
+  <footer th:replace="STUFRG :: footer"></footer>
+  <div th:replace="STUFRG :: scripts"></div>
 
   <script
   type="text/javascript"
@@ -39,7 +39,7 @@
         animation: 'Scale',
         buttons: {
           Yes: function () {           
-            window.location = `/admin/batch/classroom/recordVideo/delete?recordVideoId=`+recordVideoId;
+            window.location = `/teacher/batch/classroom/recordVideo/delete?recordVideoId=`+recordVideoId;
           },
           No: function () {},
         },

@@ -111,6 +111,47 @@ public class AssignmentService {
         log.info("assignment added into table");
     }
 
+
+     public Assignment getUniqueAssignment(CustomChapter customChapter,Integer batchId,String fileName){
+
+        List<Assignment>assignmentList = 
+        findByAssignmentChapterNameAndBranchAndBatchId(customChapter.getName(), "customChapter", batchId);
+        log.info(fileName);
+        Assignment foundAssignment = new Assignment();
+
+        for(Assignment assignment : assignmentList){
+            log.info("Assignment.getName() --> "+assignment.getName());
+            if(assignment.getName().equalsIgnoreCase(fileName)){
+                foundAssignment.setId(assignment.getId());
+                log.info(""+assignment.getId());
+            }
+        }
+
+        foundAssignment = assignmentRepository.findById(foundAssignment.getId()).get();
+
+        return foundAssignment;
+
+ }
+
+     public void customChapterAssignmentEdit(Assignment assignment, String newFileName){
+        
+         assignment.setName(newFileName);
+            
+         assignmentRepository.save(assignment);
+         log.info("assignment updated into table");
+
+     } 
+
+     public void customChapterAssignmentDelete(Assignment assignment){
+        
+        assignment.setDeleteStatus(true);
+           
+        assignmentRepository.save(assignment);
+        log.info("assignment deleted");
+
+    } 
+
+
     public void customChapterAssignmentDelete(String assignmentChapterName, String branch, int batchId){
         List<Assignment> assignmentList = 
         findByAssignmentChapterNameAndBranchAndBatchId(assignmentChapterName, branch, batchId);

@@ -23,23 +23,28 @@ import com.ace.ai.admin.datamodel.Classroom;
 import com.ace.ai.admin.datamodel.RecordVideo;
 import com.ace.ai.admin.dtomodel.RecordVideoDTO;
 import com.ace.ai.admin.dtomodel.RecordVideoEditDTO;
+import com.ace.ai.admin.repository.ClassRoomRepository;
 import com.ace.ai.admin.service.RecordVideoService;
 
 @Controller
-@RequestMapping(value = "/admin/batch/classroom/recordVideo")
+@RequestMapping(value = "/teacher/batch/classroom/recordVideo")
 public class RecordVideoController {
 
     @Autowired
     RecordVideoService recordVideoService;
 
+    @Autowired
+    ClassRoomRepository classRoomRepository;
+
     @GetMapping(value = "")
     public ModelAndView getRecordVideo(@RequestParam("classroomId") int classroomId, ModelMap model) {
         List<RecordVideo> recordVideoList = recordVideoService.getRecordVideoByClassroomId(classroomId);
-
+        int batchId = classRoomRepository.getById(classroomId).getId();
         model.addAttribute("classroomId", classroomId);
         model.addAttribute("recordVideoList", recordVideoList);
         model.addAttribute("recordVideoEditDTO", new RecordVideoEditDTO());
-        return new ModelAndView("A003-08", "recordVideoDTO", new RecordVideoDTO());
+        model.addAttribute("batchId",batchId);
+        return new ModelAndView("T003-07", "recordVideoDTO", new RecordVideoDTO());
     }
 
     @PostMapping(value = "/add")
@@ -75,7 +80,7 @@ public class RecordVideoController {
             }
         }
 
-        return "redirect:/admin/batch/classroom/recordVideo?classroomId=" + recordVideoDTO.getClassroomId();
+        return "redirect:/teacher/batch/classroom/recordVideo?classroomId=" + recordVideoDTO.getClassroomId();
     }
 
     @PostMapping("/edit")
@@ -123,7 +128,7 @@ public class RecordVideoController {
         }
 
         // model.addAttribute("msg","Update Successfully !!!");
-        return "redirect:/admin/batch/classroom/recordVideo?classroomId=" + recordVideoEditDTO.getClassroomId();
+        return "redirect:/teacher/batch/classroom/recordVideo?classroomId=" + recordVideoEditDTO.getClassroomId();
 
     }
 
@@ -134,6 +139,6 @@ public class RecordVideoController {
         
       
         
-        return "redirect:/admin/batch/classroom/recordVideo?classroomId=" + classroomId;
+        return "redirect:/teacher/batch/classroom/recordVideo?classroomId=" + classroomId;
     }
 }

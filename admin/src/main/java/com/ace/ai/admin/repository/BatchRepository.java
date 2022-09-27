@@ -12,8 +12,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BatchRepository extends JpaRepository<Batch, Integer> {
     Batch findBatchById(Integer id);
-
+    Batch findBatchByIdAndName(Integer id,String name);
     List<Batch> findByDeleteStatus(boolean deleteStatus);
+    List<Batch> findByCourseId(int courseId);
 
     Batch findBatchByName(String name);
 
@@ -21,6 +22,8 @@ public interface BatchRepository extends JpaRepository<Batch, Integer> {
     Batch findLastBatch();
     @Query(value = "SELECT count(*)from batch",nativeQuery = true)
     Integer getTotalBatches();
+
+    List<Batch> findByDeleteStatusAndCourseId(boolean deleteStatus, int courseId);
 
    
 

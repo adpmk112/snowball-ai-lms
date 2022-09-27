@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
- 
+
   <title>Course List</title>
   <div th:replace="ADMFRG :: head"></div>
 </head>
@@ -17,12 +17,9 @@
   <footer th:replace="ADMFRG :: footer"></footer>
   <div th:replace="ADMFRG :: scripts"></div>
 
-  <script
-  type="text/javascript"
-  charset="utf8"
-  src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"
-></script>
-<script th:src="@{/assets/js/data.js}"></script>
+  <script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+  <script th:src="@{/assets/js/data.js}"></script>
 
   <!-- <script>
     $(document).ready(function () {
@@ -42,9 +39,9 @@
     })
   </script> -->
   <script>
-    $(document).on("click",'a.remove-chapterFile',function(){
-      window.chapterFileId=$(this).attr('id');
-      
+    $(document).on("click", 'a.remove-chapterFile', function () {
+      window.chapterFileId = $(this).attr('id');
+
     })
     $(document).ready(function () {
       $('a.remove-chapterFile').confirm({
@@ -56,13 +53,28 @@
         content: 'Are you sure?',
         animation: 'Scale',
         buttons: {
-          Yes: function () {        
+          Yes: function () {
             // /admin/course/chapter/chapterFile/delete(chapterFileId=${chapterFile.id},chapterId=${chapterId})      
-            window.location = `/admin/course/chapter/chapterFile/delete?chapterFileId=`+chapterFileId;
+            window.location = `/admin/course/chapter/chapterFile/delete?chapterFileId=` + chapterFileId;
           },
-          No: function () {},
+          No: function () { },
         },
       })
+    
+
+      //Input accept according to select box
+      $('#fileTypeSelectBox').change(function(){
+        if($(this).val() == 'video'){
+          $('#fileInputAccordingToSelectBox').attr('accept','video/mp4,video/x-m4v,video/*')
+        }
+        else if($(this).val() == 'pdf'){
+          $('#fileInputAccordingToSelectBox').attr('accept','application/pdf')
+        }
+        else{
+          $('#fileInputAccordingToSelectBox').removeAttr('accept')
+        }
+      })
+    
     })
   </script>
 </body>

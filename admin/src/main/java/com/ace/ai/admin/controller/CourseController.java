@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.ace.ai.admin.datamodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,19 +25,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ace.ai.admin.datamodel.Assignment;
-import com.ace.ai.admin.datamodel.Chapter;
-import com.ace.ai.admin.datamodel.ChapterFile;
-import com.ace.ai.admin.datamodel.Course;
-import com.ace.ai.admin.datamodel.ExamForm;
 import com.ace.ai.admin.dtomodel.AdminChapterDTO;
 import com.ace.ai.admin.dtomodel.ChapterFileDTO;
 import com.ace.ai.admin.dtomodel.ChapterRenameDTO;
 import com.ace.ai.admin.dtomodel.CourseDTO;
 import com.ace.ai.admin.dtomodel.FileUploadDTO;
-import com.ace.ai.admin.repository.AssignmentRepository;
+import com.ace.ai.admin.repository.BatchRepository;
 import com.ace.ai.admin.repository.ChapterRepository;
 import com.ace.ai.admin.service.AssignmentService;
+import com.ace.ai.admin.service.ChapterBatchService;
 import com.ace.ai.admin.service.CourseService;
 import com.ace.ai.admin.service.ExamFormService;
 
@@ -57,6 +54,12 @@ public class CourseController {
 
     @Autowired
     AssignmentService assignmentService;
+
+    @Autowired
+    ChapterBatchService chapterBatchService;
+
+    @Autowired
+    BatchRepository batchRepository;
 
     @GetMapping("/chapter/add")
     public ModelAndView goToChapterAddPage(@RequestParam("courseId") int id, ModelMap model) {
@@ -89,7 +92,19 @@ public class CourseController {
             chapter.setName(fileUploadDTO.getName());
 
             courseService.saveChapter(chapter);
+
+
             int chapterId = courseService.getChapterIdByNameAndCourseId(fileUploadDTO.getName(),fileUploadDTO.getCourseId());
+            Chapter chapter1 = courseService.getChapterById(chapterId);
+            List<Batch> batchList = courseService.getBatchListByCourseId(chapter1.getCourse().getId());
+            if(batchList!=null) {
+                for (Batch batch : batchList) {
+                    ChapterBatch chapterBatch = new ChapterBatch();
+                    chapterBatch.setChapter(chapter1);
+                    chapterBatch.setBatch(batch);
+                    courseService.saveChapterBatch(chapterBatch);
+                }
+            }
             Chapter toSetChapterId = new Chapter();
             toSetChapterId.setId(chapterId);
 

@@ -18,6 +18,7 @@ public class ChapterBatch implements Serializable {
     private int id;
     private String startDate;
     private String endDate;
+    @Column(columnDefinition = "tinyint(1) default 0")
     private int deleteStatus;
 
     @ManyToOne

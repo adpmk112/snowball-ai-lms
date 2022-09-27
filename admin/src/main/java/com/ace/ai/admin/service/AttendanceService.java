@@ -55,7 +55,6 @@ public class AttendanceService {
                 Attendance attendance = attendanceRepository.findByStudentIdAndClassroomId(student.getId(), classroomId);
                 if(attendance != null){
                     studentAndAttend.put(student.getId(), attendance.getAttend());
-                    System.out.println("Student attend is "+attendance.getAttend());
                 }
                 //add to list
             }

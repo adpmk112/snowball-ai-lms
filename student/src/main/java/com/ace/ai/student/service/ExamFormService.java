@@ -142,7 +142,7 @@ public class ExamFormService {
          String formattedString = now.format(formatter);
          studentExamMark.setAnswerDate(formattedString);  
          studentExamMark.setNotification(false);     
-        if(!answerFile.isEmpty()){
+        if(!answerFile.isEmpty() && answerFile != null){
                         
             String studentName = student.getName().trim().replaceAll("\\s","-");
             //Get Now Date

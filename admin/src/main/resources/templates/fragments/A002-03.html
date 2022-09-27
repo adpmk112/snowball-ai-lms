@@ -33,7 +33,7 @@
                       </a>
                     </li>
                     <li class="breadcrumb-item">
-                      <a class="text-decoration-none" href="A002-03.html">
+                      <a class="text-decoration-none" >
                         Chapter File List
                       </a>
                     </li>
@@ -172,7 +172,7 @@
                 <div class="mb-3">
                   <input type="hidden" class="form-control" name="chapterId" th:value="${chapterId}"
                     id="message-text" />
-                  <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="fileType" required>
+                  <select class="form-select form-select-lg mb-3" id="fileTypeSelectBox" aria-label=".form-select-lg example" name="fileType" required>
                     <option value="" disabled selected>Choose File Type</option>
                     <option value="video">Video</option>
                     <option value="pdf">Pdf</option>
@@ -180,7 +180,7 @@
                   </select>
                 </div>
                 <div class="mb-3">
-                  <input type="file" class="form-control" th:field="*{file}" required/>
+                  <input type="file" id="fileInputAccordingToSelectBox" class="form-control" th:field="*{file}" required/>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">

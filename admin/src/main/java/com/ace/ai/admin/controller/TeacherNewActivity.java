@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ace.ai.admin.datamodel.Assignment;
 import com.ace.ai.admin.datamodel.Batch;
 import com.ace.ai.admin.datamodel.CustomChapter;
 import com.ace.ai.admin.datamodel.CustomChapterFile;
@@ -28,6 +29,7 @@ import com.ace.ai.admin.dtomodel.CustomAssignmentDTO;
 import com.ace.ai.admin.dtomodel.CustomChapterFileDTO;
 import com.ace.ai.admin.dtomodel.NewActivityDTO;
 import com.ace.ai.admin.repository.AssignmentRepository;
+import com.ace.ai.admin.repository.CustomChapterFileRepository;
 import com.ace.ai.admin.repository.CustomChapterRepository;
 import com.ace.ai.admin.service.AssignmentService;
 import com.ace.ai.admin.service.BatchService;
@@ -45,6 +47,8 @@ public class TeacherNewActivity {
     AssignmentService assignmentService;
     @Autowired
     CustomChapterRepository customChapterRepository;
+    @Autowired
+    CustomChapterFileRepository customChapterFileRepository;
 
     @GetMapping("/addActivity")
     public ModelAndView addNewActivity(@RequestParam("batchId") int batchId, ModelMap model) {
@@ -244,13 +248,23 @@ public class TeacherNewActivity {
         customChapterFile.setCustomChapter(customChapter);
 
         CustomChapterFile oldCustomChapterFile = customChapterService.getCustomChapterFileById(customChapterFileDTO.getId());
-
+        
+        Assignment assignment = 
+        assignmentService.getUniqueAssignment(customChapter, customChapter.getBatch().getId(), oldCustomChapterFile.getName());
+        
         Path path = Paths
                 .get("./assets/img/customChapterFiles/" + customChapterFileDTO.getCustomChapterId() + "/" + oldCustomChapterFile.getName());
-        Files.delete(path);
+        if(Files.exists(path)){
+            Files.delete(path);
+        }        
+       
         customChapterService.saveCustomChapterFile(customChapterFile);
-        System.out.println(customChapterFile.getName());
-        // assignmentService.customChapterAssignmentEdit(customChapter, customChapter.getBatch().getId(), customChapterFile.getName());
+        
+
+         Assignment assignment1 = 
+         assignmentService.getUniqueAssignment(customChapter, customChapter.getBatch().getId(), customChapterFile.getName());
+        
+         assignmentService.customChapterAssignmentEdit(assignment, assignment1.getName());
 
         String uploadDir = "./assets/img/customChapterFiles/" + customChapterFileDTO.getCustomChapterId();
         Path uploadPath = Paths.get(uploadDir);
@@ -281,9 +295,23 @@ public class TeacherNewActivity {
     }
 
     @GetMapping("/activityFile/delete")
-    public String deleteCustomChapterFile(@RequestParam("customChapterFileId")int customChapterFileId,ModelMap model){
+    public String deleteCustomChapterFile(@RequestParam("customChapterFileId")int customChapterFileId,ModelMap model) throws IOException{
         int customChapterId = customChapterService.getCustomChapterFileById(customChapterFileId).getCustomChapter().getId();
         customChapterService.deleteCustomChapterFile(customChapterFileId);
+        
+         CustomChapter customChapter = customChapterRepository.findById(customChapterId).get();
+
+         CustomChapterFile customChapterFile = customChapterFileRepository.findById(customChapterFileId).get();
+         Path path = Paths
+         .get("./assets/img/customChapterFiles/" + customChapterId + "/" + customChapterFile.getName());
+ if(Files.exists(path)){
+     Files.delete(path);
+ } 
+         Assignment assignment = 
+         assignmentService.getUniqueAssignment(customChapter, customChapter.getBatch().getId(), customChapterFile.getName());
+
+         assignmentService.customChapterAssignmentDelete(assignment);
+
         return "redirect:/teacher/batch/course/activityFile?customChapterId=" + customChapterId;
     }
 
