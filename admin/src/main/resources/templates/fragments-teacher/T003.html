@@ -359,9 +359,8 @@
                                             <td th:text="${classroom.link}"></td>
                                             <td th:text="${classroom.status}"></td>
                                             <td>
-                                                <a th:href="@{/setupClassroomEdit/{classId}(classId = ${classroom.id})}"
-                                                    class="btn btn-outline-primary btn-floating"
-                                                    data-mdb-ripple-color="dark">
+                                                <a th:href="@{/teacher/batch/classroom/recordVideo(classroomId=${classroom.id})}"
+                                                    class="btn btn-outline-primary btn-floating" data-mdb-ripple-color="dark">
                                                     <i class="fa-solid fa-file-video"></i>
                                                 </a>
                                             </td>
