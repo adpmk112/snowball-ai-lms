@@ -192,4 +192,8 @@ public class CourseService {
     public void saveChapterBatch(ChapterBatch chapterBatch){
          chapterBatchRepository.save(chapterBatch);
     }
+
+    public ChapterBatch getChapterBatchByChapterIdAndBAtchId(int chapterId,int batchId){
+        return chapterBatchRepository.findByChapterIdAndBatchIdAndDeleteStatus(chapterId, batchId, 0);
+    }
 }

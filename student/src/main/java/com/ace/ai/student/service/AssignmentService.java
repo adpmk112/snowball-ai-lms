@@ -28,6 +28,7 @@ public class AssignmentService {
     public AssignmentDateTimeDTO getDateTimeByAssignmentId(int assignmentId) throws ParseException{
         Assignment assignment = assignmentRepository.findByIdAndDeleteStatus(assignmentId, false);
         AssignmentDateTimeDTO assignmentDateTimeDTO = new AssignmentDateTimeDTO();
+        assignmentDateTimeDTO.setFileType(assignment.getBranch());
         assignmentDateTimeDTO.setFileName(assignment.getName());
         if(assignment != null){
             if(assignment.getEnd_date() != null && assignment.getEnd_time() != null){
