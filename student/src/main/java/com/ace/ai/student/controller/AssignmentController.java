@@ -140,6 +140,7 @@ public class AssignmentController {
       studentAssignmentMarkRepository.save(studentAssignmentMark);
       Path uploadPath = Paths.get("./assets/img/assignmentFiles/" + assignment.getId() + "/" + student.getId());
 
+
     if (!Files.exists(uploadPath)) {
       try {
         Files.createDirectories(uploadPath);
@@ -147,6 +148,7 @@ public class AssignmentController {
 
         e.printStackTrace();
       }
+
     }
     try (InputStream inputStream = assignmentFileDTO.getAssignmentFile().getInputStream()) {
       Path filePath = uploadPath.resolve(fileName);
