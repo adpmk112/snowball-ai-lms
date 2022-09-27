@@ -17,6 +17,7 @@ import com.ace.ai.admin.datamodel.Answer;
 import com.ace.ai.admin.datamodel.BatchExamForm;
 import com.ace.ai.admin.datamodel.Course;
 import com.ace.ai.admin.datamodel.ExamForm;
+import com.ace.ai.admin.datamodel.Question;
 import com.ace.ai.admin.dtomodel.ExamDTO;
 import com.ace.ai.admin.dtomodel.QuestionDTO;
 import com.ace.ai.admin.repository.ExamFormRepository;
