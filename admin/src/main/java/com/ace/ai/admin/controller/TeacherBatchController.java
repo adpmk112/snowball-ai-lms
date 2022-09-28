@@ -107,7 +107,10 @@ public class TeacherBatchController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String loginUserCode = authentication.getName();
         List<Batch> batchList = batchService.findBatchesByTeacherCode(loginUserCode);
-        int totalBatch = batchList.size();
+        int totalBatch =0;
+        if(batchList!=null){
+         totalBatch = batchList.size();}
+
         model.addAttribute("totalBatch", totalBatch);
         model.addAttribute("batchList", batchList);
         return "T002";

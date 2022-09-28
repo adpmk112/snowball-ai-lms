@@ -246,7 +246,7 @@
                       <div class="d-flex justify-content-start rounded-3 p-2 mb-2"
                            style="background-color: #efefef;">
                         <div>
-                          <p class="small  mb-1">Email Address :[[${#request.userPrincipal.principal.email}]]</p>
+                          <p class="small  mb-1" th:if="${#request.userPrincipal.principal.email}">Email Address :[[${#request.userPrincipal.principal.email}]]</p>
 
                         </div>
 
