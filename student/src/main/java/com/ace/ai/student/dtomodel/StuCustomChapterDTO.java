@@ -7,4 +7,6 @@ public class StuCustomChapterDTO {
     private int id;
     private String name;
     private String status;
+    private String startDate;
+    private String endDate;
 }

@@ -75,7 +75,7 @@ public class ChapterViewService {
     public boolean saveDatesForChapter(Integer chpId,String chpName,String startDate,String endDate,int batchId){
 
         Batch batch=batchRepository.findBatchById(batchId);
-        ChapterBatch chapter_batch=chapterBatchRepository.findChapterBatchByBatchIdAndChapterId(batch.getId(),chpId);
+        ChapterBatch chapter_batch=chapterBatchRepository.findByChapterIdAndBatchIdAndDeleteStatus(chpId,batch.getId(),0);
         chapter_batch.setStartDate(startDate);
         chapter_batch.setEndDate(endDate);
         System.out.println("*******"+chapter_batch.getStartDate()+" :"+ chapter_batch.getEndDate());

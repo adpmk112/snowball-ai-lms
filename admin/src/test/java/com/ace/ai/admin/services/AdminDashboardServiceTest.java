@@ -12,10 +12,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.ace.ai.admin.datamodel.Attendance;
 import com.ace.ai.admin.datamodel.Batch;
+import com.ace.ai.admin.datamodel.Classroom;
 import com.ace.ai.admin.datamodel.Course;
 import com.ace.ai.admin.datamodel.Student;
 import com.ace.ai.admin.datamodel.Teacher;
+import com.ace.ai.admin.dtomodel.StudentAttendanceDTO;
 import com.ace.ai.admin.repository.AttendanceRepository;
 import com.ace.ai.admin.repository.BatchRepository;
 import com.ace.ai.admin.repository.CourseRepository;
@@ -96,7 +99,30 @@ public class AdminDashboardServiceTest {
         Student student2 = new Student(2,"Kyaw","404.gif","STU002","546",false,batch);
         studentList.add(student1);
         studentList.add(student2);
-        when(studentRepository.findByDeleteStatusAndBatchId(false, batchId)).thenReturn(studentList);
+        int stud = 1;
+        Student student = new Student();
+        student.setId(stud);
+        int classId = 1;
+        Classroom classroom = new Classroom();
+        classroom.setId(classId);
+        Attendance attendance = new Attendance();
+        attendance.setId(1);
+        attendance.setAttend("persent");        
+        attendance.setStudent(student);
+        List<StudentAttendanceDTO> studentAttendanceDTOList = new ArrayList<>();
+        for(Student studList : studentList){
+            StudentAttendanceDTO studentAttendanceDTO = new StudentAttendanceDTO();
+            int totalDays = attendanceRepository.findByStudentId(student.getId()).size();
+            int attendDays = attendanceRepository.findByAttendAndStudentId("present", student.getId()).size();
+            int attendPercentage;
+            if (totalDays == 0) {
+                attendPercentage = 0;
+            } else {
+                attendPercentage = (attendDays * 100) / totalDays;
+            }
+            studentAttendanceDTO.setBatchId(batchId);
+            studentAttendanceDTO.setAttendance(1);
+        }
         
 
         

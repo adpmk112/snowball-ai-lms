@@ -62,7 +62,10 @@ public class ClassRoomController {
         model.addAttribute("batchName", batchService.getById(batchId).getName());
         model.addAttribute("courseName", batchService.getById(batchId).getCourse().getName());
         model.addAttribute("teacherList", classRoomService.fetchTeacherListForClassroom(reqClassroomDTO.getBatchId()));
-        return new ModelAndView("A003-06", "reqClassroomDTO", reqClassroomDTO);
+        ReqClassroomDTO newEmpty = new ReqClassroomDTO();
+        newEmpty.setBatchId(reqClassroomDTO.getBatchId());
+        newEmpty.setTeacherName(reqClassroomDTO.getTeacherName());
+        return new ModelAndView("A003-06", "reqClassroomDTO", newEmpty);
     }
 
     @GetMapping("/setupClassroomEdit/{classId}")
