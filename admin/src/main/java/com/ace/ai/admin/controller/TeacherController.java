@@ -40,18 +40,24 @@ public class TeacherController {
 
   @GetMapping("/addTeacher")
   public ModelAndView setupAddTeacher(ModelMap model) {
+    List<Teacher> teacherList = teacherRepository.findByDeleteStatus(false);
+    model.addAttribute("teachrCount", teacherList.size());
     return new ModelAndView("A004-01", "teacherDto", new TeacherDTO());
   }
 
   @GetMapping("/addTeacherSuccess")
   public ModelAndView setupAddTeacherSuccess(ModelMap model) {
     model.addAttribute("msg", "Register Successfully !!!");
+    List<Teacher> teacherList = teacherRepository.findByDeleteStatus(false);
+    model.addAttribute("teachrCount", teacherList.size());
     return new ModelAndView("A004-01", "teacherDto", new TeacherDTO());
   }
 
   @GetMapping("/addTeacherFail")
   public ModelAndView setupAddTeacherFail(ModelMap model) {
     model.addAttribute("error", "Teacher Code Exists in Database");
+    List<Teacher> teacherList = teacherRepository.findByDeleteStatus(false);
+    model.addAttribute("teachrCount", teacherList.size());
     return new ModelAndView("A004-01", "teacherDto", new TeacherDTO());
   }
 
@@ -60,6 +66,8 @@ public class TeacherController {
       ModelMap model) throws IllegalStateException, IOException {
     if (bs.hasErrors()) {
       model.addAttribute("msg", "Fill all Details!");
+      List<Teacher> teacherList = teacherRepository.findByDeleteStatus(false);
+    model.addAttribute("teachrCount", teacherList.size());
       return "A004-01";
     }
     Teacher bean = new Teacher();
@@ -82,7 +90,9 @@ public class TeacherController {
       String uploadDir = "./assets/img/" + savedTeacher.getCode();
 
       Path uploadPath = Paths.get(uploadDir);
-
+      if (Files.exists(uploadPath)) {
+        Files.delete(uploadPath);
+      }
       if (!Files.exists(uploadPath)) {
         Files.createDirectories(uploadPath);
       }
@@ -118,6 +128,8 @@ public class TeacherController {
     teacherDto.setName(bean.getName());
     teacherDto.setPassword(bean.getPassword());
     request.setAttribute("photo", bean.getImagePath());
+    List<Teacher> teacherList = teacherRepository.findByDeleteStatus(false);
+    model.addAttribute("teachrCount", teacherList.size());
     return new ModelAndView("A004-02", "teacherDto", teacherDto);
   }
 
@@ -125,6 +137,8 @@ public class TeacherController {
   public ModelAndView updateTeacherSuccess(ModelMap model, @RequestParam("id") Integer id, HttpServletRequest request) {
     model.addAttribute("msg", "Update Successfully !!!");
     TeacherDTO teacherDto = new TeacherDTO();
+    List<Teacher> teacherList = teacherRepository.findByDeleteStatus(false);
+    model.addAttribute("teachrCount", teacherList.size());
     return new ModelAndView("A004-02", "teacherDto", teacherDto);
   }
 
@@ -133,6 +147,8 @@ public class TeacherController {
       ModelMap model) throws IOException {
     if (bs.hasErrors()) {
       model.addAttribute("msg", "Fill all Details!");
+      List<Teacher> teacherList = teacherRepository.findByDeleteStatus(false);
+     model.addAttribute("teachrCount", teacherList.size());
       return "A004-02";
     }
     Teacher bean = new Teacher();
