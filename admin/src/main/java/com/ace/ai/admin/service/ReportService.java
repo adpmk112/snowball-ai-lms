@@ -33,50 +33,23 @@ public class ReportService {
 
 
     public AttendanceReportDTO getAttendance(Integer batchId){
-        AttendanceReportDTO attendanceReportDTO=new AttendanceReportDTO();
-       Batch batch=batchRepository.findBatchById(batchId);
-       Course course =courseRepository.findCourseById(batch.getCourse().getId());
-       attendanceReportDTO.setBatchName(batch.getName());
-       attendanceReportDTO.setCourseName(course.getName());
-       List<Classroom> classroomList= classRoomRepository.findAllByBatchIdAndDeleteStatus(batchId,false);
+       AttendanceReportDTO attendanceReportDTO=new AttendanceReportDTO();
+       List<Student> studentList=studentRepository.findByBatchIdAndDeleteStatus(batchId,false);
         List<StudentAttendanceDTO> studentDTOList=adminDashboardService.getStuAttendanceByBatch(batchId);
-       HashMap<Integer,String> studentAttendance=new HashMap<>();
-        HashMap<Integer,String> studentNames=new HashMap<>();
-       List<String> dateList=new ArrayList<>();
-       if(classroomList!=null){
-           for(Classroom c:classroomList){
-               attendanceReportDTO.setTeacherName(c.getTeacherName());
-           List<Attendance> attendances= c.getAttendances();
-           if(attendances!=null){
-               for(Attendance a:attendances){
-                  if(!a.getStudent().isDeleteStatus()) {
-                      studentAttendance.put(a.getStudent().getId(), a.getAttend());
-                      studentNames.put(a.getStudent().getId(), a.getStudent().getName());
-                  }
-               }
-
-           }
-               dateList.add(c.getDate());
-           }
-
-             attendanceReportDTO.setStudentAndAttend(studentAttendance);
-           attendanceReportDTO.setDateList(dateList);
-           attendanceReportDTO.setStudentNames(studentNames);
-           attendanceReportDTO.setStudentDTOList(studentDTOList);
-           return attendanceReportDTO;
-
-       }
-       else{
-           return attendanceReportDTO;
-       }
+        Batch batch=batchRepository.findBatchById(batchId);
+        attendanceReportDTO.setBatchName(batch.getName());
+       attendanceReportDTO.setCourseName(batch.getCourse().getName());
+       List<AttendanceDTO> attendanceDTOList=attendanceService.getAllAttendanceList(batchId);
+       attendanceReportDTO.setAttendanceDTOS(attendanceDTOList);
+       attendanceReportDTO.setStudents(studentList);
+        attendanceReportDTO.setStudentDTOList(studentDTOList);
+       return attendanceReportDTO;
     }
 
     public ExamMarkReportDTO getStudentMarks(Integer batchId) {
             ExamMarkReportDTO examMarkReportDTO=new ExamMarkReportDTO();
             List<Student> studentList=studentRepository.findByBatchIdAndDeleteStatus(batchId,false);
-            List<BatchExamForm> batchExamForms1=new ArrayList<>();
             Batch batch=batchRepository.findBatchById(batchId);
-            List<Student> examPresent=new ArrayList<>();
             examMarkReportDTO.setBatchName(batch.getName());
             examMarkReportDTO.setCourseName(batch.getCourse().getName());
             List<ExamMarkDTO> examMarkDTOList=studentExamMarkService.getExamMarkDTOList(batchId);

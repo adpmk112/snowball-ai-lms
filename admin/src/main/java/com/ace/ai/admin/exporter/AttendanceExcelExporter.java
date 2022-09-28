@@ -1,7 +1,7 @@
 package com.ace.ai.admin.exporter;
 
-import com.ace.ai.admin.dtomodel.AttendanceReportDTO;
-import com.ace.ai.admin.dtomodel.StudentAttendanceDTO;
+import com.ace.ai.admin.datamodel.Student;
+import com.ace.ai.admin.dtomodel.*;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
@@ -42,22 +42,19 @@ public class AttendanceExcelExporter {
         cell.setCellValue("Batch : " +attendanceReportDTO.getBatchName());
         cell.setCellStyle(style);
         sheet.autoSizeColumn(1);
-        cell=row.createCell(2);
-        cell.setCellValue("Teacher :"+ attendanceReportDTO.getTeacherName());
-        cell.setCellStyle(style);
-        sheet.autoSizeColumn(2);
+
 
         row=sheet.createRow(1);
         cell= row.createCell(0);
         cell.setCellValue("Date");
         cell.setCellStyle(style);
         sheet.autoSizeColumn(0);
-        HashMap<Integer, String> map = attendanceReportDTO.getStudentNames();
+       List<Student> students = attendanceReportDTO.getStudents();
         int cellCount = 1;
-        if (map != null) {
-            for (Integer key : map.keySet()) {
+        if (students != null) {
+            for (Student s : students) {
                 cell = row.createCell(cellCount);
-                cell.setCellValue(map.get(key));
+                cell.setCellValue(s.getName());
                 cell.setCellStyle(style);
                 sheet.autoSizeColumn(cellCount);
                 cellCount++;
@@ -66,24 +63,19 @@ public class AttendanceExcelExporter {
     }
 
     public void writeDataRows() {
-        List<String> dateList = attendanceReportDTO.getDateList();
+        List<AttendanceDTO> attendanceDTOS = attendanceReportDTO.getAttendanceDTOS();
         List<StudentAttendanceDTO> studentDTOList=attendanceReportDTO.getStudentDTOList();
-        HashMap<Integer, String> map = attendanceReportDTO.getStudentAndAttend();
-
-        if (attendanceReportDTO.getDateList().size() != 0) {
-            int rowCount = 2;
-            for (String s : dateList) {
+        int rowCount = 2;
+        if (attendanceDTOS.size() != 0) {
+            for (AttendanceDTO a : attendanceDTOS) {
                 int cellCount = 0;
                 Row row = sheet.createRow(rowCount++);
                 Cell cell = row.createCell(cellCount++);
-                cell.setCellValue(s);
-                if (map != null) {
-                    for (Integer key : map.keySet()) {
-                        cell = row.createCell(cellCount++);
-                        cell.setCellValue(map.get(key));
-                    }
+                cell.setCellValue(a.getDate());
+                for (Integer map : a.getStudentAndAttend().keySet()) {
+                    cell = row.createCell(cellCount++);
+                    cell.setCellValue(a.getStudentAndAttend().get(map));
                 }
-
             }
             int cellCount = 0;
             Row row=sheet.createRow(rowCount);
@@ -94,8 +86,8 @@ public class AttendanceExcelExporter {
                 cell.setCellValue(s.getAttendance());
             }
 
-
         }
+
     }
     public void export(HttpServletResponse response) throws IOException {
       writeHeaderRow();
