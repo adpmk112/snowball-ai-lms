@@ -75,15 +75,28 @@ public class CustomChapterService {
                 boolean equal = startDate.isEqual(endDate);
                 batchCustomChapterDTO.setStart_date(startDate);
                 batchCustomChapterDTO.setEnd_date(endDate);
-                if ((lessThan && endDate.isAfter(now) && startDate.isEqual(now))
-                        || (lessThan && endDate.isEqual(now) || startDate.isEqual(now))) {
-                            batchCustomChapterDTO.setStatus("In progress");
+                // if ((lessThan && endDate.isAfter(now) && startDate.isEqual(now))
+                //         || (lessThan && endDate.isEqual(now) || startDate.isEqual(now))) {
+                //             batchCustomChapterDTO.setStatus("In progress");
 
-                } else if ((lessThan && endDate.isBefore(now)) || (equal && endDate.isBefore(now))) {
+                // } else if ((lessThan && endDate.isBefore(now)) || (equal && endDate.isBefore(now))) {
+
+                //     batchCustomChapterDTO.setStatus("Done");
+                // } else {
+                //     batchCustomChapterDTO.setStatus("Not Started");
+
+                // }
+
+                if((lessThan && endDate.isAfter(now)  && (startDate.isEqual(now) || startDate.isBefore(now))) ||  ( lessThan && endDate.isEqual(now)  || startDate.isEqual(now))){
+                    batchCustomChapterDTO.setStatus("In progress");
+
+                }
+                else if((lessThan && endDate.isBefore(now)) || (equal && endDate.isBefore(now))){
 
                     batchCustomChapterDTO.setStatus("Done");
-                } else {
-                    batchCustomChapterDTO.setStatus("Not Started");
+                }
+                else{
+                    batchCustomChapterDTO.setStatus("Upcoming");
 
                 }
 

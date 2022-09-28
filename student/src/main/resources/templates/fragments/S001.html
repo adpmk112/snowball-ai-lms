@@ -8,8 +8,8 @@
       <div class="banner">
         <div class="circle"><i class="fa-solid fa-chalkboard-user"></i></div>
         <div>
-          <h1>Java Course</h1>
-          <h3>Batch 01</h3>
+          <h1>[[${courseName}]]</h1>
+          <h3>[[${batchName}]]</h3>
         </div>
       </div>
       <section class="container header-margin" id="subject" style="margin-top: 10px;">
@@ -32,9 +32,10 @@
                   th:href="@{/student/chapter(chapterId=${inProgressChapter.id})}" class="unit-a">
                   <div class="chapter">
                     <div style="max-width: 100%;">
-                      <div class="card-header chapter-text"><span th:text="${inProgressChapter.name}"></div>
+                      <h4 class=" card-header pb-2"><span th:text="${inProgressChapter.name}"></h4>
                       <div class="card-body">
-                        <!-- <h5 class="card-title chapter-text">Core Java</h5> -->
+                        <div class="mb-2">Start Date: <span>[[${inProgressChapter.startDate}]]</span></div>
+                        <div>End Date: <span>[[${inProgressChapter.endDate}]]</span></div>
                       </div>
                     </div>
                   </div>
@@ -43,9 +44,10 @@
                   th:href="@{/student/customChapter(customChapterId=${inProgressCustomChapter.id})}" class="unit-a">
                   <div class="chapter">
                     <div style="max-width: 100%;">
-                      <div class="card-header chapter-text"><span th:text="${inProgressCustomChapter.name}"></div>
+                      <h4 class=" card-header pb-2"><span th:text="${inProgressCustomChapter.name}"></h4>
                       <div class="card-body">
-                        <!-- <h5 class="card-title chapter-text">Core Java</h5> -->
+                        <div class="mb-2">Start Date: <span>[[${inProgressCustomChapter.startDate}]]</span></div>
+                        <div>End Date: <span>[[${inProgressCustomChapter.endDate}]]</span></div>
                       </div>
                     </div>
                   </div>
@@ -60,10 +62,11 @@
                   th:href="@{/student/chapter(chapterId=${upCommingChapter.id})}" class="unit-a">
                   <div class="chapter">
                     <div style="max-width: 100%;">
-                      <div class="card-header chapter-text"><span th:text="${upCommingChapter.name}"></div>
-                      <div class="card-body">
-                        <!-- <h5 class="card-title chapter-text">Core Java</h5> -->
-                      </div>
+                      <h4 class=" card-header pb-2"><span th:text="${upCommingChapter.name}"></h4>
+                        <div class="card-body">
+                          <div class="mb-2">Start Date: <span>[[${upCommingChapter.startDate}]]</span></div>
+                          <div>End Date: <span>[[${upCommingChapter.endDate}]]</span></div>
+                        </div>
                     </div>
                   </div>
                 </a>
@@ -72,10 +75,11 @@
                   th:href="@{/student/customChapter(customChapterId=${upCommingCustomChapter.id})}" class="unit-a">
                   <div class="chapter">
                     <div style="max-width: 100%;">
-                      <div class="card-header chapter-text"><span th:text="${upCommingCustomChapter.name}"></div>
-                      <div class="card-body">
-                        <!-- <h5 class="card-title chapter-text">Core Java</h5> -->
-                      </div>
+                      <h4 class=" card-header pb-2"><span th:text="${upCommingCustomChapter.name}"></h4>
+                        <div class="card-body">
+                          <div class="mb-2">Start Date: <span>[[${upCommingCustomChapter.startDate}]]</span></div>
+                          <div>End Date: <span>[[${upCommingCustomChapter.endDate}]]</span></div>
+                        </div>
                     </div>
                   </div>
                 </a>
@@ -89,8 +93,11 @@
                   class="unit-a">
                   <div class="chapter">
                     <div style="max-width: 100%; ">
-                      <div class="card-header chapter-text"><span th:text="${doneChapter.name}"></div>
-
+                      <h4 class=" card-header pb-2"><span th:text="${doneChapter.name}"></h4>
+                        <div class="card-body">
+                          <div class="mb-2">Start Date: <span>[[${doneChapter.startDate}]]</span></div>
+                          <div>End Date: <span>[[${doneChapter.endDate}]]</span></div>
+                        </div>
                     </div>
                   </div>
                 </a>
@@ -99,10 +106,11 @@
                   th:href="@{/student/customChapter(customChapterId=${doneCustomChapter.id})}" class="unit-a">
                   <div class="chapter">
                     <div style="max-width: 100%;">
-                      <div class="card-header chapter-text"><span th:text="${doneCustomChapter.name}"></div>
-                      <div class="card-body">
-                        <!-- <h5 class="card-title chapter-text">Core Java</h5> -->
-                      </div>
+                      <h4 class=" card-header pb-2"><span th:text="${doneCustomChapter.name}"></h4>
+                        <div class="card-body">
+                          <div class="mb-2">Start Date: <span>[[${doneCustomChapter.startDate}]]</span></div>
+                          <div>End Date: <span>[[${doneCustomChapter.endDate}]]</span></div>
+                        </div>
                     </div>
                   </div>
                 </a>

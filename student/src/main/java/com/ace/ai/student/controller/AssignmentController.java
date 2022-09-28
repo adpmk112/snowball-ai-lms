@@ -35,7 +35,6 @@ import com.ace.ai.student.dtomodel.StuCommentPostDTO;
 import com.ace.ai.student.dtomodel.StuCommentViewDTO;
 import com.ace.ai.student.dtomodel.StuReplyPostDTO;
 import com.ace.ai.student.dtomodel.TeacherAssignmentViewDTO;
-import com.ace.ai.student.repository.AssignmentRepository;
 import com.ace.ai.student.repository.StudentAssignmentMarkRepository;
 import com.ace.ai.student.service.AssignmentService;
 import com.ace.ai.student.service.StudentCommentService;

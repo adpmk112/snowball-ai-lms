@@ -132,7 +132,7 @@
     flex-direction: column;
     align-items:flex-start;
     position: relative;
-    height: 9rem;
+    height: 12rem;
     padding: 1rem 1rem;
     border-radius: 4px;
   
@@ -140,7 +140,7 @@
     overflow: auto;
     margin-top: 1rem;
     margin-left: 1rem;
-    width:14rem;
+    width:15rem;
     
    
 }

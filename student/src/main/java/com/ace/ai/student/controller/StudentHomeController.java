@@ -45,6 +45,8 @@ public class StudentHomeController {
     @GetMapping(value="/home")
     public ModelAndView getStudentHome(@AuthenticationPrincipal StudentUserDetails userDetails, ModelMap model) {
         Student student = studentCourseService.getStudentById(userDetails.getId());
+        String batchName = student.getBatch().getName();
+        String courseName = student.getBatch().getCourse().getName();
         List<ChapterBatchDTO> chapterList = studentCourseService.getChapterList(student.getBatch().getId());
         List<CustomChapter> customChapterList = studentCourseService.getCustomChapterList(student.getBatch().getId());
 
@@ -73,17 +75,23 @@ public class StudentHomeController {
                         stuChapterDTO.setId(chapter.getChapterId());
                         stuChapterDTO.setName(chapter.getName());
                         stuChapterDTO.setStatus("inProgress");
+                        stuChapterDTO.setStartDate(chapter.getStartDate());
+                        stuChapterDTO.setEndDate(chapter.getEndDate());
                         inProgressChapterList.add(stuChapterDTO);
                     }else if(endDate.isEqual(LocalDate.now())||endDate.isBefore(LocalDate.now())){
                         stuChapterDTO.setId(chapter.getChapterId());
                         stuChapterDTO.setName(chapter.getName());
                         stuChapterDTO.setStatus("done");
+                        stuChapterDTO.setStartDate(chapter.getStartDate());
+                        stuChapterDTO.setEndDate(chapter.getEndDate());
                         doneChapterList.add(stuChapterDTO);
                     }
             else{
                     stuChapterDTO.setId(chapter.getChapterId());
                     stuChapterDTO.setName(chapter.getName());
                     stuChapterDTO.setStatus("upComming");
+                    stuChapterDTO.setStartDate(chapter.getStartDate());
+                    stuChapterDTO.setEndDate(chapter.getEndDate());
                     upCommingChapterList.add(stuChapterDTO);
                 }
             }
@@ -100,17 +108,23 @@ public class StudentHomeController {
                         stuCustomChapterDTO.setId(customChapter.getId());
                         stuCustomChapterDTO.setName(customChapter.getName());
                         stuCustomChapterDTO.setStatus("inProgress");
+                        stuCustomChapterDTO.setStartDate(customChapter.getStartDate());
+                        stuCustomChapterDTO.setEndDate(customChapter.getEndDate());
                         inProgressCustomChapterList.add(stuCustomChapterDTO);
                     }else if(endDate.isEqual(LocalDate.now())||endDate.isBefore(LocalDate.now())){
                         stuCustomChapterDTO.setId(customChapter.getId());
                         stuCustomChapterDTO.setName(customChapter.getName());
                         stuCustomChapterDTO.setStatus("done");
+                        stuCustomChapterDTO.setStartDate(customChapter.getStartDate());
+                        stuCustomChapterDTO.setEndDate(customChapter.getEndDate());
                         doneCustomChapterList.add(stuCustomChapterDTO);
                     }
                 else{
                     stuCustomChapterDTO.setId(customChapter.getId());
                     stuCustomChapterDTO.setName(customChapter.getName());
                     stuCustomChapterDTO.setStatus("upComming");
+                    stuCustomChapterDTO.setStartDate(customChapter.getStartDate());
+                    stuCustomChapterDTO.setEndDate(customChapter.getEndDate());
                     upCommingCustomChapterList.add(stuCustomChapterDTO);
                 }
             }          
@@ -128,6 +142,8 @@ public class StudentHomeController {
         model.addAttribute("stuCode", student.getCode());
         model.addAttribute("batchId",student.getBatch().getId());
         model.addAttribute("stuId",userDetails.getId());
+        model.addAttribute("batchName",batchName);
+        model.addAttribute("courseName",courseName);
         return new ModelAndView("S001","stuCommentViewDTOList",studentCommentService.getCommentListByBatchIdAndLocation(student.getBatch().getId(), "home"));
     }
     
