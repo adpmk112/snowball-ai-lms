@@ -40,23 +40,17 @@ public class TeacherController {
 
   @GetMapping("/addTeacher")
   public ModelAndView setupAddTeacher(ModelMap model) {
-    List<Teacher> teacherList = teacherRepository.findByDeleteStatus(false);
-    model.addAttribute("teachrCount", teacherList.size());
     return new ModelAndView("A004-01", "teacherDto", new TeacherDTO());
   }
 
   @GetMapping("/addTeacherSuccess")
   public ModelAndView setupAddTeacherSuccess(ModelMap model) {
-    List<Teacher> teacherList = teacherRepository.findByDeleteStatus(false);
-    model.addAttribute("teachrCount", teacherList.size());
     model.addAttribute("msg", "Register Successfully !!!");
     return new ModelAndView("A004-01", "teacherDto", new TeacherDTO());
   }
 
   @GetMapping("/addTeacherFail")
   public ModelAndView setupAddTeacherFail(ModelMap model) {
-    List<Teacher> teacherList = teacherRepository.findByDeleteStatus(false);
-    model.addAttribute("teachrCount", teacherList.size());
     model.addAttribute("error", "Teacher Code Exists in Database");
     return new ModelAndView("A004-01", "teacherDto", new TeacherDTO());
   }
@@ -65,8 +59,6 @@ public class TeacherController {
   public String addTeacher(@ModelAttribute("teacherDto") @Validated TeacherDTO teacherDto, BindingResult bs,
       ModelMap model) throws IllegalStateException, IOException {
     if (bs.hasErrors()) {
-      List<Teacher> teacherList = teacherRepository.findByDeleteStatus(false);
-      model.addAttribute("teachrCount", teacherList.size());
       model.addAttribute("msg", "Fill all Details!");
       return "A004-01";
     }
@@ -82,8 +74,6 @@ public class TeacherController {
     bean.setPhoto(fileName);
     boolean code = teacherService.existsByCode(bean.getCode());
     if (code == true) {
-      List<Teacher> teacherList = teacherRepository.findByDeleteStatus(false);
-      model.addAttribute("teachrCount", teacherList.size());
       model.addAttribute("error", "Teacher Code Exists in Database");
       return "redirect:/admin/teacher/addTeacherFail";
     } else {
@@ -106,8 +96,6 @@ public class TeacherController {
           throw new IOException("Could not save upload file: " + fileName);
         }
       }
-      List<Teacher> teacherList = teacherRepository.findByDeleteStatus(false);
-      model.addAttribute("teachrCount", teacherList.size());
       model.addAttribute("msg", "Register Successfully !!!");
       return "redirect:/admin/teacher/addTeacherSuccess";
     }
@@ -130,8 +118,6 @@ public class TeacherController {
     teacherDto.setName(bean.getName());
     teacherDto.setPassword(bean.getPassword());
     request.setAttribute("photo", bean.getImagePath());
-    List<Teacher> teacherList = teacherRepository.findByDeleteStatus(false);
-    model.addAttribute("teachrCount", teacherList.size());
     return new ModelAndView("A004-02", "teacherDto", teacherDto);
   }
 
@@ -139,8 +125,6 @@ public class TeacherController {
   public ModelAndView updateTeacherSuccess(ModelMap model, @RequestParam("id") Integer id, HttpServletRequest request) {
     model.addAttribute("msg", "Update Successfully !!!");
     TeacherDTO teacherDto = new TeacherDTO();
-    List<Teacher> teacherList = teacherRepository.findByDeleteStatus(false);
-    model.addAttribute("teachrCount", teacherList.size());
     return new ModelAndView("A004-02", "teacherDto", teacherDto);
   }
 
@@ -148,8 +132,6 @@ public class TeacherController {
   public String updateTeacher(@ModelAttribute("teacherDto") @Validated TeacherDTO teacherDto, BindingResult bs,
       ModelMap model) throws IOException {
     if (bs.hasErrors()) {
-      List<Teacher> teacherList = teacherRepository.findByDeleteStatus(false);
-      model.addAttribute("teachrCount", teacherList.size());
       model.addAttribute("msg", "Fill all Details!");
       return "A004-02";
     }
@@ -168,8 +150,6 @@ public class TeacherController {
     if (teacherDto.getPhoto().getOriginalFilename().isBlank()) {
       bean.setPhoto(teacher.getPhoto());
       teacherRepository.save(bean);
-      List<Teacher> teacherList = teacherRepository.findByDeleteStatus(false);
-      model.addAttribute("teachrCount", teacherList.size());
       model.addAttribute("msg", "Update Successfully !!!");
       return "redirect:/admin/teacher/updateTeacherSuccess?id=" + bean.getId();
     } else {
@@ -204,8 +184,7 @@ public class TeacherController {
           e1.printStackTrace();
         }
       }
-      List<Teacher> teacherList = teacherRepository.findByDeleteStatus(false);
-      model.addAttribute("teachrCount", teacherList.size());
+
       model.addAttribute("msg", "Update Successfully !!!");
       return "redirect:/admin/teacher/updateTeacherSuccess?id=" + bean.getId();
     }
