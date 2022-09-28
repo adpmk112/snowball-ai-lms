@@ -30,10 +30,6 @@ public class QuestionService {
         return questionRepository.getById(id);
     }
 
-    public int findCurrentId(){
-        return questionRepository.findCurrentId();
-    }
-
     public List<Question> findAll(){
         return questionRepository.findAll();
     }

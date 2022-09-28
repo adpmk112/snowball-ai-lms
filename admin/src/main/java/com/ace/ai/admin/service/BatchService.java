@@ -244,7 +244,7 @@ public class BatchService {
 
     public List<Batch> findBatchesByTeacherCode(String loginUser) {
          Teacher teacher=teacherRepository.findTeacherByCode(loginUser);
-         List<TeacherBatch> teacherBatches=teacher.getTeacherBatches();
+         List<TeacherBatch> teacherBatches=(teacher != null)?teacher.getTeacherBatches() : new ArrayList<>();
          List<Batch> batchList=new ArrayList<>();
          for(TeacherBatch tb:teacherBatches){
              if(!tb.isDeleteStatus()){
