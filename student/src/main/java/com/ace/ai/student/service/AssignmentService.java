@@ -46,21 +46,25 @@ public class AssignmentService {
         int studentMark;
         String submitDate;
         String submitTime;
+        String fileName;
         AssignmentMarkDTO assignmentMarkDTO = new AssignmentMarkDTO();
         StudentAssignmentMark studentAssignmentMark =studentAssignmentMarkRepository.findByAssignment_IdAndStudent_Id(assignmentId , studentId);
         if(studentAssignmentMark != null){
-            if(studentAssignmentMark.getStudentMark() == 0 && !studentAssignmentMark.getDate().isBlank() && !studentAssignmentMark.getTime().isBlank()){
+            if(studentAssignmentMark.getStudentMark() == 0 && !studentAssignmentMark.getDate().isBlank() && !studentAssignmentMark.getTime().isBlank() && !studentAssignmentMark.getUploadedFile().isBlank()){
+                fileName = studentAssignmentMark.getUploadedFile();
                 studentMark = 0;
                 submitDate = studentAssignmentMark.getDate();
                 submitTime = twelveHourFormat(studentAssignmentMark.getTime());
             }
             else{
+                fileName = studentAssignmentMark.getUploadedFile();
                 studentMark = studentAssignmentMark.getStudentMark();
                 submitDate = studentAssignmentMark.getDate();
                 submitTime = twelveHourFormat(studentAssignmentMark.getTime());
             }
         }
         else{
+            fileName = "AssignmentName";
             studentMark =0;
             submitDate = "SubmitDate";
             submitTime = "SubmitTime";
@@ -68,6 +72,7 @@ public class AssignmentService {
         assignmentMarkDTO.setStudentMark(studentMark);
         assignmentMarkDTO.setSubmitDate(submitDate);
         assignmentMarkDTO.setSubmitTime(submitTime);
+        assignmentMarkDTO.setFileName(fileName);
         return assignmentMarkDTO;   
     }
 

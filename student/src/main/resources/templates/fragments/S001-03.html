@@ -50,7 +50,7 @@
                          </a>
                         </div>
                     </div>
-                    <div class="part2">
+                    <div class="part2" style="height: 280px;">
                         <div class="upload">
                             <form th:action="@{/student/assignmentAdd}" method="post" th:object="${assignmentFileDTO}"
                                 enctype="multipart/form-data">
@@ -62,7 +62,7 @@
                                     <p th:text = "${assignmentMarkDTO.submitDate}"></p>
                                     <p th:text = "${assignmentMarkDTO.submitTime}"></p>
                                 </div>
-                                
+                                <p th:text = "${assignmentMarkDTO.fileName}"></p>
                                 <input type="hidden" th:field="*{assignmentId}" >
                                 <input type="hidden" th:field="*{studentId}" >
                                 <input type="hidden" name="chapterId" th:value="${chapterId}">

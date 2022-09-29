@@ -87,7 +87,7 @@ public class TeacherController {
     } else {
       Teacher savedTeacher = teacherRepository.save(bean);
 
-      String uploadDir = "./assets/img/" + savedTeacher.getCode();
+      String uploadDir = "./assets/img/" + savedTeacher.getCode()+  "/" + savedTeacher.getPhoto();
 
       Path uploadPath = Paths.get(uploadDir);
       if (Files.exists(uploadPath)) {
@@ -97,7 +97,7 @@ public class TeacherController {
         Files.createDirectories(uploadPath);
       }
 
-      if (teacherDto.getPhoto() != null) {
+      
         try (InputStream inputStream = teacherDto.getPhoto().getInputStream()) {
           Path filePath = uploadPath.resolve(fileName);
           System.out.println(filePath.toFile().getAbsolutePath());
@@ -109,7 +109,7 @@ public class TeacherController {
       model.addAttribute("msg", "Register Successfully !!!");
       return "redirect:/admin/teacher/addTeacherSuccess";
     }
-  }
+  
 
   @GetMapping("/")
   public String showTeacher(ModelMap model) {
