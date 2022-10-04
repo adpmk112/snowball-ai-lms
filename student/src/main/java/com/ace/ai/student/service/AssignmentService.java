@@ -64,7 +64,7 @@ public class AssignmentService {
             }
         }
         else{
-            fileName = "AssignmentName";
+            fileName = "";
             studentMark =0;
             submitDate = "SubmitDate";
             submitTime = "SubmitTime";

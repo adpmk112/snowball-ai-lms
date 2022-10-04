@@ -87,7 +87,7 @@ public class TeacherController {
     } else {
       Teacher savedTeacher = teacherRepository.save(bean);
 
-      String uploadDir = "./assets/img/" + savedTeacher.getCode()+  "/" + savedTeacher.getPhoto();
+      String uploadDir = "./assets/img/" + savedTeacher.getCode();
 
       Path uploadPath = Paths.get(uploadDir);
       if (Files.exists(uploadPath)) {

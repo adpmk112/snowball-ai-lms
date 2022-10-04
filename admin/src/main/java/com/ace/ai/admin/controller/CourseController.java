@@ -67,6 +67,10 @@ public class CourseController {
         FileUploadDTO fileUploadDTO = new FileUploadDTO();
         fileUploadDTO.setCourseId(id);
         model.addAttribute("courseId", id);
+        List<Course> allCourse = courseService.getAllCourse();
+        String courseCount = "Total : " + allCourse.size();
+        model.addAttribute("courseCount", courseCount);
+
         return new ModelAndView("A002-02", "fileUploadDTO", fileUploadDTO);
     }
 
@@ -76,6 +80,9 @@ public class CourseController {
         FileUploadDTO fileUploadDTO = new FileUploadDTO();
         fileUploadDTO.setCourseId(id);
         model.addAttribute("courseId", id);
+        List<Course> allCourse = courseService.getAllCourse();
+        String courseCount = "Total : " + allCourse.size();
+        model.addAttribute("courseCount", courseCount);
         model.addAttribute("success","Chapter Added Successfully!");
         return new ModelAndView("A002-02", "fileUploadDTO", fileUploadDTO);
     }

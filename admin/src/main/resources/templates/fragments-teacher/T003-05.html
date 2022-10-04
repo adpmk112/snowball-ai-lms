@@ -184,7 +184,8 @@
                   </select>
                 </div>
                 <div class="mb-3">
-                  <input type="file" class="form-control" th:field="*{file}" required/>
+                  <!-- <input type="file" class="form-control" th:field="*{file}" required/> -->
+                  <input type="file" id="fileInputAccordingToSelectBox" class="form-control" th:field="*{file}" required/>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
