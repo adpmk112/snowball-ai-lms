@@ -249,8 +249,8 @@ public class TeacherNewActivity {
 
         CustomChapterFile oldCustomChapterFile = customChapterService.getCustomChapterFileById(customChapterFileDTO.getId());
         
-        Assignment assignment = 
-        assignmentService.getUniqueAssignment(customChapter, customChapter.getBatch().getId(), oldCustomChapterFile.getName());
+        //Assignment assignment = 
+        //assignmentService.getUniqueAssignment(customChapter, customChapter.getBatch().getId(), oldCustomChapterFile.getName());
         
         Path path = Paths
                 .get("./assets/img/customChapterFiles/" + customChapterFileDTO.getCustomChapterId() + "/" + oldCustomChapterFile.getName());
@@ -261,10 +261,10 @@ public class TeacherNewActivity {
         customChapterService.saveCustomChapterFile(customChapterFile);
         
 
-         Assignment assignment1 = 
-         assignmentService.getUniqueAssignment(customChapter, customChapter.getBatch().getId(), customChapterFile.getName());
+        //  Assignment assignment1 = 
+        //  assignmentService.getUniqueAssignment(customChapter, customChapter.getBatch().getId(), customChapterFile.getName());
         
-         assignmentService.customChapterAssignmentEdit(assignment, assignment1.getName());
+         //assignmentService.customChapterAssignmentEdit(assignment, assignment1.getName());
 
         String uploadDir = "./assets/img/customChapterFiles/" + customChapterFileDTO.getCustomChapterId();
         Path uploadPath = Paths.get(uploadDir);
@@ -307,10 +307,10 @@ public class TeacherNewActivity {
  if(Files.exists(path)){
      Files.delete(path);
  } 
-         Assignment assignment = 
-         assignmentService.getUniqueAssignment(customChapter, customChapter.getBatch().getId(), customChapterFile.getName());
+        //  Assignment assignment = 
+        //  assignmentService.getUniqueAssignment(customChapter, customChapter.getBatch().getId(), customChapterFile.getName());
 
-         assignmentService.customChapterAssignmentDelete(assignment);
+        //  assignmentService.customChapterAssignmentDelete(assignment);
 
         return "redirect:/teacher/batch/course/activityFile?customChapterId=" + customChapterId;
     }

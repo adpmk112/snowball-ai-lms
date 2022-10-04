@@ -7,4 +7,5 @@ public class AssignmentMarkDTO {
     private int studentMark;
     private String submitDate;
     private String submitTime;
+    private String fileName;
 }

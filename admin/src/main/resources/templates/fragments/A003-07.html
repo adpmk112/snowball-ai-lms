@@ -51,7 +51,7 @@
                 </label>
               </div>
               <div class="row mb-3">
-                <div class="alert alert-success" role="alert" th:if="${success}" th:text="${success}">
+                <div class="alert alert-success" role="alert" th:if="${success}" th:text="${success}"></div>
                 <input type="hidden" th:value="${classId}">
                 <br>
                 <label class="col-sm-4" for="teacherId">Teacher name:</label>
@@ -64,7 +64,8 @@
                     <input type="hidden" th:field="*{batchId}"></input>
                   </select>
                 </div>
-              </div>
+                </div>
+              
               <div class="row mb-3">
                 <label class="col-sm-4" for="date">Date:</label>
                 <div class="col-sm-8">
@@ -105,6 +106,7 @@
                   <button type="reset" class="btn btn-secondary">Reset</button>
                   <button type="button" id="submit-btn" class="btn btn-primary" onclick="changeTime();">Update</button>
                 </div>
+              </div>
               </div>
             </form>
           </div>

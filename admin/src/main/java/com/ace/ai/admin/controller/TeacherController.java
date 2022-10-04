@@ -97,7 +97,7 @@ public class TeacherController {
         Files.createDirectories(uploadPath);
       }
 
-      if (teacherDto.getPhoto() != null) {
+      
         try (InputStream inputStream = teacherDto.getPhoto().getInputStream()) {
           Path filePath = uploadPath.resolve(fileName);
           System.out.println(filePath.toFile().getAbsolutePath());
@@ -109,7 +109,7 @@ public class TeacherController {
       model.addAttribute("msg", "Register Successfully !!!");
       return "redirect:/admin/teacher/addTeacherSuccess";
     }
-  }
+  
 
   @GetMapping("/")
   public String showTeacher(ModelMap model) {

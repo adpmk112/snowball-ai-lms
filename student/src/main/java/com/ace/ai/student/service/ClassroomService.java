@@ -91,7 +91,7 @@ public class ClassroomService {
         List<ClassroomDTO> comingClassroom = new ArrayList<>();
 
         for(ClassroomDTO classroomDTO : classroomDTOs){
-            if(classroomDTO.getStatus() == "Upcoming"){
+            if(classroomDTO.getStatus() == "Upcoming" || classroomDTO.getStatus() == "In Progress" ){
                 comingClassroom.add(classroomDTO);
             }
         }

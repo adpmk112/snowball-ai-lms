@@ -34,15 +34,16 @@
         theme: 'Material',
         //icon: 'fa-solid fa-warning',
 
-        title: 'Remove Teacher',
+        title: 'Remove',
         content: 'Are you sure?',
         animation: 'Scale',
         buttons: {
+          No: function () {},
           Yes: function () {        
              
             window.location = `/teacher/batch/course/activityFile/delete?customChapterFileId=`+customChapterFileId;
           },
-          No: function () {},
+          
         },
       })
     })

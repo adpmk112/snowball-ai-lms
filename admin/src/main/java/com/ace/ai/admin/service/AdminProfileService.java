@@ -100,7 +100,7 @@ public class AdminProfileService {
             adminRepository.save(admin);
         }
         else{
-            throw new AdminNotFoundException("We'd be sending an email if we found a matched email. ");
+            throw new AdminNotFoundException("We will send an email if the email exists. ");
         }
     }
 
